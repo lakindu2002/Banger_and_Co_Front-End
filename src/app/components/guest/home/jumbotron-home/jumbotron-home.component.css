@@ -4,7 +4,7 @@
       rgba(0, 0, 0, 0.6) 50%,
       rgba(0, 0, 0, 0.6) 50%
     ),
-    url("../../../../assets/jumbotron_image.jpg");
+    url("../../../../../assets/jumbotron_image.jpg");
   background-size: cover;
 }
 
