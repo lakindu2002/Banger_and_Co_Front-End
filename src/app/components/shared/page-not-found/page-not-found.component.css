@@ -1,3 +1,7 @@
-.custom-align {
-  text-align: center;
+.format-text{
+  font-size: 22px;
+}
+
+.format-btn{
+  width: 100%;
 }

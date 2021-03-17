@@ -1,14 +1,25 @@
-<div class="row justify-content-center">
-  <div class="col-lg-6">
-    <div class="alert alert-danger">
-      <div class="row">
-        <div class="col-lg-12 custom-align">
-          <b>The Page You Requested Was Not Found!</b>
-        </div>
-      </div>
-      <div class="row mt-2">
-        <div class="col-lg-12 custom-align">
-         <button class="btn btn-primary" style="width: 50%;">Go Back</button>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-9">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="row justify-content-center">
+            <div class="col-lg-6">
+              <div style="text-align: center;">
+                <img src="../../../../assets/404Logo.png" width="300" height="250" alt="404 Error Image">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12" style="text-align: center;">
+              <p class="format-text">{{errorMessage}}</p>
+            </div>
+          </div>
+          <div class="row justify-content-center">
+            <div class="col-lg-4">
+              <button class="btn btn-primary format-btn" (click)="navigateBack()">Go Back</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

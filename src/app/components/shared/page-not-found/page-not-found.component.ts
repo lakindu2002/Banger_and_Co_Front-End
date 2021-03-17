@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PageNotFoundComponent implements OnInit {
 
-  constructor() { }
+  errorMessage: string = "";
+
+  constructor(private location : Location) { }
 
   ngOnInit(): void {
+    this.errorMessage = "The Page You Requested Cannot Be Found";
+  }
+
+  navigateBack() {
+    this.location.back();
   }
 
 }
