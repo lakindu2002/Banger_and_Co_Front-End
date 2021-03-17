@@ -1,0 +1,7 @@
+nav {
+  background-color: white;
+}
+
+a.active {
+  border-bottom: 3px solid darkblue ;
+}

@@ -4,10 +4,12 @@ import { HomeComponent } from './home/home.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { RouterModule } from "@angular/router";
+import { JumbotronHomeComponent } from './home/jumbotron-home/jumbotron-home.component';
 
 @NgModule({
-  declarations: [NavBarComponent, HomeComponent, ContactUsComponent, LoginComponent, SignUpComponent],
-  imports: [],
+  declarations: [NavBarComponent, HomeComponent, ContactUsComponent, LoginComponent, SignUpComponent, JumbotronHomeComponent],
+  imports: [RouterModule],
   exports: []
 })
 
