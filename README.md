@@ -1,7 +1,16 @@
-# BangerAndCoFrontEndCB007787
+# EIRLSS Front End
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.2.
 
+## Setup Information 
+
+Follow the Steps Provided Below To Get Started With The Front End Application.
+
+- Clone the repository 
+- Open the Project Directory on VSCode
+- Run `npm install` to install the project dependencies 
+- Run `ng serve` to start the Front End Development Server 
+- Visit `http://localhost:4200/' to get open the Front End Application.
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
