@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { LoginComponent } from '../login/login.component';
+import { SignUpComponent } from '../sign-up/sign-up.component';
 
 @Component({
   selector: 'app-nav-bar',
@@ -7,9 +10,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavBarComponent implements OnInit {
 
-  constructor() { }
+  openedModal: BsModalRef;
+
+  constructor(private modalService: BsModalService) { }
 
   ngOnInit(): void {
+  }
+
+  openSignUp() {
+    this.openedModal = this.modalService.show(SignUpComponent, {
+      class: 'modal-lg modal-dialog-centered',
+      ignoreBackdropClick: true,
+      keyboard: false
+    })
+  }
+
+  openLogin() {
+    this.openedModal = this.modalService.show(LoginComponent, {
+      keyboard: false,
+      ignoreBackdropClick: true,
+      class: 'modal-dialog-centered',
+    })
   }
 
 }
