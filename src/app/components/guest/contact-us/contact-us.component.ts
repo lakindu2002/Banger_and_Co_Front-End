@@ -24,7 +24,7 @@ export class ContactUsComponent implements OnInit {
   }
 
   processInquirySubmit() {
-
+    console.log(this.theForm.value)
   }
 
 }
