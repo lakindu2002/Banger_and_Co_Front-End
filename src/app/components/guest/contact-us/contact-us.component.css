@@ -1,0 +1,39 @@
+.additional-fomatting-textarea {
+  resize: none;
+}
+
+.box {
+  box-shadow: 0px 8px 14px -6px black;
+  padding-top: 20px;
+  /* 0px - even spread on left,right : 8px bottom color : 14px sides color: -6px blur*/
+}
+
+.format-header {
+  text-align: center;
+  font-size: 40px;
+}
+
+.format-title {
+  text-align: center;
+  font-size: 15px;
+  color: rgb(99, 98, 98);
+}
+
+.btn-format {
+  width: 35%;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.format-desc {
+  font-size: 17px;
+  text-align: center;
+  color:rgba(0, 0, 0, 0.87);
+  margin-top: 20px;
+  line-height: 25px;
+}
+
+.align-center {
+  margin-top: auto;
+  margin-bottom: auto;
+}
