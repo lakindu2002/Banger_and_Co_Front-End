@@ -6,10 +6,16 @@
     ),
     url("../../../../../assets/jumbotron_image.jpg");
   background-size: cover;
+  height: 595px;
+  width: 100%;
 }
 
 .jumbotron-overlay {
   color: white;
+}
+
+.jumbotron{
+  border-radius: 0px;
 }
 
 .custom-btn {
