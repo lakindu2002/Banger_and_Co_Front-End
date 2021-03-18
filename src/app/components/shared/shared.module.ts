@@ -8,6 +8,6 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 @NgModule({
   declarations: [PageNotFoundComponent, BreadCrumbComponent],
   imports: [CommonModule, ModalModule.forRoot()],
-  exports: [PageNotFoundComponent, ModalModule, BreadCrumbComponent],
+  exports: [PageNotFoundComponent, ModalModule, BreadCrumbComponent, CommonModule],
 })
 export class SharedModule { }

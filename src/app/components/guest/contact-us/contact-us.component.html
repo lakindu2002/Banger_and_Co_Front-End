@@ -31,7 +31,7 @@
         <div class="row justify-content-center">
           <div class="col-sm-12">
             <p class="display-4 format-desc ml-3">Fill in your details here. We will get back to you as soon as
-              possible to clarify your inquiry</p>
+              possible to clarify your inquiry.</p>
 
           </div>
         </div>
@@ -40,19 +40,27 @@
       <div class="col-sm-9">
         <div class="row justify-content-center">
           <div class="col-sm-12">
-            <form class="p-3">
+
+            <form class="p-3" (ngSubmit)="processInquirySubmit()" [formGroup]="theForm">
               <div class="row">
                 <div class="col-sm-5">
                   <div class="form-group">
                     <label for="firstNameInput"><b>First Name</b></label>
                     <input type="text" id="firstNameInput" class="form-control"
-                      placeholder="Enter Your First Name (John)">
+                      placeholder="Enter Your First Name (Required)" [formControlName]="'firstName'">
+                    <span class="form-error"
+                      *ngIf="theForm.get('firstName').invalid && theForm.get('firstName').touched">Please Provide a
+                      Valid First Name</span>
                   </div>
                 </div>
                 <div class="col-sm-7">
                   <div class="form-group">
                     <label for="lastNameInput"><b>Last Name</b></label>
-                    <input type="text" id="lastNameInput" class="form-control" placeholder="Enter Your Last Name (Doe)">
+                    <input type="text" id="lastNameInput" class="form-control"
+                      placeholder="Enter Your Last Name (Required)" [formControlName]="'lastName'">
+                    <span class="form-error"
+                      *ngIf="theForm.get('lastName').invalid && theForm.get('lastName').touched">Please Provide a
+                      Valid Last Name</span>
                   </div>
                 </div>
               </div>
@@ -62,14 +70,21 @@
                   <div class="form-group">
                     <label for="contactNumberInput"><b>Contact Number</b></label>
                     <input type="text" id="contactNumberInput" class="form-control"
-                      placeholder="Enter Your Contact Number">
+                      placeholder="Enter Your Contact Number (Required)" [formControlName]="'contactNumber'">
                   </div>
+                  <span class="form-error"
+                    *ngIf="theForm.get('contactNumber').invalid && theForm.get('contactNumber').touched">Please Provide
+                    a
+                    Valid Contact Number</span>
                 </div>
                 <div class="col-sm-7">
                   <div class="form-group">
                     <label for="emailAddressInput"><b>Email Address</b></label>
                     <input type="email" id="emailAddressInput" class="form-control"
-                      placeholder="Enter Your Email Here (johndoe@gmail.com)">
+                      placeholder="Enter Your Email Here (Required)" [formControlName]="'emailAddress'">
+                    <span class="form-error"
+                      *ngIf="theForm.get('emailAddress').invalid && theForm.get('emailAddress').touched">Please Provide
+                      a Valid Email Address</span>
                   </div>
                 </div>
               </div>
@@ -78,8 +93,11 @@
                 <div class="col-sm-12">
                   <div class="form-group">
                     <label for="subjectInputField"><b>Subject</b></label>
-                    <input type="text" placeholder="Provide Your Inquiry Heading Here" id="subjectInputField"
-                      class="form-control">
+                    <input type="text" placeholder="Provide Your Inquiry Heading Here (Required)" id="subjectInputField"
+                      class="form-control" [formControlName]="'subject'">
+                    <span class="form-error"
+                      *ngIf="theForm.get('subject').invalid && theForm.get('subject').touched">Please Provide
+                      a Valid Subject</span>
                   </div>
                 </div>
               </div>
@@ -89,7 +107,11 @@
                   <div class="form-group">
                     <label for="messageInputField"><b>Message</b></label>
                     <textarea id="messageInputField" class="form-control additional-fomatting-textarea" rows="6"
-                      col="12" placeholder="State Your Inquiry Here"></textarea>
+                      col="12" placeholder="State Your Inquiry Here (Required)"
+                      [formControlName]="'message'"></textarea>
+                    <span class="form-error"
+                      *ngIf="theForm.get('message').invalid && theForm.get('message').touched">Please Provide
+                      a Valid Inquiry</span>
                   </div>
                 </div>
               </div>
@@ -101,7 +123,7 @@
     </div>
     <div class="row">
       <div class="col-sm-12" style="text-align: center;">
-        <button class="btn btn-primary btn-format">Get in Touch</button>
+        <button class="btn btn-primary btn-format" [disabled]="theForm.invalid">Get in Touch</button>
       </div>
     </div>
   </div>

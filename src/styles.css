@@ -2,3 +2,8 @@ body {
   font-family: "Roboto", sans-serif;
   background-color: #f7fafc;
 }
+
+.form-error {
+  color: red;
+  font-size: 12px;
+}
