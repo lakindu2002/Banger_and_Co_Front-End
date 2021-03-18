@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-bread-crumb',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BreadCrumbComponent implements OnInit {
 
-  constructor() { }
+  @Input("pageName") pageName: string;
+
+  constructor(private location : Location) { }
 
   ngOnInit(): void {
+  }
+
+  goBack(){
+    this.location.back();
   }
 
 }

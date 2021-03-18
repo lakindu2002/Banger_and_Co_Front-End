@@ -1,0 +1,25 @@
+.format-bread-crumb-outer{
+  background-color: white;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.format-icon{
+  padding-left: 3px;
+  font-size: 35px;
+  vertical-align: middle;
+  font-weight: 300;
+  transition: color 0.5s;
+}
+
+.format-icon:hover{
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.404);
+}
+
+.text-format{
+  font-size: 35px;
+  vertical-align: middle;
+  margin-left: 25px;
+  font-weight: 300;
+}
