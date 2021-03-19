@@ -5,7 +5,44 @@
   </button>
 </div>
 <div class="modal-body">
+  <div class="row">
+    <div class="col-sm-12">
+      <form (ngSubmit)="handleLogin()" [formGroup]="theForm">
+        <div class="form-group">
+          <label for="emailAddressField"><b>Email Address</b></label>
+          <input type="email" placeholder="Enter Your Email Address (Required)" class="form-control"
+            [formControlName]="'emailAddress'" id="emailAddressField">
+          <span class="form-error" *ngIf="theForm.get('emailAddress').invalid && theForm.get('emailAddress').touched">
+            Please Provide a Valid Email Address
+          </span>
+        </div>
 
+        <div class="form-group">
+          <label for="passwordField"><b>Password</b></label>
+          <input type="password" placeholder="Enter Your Password (Required)" class="form-control"
+            [formControlName]="'password'" id="passwordField">
+          <span class="form-error" *ngIf="theForm.get('password').invalid && theForm.get('password').touched">
+            Please Provide a Valid Password
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label for="passwordField"><b>User Type</b></label>
+          <select class="form-control" [formControlName]="'selectedRole'">
+            <option *ngFor="let role of roleList" [value]="role">{{role | titlecase}}</option>
+          </select>
+        </div>
+
+        <div class="row justify-content-center">
+          <button class="btn btn-primary" type="submit" style="width: 60%;" [disabled]="theForm.invalid">Login</button>
+        </div>
+
+        <div class="row justify-content-center">
+          <p class="mt-3">Not Registered Yet? Click <a class="format-url">Here</a> To Sign Up</p>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
 <div class="modal-footer">
   <button class="btn btn-danger" style="width: 30%;" (click)="closeModal()">Close</button>
