@@ -71,11 +71,12 @@
                     <label for="contactNumberInput"><b>Contact Number</b></label>
                     <input type="text" id="contactNumberInput" class="form-control"
                       placeholder="Enter Your Contact Number (Required)" [formControlName]="'contactNumber'">
+                    <span class="form-error"
+                      *ngIf="theForm.get('contactNumber').invalid && theForm.get('contactNumber').touched">Please
+                      Provide
+                      a
+                      Valid Contact Number</span>
                   </div>
-                  <span class="form-error"
-                    *ngIf="theForm.get('contactNumber').invalid && theForm.get('contactNumber').touched">Please Provide
-                    a
-                    Valid Contact Number</span>
                 </div>
                 <div class="col-sm-7">
                   <div class="form-group">

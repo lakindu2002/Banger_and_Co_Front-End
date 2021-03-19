@@ -10,9 +10,10 @@ import { JumbotronHomeComponent } from './home/jumbotron-home/jumbotron-home.com
 
 import { ReactiveFormsModule } from "@angular/forms";
 import { SharedModule } from "../shared/shared.module";
+import { AboutUsComponent } from './about-us/about-us.component';
 
 @NgModule({
-  declarations: [NavBarComponent, HomeComponent, ContactUsComponent, LoginComponent, SignUpComponent, JumbotronHomeComponent],
+  declarations: [NavBarComponent, HomeComponent, ContactUsComponent, LoginComponent, SignUpComponent, JumbotronHomeComponent, AboutUsComponent],
   imports: [RouterModule, ReactiveFormsModule, SharedModule],
   exports: []
 })
