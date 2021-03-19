@@ -1,6 +1,6 @@
 body {
-  font-family: "Roboto", sans-serif;
   background-color: #f7fafc;
+  font-family: "Roboto", sans-serif;
 }
 
 .form-error {
@@ -9,27 +9,26 @@ body {
 }
 
 /* sets the width of scrollbar */
-::-webkit-scrollbar{
+::-webkit-scrollbar {
   width: 10px;
 }
 
 /* sets the color of the overall scroll bar */
-::-webkit-scrollbar-track{
+::-webkit-scrollbar-track {
   background-color: rgba(148, 144, 144, 0.61);
 }
 
 /* shows scrollable content  */
-::-webkit-scrollbar-thumb{
+::-webkit-scrollbar-thumb {
   background-color: rgb(136, 136, 136);
   transition: background-color 0.5s;
 }
 
-::-webkit-scrollbar-thumb:hover{
+::-webkit-scrollbar-thumb:hover {
   background-color: rgb(92, 91, 91);
 }
 
 /* shows the up down scroll */
-::-webkit-scrollbar-button{
+::-webkit-scrollbar-button {
   background-color: rgba(0, 0, 0, 0.788);
 }
-
