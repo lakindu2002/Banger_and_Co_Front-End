@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { BsModalRef } from 'ngx-bootstrap/modal';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { SignUpComponent } from '../sign-up/sign-up.component';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,7 @@ export class LoginComponent implements OnInit {
   theForm: FormGroup;
   roleList: string[] = ["guest", "administrator"];
 
-  constructor(private modalRef: BsModalRef) { }
+  constructor(private modalRef: BsModalRef, private modalService: BsModalService) { }
 
   ngOnInit(): void {
     this.theForm = new FormGroup({
@@ -30,6 +31,13 @@ export class LoginComponent implements OnInit {
     if (this.theForm.valid) {
       console.log(this.theForm.value);
     }
+  }
+
+  openSignUp() {
+    this.modalService.show(SignUpComponent,{
+      class:'modal-lg modal-dialog-centered',
+    })
+    this.modalRef.hide();
   }
 
 }
