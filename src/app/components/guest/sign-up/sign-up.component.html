@@ -5,7 +5,136 @@
   </button>
 </div>
 <div class="modal-body">
+  <mat-horizontal-stepper [linear]="true">
+    <!-- parent container to hold the steppers -->
+    <mat-step>
+      <!-- single step in the form -->
+      <form>
+        <!-- first form for stepper 01 -->
+        <ng-template matStepLabel>Provide Your Information</ng-template>
 
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="firstNameField"><b class="fonts">First Name</b></label>
+              <input type="text" id="firstNameField" class="form-control"
+                placeholder="Enter Your First Name (Required)">
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="lastNameField"><b class="fonts">Last Name</b></label>
+              <input type="text" id="lastNameField" class="form-control" placeholder="Enter Your Last Name (Required)">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="form-group">
+              <label for="emailAddressField"><b class="fonts">Email Address</b></label>
+              <input type="email" class="form-control" placeholder="Enter Your Email Address (Required)">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="contactNumberField"><b class="fonts">Contact Number</b></label>
+              <input type="text" class="form-control" placeholder="Enter Your Contact Number (Required)">
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="dateOfBirthField"><b class="fonts">Date of Birth</b></label>
+              <div class="row">
+                <div class="col-sm-10">
+                  <input class="form-control" placeholder="Enter Date of Birth (Required)"
+                    [matDatepicker]="dateOfBirthPicker" readonly [max]="maxDate" style="background-color: white;">
+                </div>
+                <div class="col-sm-1">
+                  <mat-datepicker-toggle [for]="dateOfBirthPicker" class="mat-btn"></mat-datepicker-toggle>
+                  <mat-datepicker #dateOfBirthPicker></mat-datepicker>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </form>
+
+      <button class="btn btn-primary mt-3" style="float: right; width: 30%;" matStepperNext>Next</button>
+      <button class="btn btn-warning mt-3 mr-3" style="float: right;width: 20%;" matStepperPrevious>Previous</button>
+    </mat-step>
+
+    <mat-step>
+      <!-- stepper 01 for form 02 -->
+      <form>
+        <!-- form for stepper 02 -->
+        <ng-template matStepLabel>Provide a Secure Password</ng-template>
+
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="form-group">
+              <label for="passwordOneField"><b class="fonts">Enter Password</b></label>
+              <input type="password" id="passwordOneField" class="form-control"
+                placeholder="Enter Your Password (Required)">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="form-group">
+              <label for="passwordTwoField"><b class="fonts">Re-Enter Password</b></label>
+              <input type="password" id="passwordTwoField" class="form-control"
+                placeholder="Re-Enter Your Password (Required)">
+            </div>
+          </div>
+        </div>
+      </form>
+
+
+      <button class="btn btn-primary mt-3" style="float: right; width: 30%;" matStepperNext>Next</button>
+      <button class="btn btn-warning mt-3 mr-3" style="float: right;width: 20%;" matStepperPrevious>Previous</button>
+    </mat-step>
+
+    <mat-step>
+      <!-- stepper 03 for form 03 -->
+      <ng-template matStepLabel>Provide a Profile Picture</ng-template>
+      <form>
+        <!-- form 03 for stepper 03 -->
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="form-group">
+              <div class="row">
+                <input type="file" accept="image/jpeg" style="display:none;" #fileChoose
+                  (change)="fileLoaded(fileChoose.files[0])" multiple="false">
+                <div class="col-sm-12" style="text-align: center;">
+                  <label><b class="fonts">Provide Your Profile Picture</b></label>
+                  <br>
+                  <button class="btn btn-secondary" (click)="fileChoose.click()" type="button" style="width: 30%;">Upload
+                    a Picture</button>
+                </div>
+              </div>
+
+              <div class="row justify-content-center mt-3" *ngIf="imageLoaded">
+                <div class="col-sm-12" style="text-align: center;">
+                  <img [src]="imageUrl" class="img-responsive" width="250px" height="275px">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <button class="btn btn-primary mt-3" style="float: right; width: 30%;" type="button">Create Account</button>
+      <button class="btn btn-warning mt-3 mr-3" style="float: right;width: 20%;" matStepperPrevious>Previous</button>
+    </mat-step>
+  </mat-horizontal-stepper>
 </div>
 <div class="modal-footer">
   <button class="btn btn-danger" style="width: 30%;" (click)="closeModal()">Close</button>

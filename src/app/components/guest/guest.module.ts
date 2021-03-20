@@ -11,10 +11,28 @@ import { JumbotronHomeComponent } from './home/jumbotron-home/jumbotron-home.com
 import { ReactiveFormsModule } from "@angular/forms";
 import { SharedModule } from "../shared/shared.module";
 import { AboutUsComponent } from './about-us/about-us.component';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from "@angular/material/core";
 
 @NgModule({
-  declarations: [NavBarComponent, HomeComponent, ContactUsComponent, LoginComponent, SignUpComponent, JumbotronHomeComponent, AboutUsComponent],
-  imports: [RouterModule, ReactiveFormsModule, SharedModule],
+  declarations: [
+    NavBarComponent,
+    HomeComponent,
+    ContactUsComponent,
+    LoginComponent,
+    SignUpComponent,
+    JumbotronHomeComponent,
+    AboutUsComponent
+  ],
+  imports: [
+    RouterModule,
+    ReactiveFormsModule,
+    SharedModule,
+    MatStepperModule,
+    MatDatepickerModule,
+    MatNativeDateModule
+  ],
   exports: []
 })
 

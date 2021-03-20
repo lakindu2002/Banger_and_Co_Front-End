@@ -9,7 +9,7 @@
     <div class="col-sm-12">
       <form (ngSubmit)="handleLogin()" [formGroup]="theForm">
         <div class="form-group">
-          <label for="emailAddressField"><b>Email Address</b></label>
+          <label for="emailAddressField">Email Address</label>
           <input type="email" placeholder="Enter Your Email Address (Required)" class="form-control"
             [formControlName]="'emailAddress'" id="emailAddressField">
           <span class="form-error" *ngIf="theForm.get('emailAddress').invalid && theForm.get('emailAddress').touched">
@@ -18,19 +18,12 @@
         </div>
 
         <div class="form-group">
-          <label for="passwordField"><b>Password</b></label>
+          <label for="passwordField">Password</label>
           <input type="password" placeholder="Enter Your Password (Required)" class="form-control"
             [formControlName]="'password'" id="passwordField">
           <span class="form-error" *ngIf="theForm.get('password').invalid && theForm.get('password').touched">
             Please Provide a Valid Password
           </span>
-        </div>
-
-        <div class="form-group">
-          <label for="passwordField"><b>User Type</b></label>
-          <select class="form-control" [formControlName]="'selectedRole'">
-            <option *ngFor="let role of roleList" [value]="role">{{role | titlecase}}</option>
-          </select>
         </div>
 
         <div class="row justify-content-center">

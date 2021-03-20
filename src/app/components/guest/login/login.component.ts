@@ -11,7 +11,6 @@ import { SignUpComponent } from '../sign-up/sign-up.component';
 export class LoginComponent implements OnInit {
 
   theForm: FormGroup;
-  roleList: string[] = ["guest", "administrator"];
 
   constructor(private modalRef: BsModalRef, private modalService: BsModalService) { }
 
@@ -19,7 +18,6 @@ export class LoginComponent implements OnInit {
     this.theForm = new FormGroup({
       'emailAddress': new FormControl(null, [Validators.required, Validators.email]),
       'password': new FormControl(null, [Validators.required, Validators.minLength(6)]),
-      'selectedRole': new FormControl('guest', [Validators.required]),
     });
   }
 
