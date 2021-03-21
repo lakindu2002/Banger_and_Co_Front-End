@@ -6,6 +6,15 @@ a.active {
   border-bottom: 3px solid darkblue;
 }
 
+a.nav-link.active{
+  color: darkblue !important;
+}
+
 .hover-action:hover {
   cursor: pointer;
 }
+
+nav{
+  border-bottom: 1px solid #cacdcf;
+}
+
