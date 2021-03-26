@@ -1,1 +1,8 @@
 <app-customer-nav></app-customer-nav>
+<div class="row" style="background-color: white;" *ngIf="greeting.length > 0 && fullName.length > 0">
+  <div class="col-sm-12">
+    <div class="container">
+      <p class="display-4 mt-3" style="font-size: 32px;">{{greeting}} {{fullName}}</p>
+    </div>
+  </div>
+</div>
