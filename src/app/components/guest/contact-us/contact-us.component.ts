@@ -13,6 +13,8 @@ export class ContactUsComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    document.title = "Contact Us | Banger and Co."
+
     this.theForm = new FormGroup({
       'firstName': new FormControl(null, Validators.required),
       'lastName': new FormControl(null, Validators.required),

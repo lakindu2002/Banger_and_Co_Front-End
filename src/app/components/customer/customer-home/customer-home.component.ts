@@ -10,6 +10,7 @@ export class CustomerHomeComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    document.title = "Banger and Co. - Rent a Vehicle Now";
   }
 
 }
