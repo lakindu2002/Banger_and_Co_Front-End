@@ -7,12 +7,13 @@
   border-radius: 10px;
   padding-top: 10px;
   padding-bottom: 1px;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, box-shadow 0.5s;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.17);
 }
 
 .coloring:hover {
-  background-color: rgba(219, 235, 240, 0.884);
+  background-color: rgba(219, 235, 240, 0.568);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.75);
 }
 
 .primary-item {

@@ -1,0 +1,29 @@
+nav {
+  background-color: white;
+}
+
+a.active {
+  border-bottom: 3px solid darkblue;
+}
+
+a.nav-link.active {
+  color: darkblue !important;
+}
+
+.hover-action:hover {
+  cursor: pointer;
+}
+
+nav {
+  border-bottom: 1px solid #cacdcf;
+}
+
+.user-handler {
+  color: black;
+  transition: color 0.5s;
+}
+
+.user-handler:hover {
+  cursor: pointer;
+  color: darkblue;
+}

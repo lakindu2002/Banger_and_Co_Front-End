@@ -7,33 +7,37 @@
 <div class="modal-body">
   <div class="row">
     <div class="col-sm-12">
-      <form (ngSubmit)="handleLogin()" [formGroup]="theForm">
-        <div class="form-group">
-          <label for="emailAddressField">Email Address</label>
-          <input type="email" placeholder="Enter Your Email Address (Required)" class="form-control"
-            [formControlName]="'emailAddress'" id="emailAddressField">
-          <span class="form-error" *ngIf="theForm.get('emailAddress').invalid && theForm.get('emailAddress').touched">
-            Please Provide a Valid Email Address
-          </span>
-        </div>
+      <div class="container">
+        <form (ngSubmit)="handleLogin()" [formGroup]="theForm">
+          <div class="form-group">
+            <label for="emailAddressField" class="fonts">Email Address</label>
+            <input type="email" placeholder="Enter Your Email Address (Required)" class="form-control"
+              [formControlName]="'emailAddress'" id="emailAddressField">
+            <span class="form-error" *ngIf="theForm.get('emailAddress').invalid && theForm.get('emailAddress').touched">
+              Please Provide a Valid Email Address
+            </span>
+          </div>
 
-        <div class="form-group">
-          <label for="passwordField">Password</label>
-          <input type="password" placeholder="Enter Your Password (Required)" class="form-control"
-            [formControlName]="'password'" id="passwordField">
-          <span class="form-error" *ngIf="theForm.get('password').invalid && theForm.get('password').touched">
-            Please Provide a Valid Password
-          </span>
-        </div>
+          <div class="form-group">
+            <label for="passwordField" class="fonts">Password</label>
+            <input type="password" placeholder="Enter Your Password (Required)" class="form-control"
+              [formControlName]="'password'" id="passwordField">
+            <span class="form-error" *ngIf="theForm.get('password').invalid && theForm.get('password').touched">
+              Please Provide a Valid Password
+            </span>
+          </div>
 
-        <div class="row justify-content-center">
-          <button class="btn btn-primary" type="submit" style="width: 60%;" [disabled]="theForm.invalid">Login</button>
-        </div>
+          <div class="row justify-content-center">
+            <button class="btn btn-primary" type="submit" style="width: 60%;"
+              [disabled]="theForm.invalid">Login</button>
+          </div>
 
-        <div class="row justify-content-center">
-          <p class="mt-3">Not Registered Yet? Click <a (click)="openSignUp()" class="format-url">Here</a> To Sign Up</p>
-        </div>
-      </form>
+          <div class="row justify-content-center">
+            <p class="mt-3">Not Registered Yet? Click <a (click)="openSignUp()" class="format-url">Here</a> To Sign Up
+            </p>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </div>

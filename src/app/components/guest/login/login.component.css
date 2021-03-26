@@ -1,3 +1,7 @@
 .format-url:hover {
   cursor: pointer;
 }
+
+.fonts {
+  font-weight: 500;
+}

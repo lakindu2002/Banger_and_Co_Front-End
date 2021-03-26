@@ -14,6 +14,7 @@ import { AboutUsComponent } from './about-us/about-us.component';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from "@angular/material/core";
+import { CommonModule } from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { MatNativeDateModule } from "@angular/material/core";
     AboutUsComponent
   ],
   imports: [
+    CommonModule,
     RouterModule,
     ReactiveFormsModule,
     SharedModule,

@@ -19,13 +19,20 @@ const routes: Routes = [
     component: AboutUsComponent
   },
   {
+    path: 'customer',
+    loadChildren: () => import("./components/customer/customer.module").then((module) => module.CustomerModule)
+    //lazy loaded route to improve performance
+  },
+  {
     path: '',
     redirectTo: '/home',
     pathMatch: 'full',
+    //direct base path route to "home"
   },
   {
     path: "**",
     component: PageNotFoundComponent
+    //wildcard route
   }
 ]
 
