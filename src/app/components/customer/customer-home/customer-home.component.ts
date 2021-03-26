@@ -21,8 +21,6 @@ export class CustomerHomeComponent implements OnInit {
 
   generateGreeting() {
     const currentHour = new Date().getHours(); //retrieves the current hours (10pm = 22)
-    console.log(new Date().setHours(new Date().getHours()+2));
-    console.log(currentHour)
     if (currentHour < 12) {
       //if time is between 0am to 12pm
       this.greeting = "Good Morning,";
