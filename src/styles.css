@@ -8,6 +8,11 @@ body {
   font-size: 12px;
 }
 
+.form-success{
+  color: green;
+  font-size: 12px;
+}
+
 /* sets the width of scrollbar */
 ::-webkit-scrollbar {
   width: 10px;

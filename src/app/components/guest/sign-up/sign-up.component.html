@@ -7,9 +7,9 @@
 <div class="modal-body">
   <mat-horizontal-stepper [linear]="true">
     <!-- parent container to hold the steppers -->
-    <mat-step>
+    <mat-step [stepControl]="userInfoForm">
       <!-- single step in the form -->
-      <form>
+      <form [formGroup]="userInfoForm">
         <!-- first form for stepper 01 -->
         <ng-template matStepLabel>Provide Your Information</ng-template>
 
@@ -17,15 +17,23 @@
           <div class="col-sm-6">
             <div class="form-group">
               <label for="firstNameField"><b class="fonts">First Name</b></label>
-              <input type="text" id="firstNameField" class="form-control"
-                placeholder="Enter Your First Name (Required)">
+              <input type="text" id="firstNameField" class="form-control" placeholder="Enter Your First Name (Required)"
+                [formControlName]="'firstName'">
+
+              <span class="form-error"
+                *ngIf="userInfoForm.get('firstName').invalid && userInfoForm.get('firstName').touched">Please Provide a
+                Valid First Name</span>
             </div>
           </div>
 
           <div class="col-sm-6">
             <div class="form-group">
               <label for="lastNameField"><b class="fonts">Last Name</b></label>
-              <input type="text" id="lastNameField" class="form-control" placeholder="Enter Your Last Name (Required)">
+              <input type="text" id="lastNameField" class="form-control" placeholder="Enter Your Last Name (Required)"
+                [formControlName]="'lastName'">
+              <span class="form-error"
+                *ngIf="userInfoForm.get('lastName').invalid && userInfoForm.get('lastName').touched">Please Provide a
+                Valid Last Name</span>
             </div>
           </div>
         </div>
@@ -34,7 +42,12 @@
           <div class="col-sm-12">
             <div class="form-group">
               <label for="emailAddressField"><b class="fonts">Email Address</b></label>
-              <input type="email" class="form-control" placeholder="Enter Your Email Address (Required)">
+              <input type="email" class="form-control" placeholder="Enter Your Email Address (Required)"
+                [formControlName]="'emailAddress'">
+              <span class="form-error"
+                *ngIf="userInfoForm.get('emailAddress').invalid && userInfoForm.get('emailAddress').touched">Please
+                Provide a
+                Valid Email Address</span>
             </div>
           </div>
         </div>
@@ -43,7 +56,12 @@
           <div class="col-sm-6">
             <div class="form-group">
               <label for="contactNumberField"><b class="fonts">Contact Number</b></label>
-              <input type="text" class="form-control" placeholder="Enter Your Contact Number (Required)">
+              <input type="text" class="form-control" placeholder="Enter Your Contact Number (Required)"
+                [formControlName]="'contactNumber'">
+              <span class="form-error"
+                *ngIf="userInfoForm.get('contactNumber').invalid && userInfoForm.get('contactNumber').touched">Please
+                Provide a
+                Valid Contact Number</span>
             </div>
           </div>
 
@@ -53,7 +71,12 @@
               <div class="row">
                 <div class="col-sm-10">
                   <input class="form-control" placeholder="Enter Date of Birth (Required)"
-                    [matDatepicker]="dateOfBirthPicker" readonly [max]="maxDate" style="background-color: white;">
+                    [matDatepicker]="dateOfBirthPicker" readonly [max]="maxDate" style="background-color: white;"
+                    [formControlName]="'dateOfBirth'">
+                  <span class="form-error"
+                    *ngIf="userInfoForm.get('dateOfBirth').invalid && userInfoForm.get('dateOfBirth').touched">Please
+                    Provide a
+                    Valid Date of Birth</span>
                 </div>
                 <div class="col-sm-1">
                   <mat-datepicker-toggle [for]="dateOfBirthPicker" class="mat-btn"></mat-datepicker-toggle>
@@ -66,13 +89,13 @@
 
       </form>
 
-      <button class="btn btn-primary mt-3" style="float: right; width: 30%;" matStepperNext>Next</button>
-      <button class="btn btn-warning mt-3 mr-3" style="float: right;width: 20%;" matStepperPrevious>Previous</button>
+      <button class="btn btn-primary mt-3" style="float: right; width: 30%;" matStepperNext
+        [disabled]="userInfoForm.invalid">Next</button>
     </mat-step>
 
-    <mat-step>
+    <mat-step [stepControl]="passwordForm">
       <!-- stepper 01 for form 02 -->
-      <form>
+      <form [formGroup]="passwordForm">
         <!-- form for stepper 02 -->
         <ng-template matStepLabel>Provide a Secure Password</ng-template>
 
@@ -81,7 +104,11 @@
             <div class="form-group">
               <label for="passwordOneField"><b class="fonts">Enter Password</b></label>
               <input type="password" id="passwordOneField" class="form-control"
-                placeholder="Enter Your Password (Required)">
+                placeholder="Enter Your Password (Required)" [formControlName]="'firstPassword'">
+              <span class="form-error"
+                *ngIf="passwordForm.get('firstPassword').invalid && passwordForm.get('firstPassword').touched">Please
+                Provide a
+                Valid Password</span>
             </div>
           </div>
         </div>
@@ -91,14 +118,31 @@
             <div class="form-group">
               <label for="passwordTwoField"><b class="fonts">Re-Enter Password</b></label>
               <input type="password" id="passwordTwoField" class="form-control"
-                placeholder="Re-Enter Your Password (Required)">
+                placeholder="Re-Enter Your Password (Required)" [formControlName]="'secondPassword'">
+
+              <span class="form-error"
+                *ngIf="passwordForm.get('secondPassword').invalid && passwordForm.get('secondPassword').touched">Please
+                Provide a
+                Valid Password<br></span>
+
+              <span class="form-error"
+                *ngIf="passwordForm.get('firstPassword').value !== passwordForm.get('secondPassword').value">
+                Passwords Do Not Match</span>
+
+              <span class="form-success"
+                *ngIf="(passwordForm.get('firstPassword').value === passwordForm.get('secondPassword').value) &&
+                 (passwordForm.get('firstPassword').touched) &&
+                 (passwordForm.get('firstPassword').value.length !== 0 && passwordForm.get('secondPassword').value.length !== 0) &&
+                 passwordForm.get('firstPassword').value.length >=6  && passwordForm.get('secondPassword').value.length >= 6">
+                Passwords Match!</span>
             </div>
           </div>
         </div>
       </form>
 
 
-      <button class="btn btn-primary mt-3" style="float: right; width: 30%;" matStepperNext>Next</button>
+      <button class="btn btn-primary mt-3" style="float: right; width: 30%;" matStepperNext
+        [disabled]="passwordForm.invalid">Next</button>
       <button class="btn btn-warning mt-3 mr-3" style="float: right;width: 20%;" matStepperPrevious>Previous</button>
     </mat-step>
 
@@ -116,7 +160,8 @@
                 <div class="col-sm-12" style="text-align: center;">
                   <label><b class="fonts">Provide Your Profile Picture</b></label>
                   <br>
-                  <button class="btn btn-secondary" (click)="fileChoose.click()" type="button" style="width: 30%;">Upload
+                  <button class="btn btn-secondary" (click)="fileChoose.click()" type="button"
+                    style="width: 30%;">Upload
                     a Picture</button>
                 </div>
               </div>
@@ -131,7 +176,8 @@
         </div>
       </form>
 
-      <button class="btn btn-primary mt-3" style="float: right; width: 30%;" type="button">Create Account</button>
+      <button class="btn btn-primary mt-3" style="float: right; width: 30%;" type="button"
+        [disabled]="(!passwordForm.invalid && !userInfoForm.invalid && imageLoaded === false)" (click)="createAccount()">Create Account</button>
       <button class="btn btn-warning mt-3 mr-3" style="float: right;width: 20%;" matStepperPrevious>Previous</button>
     </mat-step>
   </mat-horizontal-stepper>

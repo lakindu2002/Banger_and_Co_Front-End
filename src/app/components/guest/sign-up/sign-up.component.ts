@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-sign-up',
@@ -14,17 +15,33 @@ export class SignUpComponent implements OnInit {
 
   maxDate: Date;
 
-  constructor(private modalRef: BsModalRef, private modalService: BsModalService) { }
+  userInfoForm: FormGroup;
+  passwordForm: FormGroup;
+
+  constructor(private modalRef: BsModalRef) { }
 
   ngOnInit(): void {
     this.maxDate = new Date();
+
+    this.userInfoForm = new FormGroup({
+      'firstName': new FormControl(null, [Validators.required]),
+      'lastName': new FormControl(null, [Validators.required]),
+      'emailAddress': new FormControl(null, [Validators.email, Validators.required]),
+      'contactNumber': new FormControl(null, [Validators.required]),
+      'dateOfBirth': new FormControl(null, [Validators.required])
+    })
+
+    this.passwordForm = new FormGroup({
+      'firstPassword': new FormControl("", [Validators.required, Validators.minLength(6)]),
+      'secondPassword': new FormControl("", [Validators.required, Validators.minLength(6)])
+    })
   }
 
   closeModal() {
     this.modalRef.hide();
   }
 
-  fileLoaded(fileSelected) {
+  fileLoaded(fileSelected: Blob) {
     if (fileSelected) {
       this.imageLoaded = false;
       const reader = new FileReader(); //create a file reader
@@ -37,5 +54,9 @@ export class SignUpComponent implements OnInit {
         this.loadedImage = fileSelected;
       })
     }
+  }
+
+  createAccount() {
+    console.log({ userprofile: this.userInfoForm, passwords: this.passwordForm, image: this.loadedImage });
   }
 }
