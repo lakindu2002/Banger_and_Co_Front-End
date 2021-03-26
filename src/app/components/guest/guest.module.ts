@@ -15,6 +15,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from "@angular/material/core";
 import { CommonModule } from "@angular/common";
+import { ContactUsStateComponent } from './contact-us/contact-us-state/contact-us-state.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { CommonModule } from "@angular/common";
     LoginComponent,
     SignUpComponent,
     JumbotronHomeComponent,
-    AboutUsComponent
+    AboutUsComponent,
+    ContactUsStateComponent
   ],
   imports: [
     CommonModule,
