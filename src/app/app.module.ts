@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './components/shared/shared.module';
 import { GuestModule } from './components/guest/guest.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { GuestModule } from './components/guest/guest.module';
     NgxSpinnerModule,
     AppRoutingModule,
     SharedModule,
-    GuestModule
+    GuestModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

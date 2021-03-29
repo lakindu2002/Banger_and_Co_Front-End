@@ -1,0 +1,82 @@
+<div class="modal-header">
+  <h5 class="modal-title">My Account Information</h5>
+  <button type="button" class="close" (click)="closeModal()">
+    <span>&times;</span>
+  </button>
+</div>
+
+<div class="modal-body">
+
+  <div class="row">
+    <div class="col-sm-2">
+      <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+      width="85" height="85" style="border-radius: 50%; margin-left: 10px; margin-bottom: 10px;">
+    </div>
+    <div class="col-sm-5">
+      <div class="form-group">
+        <label><b class="fonts">First Name</b></label>
+        <input type="text" readonly value="John" class="form-control">
+      </div>
+    </div>
+    <div class="col-sm-5">
+      <div class="form-group">
+        <label><b class="fonts">Last Name</b></label>
+        <input type="text" readonly value="Doe" class="form-control">
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <label><b class="fonts">Email Address</b></label>
+        <input type="email" readonly value="johndoe@gmail.com" class="form-control">
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label><b class="fonts">Date of Birth</b></label>
+        <input type="text" readonly value="03/22/2020" class="form-control">
+      </div>
+    </div>
+
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label><b class="fonts">Age</b></label>
+        <input type="number" readonly value="" class="form-control">
+      </div>
+    </div>
+
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label><b class="fonts">Contact Number</b></label>
+        <input type="text" value="0777785236" class="form-control">
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label><b class="fonts">Password</b></label>
+        <input type="password" value="" placeholder="Provide New Password (Required)" class="form-control">
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label><b class="fonts">Re-Enter Password</b></label>
+        <input type="password" value="" placeholder="Re-Enter Your New Password (Required)" class="form-control">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-footer">
+  <button class="btn btn-danger" style="width: 25%;" (click)="closeModal()">Dismiss</button>
+  <button class="btn btn-success" style="width: 35%;">Update Profile</button>
+</div>

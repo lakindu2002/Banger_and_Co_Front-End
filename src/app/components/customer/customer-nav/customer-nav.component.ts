@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BsDropdownConfig } from 'ngx-bootstrap/dropdown';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { UserProfileComponent } from '../../shared/user-profile/user-profile.component';
 
 @Component({
   selector: 'app-customer-nav',
@@ -10,9 +12,16 @@ import { BsDropdownConfig } from 'ngx-bootstrap/dropdown';
 })
 export class CustomerNavComponent implements OnInit {
 
-  constructor() { }
+  modalRef: BsModalRef;
+
+  constructor(private modalSerivce: BsModalService) { }
 
   ngOnInit(): void {
   }
 
+  showProfile(): void {
+    this.modalSerivce.show(UserProfileComponent, {
+      class: 'modal-lg modal-dialog-centered',
+    })
+  }
 }
