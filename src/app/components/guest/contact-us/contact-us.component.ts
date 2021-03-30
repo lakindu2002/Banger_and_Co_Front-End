@@ -50,6 +50,7 @@ export class ContactUsComponent implements OnInit {
       this.inquiryService.createInquiry(inquiryObject).subscribe((data: ResponseAPI) => {
         if (data.code === 200) {
           //if api provides 200 response code, show the success message
+          this.theForm.reset(); //clear form
           this.modalRef = this.modalService.show(ContactUsStateComponent, {
             class: 'modal-dialog-centered', //center the dialog on load
             initialState: {
@@ -60,7 +61,6 @@ export class ContactUsComponent implements OnInit {
             keyboard: false, //disable esc dismiss
             ignoreBackdropClick: true //disable backdrop exit
           })
-          this.theForm.reset();
           this.spinner.hide();
         }
 

@@ -96,7 +96,7 @@
                 <div class="col-sm-12">
                   <div class="form-group">
                     <label for="subjectInputField"><b class="weight">Subject</b></label>
-                    <input type="text" placeholder="Provide Your Inquiry Heading Here (Required - 1000 Characters)"
+                    <input type="text" placeholder="Provide Your Inquiry Heading Here (Required - Maximum 1000 Characters)"
                       id="subjectInputField" class="form-control" [formControlName]="'subject'" maxlength="1000">
                     <span class="form-error"
                       *ngIf="theForm.get('subject').invalid && theForm.get('subject').touched">Please Provide
@@ -110,7 +110,7 @@
                   <div class="form-group">
                     <label for="messageInputField"><b class="weight">Message</b></label>
                     <textarea id="messageInputField" class="form-control additional-fomatting-textarea" rows="6"
-                      col="12" placeholder="State Your Inquiry Here (Required - 1000 Characters)"
+                      col="12" placeholder="State Your Inquiry Here (Required - Maximum 1000 Characters)"
                       [formControlName]="'message'" maxlength="1000"></textarea>
                     <span class="form-error"
                       *ngIf="theForm.get('message').invalid && theForm.get('message').touched">Please Provide
