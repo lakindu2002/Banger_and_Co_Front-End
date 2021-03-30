@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { User } from 'src/app/models/user.model';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -18,11 +21,15 @@ export class SignUpComponent implements OnInit {
   userInfoForm: FormGroup;
   passwordForm: FormGroup;
 
-  constructor(private modalRef: BsModalRef) { }
+  signUpProceed: boolean;
+
+  constructor(private modalRef: BsModalRef, private spinner: NgxSpinnerService, private userService: UserService) { }
 
   ngOnInit(): void {
+    this.signUpProceed = true;
     this.maxDate = new Date();
 
+    //initialize forms referenced from template.
     this.userInfoForm = new FormGroup({
       'firstName': new FormControl(null, [Validators.required]),
       'lastName': new FormControl(null, [Validators.required]),
@@ -41,7 +48,7 @@ export class SignUpComponent implements OnInit {
     this.modalRef.hide();
   }
 
-  fileLoaded(fileSelected: Blob) {
+  fileLoaded(fileSelected: File) {
     if (fileSelected) {
       this.imageLoaded = false;
       const reader = new FileReader(); //create a file reader
@@ -57,6 +64,25 @@ export class SignUpComponent implements OnInit {
   }
 
   createAccount() {
-    console.log({ userprofile: this.userInfoForm, passwords: this.passwordForm, image: this.loadedImage });
+    this.signUpProceed = true;
+    if (this.userInfoForm.valid && this.passwordForm.valid && this.imageLoaded) {
+      this.signUpProceed = true;
+
+      //create the user object that is to be sent to the REST API
+      const theUser: User = {
+        firstName: this.userInfoForm.get('firstName').value,
+        lastName: this.userInfoForm.get('lastName').value,
+        contactNumber: this.userInfoForm.get('contactNumber').value,
+        dateOfBirth: this.userInfoForm.get('dateOfBirth').value,
+        emailAddress: this.userInfoForm.get('emailAddress').value,
+        password: this.passwordForm.get('firstPassword').value,
+      }
+
+      const signUpData: FormData = new FormData();
+      signUpData.append("userInfo", JSON.stringify(theUser));
+      signUpData.append("profilePic", this.loadedImage);
+    } else {
+      this.signUpProceed = false; //halt signup as data is invalid
+    }
   }
 }

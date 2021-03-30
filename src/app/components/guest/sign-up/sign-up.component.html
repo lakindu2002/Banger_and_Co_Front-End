@@ -176,8 +176,17 @@
         </div>
       </form>
 
+      <div class="row justify-content-center" *ngIf="!signUpProceed">
+        <div class="col-sm-9">
+          <div class="alert alert-danger">
+            Invalid Data Provided. Please Check Your Data Before Proceeding
+          </div>
+        </div>
+      </div>
+
       <button class="btn btn-primary mt-3" style="float: right; width: 30%;" type="button"
-        [disabled]="(!passwordForm.invalid && !userInfoForm.invalid && imageLoaded === false)" (click)="createAccount()">Create Account</button>
+        [disabled]="(!passwordForm.invalid && !userInfoForm.invalid && imageLoaded === false)"
+        (click)="createAccount()">Create Account</button>
       <button class="btn btn-warning mt-3 mr-3" style="float: right;width: 20%;" matStepperPrevious>Previous</button>
     </mat-step>
   </mat-horizontal-stepper>
