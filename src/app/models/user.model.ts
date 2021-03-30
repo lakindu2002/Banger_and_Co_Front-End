@@ -1,10 +1,10 @@
 export interface User {
-  emailAddress: String,
-  firstName: String,
-  lastName: String,
+  emailAddress: string,
+  firstName: string,
+  lastName: string,
   dateOfBirth: Date,
-  password: String,
-  contactNumber: String,
+  password: string,
+  contactNumber: string,
   profilePicture?: File,
-  isBlackListed?: Boolean,
+  isBlackListed?: boolean,
 }
