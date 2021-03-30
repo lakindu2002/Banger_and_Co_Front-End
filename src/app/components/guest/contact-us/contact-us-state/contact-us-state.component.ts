@@ -10,6 +10,8 @@ export class ContactUsStateComponent implements OnInit {
 
   headerMessage: string;
   isSuccess: boolean;
+  errorList: { error: string, message: string }[];
+  errorMessage: string;
 
   constructor(private modalRef: BsModalRef) { }
 

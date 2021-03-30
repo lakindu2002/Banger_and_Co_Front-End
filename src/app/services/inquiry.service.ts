@@ -1,8 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
 import { environment } from "src/environments/environment.prod";
-import { ErrorHandlerAPI } from "../models/error.model";
 import { Inquiry } from "../models/inquiry.model";
 
 @Injectable({
@@ -13,7 +11,7 @@ export class InquiryService {
 
   constructor(private http: HttpClient) { }
 
-  createInquiry(inquiry: Inquiry): Observable<Response | ErrorHandlerAPI> {
-    return this.http.post<Response | ErrorHandlerAPI>(this.APIUrl, inquiry);
+  createInquiry(inquiry: Inquiry) {
+    return this.http.post(`${this.APIUrl}/api/guest/createInquiry`, inquiry);
   }
 }

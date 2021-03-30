@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { Inquiry } from 'src/app/models/inquiry.model';
+import { ResponseAPI } from 'src/app/models/response.model';
+import { InquiryService } from 'src/app/services/inquiry.service';
 import { ContactUsStateComponent } from './contact-us-state/contact-us-state.component';
 
 @Component({
@@ -13,7 +17,7 @@ export class ContactUsComponent implements OnInit {
   theForm: FormGroup;
   modalRef: BsModalRef;
 
-  constructor(private modalService: BsModalService) { }
+  constructor(private modalService: BsModalService, private inquiryService: InquiryService, private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
     document.title = "Contact Us | Banger and Co."
@@ -29,16 +33,53 @@ export class ContactUsComponent implements OnInit {
   }
 
   processInquirySubmit() {
-    console.log(this.theForm.value)
-    this.modalRef = this.modalService.show(ContactUsStateComponent, {
-      class: 'modal-dialog-centered', //center the dialog on load
-      initialState: {
-        headerMessage: "Inquiry Did Not Submit Successfully", //passing the modal header text
-        isSuccess: false //used to load the pass/fail data
-      },
-      keyboard: false, //disable esc dismiss
-      ignoreBackdropClick: true //disable backdrop exit
-    })
+    if (this.theForm.valid) {
+      this.spinner.show(); //show the loading bar
+
+      //initialize the Data Transmission Object to sent to API
+      const inquiryObject: Inquiry = {
+        contactNumber: this.theForm.get('contactNumber').value,
+        emailAddress: this.theForm.get('emailAddress').value,
+        firstName: this.theForm.get('firstName').value,
+        inquirySubject: this.theForm.get('subject').value,
+        lastName: this.theForm.get('lastName').value,
+        message: this.theForm.get('message').value
+      }
+
+      //call API endpoint
+      this.inquiryService.createInquiry(inquiryObject).subscribe((data: ResponseAPI) => {
+        if (data.code === 200) {
+          //if api provides 200 response code, show the success message
+          this.modalRef = this.modalService.show(ContactUsStateComponent, {
+            class: 'modal-dialog-centered', //center the dialog on load
+            initialState: {
+              headerMessage: "Inquiry Submitted Successfully", //passing the modal header text
+              isSuccess: true,//used to load the pass/fail data,
+              errorList: null
+            },
+            keyboard: false, //disable esc dismiss
+            ignoreBackdropClick: true //disable backdrop exit
+          })
+          this.theForm.reset();
+          this.spinner.hide();
+        }
+
+      }, (returnedError: any) => {
+        this.modalRef = this.modalService.show(ContactUsStateComponent, {
+          class: 'modal-dialog-centered', //center the dialog on load
+          initialState: {
+            headerMessage: "Inquiry Did Not Submit Successfully", //passing the modal header text
+            isSuccess: false, //used to load the pass/fail data
+            errorList: returnedError.error.multipleErrors,
+            errorMessage: returnedError.error.message
+          },
+          keyboard: false, //disable esc dismiss
+          ignoreBackdropClick: true //disable backdrop exit
+        })
+
+        this.spinner.hide();
+      })
+    }
   }
 
 }

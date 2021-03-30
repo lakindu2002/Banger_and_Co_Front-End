@@ -25,8 +25,18 @@
         <div class="col-sm-2">
           <i class="fal fa-times-circle fail-icon ml-2"></i>
         </div>
-        <div class="col-sm-10">
-          <p>Sorry, Your Inquiry Was Not Recorded. <br> Please Try Again.</p>
+        <div class="col-sm-8" style="text-align: center;">
+          <p>Sorry, Your Inquiry Was Not Recorded.</p>
+        </div>
+      </div>
+      <div class="row" *ngIf="errorMessage && errorList">
+        <div class="col-sm-12" style="text-align: center; color: red; font-size: 14px;">
+          {{errorMessage | titlecase}}
+        </div>
+      </div>
+      <div class="row justify-content-center" *ngIf="errorMessage && errorList">
+        <div class="error-in-modal" *ngFor="let error of errorList">
+          {{error.message}}
         </div>
       </div>
     </div>

@@ -71,7 +71,8 @@
                   <div class="form-group">
                     <label for="contactNumberInput"><b class="weight">Contact Number</b></label>
                     <input type="text" id="contactNumberInput" class="form-control"
-                      placeholder="Enter Your Contact Number (Required)" [formControlName]="'contactNumber'">
+                      placeholder="Enter Your Contact Number (Required)" [formControlName]="'contactNumber'"
+                      maxlength="20">
                     <span class="form-error"
                       *ngIf="theForm.get('contactNumber').invalid && theForm.get('contactNumber').touched">Please
                       Provide
@@ -95,8 +96,8 @@
                 <div class="col-sm-12">
                   <div class="form-group">
                     <label for="subjectInputField"><b class="weight">Subject</b></label>
-                    <input type="text" placeholder="Provide Your Inquiry Heading Here (Required)" id="subjectInputField"
-                      class="form-control" [formControlName]="'subject'">
+                    <input type="text" placeholder="Provide Your Inquiry Heading Here (Required - 1000 Characters)"
+                      id="subjectInputField" class="form-control" [formControlName]="'subject'" maxlength="1000">
                     <span class="form-error"
                       *ngIf="theForm.get('subject').invalid && theForm.get('subject').touched">Please Provide
                       a Valid Subject</span>
@@ -109,8 +110,8 @@
                   <div class="form-group">
                     <label for="messageInputField"><b class="weight">Message</b></label>
                     <textarea id="messageInputField" class="form-control additional-fomatting-textarea" rows="6"
-                      col="12" placeholder="State Your Inquiry Here (Required)"
-                      [formControlName]="'message'"></textarea>
+                      col="12" placeholder="State Your Inquiry Here (Required - 1000 Characters)"
+                      [formControlName]="'message'" maxlength="1000"></textarea>
                     <span class="form-error"
                       *ngIf="theForm.get('message').invalid && theForm.get('message').touched">Please Provide
                       a Valid Inquiry</span>
