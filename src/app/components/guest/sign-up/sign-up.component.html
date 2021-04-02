@@ -189,23 +189,6 @@
         </div>
       </div>
 
-      <div class="row justify-content-center mt-2" *ngIf="isError">
-        <div class="col-sm-10">
-          <div class="alert alert-danger">
-            {{errorMessage}}
-          </div>
-        </div>
-      </div>
-
-      <div class="row justify-content-center mt-2" *ngIf="isSuccess">
-        <div class="col-sm-10">
-          <div class="alert alert-success" style="text-align: center;">
-            Your Account Has Been Created Successfully! Log In To Access Your Account! An Email Will Be Sent To Your
-            Email Address To Denote Confirmation
-          </div>
-        </div>
-      </div>
-
       <button class="btn btn-primary mt-3" style="float: right; width: 30%;" type="button"
         [disabled]="(!passwordForm.invalid && !userInfoForm.invalid && imageLoaded === false)"
         (click)="createAccount()">Create Account</button>

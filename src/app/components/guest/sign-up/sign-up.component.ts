@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { BsModalRef } from 'ngx-bootstrap/modal';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/services/user.service';
+import { PopUpNotificationComponent } from '../../shared/pop-up-notification/pop-up-notification.component';
 
 @Component({
   selector: 'app-sign-up',
@@ -24,11 +25,12 @@ export class SignUpComponent implements OnInit {
   signUpProceed: boolean;
   imageSizeExceeded: boolean = false;
 
-  errorMessage: string = "";
-  isError: boolean = false;
-  isSuccess: boolean = false;
 
-  constructor(private modalRef: BsModalRef, private spinner: NgxSpinnerService, private userService: UserService) { }
+  constructor(
+    private modalRef: BsModalRef,
+    private spinner: NgxSpinnerService,
+    private userService: UserService,
+    private modalService: BsModalService) { }
 
   ngOnInit(): void {
     this.signUpProceed = true;
@@ -39,7 +41,7 @@ export class SignUpComponent implements OnInit {
       'firstName': new FormControl(null, [Validators.required]),
       'lastName': new FormControl(null, [Validators.required]),
       'emailAddress': new FormControl(null, [Validators.email, Validators.required]),
-      'contactNumber': new FormControl(null, [Validators.required, Validators.pattern("^[0-9]+$")]),
+      'contactNumber': new FormControl(null, [Validators.required, Validators.pattern("^[0-9]+$"), Validators.minLength(10)],),
       'dateOfBirth': new FormControl(null, [Validators.required])
     })
 
@@ -78,8 +80,6 @@ export class SignUpComponent implements OnInit {
 
   createAccount() {
     this.signUpProceed = true;
-    this.isError = false;
-    this.isSuccess = false;
 
     if (this.userInfoForm.valid && this.passwordForm.valid && this.imageLoaded) {
       this.spinner.show();
@@ -103,17 +103,38 @@ export class SignUpComponent implements OnInit {
       this.userService.createAccount(signUpData).subscribe((data: any) => {
         if (data.code === 200) {
           //if returned response entity has status code of 200, everything went fine.
-          this.isSuccess = true;
+          this.modalService.show(PopUpNotificationComponent, {
+            class: 'modal-dialog-centered', //center the dialog on load
+            initialState: {
+              headerMessage: "Account Successfully Created", //passing the modal header text
+              isSuccess: true, //used to load the pass/fail data
+              errorList: null,
+              errorMessage: null
+            },
+            keyboard: false, //disable esc dismiss
+            ignoreBackdropClick: true //disable backdrop exit
+          })
         }
         this.spinner.hide();
       }, (error: any) => {
         //during signup, if errors occur
-        this.isError = true;
+        let errorMessage: string = "";
         if (error.error.errorCode === 409) {
-          this.errorMessage = error.error.message;
+          errorMessage = error.error.message
         } else if (error.error.errorCode === 500) {
-          this.errorMessage = "An Unknown Error Occured on the Server. Please Try Again";
+          errorMessage = "An Unknown Error Occured on the Server. Please Try Again"
         }
+        this.modalService.show(PopUpNotificationComponent, {
+          class: 'modal-dialog-centered', //center the dialog on load
+          initialState: {
+            headerMessage: "Account Creation Failed", //passing the modal header text
+            isSuccess: false, //used to load the pass/fail data
+            errorList: null,
+            errorMessage: errorMessage
+          },
+          keyboard: false, //disable esc dismiss
+          ignoreBackdropClick: true //disable backdrop exit
+        })
         this.spinner.hide();
       })
     } else {

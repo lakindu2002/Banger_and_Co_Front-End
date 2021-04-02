@@ -1,0 +1,27 @@
+.success-icon {
+  color: green;
+  text-align: center;
+  font-size: 45px;
+}
+
+.fail-icon {
+  color: red;
+  text-align: center;
+  font-size: 45px;
+}
+
+.error-in-modal {
+  padding: 10px;
+  background-color: rgba(240, 128, 128, 0.377);
+  border-radius: 8px;
+  transition: box-shadow 0.3s;
+  text-align: center;
+  font-size: 15px;
+  color: red;
+  margin-bottom: 8px;
+  margin-top: 5px;
+}
+
+.error-in-modal:hover {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.75);
+}
