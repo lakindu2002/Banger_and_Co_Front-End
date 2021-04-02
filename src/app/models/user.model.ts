@@ -3,7 +3,7 @@ export interface User {
   firstName: string,
   lastName: string,
   dateOfBirth: Date,
-  password: string,
+  userPassword: string,
   contactNumber: string,
   profilePicture?: File,
   isBlackListed?: boolean,

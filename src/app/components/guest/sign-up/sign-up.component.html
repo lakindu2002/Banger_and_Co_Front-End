@@ -56,8 +56,8 @@
           <div class="col-sm-6">
             <div class="form-group">
               <label for="contactNumberField"><b class="fonts">Contact Number</b></label>
-              <input type="text" class="form-control" placeholder="Enter Your Contact Number (Required)"
-                [formControlName]="'contactNumber'">
+              <input type="text" class="form-control" placeholder="0777712345 (Required)"
+                [formControlName]="'contactNumber'" maxlength="10">
               <span class="form-error"
                 *ngIf="userInfoForm.get('contactNumber').invalid && userInfoForm.get('contactNumber').touched">Please
                 Provide a
@@ -123,7 +123,7 @@
               <span class="form-error"
                 *ngIf="passwordForm.get('secondPassword').invalid && passwordForm.get('secondPassword').touched">Please
                 Provide a
-                Valid Password<br></span>
+                Valid Password (Minimum 8 Characters)<br></span>
 
               <span class="form-error"
                 *ngIf="passwordForm.get('firstPassword').value !== passwordForm.get('secondPassword').value">
@@ -141,8 +141,9 @@
       </form>
 
 
-      <button class="btn btn-primary mt-3" style="float: right; width: 30%;" matStepperNext
-        [disabled]="passwordForm.invalid">Next</button>
+      <button class="btn btn-primary mt-3" style="float: right; width: 30%;" matStepperNext [disabled]="!passwordForm.valid || !(passwordForm.get('firstPassword').value.length !== 0 && passwordForm.get('secondPassword').value.length !== 0) ||
+      !(passwordForm.get('firstPassword').value.length >=6  || passwordForm.get('secondPassword').value.length >= 6)
+      || !(passwordForm.get('firstPassword').value === passwordForm.get('secondPassword').value)">Next</button>
       <button class="btn btn-warning mt-3 mr-3" style="float: right;width: 20%;" matStepperPrevious>Previous</button>
     </mat-step>
 
@@ -158,11 +159,15 @@
                 <input type="file" accept="image/jpeg" style="display:none;" #fileChoose
                   (change)="fileLoaded(fileChoose.files[0])" multiple="false">
                 <div class="col-sm-12" style="text-align: center;">
-                  <label><b class="fonts">Provide Your Profile Picture</b></label>
+                  <label><b class="fonts">Provide Your Profile Picture (maximum - 100KB)</b></label>
                   <br>
                   <button class="btn btn-secondary" (click)="fileChoose.click()" type="button"
                     style="width: 30%;">Upload
                     a Picture</button>
+
+                  <div class="alert alert-warning mt-2" *ngIf="imageSizeExceeded">
+                    Image Size Exceeded 100KB. Please Select One Again
+                  </div>
                 </div>
               </div>
 
@@ -176,10 +181,27 @@
         </div>
       </form>
 
-      <div class="row justify-content-center" *ngIf="!signUpProceed">
+      <div class="row justify-content-center mt-2" *ngIf="!signUpProceed">
         <div class="col-sm-9">
           <div class="alert alert-danger">
             Invalid Data Provided. Please Check Your Data Before Proceeding
+          </div>
+        </div>
+      </div>
+
+      <div class="row justify-content-center mt-2" *ngIf="isError">
+        <div class="col-sm-10">
+          <div class="alert alert-danger">
+            {{errorMessage}}
+          </div>
+        </div>
+      </div>
+
+      <div class="row justify-content-center mt-2" *ngIf="isSuccess">
+        <div class="col-sm-10">
+          <div class="alert alert-success" style="text-align: center;">
+            Your Account Has Been Created Successfully! Log In To Access Your Account! An Email Will Be Sent To Your
+            Email Address To Denote Confirmation
           </div>
         </div>
       </div>

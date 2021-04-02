@@ -22,6 +22,11 @@ export class SignUpComponent implements OnInit {
   passwordForm: FormGroup;
 
   signUpProceed: boolean;
+  imageSizeExceeded: boolean = false;
+
+  errorMessage: string = "";
+  isError: boolean = false;
+  isSuccess: boolean = false;
 
   constructor(private modalRef: BsModalRef, private spinner: NgxSpinnerService, private userService: UserService) { }
 
@@ -34,7 +39,7 @@ export class SignUpComponent implements OnInit {
       'firstName': new FormControl(null, [Validators.required]),
       'lastName': new FormControl(null, [Validators.required]),
       'emailAddress': new FormControl(null, [Validators.email, Validators.required]),
-      'contactNumber': new FormControl(null, [Validators.required]),
+      'contactNumber': new FormControl(null, [Validators.required, Validators.pattern("^[0-9]+$")]),
       'dateOfBirth': new FormControl(null, [Validators.required])
     })
 
@@ -50,22 +55,34 @@ export class SignUpComponent implements OnInit {
 
   fileLoaded(fileSelected: File) {
     if (fileSelected) {
-      this.imageLoaded = false;
-      const reader = new FileReader(); //create a file reader
-      reader.readAsDataURL(fileSelected); //read the image into a url
+      this.imageSizeExceeded = true;
+      if (fileSelected.size <= 100000) {
+        //if image is less than 100kb
+        this.imageSizeExceeded = false;
+        this.imageLoaded = false;
+        const reader = new FileReader(); //create a file reader
+        reader.readAsDataURL(fileSelected); //read the image into a url
 
-      reader.onload = (() => {
-        //once it is loaded as a url
-        this.imageLoaded = true;
-        this.imageUrl = reader.result;
-        this.loadedImage = fileSelected;
-      })
+        reader.onload = (() => {
+          //once it is loaded as a url
+          this.imageLoaded = true;
+          this.imageUrl = reader.result;
+          this.loadedImage = fileSelected;
+        })
+      } else {
+        this.imageLoaded = false;
+        this.imageSizeExceeded = true;
+      }
     }
   }
 
   createAccount() {
     this.signUpProceed = true;
+    this.isError = false;
+    this.isSuccess = false;
+
     if (this.userInfoForm.valid && this.passwordForm.valid && this.imageLoaded) {
+      this.spinner.show();
       this.signUpProceed = true;
 
       //create the user object that is to be sent to the REST API
@@ -75,12 +92,30 @@ export class SignUpComponent implements OnInit {
         contactNumber: this.userInfoForm.get('contactNumber').value,
         dateOfBirth: this.userInfoForm.get('dateOfBirth').value,
         emailAddress: this.userInfoForm.get('emailAddress').value,
-        password: this.passwordForm.get('firstPassword').value,
+        userPassword: this.passwordForm.get('firstPassword').value,
       }
 
+      //using form data to send a file to the server
       const signUpData: FormData = new FormData();
-      signUpData.append("userInfo", JSON.stringify(theUser));
+      signUpData.append("userProfile", JSON.stringify(theUser));
       signUpData.append("profilePic", this.loadedImage);
+
+      this.userService.createAccount(signUpData).subscribe((data: any) => {
+        if (data.code === 200) {
+          //if returned response entity has status code of 200, everything went fine.
+          this.isSuccess = true;
+        }
+        this.spinner.hide();
+      }, (error: any) => {
+        //during signup, if errors occur
+        this.isError = true;
+        if (error.error.errorCode === 409) {
+          this.errorMessage = error.error.message;
+        } else if (error.error.errorCode === 500) {
+          this.errorMessage = "An Unknown Error Occured on the Server. Please Try Again";
+        }
+        this.spinner.hide();
+      })
     } else {
       this.signUpProceed = false; //halt signup as data is invalid
     }
