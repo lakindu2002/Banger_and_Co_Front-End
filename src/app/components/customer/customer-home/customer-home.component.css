@@ -1,4 +1,11 @@
-.show-padding {
-  padding-top: 3px;
-  padding-bottom: 3px;
+.heading-fonts {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.sizing-alert {
+  width: 100%;
+  height: 60%;
+  vertical-align: middle;
+  padding-left: 4px;
 }

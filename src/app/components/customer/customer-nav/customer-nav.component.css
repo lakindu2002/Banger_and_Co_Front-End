@@ -10,6 +10,10 @@ a.nav-link.active {
   color: darkblue !important;
 }
 
+a.nav-link:hover{
+  color: darkblue !important;
+}
+
 .hover-action:hover {
   cursor: pointer;
 }
