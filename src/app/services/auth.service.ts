@@ -27,6 +27,11 @@ export class AuthService {
         //attach jwt token to session storage
         sessionStorage.setItem(environment.tokenStorage, data.headers.get("Authorization"));
       }
+
+      if (data.headers.get("Token-Expiry")) {
+        //attach jwt token to session storage
+        sessionStorage.setItem(environment.tokenExpiration, data.headers.get("Token-Expiry"));
+      }
     }));
   }
 

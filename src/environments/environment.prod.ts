@@ -4,5 +4,6 @@ export const environment = {
   tokenStorage: "token",
   userInfoStorage: "user_details",
   customerRole: "customer",
-  administratorRole: "administrator"
+  administratorRole: "administrator",
+  tokenExpiration: "token-expiration"
 };
