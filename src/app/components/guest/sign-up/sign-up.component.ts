@@ -5,6 +5,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ErrorResponse } from 'src/app/models/errorresponse.model';
 import { User } from 'src/app/models/user.model';
+import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 import { PopUpNotificationComponent } from '../../shared/pop-up-notification/pop-up-notification.component';
 
@@ -32,7 +33,8 @@ export class SignUpComponent implements OnInit {
     private modalRef: BsModalRef,
     private spinner: NgxSpinnerService,
     private userService: UserService,
-    private modalService: BsModalService) { }
+    private modalService: BsModalService,
+    private authService: AuthService) { }
 
   ngOnInit(): void {
     this.signUpProceed = true;
@@ -111,7 +113,8 @@ export class SignUpComponent implements OnInit {
               headerMessage: "Account Successfully Created", //passing the modal header text
               isSuccess: true, //used to load the pass/fail data
               errorList: null,
-              errorMessage: null
+              errorMessage: null,
+              successMessage: "Your account has been created. Log in to access your account. You will recieve an email with confirmation"
             },
             keyboard: false, //disable esc dismiss
             ignoreBackdropClick: true //disable backdrop exit

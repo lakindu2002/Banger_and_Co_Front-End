@@ -18,7 +18,6 @@ export class AuthService {
     return this.http.post(`${this.baseURL}/login`, user, {
       observe: "response"
     }).pipe(tap((data: any) => {
-      console.log(data.headers);
       if (data.body) {
         //attach the user obj to session storage
         sessionStorage.setItem(environment.userInfoStorage, JSON.stringify(data.body.user_info));
@@ -32,7 +31,7 @@ export class AuthService {
   }
 
   guideToModule(loggedInUser: User) {
-    switch (loggedInUser.userRole.roleName.toLowerCase()) {
+    switch (loggedInUser.userRole.toLowerCase()) {
       case environment.customerRole: {
         this.router.navigate(['/customer']);
         break;

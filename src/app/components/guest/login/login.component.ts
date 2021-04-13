@@ -43,11 +43,10 @@ export class LoginComponent implements OnInit {
       const authReq: AuthRequest = this.theForm.value; //construct a request DTO
 
       this.authService.authenticateUser(authReq).subscribe((data: any) => {
-        //call the login endpoind in the Spring Boot Backend
+        //call the login endpoint in the Spring Boot Backend
         if (data.body.response.code === 200 && data.body.user_info) {
           //if the response body has a OK response code and a valid User Object
           const loggedInUser: User = data.body.user_info;
-          console.log(loggedInUser);
           this.authService.guideToModule(loggedInUser); //redirect the user to their components
           this.modalRef.hide();
         }

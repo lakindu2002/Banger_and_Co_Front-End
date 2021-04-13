@@ -1,5 +1,3 @@
-import { UserRole } from "./userrole.model";
-
 export interface User {
   emailAddress: string,
   firstName: string,
@@ -9,5 +7,5 @@ export interface User {
   contactNumber: string,
   profilePicture?: File | string,
   isBlackListed?: boolean,
-  userRole?: UserRole
+  userRole?: string
 }
