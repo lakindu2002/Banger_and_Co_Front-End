@@ -1,7 +1,9 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ErrorResponse } from 'src/app/models/errorresponse.model';
 import { Inquiry } from 'src/app/models/inquiry.model';
 import { ResponseAPI } from 'src/app/models/response.model';
 import { InquiryService } from 'src/app/services/inquiry.service';
@@ -64,14 +66,15 @@ export class ContactUsComponent implements OnInit {
           this.spinner.hide();
         }
 
-      }, (returnedError: any) => {
+      }, (returnedError: HttpErrorResponse) => {
+        const errorResponse: ErrorResponse = returnedError.error;
         this.modalRef = this.modalService.show(ContactUsStateComponent, {
           class: 'modal-dialog-centered', //center the dialog on load
           initialState: {
             headerMessage: "Inquiry Did Not Submit Successfully", //passing the modal header text
             isSuccess: false, //used to load the pass/fail data
-            errorList: returnedError.error.multipleErrors,
-            errorMessage: returnedError.error.message
+            errorList: errorResponse.multipleErrors,
+            errorMessage: errorResponse.message
           },
           keyboard: false, //disable esc dismiss
           ignoreBackdropClick: true //disable backdrop exit

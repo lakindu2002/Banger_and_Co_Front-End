@@ -1,8 +1,10 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthRequest } from 'src/app/models/AuthRequest.model';
+import { ErrorResponse } from 'src/app/models/errorresponse.model';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { SignUpComponent } from '../sign-up/sign-up.component';
@@ -15,6 +17,8 @@ import { SignUpComponent } from '../sign-up/sign-up.component';
 export class LoginComponent implements OnInit {
 
   theForm: FormGroup;
+  errorMessage: string;
+  isError: boolean = false;
 
   constructor(private modalRef: BsModalRef, private modalService: BsModalService, private authService: AuthService, private spinner: NgxSpinnerService) { }
 
@@ -32,6 +36,8 @@ export class LoginComponent implements OnInit {
   handleLogin() {
     //initiate login
     if (this.theForm.valid) {
+      this.errorMessage = "";
+      this.isError = false;
       //only if form is valid executed
       this.spinner.show(); //show spinner
       const authReq: AuthRequest = this.theForm.value; //construct a request DTO
@@ -46,9 +52,17 @@ export class LoginComponent implements OnInit {
           this.modalRef.hide();
         }
         this.spinner.hide();
-      }, (error) => {
+      }, (error: HttpErrorResponse) => {
+        this.isError = true;
         //if error, halt process and stop spinner
-        console.log(error);
+        const errorResponse: ErrorResponse = error.error;
+        if (errorResponse) {
+          if (errorResponse.errorCode === 500 && errorResponse.exceptionMessage.toLocaleLowerCase() === "bad credentials") {
+            this.errorMessage = "Invalid Email Address or Password";
+          } else {
+            this.errorMessage = "An Internal Error Occured. Please Try Again";
+          }
+        }
         this.spinner.hide();
       })
     }

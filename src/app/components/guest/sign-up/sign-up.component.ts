@@ -1,7 +1,9 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ErrorResponse } from 'src/app/models/errorresponse.model';
 import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/services/user.service';
 import { PopUpNotificationComponent } from '../../shared/pop-up-notification/pop-up-notification.component';
@@ -114,14 +116,16 @@ export class SignUpComponent implements OnInit {
             keyboard: false, //disable esc dismiss
             ignoreBackdropClick: true //disable backdrop exit
           })
+          this.modalRef.hide(); //hide sign up modal
         }
         this.spinner.hide();
-      }, (error: any) => {
+      }, (error: HttpErrorResponse) => {
+        const errorResponse: ErrorResponse = error.error;
         //during signup, if errors occur
         let errorMessage: string = "";
-        if (error.error.errorCode === 409) {
-          errorMessage = error.error.message
-        } else if (error.error.errorCode === 500) {
+        if (errorResponse.errorCode === 409) {
+          errorMessage = errorResponse.message
+        } else if (errorResponse.errorCode === 500) {
           errorMessage = "An Unknown Error Occured on the Server. Please Try Again"
         }
         this.modalService.show(PopUpNotificationComponent, {

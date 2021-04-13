@@ -5,3 +5,14 @@
 .fonts {
   font-weight: 500;
 }
+
+.error-message{
+  text-align: center;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: rgba(240, 128, 128, 0.795);
+  color:rgba(0, 0, 0, 0.808);
+  margin: 5px 0px 10px 0px;
+  border: 1px solid red;
+
+}
