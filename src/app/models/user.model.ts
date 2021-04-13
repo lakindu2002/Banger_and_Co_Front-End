@@ -1,10 +1,13 @@
+import { UserRole } from "./userrole.model";
+
 export interface User {
   emailAddress: string,
   firstName: string,
   lastName: string,
   dateOfBirth: Date,
-  userPassword: string,
+  userPassword?: string,
   contactNumber: string,
-  profilePicture?: File,
+  profilePicture?: File | string,
   isBlackListed?: boolean,
+  userRole?: UserRole
 }

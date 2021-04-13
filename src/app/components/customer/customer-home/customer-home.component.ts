@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-customer-home',
@@ -9,6 +10,7 @@ export class CustomerHomeComponent implements OnInit {
 
   greeting: string = "";
   fullName: string = "";
+  loggedInUser: User;
 
   constructor() { }
 
@@ -16,7 +18,11 @@ export class CustomerHomeComponent implements OnInit {
     document.title = "Banger and Co. - Rent a Vehicle Now";
 
     this.generateGreeting();
-    this.fullName = "John Doe";
+
+    if (sessionStorage.getItem("user_details")) {
+      this.loggedInUser = JSON.parse(sessionStorage.getItem("user_details"))
+      this.fullName = `${this.loggedInUser.firstName} ${this.loggedInUser.lastName}`
+    }
   }
 
   generateGreeting() {

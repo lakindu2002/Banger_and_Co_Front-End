@@ -6,7 +6,13 @@ const routes: Routes = [
   {
     path: 'home',
     component: CustomerHomeComponent
-  }
+  },
+  {
+    path: '',
+    redirectTo: '/customer/home',
+    pathMatch: 'full',
+    //direct base path route to "home"
+  },
 ];
 
 @NgModule({
