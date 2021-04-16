@@ -36,6 +36,7 @@ export class AuthService {
   }
 
   guideToModule(loggedInUser: User) {
+    console.log(loggedInUser.userRole)
     switch (loggedInUser.userRole.toLowerCase()) {
       case environment.customerRole: {
         this.router.navigate(['/customer']);

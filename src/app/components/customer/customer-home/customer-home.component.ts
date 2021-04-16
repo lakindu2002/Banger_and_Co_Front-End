@@ -21,7 +21,7 @@ export class CustomerHomeComponent implements OnInit {
 
     if (sessionStorage.getItem("user_details")) {
       this.loggedInUser = JSON.parse(sessionStorage.getItem("user_details"))
-      this.fullName = `${this.loggedInUser.firstName} ${this.loggedInUser.lastName}`
+      this.fullName = `${this.loggedInUser.firstName}`
     }
   }
 

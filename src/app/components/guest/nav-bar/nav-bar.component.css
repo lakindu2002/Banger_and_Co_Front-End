@@ -14,6 +14,10 @@ a.nav-link:hover{
   color: darkblue !important;
 }
 
+a.nav-link{
+  transition: color 0.5s;
+}
+
 .hover-action:hover {
   cursor: pointer;
 }

@@ -20,12 +20,12 @@
     </div>
   </div>
 
-  <div class="box mb-4">
+  <div class="box mb-4" style="background-color: white; border-radius: 10px;">
     <div class="row">
       <div class="col-sm-3 align-center">
         <div class="row">
           <div class="col-sm-12" style="text-align: center;">
-            <img src="../../../../assets/contactus_envelope.png" width="200" height="200" class="ml-3"
+            <img src="../../../../assets/contactus_envelope.png" width="150" height="150" class="ml-3"
               style="text-align: center;">
           </div>
         </div>
@@ -46,7 +46,7 @@
               <div class="row">
                 <div class="col-sm-5">
                   <div class="form-group">
-                    <label for="firstNameInput"><b class="weight">First Name</b></label>
+                    <label for="firstNameInput"><b class="fonts">First Name</b></label>
                     <input type="text" id="firstNameInput" class="form-control"
                       placeholder="Enter Your First Name (Required)" [formControlName]="'firstName'">
                     <span class="form-error"
@@ -56,7 +56,7 @@
                 </div>
                 <div class="col-sm-7">
                   <div class="form-group">
-                    <label for="lastNameInput"><b class="weight">Last Name</b></label>
+                    <label for="lastNameInput"><b class="fonts">Last Name</b></label>
                     <input type="text" id="lastNameInput" class="form-control"
                       placeholder="Enter Your Last Name (Required)" [formControlName]="'lastName'">
                     <span class="form-error"
@@ -69,7 +69,7 @@
               <div class="row">
                 <div class="col-sm-5">
                   <div class="form-group">
-                    <label for="contactNumberInput"><b class="weight">Contact Number</b></label>
+                    <label for="contactNumberInput"><b class="fonts">Contact Number</b></label>
                     <input type="text" id="contactNumberInput" class="form-control"
                       placeholder="Enter Your Contact Number (Required)" [formControlName]="'contactNumber'"
                       maxlength="20">
@@ -82,7 +82,7 @@
                 </div>
                 <div class="col-sm-7">
                   <div class="form-group">
-                    <label for="emailAddressInput"><b class="weight">Email Address</b></label>
+                    <label for="emailAddressInput"><b class="fonts">Email Address</b></label>
                     <input type="email" id="emailAddressInput" class="form-control"
                       placeholder="Enter Your Email Here (Required)" [formControlName]="'emailAddress'">
                     <span class="form-error"
@@ -95,7 +95,7 @@
               <div class="row">
                 <div class="col-sm-12">
                   <div class="form-group">
-                    <label for="subjectInputField"><b class="weight">Subject</b></label>
+                    <label for="subjectInputField"><b class="fonts">Subject</b></label>
                     <input type="text" placeholder="Provide Your Inquiry Heading Here (Required - Maximum 1000 Characters)"
                       id="subjectInputField" class="form-control" [formControlName]="'subject'" maxlength="1000">
                     <span class="form-error"
@@ -108,7 +108,7 @@
               <div class="row">
                 <div class="col-sm-12">
                   <div class="form-group">
-                    <label for="messageInputField"><b class="weight">Message</b></label>
+                    <label for="messageInputField"><b class="fonts">Message</b></label>
                     <textarea id="messageInputField" class="form-control additional-fomatting-textarea" rows="6"
                       col="12" placeholder="State Your Inquiry Here (Required - Maximum 1000 Characters)"
                       [formControlName]="'message'" maxlength="1000"></textarea>
