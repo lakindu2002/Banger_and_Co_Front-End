@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
 import { User } from 'src/app/models/user.model';
+import { AuthService } from 'src/app/services/auth.service';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-customer-home',
@@ -9,7 +11,6 @@ import { User } from 'src/app/models/user.model';
 export class CustomerHomeComponent implements OnInit {
 
   greeting: string = "";
-  fullName: string = "";
   loggedInUser: User;
 
   constructor() { }
@@ -18,14 +19,10 @@ export class CustomerHomeComponent implements OnInit {
     document.title = "Banger and Co. - Rent a Vehicle Now";
 
     this.generateGreeting();
-
-    if (sessionStorage.getItem("user_details")) {
-      this.loggedInUser = JSON.parse(sessionStorage.getItem("user_details"))
-      this.fullName = `${this.loggedInUser.firstName}`
-    }
+    this.loggedInUser = localStorage.getItem(environment.userInfoStorage) ? JSON.parse(localStorage.getItem(environment.userInfoStorage)) : null;
   }
 
-  generateGreeting() {
+  generateGreeting(): void{
     const currentHour = new Date().getHours(); //retrieves the current hours (0 to 23)
     if (currentHour < 12) {
       //if time is between 0am to 12pm

@@ -18,14 +18,14 @@
         <div class="btn-group" dropdown>
           <!-- dropdown used to denote the drop down section, placed on a button group to denote a collection of buttons -->
           <li class="nav-item p-1 user-handler">
-            <span dropdownToggle>
-              <!-- dropdownToggle used to denote the item that triggers the dropdown on/off -->
-              <img *ngIf="loggedInUser"
-                [src]="profilePicString"
-                width="45" height="55" style="border-radius: 50%;">
-              <span class="ml-2" *ngIf="loggedInUser">{{loggedInUser.firstName}} {{loggedInUser.lastName}}</span>
-              <i class="fas fa-caret-down ml-2"></i>
-            </span>
+            <div style="display: inline-block;" dropdownToggle>
+              <span>
+                <!-- dropdownToggle used to denote the item that triggers the dropdown on/off -->
+                <img *ngIf="loggedInUser" [src]="profilePicString" width="45" height="55" style="border-radius: 50%;">
+                <span class="ml-2" *ngIf="loggedInUser">{{loggedInUser.firstName}} {{loggedInUser.lastName}}</span>
+                <i class="fas fa-caret-down ml-2"></i>
+              </span>
+            </div>
 
             <!-- structual directive denoted to show what is created on DOM once dropdown is triggered -->
             <ul *dropdownMenu class="dropdown-menu">

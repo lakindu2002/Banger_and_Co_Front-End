@@ -34,7 +34,7 @@ export class ContactUsComponent implements OnInit {
     })
   }
 
-  processInquirySubmit() {
+  processInquirySubmit(): void {
     if (this.theForm.valid) {
       this.spinner.show(); //show the loading bar
 

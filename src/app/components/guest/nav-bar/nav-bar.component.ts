@@ -17,7 +17,7 @@ export class NavBarComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  openSignUp() {
+  openSignUp(): void {
     this.openedModal = this.modalService.show(SignUpComponent, {
       class: 'modal-lg modal-dialog-centered',
       ignoreBackdropClick: true,
@@ -25,7 +25,7 @@ export class NavBarComponent implements OnInit {
     })
   }
 
-  openLogin() {
+  openLogin(): void {
     this.openedModal = this.modalService.show(LoginComponent, {
       keyboard: false,
       ignoreBackdropClick: true,

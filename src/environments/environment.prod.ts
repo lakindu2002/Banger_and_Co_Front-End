@@ -3,7 +3,7 @@ export const environment = {
   apiBaseUrl: "http://localhost:8080",
   tokenStorage: "token",
   userInfoStorage: "user_details",
-  customerRole: "customer",
   administratorRole: "administrator",
-  tokenExpiration: "token-expiration"
+  tokenExpiration: "token-expiration",
+  customerRole:"customer"
 };

@@ -6,7 +6,6 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ErrorResponse } from 'src/app/models/errorresponse.model';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
-import { UserService } from 'src/app/services/user.service';
 import { PopUpNotificationComponent } from '../../shared/pop-up-notification/pop-up-notification.component';
 
 @Component({
@@ -32,7 +31,6 @@ export class SignUpComponent implements OnInit {
   constructor(
     private modalRef: BsModalRef,
     private spinner: NgxSpinnerService,
-    private userService: UserService,
     private modalService: BsModalService,
     private authService: AuthService) { }
 
@@ -45,7 +43,7 @@ export class SignUpComponent implements OnInit {
       'firstName': new FormControl(null, [Validators.required]),
       'lastName': new FormControl(null, [Validators.required]),
       'emailAddress': new FormControl(null, [Validators.email, Validators.required]),
-      'username':new FormControl(null,[Validators.required]),
+      'username': new FormControl(null, [Validators.required]),
       'contactNumber': new FormControl(null, [Validators.required, Validators.pattern("^[0-9]+$"), Validators.minLength(10)],),
       'dateOfBirth': new FormControl(null, [Validators.required])
     })
@@ -56,11 +54,11 @@ export class SignUpComponent implements OnInit {
     })
   }
 
-  closeModal() {
+  closeModal(): void {
     this.modalRef.hide();
   }
 
-  fileLoaded(fileSelected: File) {
+  fileLoaded(fileSelected: File): void {
     if (fileSelected) {
       this.imageSizeExceeded = true;
       if (fileSelected.size <= 100000) {
@@ -83,7 +81,7 @@ export class SignUpComponent implements OnInit {
     }
   }
 
-  createAccount() {
+  createAccount(): void {
     this.signUpProceed = true;
 
     if (this.userInfoForm.valid && this.passwordForm.valid && this.imageLoaded) {
@@ -98,7 +96,7 @@ export class SignUpComponent implements OnInit {
         dateOfBirth: this.userInfoForm.get('dateOfBirth').value,
         emailAddress: this.userInfoForm.get('emailAddress').value,
         userPassword: this.passwordForm.get('firstPassword').value,
-        username:this.userInfoForm.get('username').value
+        username: this.userInfoForm.get('username').value
       }
 
       //using form data to send a file to the server
@@ -106,7 +104,7 @@ export class SignUpComponent implements OnInit {
       signUpData.append("userProfile", JSON.stringify(theUser));
       signUpData.append("profilePic", this.loadedImage);
 
-      this.userService.createAccount(signUpData).subscribe((data: any) => {
+      this.authService.createAccount(signUpData).subscribe((data: any) => {
         if (data.code === 200) {
           //if returned response entity has status code of 200, everything went fine.
           this.modalService.show(PopUpNotificationComponent, {
@@ -131,7 +129,7 @@ export class SignUpComponent implements OnInit {
         let errorMessage: string = "";
         if (errorResponse.errorCode === 409) {
           errorMessage = errorResponse.message
-        } else if (errorResponse.errorCode === 500) {
+        } else{
           errorMessage = "An Unknown Error Occured on the Server. Please Try Again"
         }
         this.modalService.show(PopUpNotificationComponent, {
@@ -141,7 +139,7 @@ export class SignUpComponent implements OnInit {
             isSuccess: false, //used to load the pass/fail data
             errorList: null,
             errorMessageDetails: errorResponse.exceptionMessage,
-            errorMessage: errorResponse.message
+            errorMessage: errorMessage
           },
           keyboard: false, //disable esc dismiss
           ignoreBackdropClick: true //disable backdrop exit

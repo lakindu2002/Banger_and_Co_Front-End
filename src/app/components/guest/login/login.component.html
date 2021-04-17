@@ -11,7 +11,7 @@
         <div *ngIf="isError" class="error-message">
           {{errorMessage}}
         </div>
-        <div *ngIf="errorList.length>0" class="error-message mt-1">
+        <div *ngIf="errorList && errorList.length>0" class="error-message mt-1">
           <p style="vertical-align: middle;" *ngFor="let error of errorList">{{error.message}}</p>
         </div>
         <form (ngSubmit)="handleLogin()" [formGroup]="theForm">

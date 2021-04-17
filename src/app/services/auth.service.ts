@@ -5,53 +5,59 @@ import { AuthRequest } from "../models/AuthRequest.model";
 import { tap } from 'rxjs/operators';
 import { User } from "../models/user.model";
 import { Router } from "@angular/router";
+import { Observable, Subject } from "rxjs";
 
 @Injectable({
   providedIn: "root" //provides singleton access
 })
 export class AuthService {
-  private baseURL: string = `${environment.apiBaseUrl}/api/guest`;
+  private baseURL: string = `${environment.apiBaseUrl}/api/auth`;
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  authenticateUser(user: AuthRequest) {
+  createAccount(theUser: FormData) {
+    return this.http.post<any>(`${this.baseURL}/createAccount`, theUser);
+  }
+
+  authenticateUser(user: AuthRequest): Observable<any> {
     return this.http.post(`${this.baseURL}/login`, user, {
       observe: "response"
     }).pipe(tap((data: any) => {
       if (data.body) {
         //attach the user obj to session storage
-        sessionStorage.setItem(environment.userInfoStorage, JSON.stringify(data.body.user_info));
+        localStorage.setItem(environment.userInfoStorage, JSON.stringify(data.body.user_info));
       }
 
       if (data.headers.get("Authorization")) {
         //attach jwt token to session storage
-        sessionStorage.setItem(environment.tokenStorage, data.headers.get("Authorization"));
+        localStorage.setItem(environment.tokenStorage, data.headers.get("Authorization"));
       }
 
       if (data.headers.get("Token-Expiry")) {
         //attach jwt token to session storage
-        sessionStorage.setItem(environment.tokenExpiration, data.headers.get("Token-Expiry"));
+        localStorage.setItem(environment.tokenExpiration, data.headers.get("Token-Expiry"));
       }
     }));
   }
 
-  guideToModule(loggedInUser: User) {
-    console.log(loggedInUser.userRole)
+  guideToModule(loggedInUser: User): void {
     switch (loggedInUser.userRole.toLowerCase()) {
       case environment.customerRole: {
         this.router.navigate(['/customer']);
         break;
       }
       case environment.administratorRole: {
+        this.router.navigate(['/admin'])
         break;
       }
     }
   }
 
-  logout() {
-    //clear user info and token from session storage
-    sessionStorage.removeItem(environment.tokenStorage);
-    sessionStorage.removeItem(environment.userInfoStorage)
+  logout(): void {
+    //clear user info and token from local storage
+    localStorage.removeItem(environment.tokenStorage);
+    localStorage.removeItem(environment.userInfoStorage)
+    localStorage.removeItem(environment.tokenExpiration)
 
     this.router.navigate(["/"]);
   }

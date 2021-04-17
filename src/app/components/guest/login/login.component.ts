@@ -30,11 +30,11 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  closeModal() {
+  closeModal(): void {
     this.modalRef.hide();
   }
 
-  handleLogin() {
+  handleLogin(): void {
     //initiate login
     if (this.theForm.valid) {
       this.errorMessage = "";

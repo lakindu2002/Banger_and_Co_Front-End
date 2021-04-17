@@ -18,7 +18,7 @@ export class ContactUsStateComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  hidePopup() {
+  hidePopup(): void {
     this.modalRef.hide();
   }
 
