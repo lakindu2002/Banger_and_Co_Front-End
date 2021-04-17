@@ -11,13 +11,16 @@
         <div *ngIf="isError" class="error-message">
           {{errorMessage}}
         </div>
+        <div *ngIf="errorList.length>0" class="error-message mt-1">
+          <p style="vertical-align: middle;" *ngFor="let error of errorList">{{error.message}}</p>
+        </div>
         <form (ngSubmit)="handleLogin()" [formGroup]="theForm">
           <div class="form-group">
-            <label for="emailAddressField" class="fonts">Email Address</label>
-            <input type="email" placeholder="Enter Your Email Address (Required)" class="form-control"
-              [formControlName]="'emailAddress'" id="emailAddressField">
-            <span class="form-error" *ngIf="theForm.get('emailAddress').invalid && theForm.get('emailAddress').touched">
-              Please Provide a Valid Email Address
+            <label for="usernameField" class="fonts">Username</label>
+            <input type="email" placeholder="Enter Your Username (Required)" class="form-control"
+              [formControlName]="'username'" id="usernameField">
+            <span class="form-error" *ngIf="theForm.get('username').invalid && theForm.get('username').touched">
+              Please Provide a Valid Username
             </span>
           </div>
 

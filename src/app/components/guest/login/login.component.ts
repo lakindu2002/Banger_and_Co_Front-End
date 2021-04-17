@@ -19,12 +19,13 @@ export class LoginComponent implements OnInit {
   theForm: FormGroup;
   errorMessage: string;
   isError: boolean = false;
+  errorList: any = []
 
   constructor(private modalRef: BsModalRef, private modalService: BsModalService, private authService: AuthService, private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
     this.theForm = new FormGroup({
-      'emailAddress': new FormControl(null, [Validators.required, Validators.email]),
+      'username': new FormControl(null, [Validators.required]),
       'password': new FormControl(null, [Validators.required, Validators.minLength(6)]),
     });
   }
@@ -37,6 +38,7 @@ export class LoginComponent implements OnInit {
     //initiate login
     if (this.theForm.valid) {
       this.errorMessage = "";
+      this.errorList = [];
       this.isError = false;
       //only if form is valid executed
       this.spinner.show(); //show spinner
@@ -57,8 +59,9 @@ export class LoginComponent implements OnInit {
         const errorResponse: ErrorResponse = error.error;
         if (errorResponse) {
           if (errorResponse.errorCode === 500 && errorResponse.exceptionMessage.toLocaleLowerCase() === "bad credentials") {
-            this.errorMessage = "Invalid Email Address or Password";
+            this.errorMessage = "Invalid Username or Password";
           } else {
+            this.errorList = errorResponse.multipleErrors;
             this.errorMessage = "An Internal Error Occured. Please Try Again";
           }
         }

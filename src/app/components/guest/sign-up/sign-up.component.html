@@ -53,6 +53,20 @@
         </div>
 
         <div class="row">
+          <div class="col-sm-12">
+            <div class="form-group">
+              <label for="usernameField"><b class="fonts">Username</b></label>
+              <input type="text" class="form-control" placeholder="Enter Your Username (Required)"
+                [formControlName]="'username'" maxlength="15">
+              <span class="form-error"
+                *ngIf="userInfoForm.get('username').invalid && userInfoForm.get('username').touched">Please
+                Provide a
+                Valid Username</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
           <div class="col-sm-6">
             <div class="form-group">
               <label for="contactNumberField"><b class="fonts">Contact Number</b></label>

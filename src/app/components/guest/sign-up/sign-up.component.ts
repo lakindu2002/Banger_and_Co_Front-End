@@ -45,6 +45,7 @@ export class SignUpComponent implements OnInit {
       'firstName': new FormControl(null, [Validators.required]),
       'lastName': new FormControl(null, [Validators.required]),
       'emailAddress': new FormControl(null, [Validators.email, Validators.required]),
+      'username':new FormControl(null,[Validators.required]),
       'contactNumber': new FormControl(null, [Validators.required, Validators.pattern("^[0-9]+$"), Validators.minLength(10)],),
       'dateOfBirth': new FormControl(null, [Validators.required])
     })
@@ -97,6 +98,7 @@ export class SignUpComponent implements OnInit {
         dateOfBirth: this.userInfoForm.get('dateOfBirth').value,
         emailAddress: this.userInfoForm.get('emailAddress').value,
         userPassword: this.passwordForm.get('firstPassword').value,
+        username:this.userInfoForm.get('username').value
       }
 
       //using form data to send a file to the server
@@ -114,6 +116,7 @@ export class SignUpComponent implements OnInit {
               isSuccess: true, //used to load the pass/fail data
               errorList: null,
               errorMessage: null,
+              errorMessageDetails: null,
               successMessage: "Your account has been created. Log in to access your account. You will recieve an email with confirmation"
             },
             keyboard: false, //disable esc dismiss
@@ -137,7 +140,8 @@ export class SignUpComponent implements OnInit {
             headerMessage: "Account Creation Failed", //passing the modal header text
             isSuccess: false, //used to load the pass/fail data
             errorList: null,
-            errorMessage: errorMessage
+            errorMessageDetails: errorResponse.exceptionMessage,
+            errorMessage: errorResponse.message
           },
           keyboard: false, //disable esc dismiss
           ignoreBackdropClick: true //disable backdrop exit

@@ -25,13 +25,13 @@
         <div class="col-sm-2">
           <i class="fal fa-times-circle fail-icon ml-2"></i>
         </div>
-        <div class="col-sm-10" style="text-align: center;">
+        <div class="col-sm-10" style="text-align: left;">
           <p>{{errorMessage}}</p>
         </div>
       </div>
-      <div class="row" *ngIf="errorMessage">
+      <div class="row" *ngIf="errorMessageDetails">
         <div class="col-sm-12" style="text-align: center; color: red; font-size: 14px;">
-          {{errorMessage | titlecase}}
+          {{errorMessageDetails | titlecase}}
         </div>
       </div>
       <div class="row justify-content-center" *ngIf="errorList">

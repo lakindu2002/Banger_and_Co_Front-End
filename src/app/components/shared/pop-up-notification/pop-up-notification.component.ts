@@ -12,6 +12,7 @@ export class PopUpNotificationComponent implements OnInit {
   isSuccess: boolean;
   errorList: { error: string, message: string }[];
   errorMessage: string;
+  errorMessageDetails: string;
   successMessage: string;
 
   constructor(private modalRef: BsModalRef) { }

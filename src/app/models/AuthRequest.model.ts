@@ -1,4 +1,4 @@
 export interface AuthRequest {
-  emailAddress: string,
+  username: string,
   password: string
 }
