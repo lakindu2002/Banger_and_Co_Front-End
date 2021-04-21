@@ -44,29 +44,29 @@ export class LoginComponent implements OnInit {
       this.spinner.show(); //show spinner
       const authReq: AuthRequest = this.theForm.value; //construct a request DTO
 
-      this.authService.authenticateUser(authReq).subscribe((data: any) => {
-        //call the login endpoint in the Spring Boot Backend
-        if (data.body.response.code === 200 && data.body.user_info) {
-          //if the response body has a OK response code and a valid User Object
-          const loggedInUser: User = data.body.user_info;
-          this.authService.guideToModule(loggedInUser); //redirect the user to their components
-          this.modalRef.hide();
+      this.authService.authenticateUser(authReq).subscribe((data) => {
+        if (data.user_info && data.response.code === 200) {
+          this.authService.guideToModule(data.user_info);
         }
+        this.modalRef.hide();
         this.spinner.hide();
-      }, (error: HttpErrorResponse) => {
-        this.isError = true;
-        //if error, halt process and stop spinner
-        const errorResponse: ErrorResponse = error.error;
-        if (errorResponse) {
-          if (errorResponse.errorCode === 500 && errorResponse.exceptionMessage.toLocaleLowerCase() === "bad credentials") {
-            this.errorMessage = "Invalid Username or Password";
-          } else {
-            this.errorList = errorResponse.multipleErrors;
-            this.errorMessage = "An Internal Error Occured. Please Try Again";
+      },
+        (error: HttpErrorResponse) => {
+          this.isError = true;
+          const errorObj: ErrorResponse = error.error;
+
+          if (errorObj) {
+            if (errorObj.exceptionMessage.toLowerCase() === "bad credentials") {
+              this.errorMessage = "Invalid Username or Password";
+              this.errorList = errorObj.multipleErrors;
+            } else {
+              this.errorList = errorObj.multipleErrors;
+              this.errorMessage = "An Unknown Error Occured On Our End. Please Try Again";
+            }
           }
-        }
-        this.spinner.hide();
-      })
+
+          this.spinner.hide();
+        });
     }
   }
 

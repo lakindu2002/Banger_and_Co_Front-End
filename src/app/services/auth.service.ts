@@ -1,11 +1,11 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment.prod";
 import { AuthRequest } from "../models/AuthRequest.model";
-import { tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { User } from "../models/user.model";
 import { Router } from "@angular/router";
-import { Observable, Subject } from "rxjs";
+import { Observable, pipe } from "rxjs";
 
 @Injectable({
   providedIn: "root" //provides singleton access
@@ -37,6 +37,8 @@ export class AuthService {
         //attach jwt token to session storage
         localStorage.setItem(environment.tokenExpiration, data.headers.get("Token-Expiry"));
       }
+    }), map((data:any) => {
+      return data.body;
     }));
   }
 
