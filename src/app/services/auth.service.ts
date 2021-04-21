@@ -58,11 +58,21 @@ export class AuthService {
 
   logout(): void {
     //clear user info and token from local storage
-    localStorage.removeItem(environment.tokenStorage);
-    localStorage.removeItem(environment.userInfoStorage)
-    localStorage.removeItem(environment.tokenExpiration)
+    this.clearLocalStorage();
 
     this.router.navigate(["/"]);
+  }
+
+  clearLocalStorage(): void {
+    if (localStorage.getItem(environment.tokenStorage)) {
+      localStorage.removeItem(environment.tokenStorage);
+    }
+    if (localStorage.getItem(environment.userInfoStorage)) {
+      localStorage.removeItem(environment.userInfoStorage)
+    }
+    if (localStorage.getItem(environment.tokenExpiration)) {
+      localStorage.removeItem(environment.tokenExpiration)
+    }
   }
 
   isLoggedIn(): boolean {

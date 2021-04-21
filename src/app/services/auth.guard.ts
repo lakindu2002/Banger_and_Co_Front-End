@@ -13,35 +13,28 @@ export class AuthGuard implements CanActivate {
   constructor(private authService: AuthService, private localStorageService: LocalStorageService, private router: Router) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-    const isLoggedIn = this.authService.isLoggedIn();
-    const user = this.localStorageService.getUserInLocalStorage();
+    const isLoggedIn = this.authService.isLoggedIn(); //check if user is logged in
+    const user = this.localStorageService.getUserInLocalStorage(); //retrieve logged in user
 
-    if (isLoggedIn === false && !user) {
-      if (route.url[0].path === "customer" || route.url[0].path === "admin") {
-        return false;
-      } else {
+
+    if (user && isLoggedIn === true) {
+      const role: string = user.userRole;
+      if (route.url[0].path === "customer" && role === "customer") {
+        //if user role is customer and base path is "customer", give access
+        return true;
+      } else if (route.url[0].path === "admin" && role === "administrator") {
+        //else check if path is admin and role is administrator, give access
         return true;
       }
     } else {
-      if (user && isLoggedIn === true) {
-        const role: string = user.userRole;
-        if (route.url[0].path !== "customer" && role === "customer") {
-          this.router.navigate(['/customer']);
-          return false;
-        } else if (route.url[0].path === "admin" && role === "administrator") {
-          this.router.navigate(['/admin']);
-          return false;
-        } else if (route.url[0].path === "customer" && role === "customer") {
-          //if user role is customer and base path is "customer", give access
-          return true;
-        } else if (route.url[0].path === "admin" && role === "administrator") {
-          //else check if path is admin and role is administrator, give access
-          return true;
-        }
-      } else {
-        this.router.navigate(['/']);
+      if (route.url[0].path === "customer" || route.url[0].path === "admin") {
+        this.authService.clearLocalStorage();
+        this.router.navigate(['/']); //if user tries to access protected route while logged out, deny acceess
         return false;
+      } else {
+        return true; //if the user tries to access an unprotected route while being logged out
       }
     }
+
   }
 }
