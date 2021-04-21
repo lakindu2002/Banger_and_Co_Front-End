@@ -96,7 +96,7 @@ export class SignUpComponent implements OnInit {
         dateOfBirth: this.userInfoForm.get('dateOfBirth').value,
         emailAddress: this.userInfoForm.get('emailAddress').value,
         userPassword: this.passwordForm.get('firstPassword').value,
-        username: this.userInfoForm.get('username').value
+        username: this.userInfoForm.get('username').value,
       }
 
       //using form data to send a file to the server

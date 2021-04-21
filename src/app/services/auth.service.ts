@@ -1,11 +1,12 @@
-import { HttpClient, HttpResponse } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment.prod";
 import { AuthRequest } from "../models/AuthRequest.model";
 import { map, tap } from 'rxjs/operators';
 import { User } from "../models/user.model";
 import { Router } from "@angular/router";
-import { Observable, pipe } from "rxjs";
+import { Observable } from "rxjs";
+import { LocalStorageService } from "./localstorage.service";
 
 @Injectable({
   providedIn: "root" //provides singleton access
@@ -13,7 +14,7 @@ import { Observable, pipe } from "rxjs";
 export class AuthService {
   private baseURL: string = `${environment.apiBaseUrl}/api/auth`;
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private localStorageService : LocalStorageService) { }
 
   createAccount(theUser: FormData) {
     return this.http.post<any>(`${this.baseURL}/createAccount`, theUser);
@@ -24,18 +25,18 @@ export class AuthService {
       observe: "response"
     }).pipe(tap((data: any) => {
       if (data.body) {
-        //attach the user obj to session storage
-        localStorage.setItem(environment.userInfoStorage, JSON.stringify(data.body.user_info));
+        //attach the user obj to local storage
+        this.localStorageService.setUserInLocalStorage(data.body.user_info);
       }
 
       if (data.headers.get("Authorization")) {
-        //attach jwt token to session storage
-        localStorage.setItem(environment.tokenStorage, data.headers.get("Authorization"));
+        //attach jwt token to local storage
+        this.localStorageService.setToken(data.headers.get("Authorization"))
       }
 
       if (data.headers.get("Token-Expiry")) {
         //attach jwt token to session storage
-        localStorage.setItem(environment.tokenExpiration, data.headers.get("Token-Expiry"));
+        this.localStorageService.setTokenExpiry(data.headers.get("Token-Expiry"));
       }
     }), map((data:any) => {
       return data.body;

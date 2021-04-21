@@ -56,9 +56,11 @@ export class LoginComponent implements OnInit {
           const errorObj: ErrorResponse = error.error;
 
           if (errorObj) {
-            if (errorObj.exceptionMessage.toLowerCase() === "bad credentials") {
-              this.errorMessage = "Invalid Username or Password";
-              this.errorList = errorObj.multipleErrors;
+            if (errorObj.exceptionMessage) {
+              if (errorObj.exceptionMessage.toLowerCase() === "bad credentials") {
+                this.errorMessage = "Invalid Username or Password";
+                this.errorList = errorObj.multipleErrors;
+              }
             } else {
               this.errorList = errorObj.multipleErrors;
               this.errorMessage = "An Unknown Error Occured On Our End. Please Try Again";

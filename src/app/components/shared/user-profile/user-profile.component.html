@@ -5,23 +5,23 @@
   </button>
 </div>
 
-<div class="modal-body">
+<div class="modal-body" *ngIf="loggedInUser">
 
   <div class="row">
     <div class="col-sm-2">
-      <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-      width="85" height="85" style="border-radius: 50%; margin-left: 10px; margin-bottom: 10px;">
+      <img [src]="profilePhotoUrl" width="75" height="85"
+        style="border-radius: 50%; margin-left: 10px; margin-bottom: 10px;">
     </div>
     <div class="col-sm-5">
       <div class="form-group">
         <label><b class="fonts">First Name</b></label>
-        <input type="text" readonly value="John" class="form-control">
+        <input type="text" readonly [value]="loggedInUser.firstName" class="form-control">
       </div>
     </div>
     <div class="col-sm-5">
       <div class="form-group">
         <label><b class="fonts">Last Name</b></label>
-        <input type="text" readonly value="Doe" class="form-control">
+        <input type="text" readonly [value]="loggedInUser.lastName" class="form-control">
       </div>
     </div>
   </div>
@@ -30,7 +30,7 @@
     <div class="col-sm-12">
       <div class="form-group">
         <label><b class="fonts">Email Address</b></label>
-        <input type="email" readonly value="johndoe@gmail.com" class="form-control">
+        <input type="email" readonly [value]="loggedInUser.emailAddress" class="form-control">
       </div>
     </div>
   </div>
@@ -39,7 +39,7 @@
     <div class="col-sm-4">
       <div class="form-group">
         <label><b class="fonts">Date of Birth</b></label>
-        <input type="text" readonly value="03/22/2020" class="form-control">
+        <input type="text" readonly [value]="loggedInUser.dateOfBirth" class="form-control">
       </div>
     </div>
 
@@ -53,7 +53,7 @@
     <div class="col-sm-4">
       <div class="form-group">
         <label><b class="fonts">Contact Number</b></label>
-        <input type="text" value="0777785236" class="form-control">
+        <input type="text" [value]="loggedInUser.contactNumber" class="form-control">
       </div>
     </div>
   </div>

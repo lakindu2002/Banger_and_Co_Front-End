@@ -25,7 +25,7 @@ export class CustomerNavComponent implements OnInit {
   ngOnInit(): void {
     const userString = localStorage.getItem(environment.userInfoStorage);
     this.loggedInUser = userString ? JSON.parse(userString) : null;
-    this.profilePicString = this.loggedInUser ? `data:image/jpeg;base64,${this.loggedInUser.profilePicture}` : null;
+    this.profilePicString = this.loggedInUser ? `${environment.profilePhotoBase}${this.loggedInUser.profilePicture}` : null;
 
   }
 
