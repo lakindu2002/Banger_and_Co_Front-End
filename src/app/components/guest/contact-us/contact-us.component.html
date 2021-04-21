@@ -72,7 +72,7 @@
                     <label for="contactNumberInput"><b class="fonts">Contact Number</b></label>
                     <input type="text" id="contactNumberInput" class="form-control"
                       placeholder="Enter Your Contact Number (Required)" [formControlName]="'contactNumber'"
-                      maxlength="20">
+                      maxlength="10">
                     <span class="form-error"
                       *ngIf="theForm.get('contactNumber').invalid && theForm.get('contactNumber').touched">Please
                       Provide

@@ -14,7 +14,7 @@ import { LocalStorageService } from "./localstorage.service";
 export class AuthService {
   private baseURL: string = `${environment.apiBaseUrl}/api/auth`;
 
-  constructor(private http: HttpClient, private router: Router, private localStorageService : LocalStorageService) { }
+  constructor(private http: HttpClient, private router: Router, private localStorageService: LocalStorageService) { }
 
   createAccount(theUser: FormData) {
     return this.http.post<any>(`${this.baseURL}/createAccount`, theUser);
@@ -38,7 +38,7 @@ export class AuthService {
         //attach jwt token to session storage
         this.localStorageService.setTokenExpiry(data.headers.get("Token-Expiry"));
       }
-    }), map((data:any) => {
+    }), map((data: any) => {
       return data.body;
     }));
   }
@@ -63,5 +63,18 @@ export class AuthService {
     localStorage.removeItem(environment.tokenExpiration)
 
     this.router.navigate(["/"]);
+  }
+
+  isLoggedIn(): boolean {
+    const token: string = this.localStorageService.getToken();
+    const tokenExpiration: string = this.localStorageService.getExpiry();
+
+    if (token && tokenExpiration) {
+      //if token starts with "Bearer " and is not expired return true
+      return token.startsWith("Bearer ") && Number.parseInt(tokenExpiration) > new Date().getTime();
+    } else {
+      //if token is not present in local storage, do not give access
+      return false;
+    }
   }
 }

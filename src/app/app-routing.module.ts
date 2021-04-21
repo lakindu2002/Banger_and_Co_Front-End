@@ -4,23 +4,28 @@ import { AboutUsComponent } from "./components/guest/about-us/about-us.component
 import { ContactUsComponent } from "./components/guest/contact-us/contact-us.component";
 import { HomeComponent } from "./components/guest/home/home.component";
 import { PageNotFoundComponent } from "./components/shared/page-not-found/page-not-found.component";
+import { AuthGuard } from "./services/auth.guard";
 
 const routes: Routes = [
   {
     path: 'home',
-    component: HomeComponent
+    component: HomeComponent,
+    canActivate:[AuthGuard]
   },
   {
     path: 'contactus',
-    component: ContactUsComponent
+    component: ContactUsComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'aboutus',
-    component: AboutUsComponent
+    component: AboutUsComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'customer',
-    loadChildren: () => import("./components/customer/customer.module").then((module) => module.CustomerModule)
+    loadChildren: () => import("./components/customer/customer.module").then((module) => module.CustomerModule),
+    canActivate: [AuthGuard]
     //lazy loaded route to improve performance
   },
   {

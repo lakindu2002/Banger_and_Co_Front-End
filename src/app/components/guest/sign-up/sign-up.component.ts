@@ -127,10 +127,8 @@ export class SignUpComponent implements OnInit {
         const errorResponse: ErrorResponse = error.error;
         //during signup, if errors occur
         let errorMessage: string = "";
-        if (errorResponse.errorCode === 409) {
+        if (errorResponse.errorCode) {
           errorMessage = errorResponse.message
-        } else{
-          errorMessage = "An Unknown Error Occured on the Server. Please Try Again"
         }
         this.modalService.show(PopUpNotificationComponent, {
           class: 'modal-dialog-centered', //center the dialog on load
@@ -138,7 +136,7 @@ export class SignUpComponent implements OnInit {
             headerMessage: "Account Creation Failed", //passing the modal header text
             isSuccess: false, //used to load the pass/fail data
             errorList: null,
-            errorMessageDetails: errorResponse.exceptionMessage,
+            errorMessageDetails: errorResponse.errorCode === 500 ? null : errorResponse.exceptionMessage,
             errorMessage: errorMessage
           },
           keyboard: false, //disable esc dismiss
