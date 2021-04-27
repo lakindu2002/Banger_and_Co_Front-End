@@ -25,6 +25,10 @@ export class AuthGuard implements CanActivate {
       } else if (route.url[0].path === "admin" && role === "administrator") {
         //else check if path is admin and role is administrator, give access
         return true;
+      } else if (role === "customer") {
+        this.router.navigate(['/customer']);
+      } else if (role === "administrator") {
+        this.router.navigate(['/admin']);
       }
     } else {
       if (route.url[0].path === "customer" || route.url[0].path === "admin") {

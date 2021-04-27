@@ -33,7 +33,7 @@ export class CustomerNavComponent implements OnInit {
     this.modalSerivce.show(UserProfileComponent, {
       class: 'modal-lg modal-dialog-centered',
       ignoreBackdropClick: true,
-      keyboard: false
+      keyboard: false,
     })
   }
 

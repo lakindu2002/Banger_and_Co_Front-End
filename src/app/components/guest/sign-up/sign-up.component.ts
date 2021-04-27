@@ -112,9 +112,6 @@ export class SignUpComponent implements OnInit {
             initialState: {
               headerMessage: "Account Successfully Created", //passing the modal header text
               isSuccess: true, //used to load the pass/fail data
-              errorList: null,
-              errorMessage: null,
-              errorMessageDetails: null,
               successMessage: "Your account has been created. Log in to access your account. You will recieve an email with confirmation"
             },
             keyboard: false, //disable esc dismiss
@@ -124,24 +121,22 @@ export class SignUpComponent implements OnInit {
         }
         this.spinner.hide();
       }, (error: HttpErrorResponse) => {
-        const errorResponse: ErrorResponse = error.error;
-        //during signup, if errors occur
-        let errorMessage: string = "";
-        if (errorResponse.errorCode) {
-          errorMessage = errorResponse.message
-        }
-        this.modalService.show(PopUpNotificationComponent, {
-          class: 'modal-dialog-centered', //center the dialog on load
-          initialState: {
-            headerMessage: "Account Creation Failed", //passing the modal header text
-            isSuccess: false, //used to load the pass/fail data
-            errorList: null,
-            errorMessageDetails: errorResponse.errorCode === 500 ? null : errorResponse.exceptionMessage,
-            errorMessage: errorMessage
-          },
-          keyboard: false, //disable esc dismiss
-          ignoreBackdropClick: true //disable backdrop exit
-        })
+        // const errorResponse: ErrorResponse = error.error;
+        // //during signup, if errors occur
+        // let errorMessage: string = "";
+        // if (errorResponse.errorCode) {
+        //   errorMessage = errorResponse.message
+        // }
+        // this.modalService.show(PopUpNotificationComponent, {
+        //   class: 'modal-dialog-centered', //center the dialog on load
+        //   initialState: {
+        //     headerMessage: "Account Creation Failed", //passing the modal header text
+        //     errorMessageDetails: errorResponse.errorCode === 500 ? null : errorResponse.exceptionMessage,
+        //     errorMessage: errorMessage
+        //   },
+        //   keyboard: false, //disable esc dismiss
+        //   ignoreBackdropClick: true //disable backdrop exit
+        // })
         this.spinner.hide();
       })
     } else {

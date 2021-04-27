@@ -1,82 +1,101 @@
-<div class="modal-header">
-  <h5 class="modal-title">My Account Information</h5>
-  <button type="button" class="close" (click)="closeModal()">
-    <span>&times;</span>
-  </button>
-</div>
+<form [formGroup]="handleUpdateForm" (ngSubmit)="handleUpdate()">
 
-<div class="modal-body" *ngIf="loggedInUser">
+  <div class="modal-header">
+    <h5 class="modal-title">My Account Information</h5>
+    <button type="button" class="close" (click)="closeModal()">
+      <span>&times;</span>
+    </button>
+  </div>
 
-  <div class="row">
-    <div class="col-sm-2">
-      <img [src]="profilePhotoUrl" width="75" height="85"
-        style="border-radius: 50%; margin-left: 10px; margin-bottom: 10px;">
-    </div>
-    <div class="col-sm-5">
-      <div class="form-group">
-        <label><b class="fonts">First Name</b></label>
-        <input type="text" readonly [value]="loggedInUser.firstName" class="form-control">
+  <div class="modal-body" *ngIf="loggedInUser">
+    <div class="row">
+      <div class="col-sm-2">
+        <img [src]="profilePhotoUrl" width="75" height="85"
+          style="border-radius: 50%; margin-left: 10px; margin-bottom: 10px;">
+      </div>
+      <div class="col-sm-5">
+        <div class="form-group">
+          <label><b class="fonts">First Name</b></label>
+          <input type="text" readonly [value]="loggedInUser.firstName" class="form-control">
+        </div>
+      </div>
+      <div class="col-sm-5">
+        <div class="form-group">
+          <label><b class="fonts">Last Name</b></label>
+          <input type="text" readonly [value]="loggedInUser.lastName" class="form-control">
+        </div>
       </div>
     </div>
-    <div class="col-sm-5">
-      <div class="form-group">
-        <label><b class="fonts">Last Name</b></label>
-        <input type="text" readonly [value]="loggedInUser.lastName" class="form-control">
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group">
+          <label><b class="fonts">Email Address</b></label>
+          <input type="email" readonly [value]="loggedInUser.emailAddress" class="form-control">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label><b class="fonts">Date of Birth</b></label>
+          <input type="text" readonly [value]="loggedInUser.dateOfBirth" class="form-control">
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label><b class="fonts">Age</b></label>
+          <input type="number" readonly [value]="userAge" class="form-control">
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label><b class="fonts">Contact Number</b></label>
+          <input type="text" [value]="loggedInUser.contactNumber" class="form-control"
+            [formControlName]="'contactNumber'" maxlength="100">
+          <span class="form-error"
+            *ngIf="handleUpdateForm.get('contactNumber').touched && handleUpdateForm.get('contactNumber').invalid">
+            Please Provide a Valid Contact Number
+          </span>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label><b class="fonts">Password</b></label>
+          <input type="password" value="" placeholder="Provide New Password (Min 6 Characters)" class="form-control"
+            [formControlName]="'firstPassword'" (input)="validatePassword()">
+          <span class="form-error" *ngIf="!passwordValid">
+            Password Not Valid (Provide 6 Character Password in Both Fields)
+          </span>
+          <span class="form-success"
+            *ngIf="passwordValid && handleUpdateForm.get('firstPassword').value.length > 0 && handleUpdateForm.get('secondPassword').value.length > 0">
+            Passwords Match! You Can Proceed
+          </span>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label><b class="fonts">Re-Enter Password</b></label>
+          <input type="password" value="" placeholder="Re-Enter Your New Password (Min 6 Characters)"
+            class="form-control" [formControlName]="'secondPassword'" (input)="validatePassword()">
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-sm-12">
-      <div class="form-group">
-        <label><b class="fonts">Email Address</b></label>
-        <input type="email" readonly [value]="loggedInUser.emailAddress" class="form-control">
-      </div>
-    </div>
+  <div class="modal-footer">
+    <button class="btn btn-danger" style="width: 25%;" (click)="closeModal()" type="button">Dismiss</button>
+    <button class="btn btn-success" style="width: 35%;" type="submit"
+      [disabled]="handleUpdateForm.invalid || handleUpdateForm.get('contactNumber').value.length === 0 || !passwordValid
+      || ((contactBeforeUpdate === handleUpdateForm.get('contactNumber').value) && !(passwordValid && contactBeforeUpdate === handleUpdateForm.get('contactNumber').value))">Update
+      Profile</button>
   </div>
-
-  <div class="row">
-    <div class="col-sm-4">
-      <div class="form-group">
-        <label><b class="fonts">Date of Birth</b></label>
-        <input type="text" readonly [value]="loggedInUser.dateOfBirth" class="form-control">
-      </div>
-    </div>
-
-    <div class="col-sm-4">
-      <div class="form-group">
-        <label><b class="fonts">Age</b></label>
-        <input type="number" readonly [value]="userAge" class="form-control">
-      </div>
-    </div>
-
-    <div class="col-sm-4">
-      <div class="form-group">
-        <label><b class="fonts">Contact Number</b></label>
-        <input type="text" [value]="loggedInUser.contactNumber" class="form-control">
-      </div>
-    </div>
-  </div>
-
-
-  <div class="row">
-    <div class="col-sm-6">
-      <div class="form-group">
-        <label><b class="fonts">Password</b></label>
-        <input type="password" value="" placeholder="Provide New Password" class="form-control">
-      </div>
-    </div>
-
-    <div class="col-sm-6">
-      <div class="form-group">
-        <label><b class="fonts">Re-Enter Password</b></label>
-        <input type="password" value="" placeholder="Re-Enter Your New Password" class="form-control">
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal-footer">
-  <button class="btn btn-danger" style="width: 25%;" (click)="closeModal()">Dismiss</button>
-  <button class="btn btn-success" style="width: 35%;">Update Profile</button>
-</div>
+</form>

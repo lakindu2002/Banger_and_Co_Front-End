@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BsModalRef } from 'ngx-bootstrap/modal';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-pop-up-notification',
@@ -8,21 +8,15 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
 })
 export class PopUpNotificationComponent implements OnInit {
 
-  headerMessage: string;
-  isSuccess: boolean;
-  errorList: { error: string, message: string }[];
-  errorMessage: string;
-  errorMessageDetails: string;
-  successMessage: string;
+  headerMessage: string = null;
+  isSuccess: boolean = true;
+  successMessage: string = null;
 
   constructor(private modalRef: BsModalRef) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   hidePopup() {
     this.modalRef.hide();
   }
-
-
 }
