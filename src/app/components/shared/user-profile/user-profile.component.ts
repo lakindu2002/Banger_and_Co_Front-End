@@ -36,7 +36,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   getProfileInformation(username: string): void {
-    this.userService.getUserInformation("123").subscribe((data) => {
+    this.userService.getUserInformation(username).subscribe((data) => {
       this.loggedInUser = data;
       const userDateOfBirth: Date = new Date(this.loggedInUser.dateOfBirth);
       this.userAge = Math.abs(new Date(Date.now() - userDateOfBirth.getTime()).getFullYear() - 1970);
