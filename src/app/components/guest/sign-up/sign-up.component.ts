@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 import { ErrorResponse } from 'src/app/models/errorresponse.model';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
@@ -31,7 +32,7 @@ export class SignUpComponent implements OnInit {
   constructor(
     private modalRef: BsModalRef,
     private spinner: NgxSpinnerService,
-    private modalService: BsModalService,
+    private toast: ToastrService,
     private authService: AuthService) { }
 
   ngOnInit(): void {
@@ -107,36 +108,12 @@ export class SignUpComponent implements OnInit {
       this.authService.createAccount(signUpData).subscribe((data: any) => {
         if (data.code === 200) {
           //if returned response entity has status code of 200, everything went fine.
-          this.modalService.show(PopUpNotificationComponent, {
-            class: 'modal-dialog-centered', //center the dialog on load
-            initialState: {
-              headerMessage: "Account Successfully Created", //passing the modal header text
-              isSuccess: true, //used to load the pass/fail data
-              successMessage: "Your account has been created. Log in to access your account. You will recieve an email with confirmation"
-            },
-            keyboard: false, //disable esc dismiss
-            ignoreBackdropClick: true //disable backdrop exit
-          })
+          this.toast.success("Your account has been created. Log in to access your account. You will recieve an email with confirmation", "Account Created Successfully");
           this.modalRef.hide(); //hide sign up modal
         }
         this.spinner.hide();
-      }, (error: HttpErrorResponse) => {
-        // const errorResponse: ErrorResponse = error.error;
-        // //during signup, if errors occur
-        // let errorMessage: string = "";
-        // if (errorResponse.errorCode) {
-        //   errorMessage = errorResponse.message
-        // }
-        // this.modalService.show(PopUpNotificationComponent, {
-        //   class: 'modal-dialog-centered', //center the dialog on load
-        //   initialState: {
-        //     headerMessage: "Account Creation Failed", //passing the modal header text
-        //     errorMessageDetails: errorResponse.errorCode === 500 ? null : errorResponse.exceptionMessage,
-        //     errorMessage: errorMessage
-        //   },
-        //   keyboard: false, //disable esc dismiss
-        //   ignoreBackdropClick: true //disable backdrop exit
-        // })
+      }, (error: ErrorResponse) => {
+        this.toast.error(error.exceptionMessage, error.message);
         this.spinner.hide();
       })
     } else {

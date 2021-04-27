@@ -36,15 +36,18 @@ export class AuthInterceptor implements HttpInterceptor {
       let errorMessage = "";
       let multipleErrors = [];
 
+      console.log(error);
+
       let errorObj: ErrorResponse;
       if (error.error) {
         errorObj = error.error;
       } else {
         errorObj = {
-          exceptionMessage: "An Error Occurred While Processing Your Request",
-          message: "An Error Occurred",
+          exceptionMessage: "Internal Server Error",
+          message: "An Error Occurred While Processing Your Request",
           multipleErrors: [],
-          errorCode: 0
+          errorCode: 0,
+          header: "An Error Occured"
         }
       }
 
@@ -78,7 +81,13 @@ export class AuthInterceptor implements HttpInterceptor {
           errorMessage = "You do not have the permission to view this resource";
           break;
         }
+        case 409: {
+          errorMessage = errorObj.message;
+          exceptionMessage = errorObj.exceptionMessage;
+          break;
+        }
         default: {
+          errorObj.errorCode = 0;
           headerMessage = "Unknown Error Occured";
           errorMessage = "We ran in to an unexpected error. Please try again in a bit."
           break;
@@ -89,8 +98,11 @@ export class AuthInterceptor implements HttpInterceptor {
         errorCode: errorObj.errorCode,
         exceptionMessage: exceptionMessage,
         message: errorMessage,
-        multipleErrors: multipleErrors
+        multipleErrors: multipleErrors,
+        header: headerMessage
       }
+
+      console.log(errorReturn)
 
       return throwError(errorReturn);
     }));

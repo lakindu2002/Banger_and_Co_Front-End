@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 import { ErrorResponse } from 'src/app/models/errorresponse.model';
 import { Inquiry } from 'src/app/models/inquiry.model';
 import { ResponseAPI } from 'src/app/models/response.model';
@@ -19,7 +20,11 @@ export class ContactUsComponent implements OnInit {
   theForm: FormGroup;
   modalRef: BsModalRef;
 
-  constructor(private modalService: BsModalService, private inquiryService: InquiryService, private spinner: NgxSpinnerService) { }
+  constructor(
+    private modalService: BsModalService,
+    private inquiryService: InquiryService,
+    private spinner: NgxSpinnerService,
+    private toast: ToastrService) { }
 
   ngOnInit(): void {
     document.title = "Contact Us | Banger and Co."
@@ -53,32 +58,17 @@ export class ContactUsComponent implements OnInit {
         if (data.code === 200) {
           //if api provides 200 response code, show the success message
           this.theForm.reset(); //clear form
-          this.modalRef = this.modalService.show(ContactUsStateComponent, {
-            class: 'modal-dialog-centered', //center the dialog on load
-            initialState: {
-              headerMessage: "Inquiry Submitted Successfully", //passing the modal header text
-              isSuccess: true,//used to load the pass/fail data,
-              errorList: null
-            },
-            keyboard: false, //disable esc dismiss
-            ignoreBackdropClick: true //disable backdrop exit
-          })
+          this.toast.success("Your inquiry was recorded sucessfully. Our team will get back to you via email.", "Inquiry Recorded Successfully");
           this.spinner.hide();
         }
 
-      }, (returnedError: HttpErrorResponse) => {
-        const errorResponse: ErrorResponse = returnedError.error;
-        this.modalRef = this.modalService.show(ContactUsStateComponent, {
-          class: 'modal-dialog-centered', //center the dialog on load
-          initialState: {
-            headerMessage: "Inquiry Did Not Submit Successfully", //passing the modal header text
-            isSuccess: false, //used to load the pass/fail data
-            errorList: errorResponse.multipleErrors,
-            errorMessage: errorResponse.message
-          },
-          keyboard: false, //disable esc dismiss
-          ignoreBackdropClick: true //disable backdrop exit
-        })
+      }, (returnedError: ErrorResponse) => {
+        if (returnedError.multipleErrors.length > 0) {
+          for (const error of returnedError.multipleErrors) {
+            this.toast.warning(error.message);
+          }
+        }
+        this.toast.error(returnedError.message, "Inquiry Failed To Submit");
 
         this.spinner.hide();
       })

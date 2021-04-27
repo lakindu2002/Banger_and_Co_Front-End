@@ -5,6 +5,6 @@ export const environment = {
   userInfoStorage: "user_details",
   administratorRole: "administrator",
   tokenExpiration: "token-expiration",
-  customerRole:"customer",
-  profilePhotoBase:"data:image/jpeg;base64,"
+  customerRole: "customer",
+  profilePhotoBase: "data:image/jpeg;base64,",
 };

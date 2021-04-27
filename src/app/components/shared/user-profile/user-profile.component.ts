@@ -3,7 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 import { AuthReturn } from 'src/app/models/auth.return.model';
+import { ErrorResponse } from 'src/app/models/errorresponse.model';
 import { ResponseAPI } from 'src/app/models/response.model';
 import { UserUserModel } from 'src/app/models/update.user.model';
 import { User } from 'src/app/models/user.model';
@@ -32,7 +34,7 @@ export class UserProfileComponent implements OnInit {
     private userService: UserService,
     private spinner: NgxSpinnerService,
     private localStorageService: LocalStorageService,
-    private modalService: BsModalService) { }
+    private toast: ToastrService) { }
 
   ngOnInit(): void {
     if (localStorage.getItem("user_details")) {
@@ -70,8 +72,13 @@ export class UserProfileComponent implements OnInit {
 
       this.spinner.hide();
     },
-      (error: HttpErrorResponse) => {
-        console.log(error);
+      (error: ErrorResponse) => {
+        this.toast.error(error.message, error.header);
+        setTimeout(()=>{
+          //timeout used as when request occurs quickly, modal causes an async issue.
+          //in production, this can be avoided as network calls take time
+          this.modalRef.hide();
+        },150)
         this.spinner.hide();
       })
   }
@@ -104,22 +111,18 @@ export class UserProfileComponent implements OnInit {
       this.userService.updateUserInformation(updateCriteria).subscribe((data: ResponseAPI) => {
         if (data.code === 200) {
           this.modalRef.hide();
-
-          this.modalService.show(PopUpNotificationComponent, {
-            class: 'modal-dialog-centered', //center the dialog on load
-            initialState: {
-              headerMessage: "Account Details Updated", //passing the modal header text
-              isSuccess: true, //used to load the pass/fail data
-              successMessage: "Your account information has been updated successfully. You will recieve an email with confirmation"
-            },
-            keyboard: false, //disable esc dismiss
-            ignoreBackdropClick: true //disable backdrop exit
-          })
-
+          this.toast.success(
+            "Your account information has been updated successfully. You will recieve an email with confirmation",
+            "Account Details Updated");
         }
         this.spinner.hide();
-      }, (error) => {
-        this.closeModal();
+      }, (error: ErrorResponse) => {
+        if (error.multipleErrors.length > 0) {
+          for (const errors of error.multipleErrors) {
+            this.toast.warning(errors.message);
+          }
+        }
+        this.toast.error(error.message, error.header);
         this.spinner.hide();
       });
     }

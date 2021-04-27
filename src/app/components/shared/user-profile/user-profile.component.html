@@ -55,7 +55,7 @@
         <div class="form-group">
           <label><b class="fonts">Contact Number</b></label>
           <input type="text" [value]="loggedInUser.contactNumber" class="form-control"
-            [formControlName]="'contactNumber'" maxlength="100">
+            [formControlName]="'contactNumber'" maxlength="10">
           <span class="form-error"
             *ngIf="handleUpdateForm.get('contactNumber').touched && handleUpdateForm.get('contactNumber').invalid">
             Please Provide a Valid Contact Number

@@ -10,6 +10,10 @@ import { GuestModule } from './components/guest/guest.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './services/auth.interceptor.service';
 
+import { ToastrModule } from 'ngx-toastr';
+import { environment } from 'src/environments/environment.prod';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +25,18 @@ import { AuthInterceptor } from './services/auth.interceptor.service';
     AppRoutingModule,
     SharedModule,
     GuestModule,
-    HttpClientModule
+    HttpClientModule,
+    ToastrModule.forRoot({
+      autoDismiss: false,
+      closeButton: true,
+      easeTime: 750,
+      newestOnTop: true,
+      positionClass: "toast-top-right",
+      progressBar: true,
+      tapToDismiss: true,
+      timeOut: 10000,
+      progressAnimation: "increasing"
+    }), // ToastrModule added
   ],
   providers: [
     //attach the interceptor via a dependency injection

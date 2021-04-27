@@ -3,8 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 import { AuthRequest } from 'src/app/models/AuthRequest.model';
 import { ErrorResponse } from 'src/app/models/errorresponse.model';
+import { ResponseAPI } from 'src/app/models/response.model';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { SignUpComponent } from '../sign-up/sign-up.component';
@@ -17,11 +19,12 @@ import { SignUpComponent } from '../sign-up/sign-up.component';
 export class LoginComponent implements OnInit {
 
   theForm: FormGroup;
-  errorMessage: string;
-  isError: boolean = false;
-  errorList: any = []
 
-  constructor(private modalRef: BsModalRef, private modalService: BsModalService, private authService: AuthService, private spinner: NgxSpinnerService) { }
+  constructor(private modalRef: BsModalRef,
+    private modalService: BsModalService,
+    private authService: AuthService,
+    private spinner: NgxSpinnerService,
+    private toast: ToastrService) { }
 
   ngOnInit(): void {
     this.theForm = new FormGroup({
@@ -37,12 +40,10 @@ export class LoginComponent implements OnInit {
   handleLogin(): void {
     //initiate login
     if (this.theForm.valid) {
-      this.errorMessage = "";
-      this.errorList = [];
-      this.isError = false;
       //only if form is valid executed
       this.spinner.show(); //show spinner
       const authReq: AuthRequest = this.theForm.value; //construct a request DTO
+      this.theForm.reset();
 
       this.authService.authenticateUser(authReq).subscribe((data) => {
         if (data.user_info && data.response.code === 200) {
@@ -51,23 +52,13 @@ export class LoginComponent implements OnInit {
         this.modalRef.hide();
         this.spinner.hide();
       },
-        (error: HttpErrorResponse) => {
-          this.isError = true;
-          const errorObj: ErrorResponse = error.error;
-
-          if (errorObj) {
-            if (errorObj.exceptionMessage) {
-              if (errorObj.exceptionMessage.toLowerCase() === "bad credentials") {
-                this.errorMessage = "Invalid Username or Password";
-                this.errorList = errorObj.multipleErrors;
-              }
-            } else {
-              this.errorList = errorObj.multipleErrors;
-              this.errorMessage = "An Unknown Error Occured On Our End. Please Try Again";
-            }
-          }
-
+        (error: ErrorResponse) => {
           this.spinner.hide();
+          if(error.exceptionMessage.toLowerCase()==="bad credentials"){
+            error.message = "Invalid Username or Password";
+            error.header = "Authenticated Failed"
+          }
+          this.toast.error(error.message, error.header);
         });
     }
   }
