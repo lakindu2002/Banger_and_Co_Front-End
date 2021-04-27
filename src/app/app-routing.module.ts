@@ -29,6 +29,12 @@ const routes: Routes = [
     //lazy loaded route to improve performance
   },
   {
+    path: 'admin',
+    loadChildren: () => import("./components/admin/admin.module").then((module) => module.AdminModule),
+    canActivate: [AuthGuard]
+    //lazy loaded route to improve performance
+  },
+  {
     path: '',
     redirectTo: '/home',
     pathMatch: 'full',

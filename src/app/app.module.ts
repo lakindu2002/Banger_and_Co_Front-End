@@ -11,8 +11,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './services/auth.interceptor.service';
 
 import { ToastrModule } from 'ngx-toastr';
-import { environment } from 'src/environments/environment.prod';
-
 
 @NgModule({
   declarations: [

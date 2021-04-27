@@ -45,6 +45,7 @@ body {
   width: 500px;
   border-radius: 15px;
   transition: box-shadow 0.25s;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.39), 0 6px 20px 0 rgba(0, 0, 0, 0.39);
 }
 
 .toast-title{
@@ -59,7 +60,7 @@ body {
 
 .toast-container .ngx-toastr:hover{
   cursor: pointer;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.19), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 

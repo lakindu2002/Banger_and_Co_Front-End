@@ -1,0 +1,40 @@
+<nav class="navbar navbar-expand-sm navbar-light">
+  <div class="container">
+    <a class="navbar-brand p-1" [routerLink]="['/admin','home']">
+      <img src="../../../../assets/app_logo.png" width="40" height="40" alt="Banger and Co.">
+    </a>
+
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav mr-auto p-2">
+        <li class="nav-item p-1">
+          <a class="nav-link" [routerLink]="['/admin','home']" routerLinkActive="active">Home</a>
+        </li>
+
+        <li class="nav-item p-1">
+          <a class="nav-link" [routerLink]="['/customer','rentals']" routerLinkActive="active">Inquiries Lodged</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto p-2">
+        <div class="btn-group" dropdown>
+          <!-- dropdown used to denote the drop down section, placed on a button group to denote a collection of buttons -->
+          <li class="nav-item p-1 user-handler">
+            <div style="display: inline-block;" dropdownToggle>
+              <span>
+                <!-- dropdownToggle used to denote the item that triggers the dropdown on/off -->
+                <img *ngIf="loggedInUser" [src]="profilePicString" width="45" height="55" style="border-radius: 50%;">
+                <span class="ml-2" *ngIf="loggedInUser">{{loggedInUser.firstName}} {{loggedInUser.lastName}}</span>
+                <i class="fas fa-caret-down ml-2"></i>
+              </span>
+            </div>
+
+            <!-- structual directive denoted to show what is created on DOM once dropdown is triggered -->
+            <ul *dropdownMenu class="dropdown-menu">
+              <li class="dropdown-item" (click)="showProfile()">My Profile</li>
+              <li class="dropdown-item" (click)="logout()">Logout</li>
+            </ul>
+          </li>
+        </div>
+      </ul>
+    </div>
+  </div>
+</nav>
