@@ -7,7 +7,8 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './components/shared/shared.module';
 import { GuestModule } from './components/guest/guest.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './services/auth.interceptor.service';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,14 @@ import { HttpClientModule } from '@angular/common/http';
     GuestModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    //attach the interceptor via a dependency injection
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true //allow multiple interceptors
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

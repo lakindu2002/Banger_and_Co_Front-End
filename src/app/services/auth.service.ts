@@ -3,10 +3,10 @@ import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment.prod";
 import { AuthRequest } from "../models/AuthRequest.model";
 import { map, tap } from 'rxjs/operators';
-import { User } from "../models/user.model";
 import { Router } from "@angular/router";
 import { Observable } from "rxjs";
 import { LocalStorageService } from "./localstorage.service";
+import { AuthReturn } from "../models/auth.return.model";
 
 @Injectable({
   providedIn: "root" //provides singleton access
@@ -43,7 +43,7 @@ export class AuthService {
     }));
   }
 
-  guideToModule(loggedInUser: User): void {
+  guideToModule(loggedInUser: AuthReturn): void {
     switch (loggedInUser.userRole.toLowerCase()) {
       case environment.customerRole: {
         this.router.navigate(['/customer']);
