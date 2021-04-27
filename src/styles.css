@@ -40,3 +40,26 @@ body {
 .cdk-overlay-container {
   z-index: 1200;
 }
+
+.toast-container .ngx-toastr{
+  width: 500px;
+  border-radius: 15px;
+  transition: box-shadow 0.25s;
+}
+
+.toast-title{
+  font-weight: 400;
+  font-size: 20px;
+}
+
+.toast-message{
+  font-size: 16px;
+  font-weight: 300;
+}
+
+.toast-container .ngx-toastr:hover{
+  cursor: pointer;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+

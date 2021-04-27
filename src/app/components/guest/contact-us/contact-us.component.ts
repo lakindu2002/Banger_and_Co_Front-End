@@ -1,4 +1,3 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
@@ -8,7 +7,6 @@ import { ErrorResponse } from 'src/app/models/errorresponse.model';
 import { Inquiry } from 'src/app/models/inquiry.model';
 import { ResponseAPI } from 'src/app/models/response.model';
 import { InquiryService } from 'src/app/services/inquiry.service';
-import { ContactUsStateComponent } from './contact-us-state/contact-us-state.component';
 
 @Component({
   selector: 'app-contact-us',

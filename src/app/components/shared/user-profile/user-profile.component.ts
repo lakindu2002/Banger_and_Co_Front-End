@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { AuthReturn } from 'src/app/models/auth.return.model';
@@ -12,7 +12,6 @@ import { User } from 'src/app/models/user.model';
 import { LocalStorageService } from 'src/app/services/localstorage.service';
 import { UserService } from 'src/app/services/user.service';
 import { environment } from 'src/environments/environment.prod';
-import { PopUpNotificationComponent } from '../pop-up-notification/pop-up-notification.component';
 
 @Component({
   selector: 'app-user-profile',
