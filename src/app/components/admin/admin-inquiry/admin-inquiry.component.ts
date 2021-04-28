@@ -34,7 +34,7 @@ export class AdminInquiryComponent implements OnInit {
       }
       this.spinner.hide()
     }, (error: ErrorResponse) => {
-      this.toast.error(error.message, error.header);
+      this.toast.error(error.message, "Failed to Retrieve Inquiries");
       this.spinner.hide();
     })
   }

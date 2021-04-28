@@ -72,7 +72,7 @@ export class UserProfileComponent implements OnInit {
       this.spinner.hide();
     },
       (error: ErrorResponse) => {
-        this.toast.error(error.exceptionMessage, error.header);
+        this.toast.error(error.exceptionMessage, "Profile Information Retrieval Failed");
         setTimeout(()=>{
           //timeout used as when request occurs quickly, modal causes an async issue.
           //in production, this can be avoided as network calls take time
@@ -112,7 +112,7 @@ export class UserProfileComponent implements OnInit {
           this.modalRef.hide();
           this.toast.success(
             "Your account information has been updated successfully. You will recieve an email with confirmation",
-            "Account Details Updated");
+            "Profile Details Updated");
         }
         this.spinner.hide();
       }, (error: ErrorResponse) => {
@@ -121,7 +121,7 @@ export class UserProfileComponent implements OnInit {
             this.toast.warning(errors.message);
           }
         }
-        this.toast.error(error.exceptionMessage, error.header);
+        this.toast.error(error.exceptionMessage, "Profile Information Failed To Updated");
         this.spinner.hide();
       });
     }
