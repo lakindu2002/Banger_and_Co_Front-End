@@ -71,9 +71,7 @@
           <label><b class="fonts">Password</b></label>
           <input type="password" value="" placeholder="Provide New Password (Min 6 Characters)" class="form-control"
             [formControlName]="'firstPassword'" (input)="validatePassword()">
-          <span class="form-error" *ngIf="!passwordValid">
-            Password Not Valid (Provide 6 Character Password in Both Fields)
-          </span>
+
           <span class="form-success"
             *ngIf="passwordValid && handleUpdateForm.get('firstPassword').value.length > 0 && handleUpdateForm.get('secondPassword').value.length > 0">
             Passwords Match! You Can Proceed
@@ -89,6 +87,9 @@
         </div>
       </div>
     </div>
+    <span class="form-error" *ngIf="!passwordValid">
+      Password Not Valid (Provide 6 Character Password in Both Fields)
+    </span>
   </div>
 
   <div class="modal-footer">

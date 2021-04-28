@@ -12,45 +12,40 @@
           </div>
         </div>
         <span class="float-left" style="width: 50%;">
-          <select class="form-control" #selection (input)="processChange(selection.value)">
+          <select class="form-control" #selection (input)="processChange(selection.value)"
+            [disabled]="inquiryList.length === 0 || isError">
             <option value="most-recent">Most Recent Inquiries</option>
             <option value="least-recent">Least Recent Inquiries</option>
           </select>
         </span>
-        <span class="float-right" style="display: flex; align-items: center; min-height: 40px; color: green;">
+        <span class="float-right" *ngIf="!isError && inquiryList.length > 0"
+          style="display: flex; align-items: center; min-height: 40px; color: green;">
           <i>{{inquiryList.length}} Inquiries Available</i>
         </span>
       </div>
     </div>
 
-    <div class="row">
+    <div class="row" *ngIf="inquiryList.length > 0 && isError===false; else executeNoList">
       <div class="col-sm-12">
-        <!-- <table class="table table-striped">
-          <thead class="table-header">
-            <tr>
-              <th>Client Name</th>
-              <th>Created On</th>
-              <th>Inquiry Matter</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tr *ngFor="let inquiry of inquiryList" class="table-content">
-            <td>{{inquiry.firstName}} {{inquiry.lastName}}</td>
-            <td>{{inquiry.createdAt | date : 'fullDate'}}</td>
-            <td class="inquiry-view">
-              {{inquiry.inquirySubject}} asdasd as das das d asd asd as da sda sda sd s
-            </td>
-            <td>
-              <span>
-                <i class="far fa-trash-alt mr-3"></i>
-              </span>
-              <span>
-                <i class="far fa-reply"></i>
-              </span>
-            </td>
-          </tr>
-        </table> -->
+
       </div>
     </div>
+    <ng-template #executeNoList>
+      <div class="row" *ngIf="isError === false && inquiryList.length === 0">
+        <div class="col-sm-12">
+          <div class="alert alert-info">
+            <b class="fonts"> All Inquiries Have Been Responded Successfully!</b>
+          </div>
+        </div>
+      </div>
+      <div class="row" *ngIf="isError === true">
+        <div class="col-sm-12">
+          <div class="alert alert-danger">
+            <b class="fonts"> An Error Occurred While Retrieving the Inquiries</b>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+
   </div>
 </div>

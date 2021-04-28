@@ -13,6 +13,7 @@ import { InquiryService } from 'src/app/services/inquiry.service';
 export class AdminInquiryComponent implements OnInit {
 
   inquiryList: Inquiry[] = [];
+  isError: boolean = false;
 
   constructor(private inquiryService: InquiryService, private toast: ToastrService, private spinner: NgxSpinnerService) { }
 
@@ -22,6 +23,7 @@ export class AdminInquiryComponent implements OnInit {
 
   getPendingInquiry() {
     this.spinner.show();
+    this.isError = false;
     this.inquiryList = [];
 
     this.inquiryService.getAllPendingInquiries().subscribe((data) => {
@@ -36,6 +38,7 @@ export class AdminInquiryComponent implements OnInit {
       this.spinner.hide()
     }, (error: ErrorResponse) => {
       this.toast.error(error.message, "Failed to Retrieve Inquiries");
+      this.isError = true;
       this.spinner.hide();
     })
   }

@@ -76,8 +76,9 @@ body {
 }
 
 .table-header {
-  background-color: #dcecf7;
+  background-color: #e1e3e6;
   text-align: left;
+  font-size: 13px;
 }
 
 .table-content {
