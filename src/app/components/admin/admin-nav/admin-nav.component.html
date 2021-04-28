@@ -21,7 +21,7 @@
             <div style="display: inline-block;" dropdownToggle>
               <span>
                 <!-- dropdownToggle used to denote the item that triggers the dropdown on/off -->
-                <img *ngIf="loggedInUser" [src]="profilePicString" width="45" height="55" style="border-radius: 50%;">
+                <img *ngIf="loggedInUser" [src]="profilePicString" width="50" height="50" style="border-radius: 50%;">
                 <span class="ml-2" *ngIf="loggedInUser">{{loggedInUser.firstName}} {{loggedInUser.lastName}}</span>
                 <i class="fas fa-caret-down ml-2"></i>
               </span>
