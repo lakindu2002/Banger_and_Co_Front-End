@@ -1,6 +1,6 @@
 body {
-  background-color: #ebecf083;
-  font-family: "Roboto", sans-serif;
+  background-color: #f7fafc;
+  font-family: "Inter", sans-serif;
 }
 
 .form-error {
@@ -8,13 +8,13 @@ body {
   font-size: 12px;
 }
 
-.form-success{
+.form-success {
   color: green;
   font-size: 12px;
 }
 
 .fonts {
-  font-weight: 500;
+  font-weight: 600;
 }
 
 /* sets the width of scrollbar */
@@ -41,24 +41,24 @@ body {
   z-index: 1200;
 }
 
-.toast-container .ngx-toastr{
+.toast-container .ngx-toastr {
   width: 300px;
   border-radius: 15px;
   transition: box-shadow 0.25s;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.39), 0 6px 20px 0 rgba(0, 0, 0, 0.39);
 }
 
-.toast-title{
+.toast-title {
   font-weight: 400;
   font-size: 20px;
 }
 
-.toast-message{
+.toast-message {
   font-size: 16px;
   font-weight: 300;
 }
 
-.toast-container .ngx-toastr:hover{
+.toast-container .ngx-toastr:hover {
   cursor: pointer;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.19), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
@@ -66,12 +66,11 @@ body {
 @media only screen and (max-width: 10000px) and (min-width: 769px) {
   /* CSS that should be displayed if width is equal to or less than 10000px and larger
    than 768px goes here */
-   .toast-container .ngx-toastr{
+  .toast-container .ngx-toastr {
     width: 500px;
     border-radius: 15px;
     transition: box-shadow 0.25s;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.39), 0 6px 20px 0 rgba(0, 0, 0, 0.39);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.39),
+      0 6px 20px 0 rgba(0, 0, 0, 0.39);
   }
-
 }
-
