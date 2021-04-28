@@ -15,4 +15,8 @@ export class InquiryService {
   createInquiry(inquiry: Inquiry): Observable<any> {
     return this.http.post(`${this.APIUrl}/createInquiry`, inquiry);
   }
+
+  getAllPendingInquiries(): Observable<Inquiry[]> {
+    return this.http.get<Inquiry[]>(`${this.APIUrl}/all`)
+  }
 }

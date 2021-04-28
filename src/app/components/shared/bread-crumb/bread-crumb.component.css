@@ -1,12 +1,13 @@
 .format-bread-crumb-outer{
   background-color: white;
   border-radius: 5px;
-  padding: 5px;
+  padding-top: 5px;
+  padding-bottom: 0px;
 }
 
 .format-icon{
   padding-left: 3px;
-  font-size: 35px;
+  font-size: 32px;
   vertical-align: middle;
   font-weight: 300;
   transition: color 0.5s;
@@ -18,7 +19,7 @@
 }
 
 .text-format{
-  font-size: 35px;
+  font-size: 32px;
   vertical-align: middle;
   margin-left: 25px;
   font-weight: 300;
@@ -26,5 +27,5 @@
 
 .padding-format{
   padding-top: 10px;
-  padding-bottom: 10px;
+  padding-bottom: 7px;
 }

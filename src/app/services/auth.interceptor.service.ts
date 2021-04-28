@@ -36,8 +36,6 @@ export class AuthInterceptor implements HttpInterceptor {
       let errorMessage = "";
       let multipleErrors = [];
 
-      console.log(error);
-
       let errorObj: ErrorResponse;
       if (error.error) {
         errorObj = error.error;
@@ -101,8 +99,6 @@ export class AuthInterceptor implements HttpInterceptor {
         multipleErrors: multipleErrors,
         header: headerMessage
       }
-
-      console.log(errorReturn)
 
       return throwError(errorReturn);
     }));

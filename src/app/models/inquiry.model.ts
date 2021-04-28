@@ -5,4 +5,8 @@ export interface Inquiry {
   message: string;
   emailAddress: string;
   contactNumber: string;
+  inquiryId?:number;
+  createdAt?:string;
+  resolvedByUsername?:string;
+  replied?:boolean
 }
