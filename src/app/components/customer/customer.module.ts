@@ -4,7 +4,6 @@ import { CustomerRoutingModule } from './customer-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { CustomerHomeComponent } from './customer-home/customer-home.component';
 import { CustomerNavComponent } from './customer-nav/customer-nav.component';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 
 @NgModule({
@@ -13,7 +12,6 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
     CommonModule,
     CustomerRoutingModule,
     SharedModule,
-    BsDropdownModule.forRoot()
   ]
 })
 export class CustomerModule { }
