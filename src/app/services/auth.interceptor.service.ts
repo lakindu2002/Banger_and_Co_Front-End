@@ -41,7 +41,7 @@ export class AuthInterceptor implements HttpInterceptor {
         errorObj = error.error;
       } else {
         errorObj = {
-          exceptionMessage: "Internal Server Error",
+          exceptionMessage: "An Error Occurred While Processing Your Request",
           message: "An Error Occurred While Processing Your Request",
           multipleErrors: [],
           errorCode: 0,
@@ -53,34 +53,37 @@ export class AuthInterceptor implements HttpInterceptor {
         case 500: {
           headerMessage = "Internal Error Occured";
           exceptionMessage = errorObj.exceptionMessage;
-          errorMessage = errorObj.message;
+          errorMessage = errorObj.exceptionMessage;
           break;
         }
         case 400: {
-          headerMessage = "Fields Were Badly Formatted"
-          exceptionMessage = "Please ensure that you provide data of valid format";
+          headerMessage = "A Bad Request Was Detected"
+          exceptionMessage = errorObj.exceptionMessage;
           errorMessage = errorObj.message;
           multipleErrors = errorObj.multipleErrors;
           break;
         }
         case 404: {
-          headerMessage = "Resource Not Found";
+          headerMessage = errorObj.message;
           exceptionMessage = errorObj.exceptionMessage;
-          errorMessage = errorObj.message;
+          errorMessage = errorObj.exceptionMessage;
           break;
         }
         case 401: {
           headerMessage = "Authentication Error Occured";
           errorMessage = "Your session is not valid. Please login again to continue using the application";
+          exceptionMessage = "Your session is not valid. Please login again to continue using the application";
           break;
         }
         case 403: {
           headerMessage = "Authorization Error Occured";
           errorMessage = "You do not have the permission to view this resource";
+          exceptionMessage = "You do not have the permission to view this resource";
           break;
         }
         case 409: {
-          errorMessage = errorObj.message;
+          headerMessage = errorObj.message
+          errorMessage = errorObj.exceptionMessage;
           exceptionMessage = errorObj.exceptionMessage;
           break;
         }
@@ -88,6 +91,7 @@ export class AuthInterceptor implements HttpInterceptor {
           errorObj.errorCode = 0;
           headerMessage = "Unknown Error Occured";
           errorMessage = "We ran in to an unexpected error. Please try again in a bit."
+          exceptionMessage = "We ran in to an unexpected error. Please try again in a bit."
           break;
         }
       }

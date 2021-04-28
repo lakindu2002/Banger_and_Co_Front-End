@@ -111,7 +111,7 @@ export class SignUpComponent implements OnInit {
         }
         this.spinner.hide();
       }, (error: ErrorResponse) => {
-        this.toast.error(error.exceptionMessage, error.message);
+        this.toast.error(error.exceptionMessage, error.header);
         this.spinner.hide();
       })
     } else {

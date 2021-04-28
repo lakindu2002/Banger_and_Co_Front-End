@@ -66,7 +66,7 @@ export class ContactUsComponent implements OnInit {
             this.toast.warning(error.message);
           }
         }
-        this.toast.error(returnedError.message, "Inquiry Failed To Submit");
+        this.toast.error(returnedError.exceptionMessage, "Inquiry Failed To Submit");
 
         this.spinner.hide();
       })

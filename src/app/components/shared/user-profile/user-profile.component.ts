@@ -72,7 +72,7 @@ export class UserProfileComponent implements OnInit {
       this.spinner.hide();
     },
       (error: ErrorResponse) => {
-        this.toast.error(error.message, error.header);
+        this.toast.error(error.exceptionMessage, error.header);
         setTimeout(()=>{
           //timeout used as when request occurs quickly, modal causes an async issue.
           //in production, this can be avoided as network calls take time
@@ -121,7 +121,7 @@ export class UserProfileComponent implements OnInit {
             this.toast.warning(errors.message);
           }
         }
-        this.toast.error(error.message, error.header);
+        this.toast.error(error.exceptionMessage, error.header);
         this.spinner.hide();
       });
     }
