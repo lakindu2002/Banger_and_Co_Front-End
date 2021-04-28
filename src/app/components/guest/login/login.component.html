@@ -12,7 +12,8 @@
           <div class="form-group">
             <label for="usernameField" class="fonts">Username</label>
             <input type="email" placeholder="Enter Your Username (Required)" class="form-control"
-              [formControlName]="'username'" id="usernameField">
+              [formControlName]="'username'" id="usernameField"
+              #usernameField (input)="usernameField.value = usernameField.value.toLowerCase()">
             <span class="form-error" *ngIf="theForm.get('username').invalid && theForm.get('username').touched">
               Please Provide a Valid Username
             </span>
