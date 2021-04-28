@@ -6,7 +6,7 @@ export interface Inquiry {
   emailAddress: string;
   contactNumber: string;
   inquiryId?:number;
-  createdAt?:string;
+  createdAt?:number;
   resolvedByUsername?:string;
   replied?:boolean
 }

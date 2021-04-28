@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
 import { environment } from "src/environments/environment.prod";
 import { Inquiry } from "../models/inquiry.model";
 import { ResponseAPI } from "../models/response.model";
@@ -18,7 +19,14 @@ export class InquiryService {
   }
 
   getAllPendingInquiries(): Observable<Inquiry[]> {
-    return this.http.get<Inquiry[]>(`${this.APIUrl}/all`)
+    return this.http.get<Inquiry[]>(`${this.APIUrl}/all`).pipe((map((data) => {
+      let filteredData: Inquiry[] = [];
+      data.forEach((eachInquiry)=>{
+        eachInquiry.createdAt = new Date(eachInquiry.createdAt).getTime();
+        filteredData.push(eachInquiry);
+      })
+      return filteredData;
+    })));
   }
 
   removeInquiry(id: number): Observable<ResponseAPI> {

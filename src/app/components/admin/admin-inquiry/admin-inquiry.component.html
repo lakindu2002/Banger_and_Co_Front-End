@@ -1,10 +1,22 @@
 <app-admin-nav></app-admin-nav>
-<app-bread-crumb [pageName]="'Pending Inquiries'"></app-bread-crumb>
+<app-bread-crumb [pageName]="'Inquiries To Be Responded'"></app-bread-crumb>
 
 <div>
   <div class="container">
     <div class="row">
       <div class="col-sm-12" style="padding-bottom: 15px;">
+        <div class="row">
+          <div class="col-sm-12">
+            <span><b class="fonts">Sort Inquiries</b></span>
+            <span class="float-right btn btn-primary" style="width: 12%;" (click)="getPendingInquiry()">Refresh</span>
+          </div>
+        </div>
+        <span class="float-left" style="width: 50%;">
+          <select class="form-control" #selection (input)="processChange(selection.value)">
+            <option value="most-recent">Most Recent Inquiries</option>
+            <option value="least-recent">Least Recent Inquiries</option>
+          </select>
+        </span>
         <span class="float-right" style="display: flex; align-items: center; min-height: 40px; color: green;">
           <i>{{inquiryList.length}} Inquiries Available</i>
         </span>
@@ -12,29 +24,33 @@
     </div>
 
     <div class="row">
-      <div class="col-sm-8">
-        <div class="row">
-          <div class="col-sm-5">
-            <div class="card">
-              <div class="row">
-                <div class="col-sm-12">
-                  <div class="card-header" style="text-align: center;">
-                    <span class="card-title" style="font-size: 17px;"><b style="font-weight: 500;">Submitted By:<br> Lakindu Hewawasam</b></span>
-                  </div>
-                  <div class="card-body">
-
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-      <div class="col-sm-4">
-
+      <div class="col-sm-12">
+        <!-- <table class="table table-striped">
+          <thead class="table-header">
+            <tr>
+              <th>Client Name</th>
+              <th>Created On</th>
+              <th>Inquiry Matter</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tr *ngFor="let inquiry of inquiryList" class="table-content">
+            <td>{{inquiry.firstName}} {{inquiry.lastName}}</td>
+            <td>{{inquiry.createdAt | date : 'fullDate'}}</td>
+            <td class="inquiry-view">
+              {{inquiry.inquirySubject}} asdasd as das das d asd asd as da sda sda sd s
+            </td>
+            <td>
+              <span>
+                <i class="far fa-trash-alt mr-3"></i>
+              </span>
+              <span>
+                <i class="far fa-reply"></i>
+              </span>
+            </td>
+          </tr>
+        </table> -->
       </div>
     </div>
-
   </div>
 </div>

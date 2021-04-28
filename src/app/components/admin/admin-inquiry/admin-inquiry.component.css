@@ -1,0 +1,10 @@
+.with-box {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background-color: #c5e7f369;
+  transition: box-shadow 0.25s;
+}
+
+.with-box:hover {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.69);
+}
+

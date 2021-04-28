@@ -74,3 +74,20 @@ body {
       0 6px 20px 0 rgba(0, 0, 0, 0.39);
   }
 }
+
+.table-header {
+  background-color: #dcecf7;
+  text-align: left;
+}
+
+.table-content {
+  background-color: white;
+  transition: background-color 0.5s;
+  text-align: left;
+}
+
+.table-content:hover {
+  background-color: #dcecf794;
+}
+
+

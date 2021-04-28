@@ -26,6 +26,7 @@ export class AdminInquiryComponent implements OnInit {
 
     this.inquiryService.getAllPendingInquiries().subscribe((data) => {
       this.inquiryList = data;
+      this.sortList("descending");
 
       if (this.inquiryList.length === 0) {
         this.toast.info("No new inquiries available at this moment. You have responded to every inquiry made.", "No New Inquiries")
@@ -39,4 +40,39 @@ export class AdminInquiryComponent implements OnInit {
     })
   }
 
+  processChange(sorter: string): void {
+    switch (sorter) {
+      case "most-recent": {
+        this.sortList("descending")
+        break;
+      }
+      case "least-recent": {
+        this.sortList("ascending");
+        break;
+      }
+    }
+  }
+
+  sortList(type: string): void {
+    switch (type) {
+      case "descending": {
+        this.inquiryList = this.inquiryList.sort((a, b) => {
+          const aCreatedTime: number = a.createdAt;
+          const bCreatedTime: number = b.createdAt;
+
+          return bCreatedTime - aCreatedTime;
+        });
+        break;
+      }
+      case "ascending": {
+        this.inquiryList = this.inquiryList.sort((a, b) => {
+          const aCreatedTime: number = a.createdAt;
+          const bCreatedTime: number = b.createdAt;
+
+          return aCreatedTime - bCreatedTime;
+        })
+        break;
+      }
+    }
+  }
 }
