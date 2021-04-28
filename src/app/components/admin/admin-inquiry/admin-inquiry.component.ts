@@ -12,7 +12,7 @@ import { InquiryService } from 'src/app/services/inquiry.service';
 })
 export class AdminInquiryComponent implements OnInit {
 
-  private inquiryList: Inquiry[] = [];
+  inquiryList: Inquiry[] = [];
 
   constructor(private inquiryService: InquiryService, private toast: ToastrService, private spinner: NgxSpinnerService) { }
 

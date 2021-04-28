@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment.prod";
 import { Inquiry } from "../models/inquiry.model";
+import { ResponseAPI } from "../models/response.model";
 
 @Injectable({
   providedIn: "root"
@@ -18,5 +19,9 @@ export class InquiryService {
 
   getAllPendingInquiries(): Observable<Inquiry[]> {
     return this.http.get<Inquiry[]>(`${this.APIUrl}/all`)
+  }
+
+  removeInquiry(id: number): Observable<ResponseAPI> {
+    return this.http.delete<ResponseAPI>(`${this.APIUrl}/remove/${id}`);
   }
 }
