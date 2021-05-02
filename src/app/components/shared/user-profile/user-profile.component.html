@@ -28,7 +28,13 @@
     </div>
 
     <div class="row">
-      <div class="col-sm-12">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label><b class="fonts">Username</b></label>
+          <input type="text" readonly [value]="loggedInUser.username" class="form-control">
+        </div>
+      </div>
+      <div class="col-sm-6">
         <div class="form-group">
           <label><b class="fonts">Email Address</b></label>
           <input type="email" readonly [value]="loggedInUser.emailAddress" class="form-control">
