@@ -1,5 +1,5 @@
 body {
-  background-color: #f7fafc;
+  background-color: #eff5fa;
   font-family: "Inter", sans-serif;
 }
 
@@ -75,20 +75,52 @@ body {
   }
 }
 
+.custom-table {
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.2), 0 8px 22px 0 rgba(0, 0, 0, 0.19);
+  padding: 15px;
+  border: 0px solid black;
+  border-radius: 15px;
+  margin-bottom: 30px;
+}
+
 .table-header {
-  background-color: #e1e3e6;
+  background-color: #506688;
+  color: white;
   text-align: left;
-  font-size: 13px;
 }
 
-.table-content {
+.left-header {
+  border-top-left-radius: 15px;
+}
+
+.right-header {
+  border-top-right-radius: 15px;
+}
+
+.custom-row {
   background-color: white;
-  transition: background-color 0.5s;
-  text-align: left;
 }
 
-.table-content:hover {
-  background-color: #dcecf794;
+tr {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.308);
 }
 
+tr:last-of-type td:first-of-type {
+  /* last row first table data */
+  border-bottom-left-radius: 10px;
+}
 
+tr:first-of-type {
+  /* first row */
+  border-bottom: 0px solid black;
+}
+
+tr:last-of-type {
+  /* last row */
+  border-bottom: 0px solid black;
+}
+
+tr:last-of-type td:last-of-type {
+  /* last row, last table data */
+  border-bottom-right-radius: 10px;
+}

@@ -1,5 +1,5 @@
 <app-admin-nav></app-admin-nav>
-<app-bread-crumb [pageName]="'Inquiries To Be Responded'"></app-bread-crumb>
+<app-bread-crumb [pageName]="'Manage The Inquiries'"></app-bread-crumb>
 
 <div>
   <div class="container">
@@ -27,7 +27,40 @@
 
     <div class="row" *ngIf="inquiryList.length > 0 && isError===false; else executeNoList">
       <div class="col-sm-12">
-
+        <table class="table table-borderless custom-table">
+          <tr class="table-header">
+            <th class="left-header">#</th>
+            <th>Submitters Full Name</th>
+            <th>Inquired Reason</th>
+            <th>Inquired Date</th>
+            <th class="right-header">
+              <span class="float-right" style="margin-right:40px;">
+                Action
+              </span>
+            </th>
+          </tr>
+          <tr *ngFor="let inquiry of inquiryList; let i = index" class="custom-row">
+            <td>{{i + 1}}</td>
+            <td>{{inquiry.firstName}} {{inquiry.lastName}}</td>
+            <td>
+              <div class="wrapper">
+                {{inquiry.inquirySubject}}
+              </div>
+            </td>
+            <td>{{inquiry.createdAt | date}}</td>
+            <td>
+              <a>
+                <i class="far fa-trash-alt icon-format float-right" style="color: rgba(0, 0, 0, 0.699);"></i>
+              </a>
+              <a href="tel:{{inquiry.contactNumber}}">
+                <i class="fal fa-phone-volume icon-format float-right" style="color: rgba(0, 0, 0, 0.699);"></i>
+              </a>
+              <a>
+                <i class="fal fa-info-circle icon-format float-right" style="color: #007bff;"></i>
+              </a>
+            </td>
+          </tr>
+        </table>
       </div>
     </div>
     <ng-template #executeNoList>
@@ -46,6 +79,5 @@
         </div>
       </div>
     </ng-template>
-
   </div>
 </div>

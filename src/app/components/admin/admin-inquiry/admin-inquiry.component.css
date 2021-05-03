@@ -8,3 +8,21 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.69);
 }
 
+.icon-format{
+  font-size: 22px;
+  padding-right: 7px;
+  padding-left: 7px;
+  margin-left: 3px;
+  margin-right: 3px;
+  transition: font-size 0.3s;
+}
+
+.icon-format:hover{
+  cursor: pointer;
+  font-size: 19px;
+}
+
+.wrapper{
+  max-width: 275px;
+  word-wrap: break-word;
+}
