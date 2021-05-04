@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { ErrorResponse } from 'src/app/models/errorresponse.model';
 import { Inquiry } from 'src/app/models/inquiry.model';
 import { InquiryService } from 'src/app/services/inquiry.service';
+import { InquiryDetailedComponent } from './inquiry-detailed/inquiry-detailed.component';
 import { InquiryManageComponent } from './inquiry-manage/inquiry-manage.component';
 
 @Component({
@@ -17,7 +18,8 @@ export class AdminInquiryComponent implements OnInit, OnDestroy {
 
   inquiryList: Inquiry[] = [];
   isError: boolean = false;
-  inquiryRemoveSubscription: Subscription
+  inquirySubscription: Subscription;
+  inquiryDetailedSubscription:Subscription;
 
   constructor(private inquiryService: InquiryService,
     private toast: ToastrService,
@@ -97,22 +99,60 @@ export class AdminInquiryComponent implements OnInit, OnDestroy {
       }
     })
 
-    this.inquiryRemoveSubscription = modalRef.content.deleteSuccess.subscribe((data) => {
+    this.inquirySubscription = modalRef.content.deleteSuccess.subscribe((data) => {
       //listen to the subject emitting new data by accessing the modal content property.
       if (data == true) {
         //if a boolean of true was emitted
-        this.inquiryRemoveSubscription.unsubscribe();
+        this.inquirySubscription.unsubscribe();
         this.getPendingInquiry();
       }
     })
   }
 
+  viewDetailedInquiry(id: number): void {
+    this.spinner.show();
+    this.inquiryService.getDetailedInquiry(id).subscribe((data) => {
+      this.spinner.hide();
+      //once inquiry loads successfully, open the modal
+      const modalRef: BsModalRef = this.modalService.show(InquiryDetailedComponent, {
+        backdrop: true,
+        ignoreBackdropClick: true,
+        keyboard: false,
+        class: 'modal-dialog-centered modal-lg',
+        initialState: {
+          theInquiry: data,
+        }
+      })
+
+      this.inquiryDetailedSubscription = modalRef.content.inquiryReplied.subscribe((data) => {
+        //listen to the subject emitting new data by accessing the modal content property.
+        if (data == true) {
+          //if a boolean of true was emitted
+          this.inquiryDetailedSubscription.unsubscribe();
+          this.getPendingInquiry();
+        }
+      })
+
+    }, (error: ErrorResponse) => {
+      this.toast.error(error.exceptionMessage, "Failed to Retrieve Inquiry Information");
+      this.spinner.hide();
+    })
+  }
+
   ngOnDestroy(): void {
-    if (this.inquiryRemoveSubscription) {
+    if (this.inquirySubscription) {
       //if a subscription was made
-      if (!this.inquiryRemoveSubscription.closed) {
+      if (!this.inquirySubscription.closed) {
         //check if it is still active.
-        this.inquiryRemoveSubscription.unsubscribe();
+        this.inquirySubscription.unsubscribe();
+      }
+    }
+
+    if (this.inquiryDetailedSubscription) {
+      //if a subscription was made
+      if (!this.inquiryDetailedSubscription.closed) {
+        //check if it is still active.
+        this.inquiryDetailedSubscription.unsubscribe();
       }
     }
   }

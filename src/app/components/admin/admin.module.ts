@@ -6,14 +6,17 @@ import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { AdminNavComponent } from './admin-nav/admin-nav.component';
 import { AdminInquiryComponent } from './admin-inquiry/admin-inquiry.component';
 import { InquiryManageComponent } from './admin-inquiry/inquiry-manage/inquiry-manage.component';
+import { InquiryDetailedComponent } from './admin-inquiry/inquiry-detailed/inquiry-detailed.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
-  declarations: [AdminHomeComponent,AdminNavComponent, AdminInquiryComponent, InquiryManageComponent],
+  declarations: [AdminHomeComponent,AdminNavComponent, AdminInquiryComponent, InquiryManageComponent, InquiryDetailedComponent],
   imports: [
     CommonModule,
     SharedModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+    ReactiveFormsModule
   ]
 })
 export class AdminModule { }

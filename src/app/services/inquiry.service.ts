@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { environment } from "src/environments/environment.prod";
+import { InquiryReply } from "../models/inquiry-reply.model";
 import { Inquiry } from "../models/inquiry.model";
 import { ResponseAPI } from "../models/response.model";
 
@@ -21,7 +22,7 @@ export class InquiryService {
   getAllPendingInquiries(): Observable<Inquiry[]> {
     return this.http.get<Inquiry[]>(`${this.APIUrl}/all`).pipe((map((data) => {
       let filteredData: Inquiry[] = [];
-      data.forEach((eachInquiry)=>{
+      data.forEach((eachInquiry) => {
         eachInquiry.createdAt = new Date(eachInquiry.createdAt).getTime();
         filteredData.push(eachInquiry);
       })
@@ -31,5 +32,13 @@ export class InquiryService {
 
   removeInquiry(id: number): Observable<ResponseAPI> {
     return this.http.delete<ResponseAPI>(`${this.APIUrl}/remove/${id}`);
+  }
+
+  getDetailedInquiry(id: number): Observable<Inquiry> {
+    return this.http.get<Inquiry>(`${this.APIUrl}/find/${id}`);
+  }
+
+  replyToInquiry(reply: InquiryReply): Observable<ResponseAPI> {
+    return this.http.put<ResponseAPI>(`${this.APIUrl}/reply/`, reply);
   }
 }
