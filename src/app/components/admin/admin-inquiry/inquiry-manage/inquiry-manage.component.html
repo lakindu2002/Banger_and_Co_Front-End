@@ -1,0 +1,25 @@
+<div class="modal-header">
+  <h4 class="modal-title float-left">Delete Inquiry</h4>
+  <button type="button" class="close float-right" aria-label="Close" (click)="hideModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-body">
+  <div class="row">
+    <div class="col-sm-12">
+      <i class="far fa-exclamation-circle float-left mr-3" style="font-size: 50px; color:red"></i>
+      <span class="">
+        Are you sure you want to delete this inquiry?
+      </span>
+      <br>
+      <span class="" style="color: red;">
+        This action cannot be reversed
+      </span>
+    </div>
+  </div>
+</div>
+
+<div class="modal-footer">
+  <button class="btn btn-danger" (click)="processDelete()">Delete Inquiry</button>
+</div>

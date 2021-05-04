@@ -50,13 +50,13 @@
             <td>{{inquiry.createdAt | date}}</td>
             <td>
               <a>
-                <i class="far fa-trash-alt icon-format float-right" style="color: rgba(0, 0, 0, 0.699);"></i>
+                <i class="far fa-trash-alt icon-format float-right" (click)="removeInquiry(inquiry.inquiryId)" style="color: rgba(0, 0, 0, 0.699);"></i>
               </a>
               <a href="tel:{{inquiry.contactNumber}}">
-                <i class="fal fa-phone-volume icon-format float-right" style="color: rgba(0, 0, 0, 0.699);"></i>
+                <i class="fas fa-phone-alt icon-format float-right" style="color: rgba(0, 0, 0, 0.699);"></i>
               </a>
               <a>
-                <i class="fal fa-info-circle icon-format float-right" style="color: #007bff;"></i>
+                <i class="fad fa-info-circle icon-format float-right" style="color: #007bff;"></i>
               </a>
             </td>
           </tr>
