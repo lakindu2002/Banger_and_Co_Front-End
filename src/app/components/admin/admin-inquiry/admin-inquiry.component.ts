@@ -98,7 +98,6 @@ export class AdminInquiryComponent implements OnInit, OnDestroy {
     })
 
     this.inquiryRemoveSubscription = modalRef.content.deleteSuccess.subscribe((data) => {
-      console.log("here");
       //listen to the subject emitting new data by accessing the modal content property.
       if (data == true) {
         //if a boolean of true was emitted
