@@ -14,12 +14,10 @@
   padding-left: 7px;
   margin-left: 3px;
   margin-right: 3px;
-  transition: font-size 0.3s;
 }
 
 .icon-format:hover{
   cursor: pointer;
-  font-size: 19px;
 }
 
 .wrapper{

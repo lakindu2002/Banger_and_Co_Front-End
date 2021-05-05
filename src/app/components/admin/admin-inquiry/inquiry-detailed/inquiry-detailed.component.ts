@@ -57,7 +57,7 @@ export class InquiryDetailedComponent implements OnInit {
       },(error:ErrorResponse)=>{
         this.toast.error(error.exceptionMessage,"Inquiry Not Replied");
 
-        if(error.multipleErrors){
+        if(error.multipleErrors.length > 0){
           this.toast.warning("The inputs were badly formatted","Inquiry Reply Failed");
           for(const errorList of error.multipleErrors){
             this.toast.warning(errorList.message);
