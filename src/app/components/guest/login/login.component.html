@@ -15,7 +15,7 @@
               [formControlName]="'username'" id="usernameField"
               #usernameField (input)="usernameField.value = usernameField.value.toLowerCase()">
             <span class="form-error" *ngIf="theForm.get('username').invalid && theForm.get('username').touched">
-              Please Provide a Valid Username
+              Please Provide a Valid Username Between 6 and 15 Characters
             </span>
           </div>
 
@@ -24,7 +24,7 @@
             <input type="password" placeholder="Enter Your Password (Required)" class="form-control"
               [formControlName]="'password'" id="passwordField">
             <span class="form-error" *ngIf="theForm.get('password').invalid && theForm.get('password').touched">
-              Please Provide a Valid Password
+              Please Provide a Valid Password Between 6 and 15 Characters
             </span>
           </div>
 

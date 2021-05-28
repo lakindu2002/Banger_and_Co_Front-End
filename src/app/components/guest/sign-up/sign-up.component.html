@@ -18,7 +18,7 @@
             <div class="form-group">
               <label for="firstNameField"><b class="fonts">First Name</b></label>
               <input type="text" id="firstNameField" class="form-control" placeholder="Enter Your First Name (Required)"
-                [formControlName]="'firstName'">
+                [formControlName]="'firstName'" maxlength="100">
 
               <span class="form-error"
                 *ngIf="userInfoForm.get('firstName').invalid && userInfoForm.get('firstName').touched">Please Provide a
@@ -30,7 +30,7 @@
             <div class="form-group">
               <label for="lastNameField"><b class="fonts">Last Name</b></label>
               <input type="text" id="lastNameField" class="form-control" placeholder="Enter Your Last Name (Required)"
-                [formControlName]="'lastName'">
+                [formControlName]="'lastName'" maxlength="100">
               <span class="form-error"
                 *ngIf="userInfoForm.get('lastName').invalid && userInfoForm.get('lastName').touched">Please Provide a
                 Valid Last Name</span>
@@ -43,7 +43,7 @@
             <div class="form-group">
               <label for="emailAddressField"><b class="fonts">Email Address</b></label>
               <input type="email" class="form-control" placeholder="Enter Your Email Address (Required)"
-                [formControlName]="'emailAddress'">
+                [formControlName]="'emailAddress'" maxlength="255">
               <span class="form-error"
                 *ngIf="userInfoForm.get('emailAddress').invalid && userInfoForm.get('emailAddress').touched">Please
                 Provide a
@@ -57,12 +57,12 @@
             <div class="form-group">
               <label for="usernameField"><b class="fonts">Username</b></label>
               <input type="text" class="form-control" placeholder="Enter Your Username (Required)"
-                [formControlName]="'username'" maxlength="15" #usernameField
+                [formControlName]="'username'" maxlength="15" #usernameField minlength="6" maxlength="15"
                 (input)="usernameField.value = usernameField.value.toLowerCase()">
               <span class="form-error"
                 *ngIf="userInfoForm.get('username').invalid && userInfoForm.get('username').touched">Please
                 Provide a
-                Valid Username</span>
+                Valid Username Between 6 and 15 Characters</span>
             </div>
           </div>
         </div>
@@ -72,11 +72,11 @@
             <div class="form-group">
               <label for="contactNumberField"><b class="fonts">Contact Number</b></label>
               <input type="text" class="form-control" placeholder="0777712345 (Required)"
-                [formControlName]="'contactNumber'" maxlength="10">
+                [formControlName]="'contactNumber'" maxlength="10" minlength="10">
               <span class="form-error"
                 *ngIf="userInfoForm.get('contactNumber').invalid && userInfoForm.get('contactNumber').touched">Please
                 Provide a
-                Valid Contact Number</span>
+                Valid Contact Number of 10 Digits</span>
             </div>
           </div>
 
@@ -119,11 +119,11 @@
             <div class="form-group">
               <label for="passwordOneField"><b class="fonts">Enter Password</b></label>
               <input type="password" id="passwordOneField" class="form-control"
-                placeholder="Enter Your Password (Required)" [formControlName]="'firstPassword'">
+                placeholder="Enter Your Password (Required)" [formControlName]="'firstPassword'" minlength="6" maxlength="15">
               <span class="form-error"
                 *ngIf="passwordForm.get('firstPassword').invalid && passwordForm.get('firstPassword').touched">Please
                 Provide a
-                Valid Password</span>
+                Valid Password (Minimum 6 Characters, Maximum 15 Characters)</span>
             </div>
           </div>
         </div>
@@ -132,13 +132,13 @@
           <div class="col-sm-12">
             <div class="form-group">
               <label for="passwordTwoField"><b class="fonts">Re-Enter Password</b></label>
-              <input type="password" id="passwordTwoField" class="form-control"
+              <input type="password" id="passwordTwoField" class="form-control" minlength="6" maxlength="15"
                 placeholder="Re-Enter Your Password (Required)" [formControlName]="'secondPassword'">
 
               <span class="form-error"
                 *ngIf="passwordForm.get('secondPassword').invalid && passwordForm.get('secondPassword').touched">Please
                 Provide a
-                Valid Password (Minimum 8 Characters)<br></span>
+                Valid Password (Minimum 6 Characters, Maximum 15 Characters)<br></span>
 
               <span class="form-error"
                 *ngIf="passwordForm.get('firstPassword').value !== passwordForm.get('secondPassword').value">
@@ -148,7 +148,8 @@
                 *ngIf="(passwordForm.get('firstPassword').value === passwordForm.get('secondPassword').value) &&
                  (passwordForm.get('firstPassword').touched) &&
                  (passwordForm.get('firstPassword').value.length !== 0 && passwordForm.get('secondPassword').value.length !== 0) &&
-                 passwordForm.get('firstPassword').value.length >=6  && passwordForm.get('secondPassword').value.length >= 6">
+                 (passwordForm.get('firstPassword').value.length >=8  && passwordForm.get('secondPassword').value.length >= 8)
+                 && (passwordForm.get('firstPassword').value.length <=30  && passwordForm.get('secondPassword').value.length <= 30)">
                 Passwords Match!</span>
             </div>
           </div>

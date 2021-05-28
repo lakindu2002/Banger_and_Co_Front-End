@@ -48,7 +48,7 @@
                   <div class="form-group">
                     <label for="firstNameInput"><b class="fonts">First Name</b></label>
                     <input type="text" id="firstNameInput" class="form-control"
-                      placeholder="Enter Your First Name (Required)" [formControlName]="'firstName'">
+                      placeholder="Enter Your First Name (Required)" [formControlName]="'firstName'" maxlength="255">
                     <span class="form-error"
                       *ngIf="theForm.get('firstName').invalid && theForm.get('firstName').touched">Please Provide a
                       Valid First Name</span>
@@ -57,7 +57,7 @@
                 <div class="col-sm-7">
                   <div class="form-group">
                     <label for="lastNameInput"><b class="fonts">Last Name</b></label>
-                    <input type="text" id="lastNameInput" class="form-control"
+                    <input type="text" id="lastNameInput" class="form-control" maxlength="255"
                       placeholder="Enter Your Last Name (Required)" [formControlName]="'lastName'">
                     <span class="form-error"
                       *ngIf="theForm.get('lastName').invalid && theForm.get('lastName').touched">Please Provide a
@@ -72,7 +72,7 @@
                     <label for="contactNumberInput"><b class="fonts">Contact Number</b></label>
                     <input type="text" id="contactNumberInput" class="form-control"
                       placeholder="Enter Your Contact Number (Required)" [formControlName]="'contactNumber'"
-                      maxlength="10">
+                      maxlength="10" minlength="10">
                     <span class="form-error"
                       *ngIf="theForm.get('contactNumber').invalid && theForm.get('contactNumber').touched">Please
                       Provide
@@ -84,7 +84,7 @@
                   <div class="form-group">
                     <label for="emailAddressInput"><b class="fonts">Email Address</b></label>
                     <input type="email" id="emailAddressInput" class="form-control"
-                      placeholder="Enter Your Email Here (Required)" [formControlName]="'emailAddress'">
+                      placeholder="Enter Your Email Here (Required)" [formControlName]="'emailAddress'" maxlength="255">
                     <span class="form-error"
                       *ngIf="theForm.get('emailAddress').invalid && theForm.get('emailAddress').touched">Please Provide
                       a Valid Email Address</span>

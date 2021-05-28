@@ -45,9 +45,9 @@ export class UserProfileComponent implements OnInit {
     }
 
     this.handleUpdateForm = new FormGroup({
-      'contactNumber': new FormControl("", [Validators.pattern("^[0-9]+$"), Validators.minLength(10)],),
-      'firstPassword': new FormControl("", [Validators.minLength(6)]),
-      'secondPassword': new FormControl("", [Validators.minLength(6)])
+      'contactNumber': new FormControl("", [Validators.pattern("^[0-9]+$"), Validators.minLength(10), Validators.maxLength(10)],),
+      'firstPassword': new FormControl("", [Validators.minLength(6),Validators.maxLength(15)]),
+      'secondPassword': new FormControl("", [Validators.minLength(6), Validators.maxLength(15)])
     })
   }
 

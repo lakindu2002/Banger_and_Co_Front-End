@@ -28,8 +28,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.theForm = new FormGroup({
-      'username': new FormControl(null, [Validators.required]),
-      'password': new FormControl(null, [Validators.required, Validators.minLength(6)]),
+      'username': new FormControl(null, [Validators.required, Validators.minLength(6), Validators.maxLength(15)]),
+      'password': new FormControl(null, [Validators.required, Validators.minLength(6), Validators.maxLength(15)]),
     });
   }
 
@@ -54,11 +54,17 @@ export class LoginComponent implements OnInit {
       },
         (error: ErrorResponse) => {
           this.spinner.hide();
-          if(error.exceptionMessage.toLowerCase()==="bad credentials"){
+          if (error.exceptionMessage.toLowerCase() === "bad credentials") {
             error.message = "Invalid Username or Password";
             error.header = "Authentication Failed"
           }
           this.toast.error(error.message, error.header);
+
+          if (error.multipleErrors.length > 0) {
+            for (const eachError of error.multipleErrors) {
+              this.toast.warning(eachError.message);
+            }
+          }
         });
     }
   }

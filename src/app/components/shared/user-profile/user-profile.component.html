@@ -75,7 +75,7 @@
       <div class="col-sm-6">
         <div class="form-group">
           <label><b class="fonts">Password</b></label>
-          <input type="password" value="" placeholder="Provide New Password (Min 6 Characters)" class="form-control"
+          <input type="password" value="" placeholder="Provide New Password (6 to 15 Characters)" class="form-control"
             [formControlName]="'firstPassword'" (input)="validatePassword()">
 
           <span class="form-success"
@@ -88,13 +88,13 @@
       <div class="col-sm-6">
         <div class="form-group">
           <label><b class="fonts">Re-Enter Password</b></label>
-          <input type="password" value="" placeholder="Re-Enter Your Password (Min 6 Characters)"
+          <input type="password" value="" placeholder="Re-Enter Your Password (6 to 15 Characters)"
             class="form-control" [formControlName]="'secondPassword'" (input)="validatePassword()">
         </div>
       </div>
     </div>
     <span class="form-error" *ngIf="!passwordValid">
-      Password Not Valid (Provide 6 Character Password in Both Fields)
+      Password Not Valid (Provide Characters Between 6 and 15 for Password in Both Fields)
     </span>
   </div>
 

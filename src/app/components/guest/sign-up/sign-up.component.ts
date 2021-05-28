@@ -39,17 +39,17 @@ export class SignUpComponent implements OnInit {
 
     //initialize forms referenced from template.
     this.userInfoForm = new FormGroup({
-      'firstName': new FormControl(null, [Validators.required]),
-      'lastName': new FormControl(null, [Validators.required]),
-      'emailAddress': new FormControl(null, [Validators.email, Validators.required]),
-      'username': new FormControl(null, [Validators.required]),
-      'contactNumber': new FormControl(null, [Validators.required, Validators.pattern("^[0-9]+$"), Validators.minLength(10)],),
+      'firstName': new FormControl(null, [Validators.required,Validators.maxLength(100)]),
+      'lastName': new FormControl(null, [Validators.required, Validators.maxLength(100)]),
+      'emailAddress': new FormControl(null, [Validators.email, Validators.required, Validators.maxLength(255)]),
+      'username': new FormControl(null, [Validators.required, Validators.minLength(6),Validators.maxLength(15)]),
+      'contactNumber': new FormControl(null, [Validators.required, Validators.pattern("^[0-9]+$"), Validators.minLength(10), Validators.maxLength(10)],),
       'dateOfBirth': new FormControl(null, [Validators.required])
     })
 
     this.passwordForm = new FormGroup({
-      'firstPassword': new FormControl("", [Validators.required, Validators.minLength(6)]),
-      'secondPassword': new FormControl("", [Validators.required, Validators.minLength(6)])
+      'firstPassword': new FormControl("", [Validators.required, Validators.minLength(6), Validators.maxLength(15)]),
+      'secondPassword': new FormControl("", [Validators.required, Validators.minLength(6), Validators.maxLength(15)])
     })
   }
 

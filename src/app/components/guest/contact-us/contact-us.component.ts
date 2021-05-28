@@ -28,12 +28,12 @@ export class ContactUsComponent implements OnInit {
     document.title = "Contact Us | Banger and Co."
 
     this.theForm = new FormGroup({
-      'firstName': new FormControl(null, Validators.required),
-      'lastName': new FormControl(null, Validators.required),
-      'subject': new FormControl(null, Validators.required),
-      'message': new FormControl(null, Validators.required),
-      'emailAddress': new FormControl(null, [Validators.required, Validators.email]),
-      'contactNumber': new FormControl(null, Validators.required)
+      'firstName': new FormControl(null, [Validators.required, Validators.maxLength(255)]),
+      'lastName': new FormControl(null, [Validators.required, Validators.maxLength(255)]),
+      'subject': new FormControl(null, [Validators.required, Validators.maxLength(1000)]),
+      'message': new FormControl(null, [Validators.required, Validators.maxLength(1000)]),
+      'emailAddress': new FormControl(null, [Validators.required, Validators.email, Validators.maxLength(255)]),
+      'contactNumber': new FormControl(null, [Validators.required, Validators.minLength(10), Validators.maxLength(10)])
     })
   }
 
