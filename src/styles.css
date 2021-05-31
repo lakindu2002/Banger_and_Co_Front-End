@@ -76,7 +76,7 @@ body {
 }
 
 .custom-table {
-  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.2), 0 8px 22px 0 rgba(0, 0, 0, 0.19);
+  /* box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.2), 0 8px 22px 0 rgba(0, 0, 0, 0.19); */
   padding: 15px;
   border: 0px solid black;
   border-radius: 15px;
@@ -124,3 +124,21 @@ tr:last-of-type td:last-of-type {
   /* last row, last table data */
   border-bottom-right-radius: 10px;
 }
+
+input.ng-invalid.ng-touched{
+  border: 1px solid lightcoral;
+}
+
+textarea.ng-invalid.ng-touched{
+  border: 1px solid lightcoral;
+}
+
+input.ng-valid.ng-touched{
+  border: 1px solid lightgreen;
+}
+
+textarea.ng-valid.ng-touched{
+  border: 1px solid lightgreen;
+}
+
+

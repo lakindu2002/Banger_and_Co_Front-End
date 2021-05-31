@@ -56,9 +56,8 @@ export class LoginComponent implements OnInit {
           this.spinner.hide();
           if (error.exceptionMessage.toLowerCase() === "bad credentials") {
             error.message = "Invalid Username or Password";
-            error.header = "Authentication Failed"
-          }
-          this.toast.error(error.message, error.header);
+         }
+          this.toast.error(error.message, "Authentication Failed");
 
           if (error.multipleErrors.length > 0) {
             for (const eachError of error.multipleErrors) {

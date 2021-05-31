@@ -8,25 +8,31 @@
         <div class="row">
           <div class="col-sm-12">
             <span><b class="fonts">Sort Inquiries</b></span>
-            <span class="float-right btn btn-primary" style="width: 12%;" (click)="getPendingInquiry()">Refresh</span>
+            <span class="float-right btn btn-primary"  (click)="getPendingInquiry()">Refresh</span>
           </div>
         </div>
-        <span class="float-left" style="width: 50%;">
-          <select class="form-control" #selection (input)="processChange(selection.value)"
-            [disabled]="inquiryList.length === 0 || isError">
-            <option value="most-recent">Most Recent Inquiries</option>
-            <option value="least-recent">Least Recent Inquiries</option>
-          </select>
-        </span>
-        <span class="float-right" *ngIf="!isError && inquiryList.length > 0"
-          style="display: flex; align-items: center; min-height: 40px; color: green;">
-          <i>{{inquiryList.length}} Inquiries Available</i>
-        </span>
+        <div class="row">
+          <div class="col-sm-8 justify-content-left">
+            <span class="float-left" style="width: 50%;">
+              <select class="form-control" #selection (input)="processChange(selection.value)"
+                [disabled]="inquiryList.length === 0 || isError">
+                <option value="most-recent">Most Recent Inquiries</option>
+                <option value="least-recent">Least Recent Inquiries</option>
+              </select>
+            </span>
+          </div>
+          <div class="col-sm-4 justify-content-right">
+            <span class="float-right" *ngIf="!isError && inquiryList.length > 0"
+              style="display: flex; align-items: center; min-height: 40px; color: green;">
+              <i>{{inquiryList.length}} Inquiries Available</i>
+            </span>
+          </div>
+        </div>
       </div>
     </div>
 
     <div class="row" *ngIf="inquiryList.length > 0 && isError===false; else executeNoList">
-      <div class="col-sm-12">
+      <div class="col-sm-12 col-lg-12 col-md-12">
         <table class="table table-borderless custom-table">
           <tr class="table-header">
             <th class="left-header">#</th>
@@ -50,13 +56,15 @@
             <td>{{inquiry.createdAt | date}}</td>
             <td>
               <a>
-                <i class="far fa-trash-alt icon-format float-right" (click)="removeInquiry(inquiry.inquiryId)" style="color: rgba(0, 0, 0, 0.699);"></i>
+                <i class="far fa-trash-alt icon-format float-right" (click)="removeInquiry(inquiry.inquiryId)"
+                  style="color: rgba(0, 0, 0, 0.699);"></i>
               </a>
               <a href="tel:{{inquiry.contactNumber}}">
                 <i class="fas fa-phone-alt icon-format float-right" style="color: rgba(0, 0, 0, 0.699);"></i>
               </a>
               <a>
-                <i class="fad fa-info-circle icon-format float-right" (click)="viewDetailedInquiry(inquiry.inquiryId)" style="color: #007bff;"></i>
+                <i class="fad fa-info-circle icon-format float-right" (click)="viewDetailedInquiry(inquiry.inquiryId)"
+                  style="color: #007bff;"></i>
               </a>
             </td>
           </tr>

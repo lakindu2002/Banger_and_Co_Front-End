@@ -31,7 +31,6 @@ export class AuthInterceptor implements HttpInterceptor {
       }
     }
     return next.handle(req).pipe(catchError((error: HttpErrorResponse) => {
-      let headerMessage = "";
       let exceptionMessage = "";
       let errorMessage = "";
       let multipleErrors = [];
@@ -45,51 +44,50 @@ export class AuthInterceptor implements HttpInterceptor {
           message: "An Error Occurred While Processing Your Request",
           multipleErrors: [],
           errorCode: 0,
-          header: "An Error Occured"
         }
       }
 
       switch (error.status) {
         case 500: {
-          headerMessage = "Internal Error Occured";
+          //internal error
           exceptionMessage = errorObj.exceptionMessage;
           errorMessage = errorObj.exceptionMessage;
           break;
         }
         case 400: {
-          headerMessage = "A Bad Request Was Detected"
+          //bad input passed
           exceptionMessage = errorObj.exceptionMessage;
           errorMessage = errorObj.message;
           multipleErrors = errorObj.multipleErrors;
           break;
         }
         case 404: {
-          headerMessage = errorObj.message;
+          //api request url not found
           exceptionMessage = errorObj.exceptionMessage;
           errorMessage = errorObj.exceptionMessage;
           break;
         }
         case 401: {
-          headerMessage = "Authentication Error Occured";
+          //authentication error
           errorMessage = "Your session is not valid. Please login again to continue using the application";
           exceptionMessage = "Your session is not valid. Please login again to continue using the application";
           break;
         }
         case 403: {
-          headerMessage = "Authorization Error Occured";
+          //forbidden
           errorMessage = "You do not have the permission to view this resource";
           exceptionMessage = "You do not have the permission to view this resource";
           break;
         }
         case 409: {
-          headerMessage = errorObj.message
+          //conflict request
           errorMessage = errorObj.exceptionMessage;
           exceptionMessage = errorObj.exceptionMessage;
           break;
         }
         default: {
+          //server down
           errorObj.errorCode = 0;
-          headerMessage = "Unknown Error Occured";
           errorMessage = "We ran in to an unexpected error. Please try again in a bit."
           exceptionMessage = "We ran in to an unexpected error. Please try again in a bit."
           break;
@@ -101,7 +99,6 @@ export class AuthInterceptor implements HttpInterceptor {
         exceptionMessage: exceptionMessage,
         message: errorMessage,
         multipleErrors: multipleErrors,
-        header: headerMessage
       }
 
       return throwError(errorReturn);

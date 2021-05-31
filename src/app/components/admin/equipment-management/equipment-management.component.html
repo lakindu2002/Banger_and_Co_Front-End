@@ -1,0 +1,33 @@
+<app-admin-nav></app-admin-nav>
+<app-bread-crumb [pageName]="'Manage Additional Rental Equipment'"></app-bread-crumb>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <button class="btn btn-primary float-right" (click)="loadCreateEquipment()">Create New Equipment</button>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-sm-12 col-lg-12 col-md-12">
+      <table class="table table-borderless custom-table">
+        <tr class="table-header">
+          <th class="left-header">#</th>
+          <th>Equipment Name</th>
+          <th>Quantity at Hand</th>
+          <th class="right-header">
+            <span class="float-right" style="margin-right:40px;">
+              Action
+            </span>
+          </th>
+        </tr>
+        <tr *ngFor="let eachEquipment of equipmentList; let i = index;" class="custom-row">
+          <td>{{i + 1}}</td>
+          <td>{{eachEquipment.equipmentName | titlecase}}</td>
+          <td>{{eachEquipment.equipmentQuantity}}</td>
+          <td></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

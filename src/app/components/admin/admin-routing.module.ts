@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { AdminHomeComponent } from "./admin-home/admin-home.component";
 import { AdminInquiryComponent } from "./admin-inquiry/admin-inquiry.component";
+import { EquipmentManagementComponent } from "./equipment-management/equipment-management.component";
 
 const routes: Routes = [
   {
@@ -11,6 +12,10 @@ const routes: Routes = [
   {
     path: 'inquiries',
     component: AdminInquiryComponent
+  },
+  {
+    path: 'equipment',
+    component: EquipmentManagementComponent
   },
   {
     path: '',
