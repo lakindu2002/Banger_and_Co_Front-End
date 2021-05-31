@@ -31,6 +31,7 @@ export class AuthInterceptor implements HttpInterceptor {
       }
     }
     return next.handle(req).pipe(catchError((error: HttpErrorResponse) => {
+      //listen to the error channel of the source observable and throw the errors
       let exceptionMessage = "";
       let errorMessage = "";
       let multipleErrors = [];
@@ -101,7 +102,7 @@ export class AuthInterceptor implements HttpInterceptor {
         multipleErrors: multipleErrors,
       }
 
-      return throwError(errorReturn);
+      return throwError(errorReturn); //emit an error notification in the observable that will go and be caught in the (error) method in the subscription
     }));
   }
 }
