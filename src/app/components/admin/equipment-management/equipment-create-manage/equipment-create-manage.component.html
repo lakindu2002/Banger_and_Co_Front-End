@@ -10,21 +10,27 @@
       <form [formGroup]="theForm">
         <div class="form-group">
           <label class="fonts">Equipment Name</label>
-          <input type="text" [formControlName]="'equipmentName'" class="form-control" placeholder="Provide Additional Equipment Name..." />
+          <input type="text" [formControlName]="'equipmentName'" class="form-control"
+            placeholder="Provide Additional Equipment Name..." />
           <span class="form-error" *ngIf="theForm.get('equipmentName').touched && theForm.get('equipmentName').invalid">
             Please Provide a Valid Equipment Name
           </span>
         </div>
         <div class="form-group">
           <label class="fonts">Quantity at Hand</label>
-          <input type="number" [formControlName]="'equipmentQuantity'" class="form-control" placeholder="Provide Quantity at Hand..." />
-          <span class="form-error" *ngIf="theForm.get('equipmentQuantity').touched && theForm.get('equipmentQuantity').invalid">
+          <input type="number" [formControlName]="'equipmentQuantity'" class="form-control"
+            placeholder="Provide Quantity at Hand..." />
+          <span class="form-error"
+            *ngIf="theForm.get('equipmentQuantity').touched && theForm.get('equipmentQuantity').invalid">
             Please Provide a Valid Equipment Quantity
           </span>
-          <span class="form-error" *ngIf="theForm.get('equipmentQuantity').touched && theForm.get('equipmentQuantity').errors['quantityInvalid']">
-            <br>
-            Quantity At Hand Cannot Be Less Than 1
-          </span>
+          <ng-template *ngIf="theForm.get('equipmentQuantity').hasError('quantityInvalid')">
+            <span class="form-error"
+              *ngIf="theForm.get('equipmentQuantity').touched && theForm.get('equipmentQuantity').errors['quantityInvalid']">
+              <br>
+              Quantity At Hand Cannot Be Less Than 1
+            </span>
+          </ng-template>
         </div>
       </form>
     </div>
@@ -33,5 +39,6 @@
 </div>
 <div class="modal-footer">
   <button class="float-right btn btn-danger" style="width: 25%;" (click)="closeModal()">Close</button>
-  <button class="float-right btn btn-primary" [disabled]="theForm.invalid" (click)="processEquipmentHandling()">{{getButtonCaption()}}</button>
+  <button class="float-right btn btn-primary" [disabled]="theForm.invalid"
+    (click)="processEquipmentHandling()">{{getButtonCaption()}}</button>
 </div>

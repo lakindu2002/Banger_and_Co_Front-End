@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from "@angular/router";
+import { ToastrService } from "ngx-toastr";
 import { Observable } from "rxjs";
 import { AuthService } from "./auth.service";
 import { LocalStorageService } from "./localstorage.service";
@@ -10,7 +11,11 @@ import { LocalStorageService } from "./localstorage.service";
 export class AuthGuard implements CanActivate {
   //guard used to provide access to role based authentication
 
-  constructor(private authService: AuthService, private localStorageService: LocalStorageService, private router: Router) { }
+  constructor(
+    private authService: AuthService,
+    private localStorageService: LocalStorageService,
+    private router: Router,
+    private toast: ToastrService) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
     const isLoggedIn = this.authService.isLoggedIn(); //check if user is logged in
@@ -32,6 +37,7 @@ export class AuthGuard implements CanActivate {
       }
     } else {
       if (route.url[0].path === "customer" || route.url[0].path === "admin") {
+        this.toast.error("You cannot view this resource without being authenticated","Access Denied");
         this.authService.clearLocalStorage();
         this.router.navigate(['/']); //if user tries to access protected route while logged out, deny acceess
         return false;

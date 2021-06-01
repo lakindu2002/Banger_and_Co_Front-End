@@ -17,6 +17,8 @@ import { EquipmentService } from 'src/app/services/equipment.service';
 export class EquipmentCreateManageComponent implements OnInit {
 
   createMode: boolean = true;
+  theEquipmentBeingEdited: AdditionalEquipment;
+
   theForm: FormGroup;
 
   success: Subject<boolean> = new Subject(); //used to emit a success object
@@ -37,6 +39,14 @@ export class EquipmentCreateManageComponent implements OnInit {
       //binding is done to ensure that 'this' call is executed properly when angular calls the validator.
       'equipmentQuantity': new FormControl(1, [Validators.required, Validators.maxLength(4), this.isQuantityValid.bind(this)])
     })
+
+    if (this.createMode == false) {
+      //if the user is editing, patch the equipment information to the form.
+      this.theForm.patchValue({
+        'equipmentName': this.theEquipmentBeingEdited.equipmentName,
+        'equipmentQuantity': this.theEquipmentBeingEdited.equipmentQuantity
+      });
+    }
   }
 
   getTitle(): string {
@@ -57,6 +67,8 @@ export class EquipmentCreateManageComponent implements OnInit {
     //angular returns NULL if the value is valid, this is how angular works (control is valid)
     if (theControl.value < 1 && this.createMode) {
       return { "quantityInvalid": true }; //input is invalid
+    } else if(theControl.value < 0 && !this.createMode){
+      return { "quantityInvalid": true }; //if provided quantity during update is a minus value
     }
     return null; //input is valid
   }
@@ -80,6 +92,31 @@ export class EquipmentCreateManageComponent implements OnInit {
     }
   }
   updateAdditionalEquipment() {
+    //once user clicks update additional equipment from template, this method gets executed
+    this.spinner.show();
+
+    const updatePasser: AdditionalEquipment = {
+      equipmentId: this.theEquipmentBeingEdited.equipmentId,
+      equipmentName: this.theForm.get('equipmentName').value,
+      equipmentQuantity: this.theForm.get('equipmentQuantity').value,
+    };
+
+    this.additionalEquipmentService.updateEquipment(updatePasser).subscribe((data) => {
+      this.toast.success(data.message.toString(), "Equipment Information Updated Successfully");
+      this.success.next(true); //emit a new value that will be listened by all subscribed to this observable
+      this.spinner.hide();
+      this.closeModal();
+    }, (error: ErrorResponse) => {
+      //if error occurs
+      if (error.multipleErrors.length > 0) {
+        //validation errors.
+        for (const eachError of error.multipleErrors) {
+          this.toast.warning(eachError.message);
+        }
+      }
+      this.toast.error(error.exceptionMessage, "Equipment Information Not Updated");
+      this.spinner.hide();
+    })
   }
 
   createAdditionalEquipment() {

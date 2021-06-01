@@ -24,4 +24,12 @@ export class EquipmentService {
   getAll(): Observable<AdditionalEquipment[]> {
     return this.http.get<AdditionalEquipment[]>(`${this.equipmentEndpoint}/all`);
   }
+
+  getById(equipmentId: number): Observable<AdditionalEquipment> {
+    return this.http.get<AdditionalEquipment>(`${this.equipmentEndpoint}/get/${equipmentId}`);
+  }
+
+  updateEquipment(updatePasser: AdditionalEquipment): Observable<ResponseAPI> {
+    return this.http.put<ResponseAPI>(`${this.equipmentEndpoint}/update`, updatePasser);
+  }
 }

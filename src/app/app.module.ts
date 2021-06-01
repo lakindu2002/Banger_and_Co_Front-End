@@ -44,6 +44,7 @@ import { ToastrModule } from 'ngx-toastr';
       multi: true //allow multiple interceptors
     }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent] //entry component for application inserted to index.html
+  //entry component not necessary due to Angular V9 or higher using Ivy Compiler (Rendering Engine)
 })
 export class AppModule { }
