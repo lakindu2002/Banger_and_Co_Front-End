@@ -9,7 +9,7 @@
   </div>
 
   <div class="row mt-3">
-    <div class="col-sm-12 col-lg-12 col-md-12" *ngIf="equipmentList; else showError;">
+    <div class="col-sm-12 col-lg-12 col-md-12" *ngIf="equipmentList && !isError; else showError;">
       <table class="table table-borderless custom-table" *ngIf="equipmentList.length>0; else showEmpty;">
         <tr class="table-header">
           <th class="left-header">#</th>
@@ -39,7 +39,8 @@
         <div class="alert alert-warning">
           <h5 class="alert-heading">No Items Present</h5>
           <hr>
-          <p>There are no additional equipment available at Banger and Co. that customers can add to their booking.<br>Signed,<br>Banger and Co.</p>
+          <p>There are no additional equipment available at Banger and Co. that customers can add to their
+            booking.<br>Signed,<br>Banger and Co.</p>
         </div>
       </ng-template>
     </div>

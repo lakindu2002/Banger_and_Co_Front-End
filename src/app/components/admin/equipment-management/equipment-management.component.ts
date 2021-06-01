@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { AdditionalEquipment } from 'src/app/models/equipment.model';
 import { ErrorResponse } from 'src/app/models/errorresponse.model';
 import { EquipmentService } from 'src/app/services/equipment.service';
@@ -17,6 +17,7 @@ export class EquipmentManagementComponent implements OnInit {
 
   private modalRef: BsModalRef;
   equipmentList: AdditionalEquipment[];
+  isError : boolean = false; //denote an error in the service to show message in template.
 
   //used to save subscription for the success and unsubscribe.
   //done because angular doesn't automatically unsubscribe from custom observables
@@ -55,11 +56,14 @@ export class EquipmentManagementComponent implements OnInit {
 
   getAllEquipment() {
     this.spinner.show();
+    this.isError = false;
 
     this.equipmentService.getAll().subscribe((data) => {
       this.equipmentList = data;
+      this.isError = false;
       this.spinner.hide();
     }, (error: ErrorResponse) => {
+      this.isError = true;
       this.toast.error(error.exceptionMessage, "Additional Equipments Not Retrieved");
       this.spinner.hide();
     })
