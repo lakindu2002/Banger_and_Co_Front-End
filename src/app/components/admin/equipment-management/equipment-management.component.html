@@ -9,7 +9,7 @@
   </div>
 
   <div class="row mt-3">
-    <div class="col-sm-12 col-lg-12 col-md-12" *ngIf="equipmentList && !isError; else showError;">
+    <div class="col-sm-12 col-lg-12 col-md-12" *ngIf="equipmentList; else showError;">
       <table class="table table-borderless custom-table" *ngIf="equipmentList.length>0; else showEmpty;">
         <tr class="table-header">
           <th class="left-header">#</th>
@@ -45,7 +45,7 @@
       </ng-template>
     </div>
     <ng-template #showError>
-      <div class="col-sm-12 col-lg-12 col-md-12">
+      <div class="col-sm-12 col-lg-12 col-md-12" *ngIf="isError">
         <div class="alert alert-danger">
           <h5 class="alert-heading">Equipment List Not Loaded</h5>
           <hr>
