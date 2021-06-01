@@ -3,7 +3,12 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-sm-12">
+    <div class="col-sm-4">
+      <!-- ng model allows two way data binding in angular and ngModelChange is executed whenever the searchTerm changes its value -->
+      <input type="text" class="form-control" placeholder="Provide Equipment Name..." [(ngModel)]="searchTerm"
+        (ngModelChange)="filterViaName()">
+    </div>
+    <div class="col-sm-8">
       <button class="btn btn-primary float-right" (click)="loadCreateEquipment()">Create New Equipment</button>
     </div>
   </div>
@@ -21,7 +26,7 @@
             </span>
           </th>
         </tr>
-        <tr *ngFor="let eachEquipment of equipmentList; let i = index;" class="custom-row">
+        <tr *ngFor="let eachEquipment of filterList; let i = index;" class="custom-row">
           <td>{{i + 1}}</td>
           <td>{{eachEquipment.equipmentName | titlecase}}</td>
           <td>
@@ -35,8 +40,9 @@
           <td>
             <i class="far fa-trash-alt icon-format float-right"
               style="color: rgba(0, 0, 0, 0.699); font-size: 20px;"></i>
-            <i class="far fa-edit float-right mr-2" style="color: rgba(0, 0, 0, 0.699); font-size: 20px; cursor: pointer;"
-            (click)="openEditAdditionalEquipment(eachEquipment.equipmentId)"></i>
+            <i class="far fa-edit float-right mr-2"
+              style="color: rgba(0, 0, 0, 0.699); font-size: 20px; cursor: pointer;"
+              (click)="openEditAdditionalEquipment(eachEquipment.equipmentId)"></i>
           </td>
         </tr>
       </table>

@@ -16,7 +16,11 @@ import { EquipmentCreateManageComponent } from './equipment-create-manage/equipm
 export class EquipmentManagementComponent implements OnInit, OnDestroy {
 
   private modalRef: BsModalRef;
+
   equipmentList: AdditionalEquipment[];
+  filterList: AdditionalEquipment[];
+
+  searchTerm: string;
   isError: boolean = false; //denote an error in the service to show message in template.
 
   //used to save subscription for the success and unsubscribe.
@@ -59,7 +63,9 @@ export class EquipmentManagementComponent implements OnInit, OnDestroy {
     this.isError = false;
 
     this.equipmentService.getAll().subscribe((data) => {
-      this.equipmentList = data;
+      this.equipmentList = data; //used to aid filter
+      this.filterList = data; //assign the filter list initially as data returned and render on DOM
+
       this.isError = false;
       this.spinner.hide();
     }, (error: ErrorResponse) => {
@@ -102,6 +108,24 @@ export class EquipmentManagementComponent implements OnInit, OnDestroy {
     //if a subscription is present, unsubscribe when the component is destroyed
     if (this.successSubscription) {
       this.successSubscription.unsubscribe(); //stop listening for changes when component is destroyed
+    }
+  }
+
+  filterViaName() {
+    //filter the equipment list according to the name given by the user.
+
+    if (this.searchTerm.length == 0) {
+      //user has provided no input, show all
+      this.filterList = this.equipmentList;
+    } else {
+      //filter out the data from the original array list containing all the data
+      this.filterList = this.equipmentList.filter((eachEquipment) => {
+        //filter out each equipment
+        if (eachEquipment.equipmentName.toLowerCase().includes(this.searchTerm.toLowerCase())) {
+          //if the provided name via the user is present in any of the objects, return it to the filterList
+          return eachEquipment;
+        }
+      })
     }
   }
 

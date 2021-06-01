@@ -7,7 +7,7 @@ import { AdminNavComponent } from './admin-nav/admin-nav.component';
 import { AdminInquiryComponent } from './admin-inquiry/admin-inquiry.component';
 import { InquiryManageComponent } from './admin-inquiry/inquiry-manage/inquiry-manage.component';
 import { InquiryDetailedComponent } from './admin-inquiry/inquiry-detailed/inquiry-detailed.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EquipmentManagementComponent } from './equipment-management/equipment-management.component';
 import { EquipmentCreateManageComponent } from './equipment-management/equipment-create-manage/equipment-create-manage.component';
 
@@ -18,7 +18,8 @@ import { EquipmentCreateManageComponent } from './equipment-management/equipment
     CommonModule,
     SharedModule,
     AdminRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ]
 })
 export class AdminModule { }
