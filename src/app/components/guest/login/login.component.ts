@@ -53,7 +53,6 @@ export class LoginComponent implements OnInit {
         this.spinner.hide();
       },
         (error: ErrorResponse) => {
-          this.spinner.hide();
           if (error.exceptionMessage.toLowerCase() === "bad credentials") {
             error.message = "Invalid Username or Password";
          }
@@ -64,6 +63,7 @@ export class LoginComponent implements OnInit {
               this.toast.warning(eachError.message);
             }
           }
+          this.spinner.hide();
         });
     }
   }

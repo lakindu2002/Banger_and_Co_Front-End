@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import { Observable, Subscription } from 'rxjs';
 import { AdditionalEquipment } from 'src/app/models/equipment.model';
 import { ErrorResponse } from 'src/app/models/errorresponse.model';
 import { EquipmentService } from 'src/app/services/equipment.service';
@@ -16,6 +17,10 @@ export class EquipmentManagementComponent implements OnInit {
 
   private modalRef: BsModalRef;
   equipmentList: AdditionalEquipment[];
+
+  //used to save subscription for the success and unsubscribe.
+  //done because angular doesn't automatically unsubscribe from custom observables
+  successObservable: Subscription;
 
   constructor(
     private equipmentService: EquipmentService,
@@ -39,6 +44,13 @@ export class EquipmentManagementComponent implements OnInit {
         createMode: true
       }
     })
+
+    //subscribe to the success subject
+    //access the "success" subject and subscribe to the subject to be notified whenever it emits a new value
+    this.successObservable = this.modalRef.content.success.subscribe((data) => {
+      //once creation has occured successfully, refresh the data.
+      this.getAllEquipment();
+    })
   }
 
   getAllEquipment() {
@@ -48,8 +60,8 @@ export class EquipmentManagementComponent implements OnInit {
       this.equipmentList = data;
       this.spinner.hide();
     }, (error: ErrorResponse) => {
-      this.spinner.hide();
       this.toast.error(error.exceptionMessage, "Additional Equipments Not Retrieved");
+      this.spinner.hide();
     })
   }
 }

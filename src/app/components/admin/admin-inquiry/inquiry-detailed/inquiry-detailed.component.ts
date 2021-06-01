@@ -48,9 +48,9 @@ export class InquiryDetailedComponent implements OnInit {
 
       this.inquiryService.replyToInquiry(inquiryReplyObj).subscribe((data)=>{
 
-        this.spinner.hide();
         this.toast.success("Your reply has been successfully sent back to the client","Inquiry Successfully Replied");
         this.inquiryReplied.next(true);
+        this.spinner.hide();
 
         this.hideModal();
 

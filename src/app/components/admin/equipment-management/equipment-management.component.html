@@ -9,8 +9,8 @@
   </div>
 
   <div class="row mt-3">
-    <div class="col-sm-12 col-lg-12 col-md-12">
-      <table class="table table-borderless custom-table">
+    <div class="col-sm-12 col-lg-12 col-md-12" *ngIf="equipmentList; else showError;">
+      <table class="table table-borderless custom-table" *ngIf="equipmentList.length>0; else showEmpty;">
         <tr class="table-header">
           <th class="left-header">#</th>
           <th>Equipment Name</th>
@@ -24,10 +24,33 @@
         <tr *ngFor="let eachEquipment of equipmentList; let i = index;" class="custom-row">
           <td>{{i + 1}}</td>
           <td>{{eachEquipment.equipmentName | titlecase}}</td>
-          <td>{{eachEquipment.equipmentQuantity}}</td>
+          <td>
+            <span *ngIf="eachEquipment.equipmentQuantity == 0">
+              All Stock Added to Rentals
+            </span>
+            <span *ngIf="eachEquipment.equipmentQuantity > 0">
+              {{eachEquipment.equipmentQuantity}}
+            </span>
+          </td>
           <td></td>
         </tr>
       </table>
+      <ng-template #showEmpty>
+        <div class="alert alert-warning">
+          <h5 class="alert-heading">No Items Present</h5>
+          <hr>
+          <p>There are no additional equipment available at Banger and Co. that customers can add to their booking.<br>Signed,<br>Banger and Co.</p>
+        </div>
+      </ng-template>
     </div>
+    <ng-template #showError>
+      <div class="col-sm-12 col-lg-12 col-md-12">
+        <div class="alert alert-danger">
+          <h5 class="alert-heading">Equipment List Not Loaded</h5>
+          <hr>
+          <p>We could not fetch the equipment list. Please try again. <br>Signed,<br>Banger and Co.</p>
+        </div>
+      </div>
+    </ng-template>
   </div>
 </div>

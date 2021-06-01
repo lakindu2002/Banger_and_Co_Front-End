@@ -4,6 +4,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { NgxSpinner } from 'ngx-spinner/lib/ngx-spinner.enum';
 import { ToastrService } from 'ngx-toastr';
+import { Subject } from 'rxjs';
 import { AdditionalEquipment } from 'src/app/models/equipment.model';
 import { ErrorResponse } from 'src/app/models/errorresponse.model';
 import { EquipmentService } from 'src/app/services/equipment.service';
@@ -17,6 +18,8 @@ export class EquipmentCreateManageComponent implements OnInit {
 
   createMode: boolean = true;
   theForm: FormGroup;
+
+  success: Subject<boolean> = new Subject(); //used to emit a success object
 
   //give the instance of the currently opened modal
   //passed a component to .show() you can get access to opened modal by injecting BsModalRef.
@@ -91,20 +94,20 @@ export class EquipmentCreateManageComponent implements OnInit {
     //call the service method and subscribe to hit the endpoint.
     this.additionalEquipmentService.createAdditionalEquipment(thePasser).subscribe((response) => {
       //if it is successfully saved
-      this.spinner.hide();
       this.toast.success(response.message.toString(), "Additional Equipment Created Successfully");
+      this.success.next(true); //emit a new value that will be listened by all subscribed to this observable
+      this.spinner.hide();
       this.closeModal();
     }, (error: ErrorResponse) => {
       //if error occurs
-      this.spinner.hide();
-      this.toast.error(error.exceptionMessage, "Additional Equipment Not Created");
-
       if (error.multipleErrors.length > 0) {
         //validation errors.
         for (const eachError of error.multipleErrors) {
           this.toast.warning(eachError.message);
         }
       }
+      this.toast.error(error.exceptionMessage, "Additional Equipment Not Created");
+      this.spinner.hide();
     })
 
   }

@@ -33,14 +33,13 @@ export class InquiryManageComponent implements OnInit {
     this.spinner.show();
     this.inquiryService.removeInquiry(this.inquiryId).subscribe((data)=>{
       //if inquiry is successfully removed show the success and emit a new value for the observer to listen.
-      this.spinner.hide();
       this.toast.success("The inquiry was deleted successfully","Inquiry Deleted Successfully");
       this.deleteSuccess.next(true);
-
+      this.spinner.hide();
       this.modalRef.hide();
     },(error:ErrorResponse)=>{
-      this.spinner.hide();
       this.toast.error(error.exceptionMessage,"Inquiry Deletion Failed");
+      this.spinner.hide();
     })
   }
 
