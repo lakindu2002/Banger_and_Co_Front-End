@@ -65,9 +65,9 @@ export class EquipmentCreateManageComponent implements OnInit {
   isQuantityValid(theControl: FormControl): { [message: string]: boolean } {
     //return a key-value pair of boolean
     //angular returns NULL if the value is valid, this is how angular works (control is valid)
-    if (theControl.value < 1 && this.createMode) {
+    if ((theControl.value < 1 || theControl.value > 9999) && this.createMode) {
       return { "quantityInvalid": true }; //input is invalid
-    } else if(theControl.value < 0 && !this.createMode){
+    } else if((theControl.value < 0 || theControl.value > 9999) &&  !this.createMode){
       return { "quantityInvalid": true }; //if provided quantity during update is a minus value
     }
     return null; //input is valid
