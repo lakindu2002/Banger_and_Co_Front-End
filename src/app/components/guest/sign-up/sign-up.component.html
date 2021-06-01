@@ -175,14 +175,14 @@
                 <input type="file" accept="image/jpeg" style="display:none;" #fileChoose
                   (change)="fileLoaded(fileChoose.files[0])" multiple="false">
                 <div class="col-sm-12" style="text-align: center;">
-                  <label><b class="fonts">Provide Your Profile Picture (maximum - 100KB)</b></label>
+                  <label><b class="fonts">Provide Your Profile Picture (maximum - 2MB)</b></label>
                   <br>
                   <button class="btn btn-secondary" (click)="fileChoose.click()" type="button"
                     style="width: 30%;">Upload
                     a Picture</button>
 
                   <div class="alert alert-warning mt-2" *ngIf="imageSizeExceeded">
-                    Image Size Exceeded 100KB. Please Select One Again
+                    Image Size Exceeded 2MB. Please Select One Again
                   </div>
                 </div>
               </div>

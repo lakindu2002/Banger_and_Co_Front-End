@@ -60,8 +60,8 @@ export class SignUpComponent implements OnInit {
   fileLoaded(fileSelected: File): void {
     if (fileSelected) {
       this.imageSizeExceeded = true;
-      if (fileSelected.size <= 100000) {
-        //if image is less than 100kb
+      if (fileSelected.size <= 2048000) {
+        //if image is less than 2MB
         this.imageSizeExceeded = false;
         this.imageLoaded = false;
         const reader = new FileReader(); //create a file reader
