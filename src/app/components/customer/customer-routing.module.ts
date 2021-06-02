@@ -3,6 +3,7 @@ import { RouterModule, Routes } from "@angular/router";
 import { CustomerHomeComponent } from "./customer-home/customer-home.component";
 
 const routes: Routes = [
+    //holds the routes after "/customer" that is loaded via lazy loading
   {
     path: 'home',
     component: CustomerHomeComponent

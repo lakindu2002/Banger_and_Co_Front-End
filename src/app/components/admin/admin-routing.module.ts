@@ -8,6 +8,7 @@ import { AdminVehicleManagementComponent } from "./admin-vehicle-management/admi
 import { EquipmentManagementComponent } from "./equipment-management/equipment-management.component";
 
 const routes: Routes = [
+  //holds the routes after "/admin" that is loaded via lazy loading
   {
     path: 'home',
     component: AdminHomeComponent
@@ -37,7 +38,7 @@ const routes: Routes = [
     path: '',
     redirectTo: '/admin/home',
     pathMatch: 'full',
-    //direct base path route to "home"
+    //direct base path route to "/admin/home"
   },
 ];
 

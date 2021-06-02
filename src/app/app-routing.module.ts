@@ -7,6 +7,7 @@ import { PageNotFoundComponent } from "./components/shared/page-not-found/page-n
 import { AuthGuard } from "./services/auth.guard";
 
 const routes: Routes = [
+  //holds the base paths that come directly after "localhost:4200//{{rootRoute}}"
   {
     path: 'home',
     component: HomeComponent,

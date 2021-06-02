@@ -15,6 +15,7 @@ body {
 
 .fonts {
   font-weight: 600;
+  font-family: "Inter", sans-serif;
 }
 
 /* sets the width of scrollbar */

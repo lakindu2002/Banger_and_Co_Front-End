@@ -13,16 +13,31 @@ import { EquipmentCreateManageComponent } from './equipment-management/equipment
 import { AdminVehicleManagementComponent } from './admin-vehicle-management/admin-vehicle-management.component';
 import { AdminRentalListComponent } from './admin-rental-list/admin-rental-list.component';
 import { AdminUserManagementComponent } from './admin-user-management/admin-user-management.component';
+import { VehicleCreateUpdateComponent } from './admin-vehicle-management/vehicle-create-update/vehicle-create-update.component';
+import { MatStepperModule } from '@angular/material/stepper';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 @NgModule({
-  declarations: [AdminHomeComponent,AdminNavComponent, AdminInquiryComponent, InquiryManageComponent, InquiryDetailedComponent, EquipmentManagementComponent, EquipmentCreateManageComponent, AdminVehicleManagementComponent, AdminRentalListComponent, AdminUserManagementComponent],
+  declarations: [
+    AdminHomeComponent,
+    AdminNavComponent,
+    AdminInquiryComponent,
+    InquiryManageComponent,
+    InquiryDetailedComponent,
+    EquipmentManagementComponent,
+    EquipmentCreateManageComponent,
+    AdminVehicleManagementComponent,
+    AdminRentalListComponent, AdminUserManagementComponent,
+    VehicleCreateUpdateComponent],
   imports: [
     CommonModule,
     SharedModule,
     AdminRoutingModule,
-    ReactiveFormsModule,
-    FormsModule
+    ReactiveFormsModule, //used for reactive driven forms
+    FormsModule, //used for template driven forms and ngModel bindings
+    MatStepperModule, //angular material stepper module
+    NgxSpinnerModule
   ]
 })
 export class AdminModule { }

@@ -1,0 +1,199 @@
+<!-- create a reactive form to handle the processing -->
+<div class="modal-header">
+  <h5 class="modal-title">Create a Vehicle</h5>
+  <button type="button" class="close float-right" (click)="hideModal()">
+    <span>&times;</span>
+  </button>
+</div>
+
+<div class="modal-body">
+  <form (ngSubmit)="processFormSubmit()">
+    <!-- using the angular stepper from material UI -->
+    <!-- denotes it is a stepper form that is going in linear -->
+    <!-- linear attribute denotes user must complete previous step before proceeding -->
+    <mat-horizontal-stepper [linear]="true">
+      <!-- mat step denotes a stage in the form -->
+      <mat-step>
+        <!-- mat step label adds a header caption for each stage -->
+        <ng-template matStepLabel>Provide Vehicle Information</ng-template>
+
+        <div class="row">
+          <div class="col-sm-7">
+            <div class="form-group">
+              <label class="fonts">Vehicle Type</label>
+              <select class="form-control">
+                <option>Types From Database</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-sm-5">
+            <div class="form-group" dropdown [autoClose]="false">
+              <label style="color: red; font-style: italic;">Type Not Found? Create Type</label>
+              <button class="btn btn-info" style="width: 100%;" dropdownToggle type="button">Assign New Type</button>
+
+              <div *dropdownMenu class="dropdown-menu p-2" style="width: 100%;">
+
+                <ngx-spinner [name]="'typeCreator'" type="ball-clip-rotate" [fullScreen]="false"
+                  [bdColor]="'transparent'" [color]="'rgb(81, 0, 128)'" [size]="'medium'"></ngx-spinner>
+
+                <div style="max-height: 250px; overflow: auto;" class="p-1">
+                  <!-- create new type form -->
+                  <form (ngSubmit)="handleNewTypeCreation()">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="form-group">
+                          <label class="fonts">Type Name</label>
+                          <input type="text" class="form-control" placeholder="Name (Town Car)" />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="form-group">
+                          <label class="fonts">Category Size</label>
+                          <select class="form-control">
+                            <option value="small">Small</option>
+                            <option value="medium">Medium</option>
+                            <option value="large">Large</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="form-group">
+                          <label class="fonts">Price Per Day (£)</label>
+                          <input type="number" class="form-control" placeholder="75.00" />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="form-group">
+                          <button type="submit" class="btn btn-primary" style="width: 100%;">Create Vehicle
+                            Type</button>
+                        </div>
+                      </div>
+                    </div>
+
+
+                  </form>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-5">
+            <div class="form-group">
+              <label class="fonts">License Plate</label>
+              <input class="form-control" placeholder="Provide License Plate (CAD-7859)">
+            </div>
+          </div>
+          <div class="col-sm-7">
+            <div class="form-group">
+              <label class="fonts">Vehicle Name</label>
+              <input class="form-control" placeholder="Provide Vehicle Name (Mercedes S Class)">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label class="fonts">Fuel Type</label>
+              <select class="form-control">
+                <option value="petrol">Petrol</option>
+                <option value="diesel">Diesel</option>
+                <option value="hybrid">Hybrid</option>
+                <option value="electric">Electric</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label class="fonts">Transmission Type</label>
+              <select class="form-control">
+                <option value="automatic">Automatic</option>
+                <option value="maunal">Manual</option>
+                <option value="triptonic">Triptonic</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-sm-12">
+            <div class="form-group">
+              <button class="float-right btn btn-primary" style="width:25%;" type="button" matStepperNext>Next</button>
+            </div>
+          </div>
+        </div>
+      </mat-step>
+
+      <!-- vehicle image selector -->
+      <mat-step>
+        <ng-template matStepLabel>Provide a Picture</ng-template>
+
+        <div class="row justify-content-center">
+          <div class="col-sm-5">
+            <input type="file" accept="image/jpeg" style="display:none" class="mb-2" #vehicleImagePicker
+              (change)="loadPicture(vehicleImagePicker.files[0])" multiple="false">
+            <button class="btn btn-secondary mt-2" style="width: 100%;" (click)="vehicleImagePicker.click()"
+              type="button">Upload a Picture (Maximum - 5MB)</button>
+          </div>
+        </div>
+
+        <div class="row justify-content-center mt-3">
+          <div class="col-sm-12">
+
+            <ngx-spinner [name]="'imageSpinner'" type="ball-clip-rotate" [fullScreen]="false" [bdColor]="'transparent'"
+              [color]="'rgb(81, 0, 128)'"></ngx-spinner>
+
+            <div class="row justify-content-center" *ngIf="!vehicleImageUrl">
+              <div class="col-sm-6 mt-2">
+                <div class="alert alert-info" style="text-align: center;">
+                  Please select an image to proceed
+                </div>
+              </div>
+            </div>
+
+            <div class="row justify-content-center" *ngIf="fileSizeExceeded == true; else showImage">
+              <div class="col-sm-6">
+                <div class="alert alert-warning">
+                  The image you selected exceeded 5MB
+                </div>
+              </div>
+            </div>
+
+            <ng-template #showImage>
+              <div class="row justify-content-center">
+                <div class="col-sm-6 mt-3" style="width: 180; height: 180px; text-align: center;">
+                  <img [src]="vehicleImageUrl" width="180" height="180" class="img-responsive" *ngIf="vehicleImageUrl">
+                </div>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <button class="btn btn-primary float-right ml-2" style="width:30%;" type="submit">Create Vehicle</button>
+            <button class="btn btn-warning float-right" style="width:30%;" matStepperPrevious
+              type="button">Previous</button>
+          </div>
+        </div>
+      </mat-step>
+    </mat-horizontal-stepper>
+
+  </form>
+</div>
+
+<div class="modal-footer">
+  <button class="float-right btn btn-danger" style="width: 20%;" type="button" (click)="hideModal()">Dismiss</button>
+</div>

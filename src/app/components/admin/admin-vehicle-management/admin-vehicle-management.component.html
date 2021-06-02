@@ -1,2 +1,20 @@
 <app-admin-nav></app-admin-nav>
 <app-bread-crumb [pageName]="'Vehicle Management'"></app-bread-crumb>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="form-group float-left" style="width: 100%;">
+        <label class="fonts">Sort Via Vehicle Type</label>
+        <select class="form-control">
+          <option>Vehicle Types From Database</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="col-sm-8 align-self-center">
+      <!-- self center for vertical middle of button -->
+      <button class="btn btn-primary float-right" (click)="launchCreateModal()">Create Vehicle</button>
+    </div>
+  </div>
+</div>
