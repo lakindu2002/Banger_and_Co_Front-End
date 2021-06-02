@@ -10,10 +10,13 @@ import { InquiryDetailedComponent } from './admin-inquiry/inquiry-detailed/inqui
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EquipmentManagementComponent } from './equipment-management/equipment-management.component';
 import { EquipmentCreateManageComponent } from './equipment-management/equipment-create-manage/equipment-create-manage.component';
+import { AdminVehicleManagementComponent } from './admin-vehicle-management/admin-vehicle-management.component';
+import { AdminRentalListComponent } from './admin-rental-list/admin-rental-list.component';
+import { AdminUserManagementComponent } from './admin-user-management/admin-user-management.component';
 
 
 @NgModule({
-  declarations: [AdminHomeComponent,AdminNavComponent, AdminInquiryComponent, InquiryManageComponent, InquiryDetailedComponent, EquipmentManagementComponent, EquipmentCreateManageComponent],
+  declarations: [AdminHomeComponent,AdminNavComponent, AdminInquiryComponent, InquiryManageComponent, InquiryDetailedComponent, EquipmentManagementComponent, EquipmentCreateManageComponent, AdminVehicleManagementComponent, AdminRentalListComponent, AdminUserManagementComponent],
   imports: [
     CommonModule,
     SharedModule,
