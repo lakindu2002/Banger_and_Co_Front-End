@@ -17,7 +17,7 @@ import { VehicleTypeCreateManageComponent } from './vehicle-type-create-manage/v
 })
 export class AdminVehicleTypeManagementComponent implements OnInit {
 
-  allTypes: VehicleType[];
+  allTypes: VehicleType[] = [];
   isError: boolean = false;
   bsModalRef: BsModalRef
 
@@ -37,7 +37,6 @@ export class AdminVehicleTypeManagementComponent implements OnInit {
   getAllTypes() {
     this.spinner.show();
     this.isError = false;
-    this.allTypes = [];
 
     this.vehicleTypeService.getAllVehicleTypes().subscribe((data: VehicleType[]) => {
       //retrieve all vehicle types successfully
@@ -67,6 +66,33 @@ export class AdminVehicleTypeManagementComponent implements OnInit {
     this.popupSubscription = this.bsModalRef.content.isSuccess.subscribe((data: boolean) => {
       //the creation occured successfully
       this.getAllTypes(); //retrieve all the types from the database to refresh the table.
+    })
+  }
+
+  openEditTypeModal(equipmentId: number): void {
+    this.spinner.show();
+    this.vehicleTypeService.findById(equipmentId).subscribe((data: VehicleType) => {
+
+      this.bsModalRef = this.modalService.show(VehicleTypeCreateManageComponent, {
+        class: "modal-md modal-dialog-centered",
+        keyboard: false,
+        ignoreBackdropClick: true,
+        initialState: {
+          createMode: false,
+          typeUpdated: data,
+        }
+      });
+
+      //observe for values emitted by the "isSuccess" subject by observing
+      this.popupSubscription = this.bsModalRef.content.isSuccess.subscribe((data: boolean) => {
+        //the creation occured successfully
+        this.getAllTypes(); //retrieve all the types from the database to refresh the table.
+      })
+
+      this.spinner.hide();
+    }, (error: ErrorResponse) => {
+      this.toast.error(error.exceptionMessage, "Single Vehicle Type Information Not Loaded")
+      this.spinner.hide();
     })
   }
 

@@ -18,6 +18,7 @@ export class VehicleTypeCreateManageComponent implements OnInit {
   vehicleTypeCreator: FormGroup;
   isSuccess: Subject<boolean> = new Subject();
   createMode: boolean = true; //initially set to true
+  typeUpdated: VehicleType;
 
   constructor(
     private modalRef: BsModalRef,
@@ -27,14 +28,42 @@ export class VehicleTypeCreateManageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.vehicleTypeCreator = new FormGroup({
-      "typeName": new FormControl(null, [Validators.maxLength(50), Validators.required]),
-      "categorySize": new FormControl("small", Validators.required),
-      "pricePerDay": new FormControl(null, Validators.required),
-    });
+    if (this.createMode == false) {
+      //remove the currency sign from the price per day
+      const totalLength: number = this.typeUpdated.pricePerDay.length;
+      const positionAfterCurrency: number = (this.typeUpdated.pricePerDay.length) - (this.typeUpdated.pricePerDay.length - 1);
+      //retrieves position after pound sign to the end.
+
+      //being edited
+      this.vehicleTypeCreator = new FormGroup({
+        "typeName": new FormControl(this.typeUpdated.typeName, [Validators.maxLength(50), Validators.required]),
+        "categorySize": new FormControl(this.typeUpdated.size.toLowerCase(), Validators.required),
+        "pricePerDay": new FormControl(this.typeUpdated.pricePerDay.substring(
+          positionAfterCurrency, totalLength
+        ), Validators.required),
+      });
+
+      this.vehicleTypeCreator.controls['typeName'].disable();
+      this.vehicleTypeCreator.controls['categorySize'].disable();
+
+    } else {
+      //new type being created
+      this.vehicleTypeCreator = new FormGroup({
+        "typeName": new FormControl(null, [Validators.maxLength(50), Validators.required]),
+        "categorySize": new FormControl("small", Validators.required),
+        "pricePerDay": new FormControl(null, Validators.required),
+      });
+    }
   }
 
-  handleNewTypeCreation(): void {
+  handleType(): void {
+    if (this.createMode) {
+      //if creating a new object
+      this.createNewTypeInDb();
+    }
+  }
+
+  createNewTypeInDb() {
     this.spinner.show();
 
     const passer: VehicleType = {
@@ -44,14 +73,12 @@ export class VehicleTypeCreateManageComponent implements OnInit {
     }
 
     this.vehicleTypeService.createVehicleType(passer).subscribe((data) => {
-      this.toast.success("Vehicle type was created successfully. Select it from the dropdown.", "Vehicle Type Created")
-
       //emit a new value from the subject for the success
       this.isSuccess.next(true);
+      this.toast.success("Vehicle type was created successfully. You can now assign this type to vehicles when creating new vehicles.", "Vehicle Type Created")
+      this.spinner.hide();
       //hide this modal
       this.modalRef.hide();
-
-      this.spinner.hide();
     }, (error: ErrorResponse) => {
       if (error.multipleErrors.length > 0) {
         for (const eachError of error.multipleErrors) {
@@ -69,16 +96,17 @@ export class VehicleTypeCreateManageComponent implements OnInit {
 
   getName(): string {
     if (this.createMode) {
+      //if initial state of modal is on create mode (creating a new vehicle type.)
       return "Create a Vehicle Type";
     } else {
       return "Edit a Vehicle Type";
     }
   }
 
-  getButtonName():string{
-    if(this.createMode){
+  getButtonName(): string {
+    if (this.createMode) {
       return "Create Vehicle Type";
-    }else{
+    } else {
       return "Update Vehicle Type";
     }
   }

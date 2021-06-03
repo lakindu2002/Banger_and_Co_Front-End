@@ -16,12 +16,26 @@
         <tr class="table-header">
           <th class="left-header">#</th>
           <th>Vehicle Size</th>
-          <th class="right-header">Vehicle Type</th>
+          <th>Vehicle Type</th>
+          <th>Price Per Day</th>
+          <th class="right-header">
+            <span class="float-right">
+              Action
+            </span>
+          </th>
         </tr>
         <tr *ngFor="let eachType of allTypes; let i = index" class="custom-row">
           <td>{{i + 1}}</td>
           <td>{{eachType.size | titlecase}}</td>
           <td>{{eachType.typeName | titlecase}}</td>
+          <td>{{eachType.pricePerDay}}/Day</td>
+          <td>
+            <i class="far fa-trash-alt icon-format float-right"
+              style="color: rgba(0, 0, 0, 0.699); font-size: 20px;"></i>
+            <i class="far fa-edit float-right mr-2"
+              style="color: rgba(0, 0, 0, 0.699); font-size: 20px; cursor: pointer;"
+              (click)="openEditTypeModal(eachType.vehicleTypeId)"></i>
+          </td>
         </tr>
       </table>
     </div>

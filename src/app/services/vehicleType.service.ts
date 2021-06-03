@@ -23,4 +23,9 @@ export class VehicleTypeService {
   createVehicleType(theCreator: VehicleType): Observable<ResponseAPI> {
     return this.http.post<ResponseAPI>(`${this.basePath}/create`, theCreator);
   }
+
+  findById(id: number): Observable<VehicleType> {
+    //observe for a response of VehicleType from the backend
+    return this.http.get<VehicleType>(`${this.basePath}/find/${id}`);
+  }
 }
