@@ -18,6 +18,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { AdminVehicleTypeManagementComponent } from './admin-vehicle-management/admin-vehicle-type-management/admin-vehicle-type-management.component';
 import { AdminVehicleBrowsingComponent } from './admin-vehicle-management/admin-vehicle-browsing/admin-vehicle-browsing.component';
+import { VehicleTypeCreateManageComponent } from './admin-vehicle-management/admin-vehicle-type-management/vehicle-type-create-manage/vehicle-type-create-manage.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { AdminVehicleBrowsingComponent } from './admin-vehicle-management/admin-
     AdminRentalListComponent, AdminUserManagementComponent,
     VehicleCreateUpdateComponent,
     AdminVehicleTypeManagementComponent,
-    AdminVehicleBrowsingComponent
+    AdminVehicleBrowsingComponent,
+    VehicleTypeCreateManageComponent
   ],
   imports: [
     CommonModule,

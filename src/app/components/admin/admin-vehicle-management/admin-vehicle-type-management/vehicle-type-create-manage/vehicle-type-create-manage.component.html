@@ -1,0 +1,56 @@
+<form (ngSubmit)="handleNewTypeCreation()" [formGroup]="vehicleTypeCreator">
+  <div class="modal-header">
+    <h5 class="modal-title">{{getName()}}</h5>
+    <button type="button" class="close float-right" (click)="hideModal()">
+      <span>&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group">
+          <label class="fonts">Type Name</label>
+          <input type="text" [disabled]="createMode==false" class="form-control" placeholder="Name (Town Car)"
+            [formControlName]="'typeName'" />
+          <span class="form-error"
+            *ngIf="vehicleTypeCreator.get('typeName').touched && vehicleTypeCreator.get('typeName').invalid">Invalid
+            Type Name (max 50 characters)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group">
+          <label class="fonts">Category Size</label>
+          <select class="form-control" [formControlName]="'categorySize'" [disabled]="createMode==false">
+            <option value="small">Small</option>
+            <option value="medium">Medium</option>
+            <option value="large">Large</option>
+          </select>
+          <span class="form-error"
+            *ngIf="vehicleTypeCreator.get('categorySize').touched && vehicleTypeCreator.get('categorySize').invalid">Invalid
+            Vehicle Category Size</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group">
+          <label class="fonts">Price Per Day (£)</label>
+          <input type="text" class="form-control" placeholder="75.00" [formControlName]="'pricePerDay'" />
+          <span class="form-error"
+            *ngIf="vehicleTypeCreator.get('pricePerDay').touched && vehicleTypeCreator.get('pricePerDay').invalid">Invalid
+            Price Per Day</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" style="width: 20%;" (click)="hideModal()">Close</button>
+    <button type="submit" class="btn btn-primary" [disabled]="vehicleTypeCreator.invalid">{{getButtonName()}}</button>
+  </div>
+</form>

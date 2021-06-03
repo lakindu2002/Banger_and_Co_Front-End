@@ -1,1 +1,45 @@
 <app-bread-crumb [pageName]="'Vehicle Type Management'"></app-bread-crumb>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-5">
+    </div>
+    <div class="col-sm-7">
+      <button class="float-right btn btn-primary" (click)="launchCreateVehicleTypeModal()">Create Vehicle Type</button>
+      <button class="float-right btn btn-secondary mr-2" [routerLink]="['/admin','vehicles']"
+        routerLinkActive="active">Manage Vehicles</button>
+    </div>
+  </div>
+
+  <div class="row mt-3" *ngIf="allTypes.length > 0 && isError===false; else executeNoList">
+    <div class="col-sm-12 col-lg-12 col-md-12">
+      <table class="table table-borderless custom-table">
+        <tr class="table-header">
+          <th class="left-header">#</th>
+          <th>Vehicle Size</th>
+          <th class="right-header">Vehicle Type</th>
+        </tr>
+        <tr *ngFor="let eachType of allTypes; let i = index" class="custom-row">
+          <td>{{i + 1}}</td>
+          <td>{{eachType.size | titlecase}}</td>
+          <td>{{eachType.typeName | titlecase}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <ng-template #executeNoList>
+    <div class="row mt-3" *ngIf="isError === false && allTypes.length === 0">
+      <div class="col-sm-12">
+        <div class="alert alert-info">
+          <b class="fonts">No Vehicles Types Available at Banger and Co.</b>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-3" *ngIf="isError === true">
+      <div class="col-sm-12">
+        <div class="alert alert-danger">
+          <b class="fonts"> An Error Occurred While Retrieving the Vehicle Types</b>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>
