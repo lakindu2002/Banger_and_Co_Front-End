@@ -4,7 +4,9 @@ import { AdminHomeComponent } from "./admin-home/admin-home.component";
 import { AdminInquiryComponent } from "./admin-inquiry/admin-inquiry.component";
 import { AdminRentalListComponent } from "./admin-rental-list/admin-rental-list.component";
 import { AdminUserManagementComponent } from "./admin-user-management/admin-user-management.component";
+import { AdminVehicleBrowsingComponent } from "./admin-vehicle-management/admin-vehicle-browsing/admin-vehicle-browsing.component";
 import { AdminVehicleManagementComponent } from "./admin-vehicle-management/admin-vehicle-management.component";
+import { AdminVehicleTypeManagementComponent } from "./admin-vehicle-management/admin-vehicle-type-management/admin-vehicle-type-management.component";
 import { EquipmentManagementComponent } from "./equipment-management/equipment-management.component";
 
 const routes: Routes = [
@@ -23,15 +25,25 @@ const routes: Routes = [
   },
   {
     path: 'vehicles',
-    component: AdminVehicleManagementComponent
+    component: AdminVehicleManagementComponent,
+    children: [
+      {
+        path:'',
+        component:AdminVehicleBrowsingComponent
+      },
+      {
+        path: 'vehicleType',
+        component: AdminVehicleTypeManagementComponent
+      }
+    ]
   },
   {
     path: 'rentals',
     component: AdminRentalListComponent
   },
   {
-    path:'users',
-    component:AdminUserManagementComponent
+    path: 'users',
+    component: AdminUserManagementComponent
   },
   {
     //if base route is hit

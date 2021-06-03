@@ -12,7 +12,6 @@ import { VehicleType } from "../models/vehicleType.model";
   }
 )
 export class VehicleTypeService {
-
   basePath: string = `${environment.apiBaseUrl}/api/vehicleType`
 
   constructor(private http: HttpClient) { }

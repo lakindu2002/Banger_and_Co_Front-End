@@ -8,15 +8,15 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class BreadCrumbComponent implements OnInit {
 
-  @Input("pageName") pageName: string;
+  @Input("pageName") pageTitleOnDOM: string;
 
-  constructor(private location : Location) { }
+  constructor(private locationService : Location) { }
 
   ngOnInit(): void {
   }
 
-  goBack(){
-    this.location.back();
+  visitPreviousPage(){
+    this.locationService.back();
   }
 
 }
