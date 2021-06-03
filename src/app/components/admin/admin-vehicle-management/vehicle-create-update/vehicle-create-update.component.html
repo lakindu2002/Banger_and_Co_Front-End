@@ -12,6 +12,7 @@
     <!-- denotes it is a stepper form that is going in linear -->
     <!-- linear attribute denotes user must complete previous step before proceeding -->
     <mat-horizontal-stepper [linear]="true">
+
       <!-- mat step denotes a stage in the form -->
       <mat-step>
         <!-- mat step label adds a header caption for each stage -->
@@ -21,15 +22,18 @@
           <div class="col-sm-7">
             <div class="form-group">
               <label class="fonts">Vehicle Type</label>
-              <select class="form-control">
-                <option>Types From Database</option>
+              <select class="form-control" [disabled]="vehicleTypeList.length == 0">
+                <option *ngFor="let eachType of vehicleTypeList" [value]="eachType.vehicleTypeId">{{eachType.size |
+                  titlecase}} {{eachType.typeName |
+                  titlecase}} - {{eachType.pricePerDay}}/Day</option>
               </select>
             </div>
           </div>
           <div class="col-sm-5">
             <div class="form-group" dropdown [autoClose]="false">
               <label style="color: red; font-style: italic;">Type Not Found? Create Type</label>
-              <button class="btn btn-info" style="width: 100%;" dropdownToggle type="button">Assign New Type</button>
+              <button class="btn btn-info" style="width: 100%;" dropdownToggle type="button" #assignReference>Assign New
+                Type</button>
 
               <div *dropdownMenu class="dropdown-menu p-2" style="width: 100%;">
 
@@ -38,12 +42,16 @@
 
                 <div style="max-height: 250px; overflow: auto;" class="p-1">
                   <!-- create new type form -->
-                  <form (ngSubmit)="handleNewTypeCreation()">
+                  <form (ngSubmit)="handleNewTypeCreation()" [formGroup]="vehicleTypeCreator">
                     <div class="row">
                       <div class="col-sm-12">
                         <div class="form-group">
                           <label class="fonts">Type Name</label>
-                          <input type="text" class="form-control" placeholder="Name (Town Car)" />
+                          <input type="text" class="form-control" placeholder="Name (Town Car)"
+                            [formControlName]="'typeName'" />
+                          <span class="form-error"
+                            *ngIf="vehicleTypeCreator.get('typeName').touched && vehicleTypeCreator.get('typeName').invalid">Invalid
+                            Type Name (max 50 characters)</span>
                         </div>
                       </div>
                     </div>
@@ -52,11 +60,14 @@
                       <div class="col-sm-12">
                         <div class="form-group">
                           <label class="fonts">Category Size</label>
-                          <select class="form-control">
+                          <select class="form-control" [formControlName]="'categorySize'">
                             <option value="small">Small</option>
                             <option value="medium">Medium</option>
                             <option value="large">Large</option>
                           </select>
+                          <span class="form-error"
+                            *ngIf="vehicleTypeCreator.get('categorySize').touched && vehicleTypeCreator.get('categorySize').invalid">Invalid
+                            Vehicle Category Size</span>
                         </div>
                       </div>
                     </div>
@@ -65,7 +76,11 @@
                       <div class="col-sm-12">
                         <div class="form-group">
                           <label class="fonts">Price Per Day (£)</label>
-                          <input type="number" class="form-control" placeholder="75.00" />
+                          <input type="text" class="form-control" placeholder="75.00"
+                            [formControlName]="'pricePerDay'" />
+                          <span class="form-error"
+                            *ngIf="vehicleTypeCreator.get('pricePerDay').touched && vehicleTypeCreator.get('pricePerDay').invalid">Invalid
+                            Price Per Day</span>
                         </div>
                       </div>
                     </div>
@@ -78,10 +93,7 @@
                         </div>
                       </div>
                     </div>
-
-
                   </form>
-
                 </div>
               </div>
             </div>
