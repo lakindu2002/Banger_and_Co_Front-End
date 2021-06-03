@@ -25,7 +25,8 @@
               <select class="form-control" [disabled]="vehicleTypeList.length == 0">
                 <option *ngFor="let eachType of vehicleTypeList" [value]="eachType.vehicleTypeId">{{eachType.size |
                   titlecase}} {{eachType.typeName |
-                  titlecase}} - {{eachType.pricePerDay}}/Day</option>
+                  titlecase}} - {{eachType.pricePerDay}}/Day
+                </option>
               </select>
             </div>
           </div>
