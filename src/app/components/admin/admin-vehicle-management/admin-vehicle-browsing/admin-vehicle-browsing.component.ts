@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
 import { VehicleType } from 'src/app/models/vehicleType.model';
 import { VehicleTypeService } from 'src/app/services/vehicleType.service';
 import { VehicleCreateUpdateComponent } from './vehicle-create-update/vehicle-create-update.component';
@@ -11,10 +12,12 @@ import { VehicleCreateUpdateComponent } from './vehicle-create-update/vehicle-cr
   templateUrl: './admin-vehicle-browsing.component.html',
   styleUrls: ['./admin-vehicle-browsing.component.css']
 })
-export class AdminVehicleBrowsingComponent implements OnInit {
+export class AdminVehicleBrowsingComponent implements OnInit, OnDestroy {
 
   modalRef: BsModalRef; //holds a reference to the opened modal
   vehicleTypeList: VehicleType[] = [];
+
+  successSubscription: Subscription;
 
   constructor(
     private toast: ToastrService,
@@ -38,6 +41,16 @@ export class AdminVehicleBrowsingComponent implements OnInit {
         class: 'modal-lg modal-dialog-centered'
       }
     )
+    //subscribe to the content emitted by the subject in the component
+    this.successSubscription = this.modalRef.content.isSuccess.subscribe((data) => {
+      if (data == true) {
+        this.getAllVehicles();
+      }
+    })
+  }
+
+  getAllVehicles(): void {
+
   }
 
   getAllVehicleTypes(): void {
@@ -46,4 +59,10 @@ export class AdminVehicleBrowsingComponent implements OnInit {
     })
   }
 
+  ngOnDestroy() {
+    //if subscription is active, unsubscribe
+    if (this.successSubscription) {
+      this.successSubscription.unsubscribe();
+    }
+  }
 }

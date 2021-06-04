@@ -3,8 +3,11 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import { Subject } from 'rxjs';
 import { ErrorResponse } from 'src/app/models/errorresponse.model';
+import { ResponseAPI } from 'src/app/models/response.model';
 import { VehicleType } from 'src/app/models/vehicleType.model';
+import { VehicleService } from 'src/app/services/vehicle.service';
 import { VehicleTypeService } from 'src/app/services/vehicleType.service';
 
 @Component({
@@ -20,21 +23,36 @@ export class VehicleCreateUpdateComponent implements OnInit, OnDestroy {
   loadedImage: File
   fileSizeExceeded: boolean = false;
 
+  isSuccess: Subject<boolean> = new Subject();
+
   vehicleTypeList: VehicleType[] = [];
 
   vehicleTypeCreator: FormGroup;
+  vehicleForm: FormGroup;
 
   //can access the open modal via injecting the modal ref since it was opened with the "show" method of modal service
   constructor(
     private modalRef: BsModalRef,
     private spinner: NgxSpinnerService,
     private toast: ToastrService,
-    private vehicleTypeService: VehicleTypeService
+    private vehicleTypeService: VehicleTypeService,
+    private vehicleService: VehicleService
   ) { }
 
   ngOnInit(): void {
+    this.constructVehicleForm();
     this.constructVehicleTypeForm();
     this.getAllVehicleTypes();
+  }
+
+  constructVehicleForm(): void {
+    this.vehicleForm = new FormGroup({
+      'licensePlate': new FormControl(null, [Validators.required, Validators.minLength(8), Validators.maxLength(8), Validators.pattern('^[A-Z]{2}[0-9]{2} [A-Z]{3}$')]),
+      'vehicleName': new FormControl(null, [Validators.required, Validators.maxLength(255)]),
+      'fuelType': new FormControl('Petrol', [Validators.required, Validators.maxLength(50)]),
+      'transmission': new FormControl('Manual', [Validators.required, Validators.maxLength(50)]),
+      'vehicleType': new FormControl(null, [Validators.required]) //patch once api loads the available types.
+    });
   }
 
   constructVehicleTypeForm(): void {
@@ -48,6 +66,14 @@ export class VehicleCreateUpdateComponent implements OnInit, OnDestroy {
   getAllVehicleTypes(): void {
     this.vehicleTypeService.getAllVehicleTypes().subscribe((data) => {
       this.vehicleTypeList = data;
+
+      this.vehicleForm.patchValue({
+        'vehicleType': data[0].vehicleTypeId
+      })
+
+      if (this.vehicleTypeList.length == 0) {
+        this.vehicleForm.controls['vehicleType'].disable();
+      }
     }, (error) => {
       this.toast.error("The vehicle types could not be loaded. Please try again", "Vehicle Types Not Loaded");
     })
@@ -100,7 +126,7 @@ export class VehicleCreateUpdateComponent implements OnInit, OnDestroy {
       }); //clear form data
       this.assigningBtn.nativeElement.click(); //hide the drop down
 
-      this.toast.success("Vehicle type was created successfully. Select it from the dropdown.","Vehicle Type Created")
+      this.toast.success("Vehicle type was created successfully. Select it from the dropdown.", "Vehicle Type Created")
 
       this.getAllVehicleTypes();
       this.spinner.hide('typeCreator');
@@ -112,6 +138,39 @@ export class VehicleCreateUpdateComponent implements OnInit, OnDestroy {
       }
       this.toast.error(error.exceptionMessage, "Vehicle Type Not Created")
       this.spinner.hide('typeCreator');
+    })
+  }
+
+  createVehicle(): void {
+    this.spinner.show();
+
+    //form data is used as it is not possible to send files in json as files are not blob.
+    //to send the WHOLE file the form data is used.
+    const passer: FormData = new FormData();
+    passer.append('vehicleName', this.vehicleForm.get('vehicleName').value);
+    passer.append('fuelType', this.vehicleForm.get('fuelType').value);
+    passer.append('licensePlate', this.vehicleForm.get('licensePlate').value);
+    passer.append('transmission', this.vehicleForm.get('transmission').value);
+    passer.append('vehicleImage', this.loadedImage);
+    passer.append('vehicleTypeId', this.vehicleForm.get('vehicleType').value);
+
+    //call api endpoint to save vehicle in database
+    this.vehicleService.createVehicle(passer).subscribe((data: ResponseAPI) => {
+      this.isSuccess.next(true) //denote success to the component subscribed to this subject
+
+      //show success message
+      this.toast.success("The vehicle was created successfully at Banger and Co.", "Vehicle Created Successfully");
+      this.hideModal(); //hide the modal after successful creation
+      this.spinner.hide();
+    }, (error: ErrorResponse) => {
+      if (error.multipleErrors.length > 0) {
+        //validation errors
+        for (const eachError of error.multipleErrors) {
+          this.toast.warning(eachError.error);
+        }
+      }
+      this.toast.error(error.message, "Vehicle Not Created");
+      this.spinner.hide();
     })
   }
 
