@@ -144,15 +144,23 @@ export class VehicleCreateUpdateComponent implements OnInit, OnDestroy {
   createVehicle(): void {
     this.spinner.show();
 
+    //create a Javascript object that can be sent to the server contianing vehicle information excluding file
+    const theVehicle = {
+      vehicleName: this.vehicleForm.get('vehicleName').value,
+      fuelType: this.vehicleForm.get('fuelType').value,
+      licensePlate: this.vehicleForm.get('licensePlate').value,
+      transmission: this.vehicleForm.get('transmission').value,
+      vehicleTypeId: this.vehicleForm.get('vehicleType').value
+    }
+
     //form data is used as it is not possible to send files in json as files are not blob.
     //to send the WHOLE file the form data is used.
     const passer: FormData = new FormData();
-    passer.append('vehicleName', this.vehicleForm.get('vehicleName').value);
-    passer.append('fuelType', this.vehicleForm.get('fuelType').value);
-    passer.append('licensePlate', this.vehicleForm.get('licensePlate').value);
-    passer.append('transmission', this.vehicleForm.get('transmission').value);
-    passer.append('vehicleImage', this.loadedImage);
-    passer.append('vehicleTypeId', this.vehicleForm.get('vehicleType').value);
+    //pass JSON to the server, since not using actual HTTP client body (one arguement body),
+    //JSON conversion does not happen automatically, so we need to manually do it.
+
+    passer.append('vehicleInformation', JSON.stringify(theVehicle)); //convert to JSON (will be de-serialized back to DTO by Spring Boot.)
+    passer.append('vehicleImage', this.loadedImage); //attach the entire file to the form.
 
     //call api endpoint to save vehicle in database
     this.vehicleService.createVehicle(passer).subscribe((data: ResponseAPI) => {
