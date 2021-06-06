@@ -83,10 +83,6 @@ export class VehicleCreateUpdateComponent implements OnInit, OnDestroy {
     this.modalRef.hide();
   }
 
-  processFormSubmit() {
-    console.log("executed submit");
-  }
-
   loadPicture(selectedFile: File) {
     this.spinner.show('imageSpinner');
     this.fileSizeExceeded = false;
@@ -174,7 +170,7 @@ export class VehicleCreateUpdateComponent implements OnInit, OnDestroy {
       if (error.multipleErrors.length > 0) {
         //validation errors
         for (const eachError of error.multipleErrors) {
-          this.toast.warning(eachError.error);
+          this.toast.warning(eachError.message);
         }
       }
       this.toast.error(error.message, "Vehicle Not Created");
