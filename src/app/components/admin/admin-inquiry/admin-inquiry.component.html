@@ -8,7 +8,7 @@
         <div class="row">
           <div class="col-sm-12">
             <span><b class="fonts">Sort Inquiries</b></span>
-            <span class="float-right btn btn-primary"  (click)="getPendingInquiry()">Refresh</span>
+            <span class="float-right btn btn-primary" (click)="getPendingInquiry()">Refresh</span>
           </div>
         </div>
         <div class="row">
@@ -75,14 +75,16 @@
       <div class="row" *ngIf="isError === false && inquiryList.length === 0">
         <div class="col-sm-12">
           <div class="alert alert-info">
-            <b class="fonts"> All Inquiries Have Been Responded Successfully!</b>
+            <h5 class="alert-heading">Inquiries Responded</h5>
+            All Inquiries Have Been Responded Successfully!
           </div>
         </div>
       </div>
       <div class="row" *ngIf="isError === true">
         <div class="col-sm-12">
           <div class="alert alert-danger">
-            <b class="fonts"> An Error Occurred While Retrieving the Inquiries</b>
+            <h5 class="alert-heading">An Error Occured</h5>
+            An Error Occurred While Retrieving the Inquiries
           </div>
         </div>
       </div>

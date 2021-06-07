@@ -3,7 +3,10 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
+import { ErrorResponse } from 'src/app/models/errorresponse.model';
+import { Vehicle } from 'src/app/models/vehicle.model';
 import { VehicleType } from 'src/app/models/vehicleType.model';
+import { VehicleService } from 'src/app/services/vehicle.service';
 import { VehicleTypeService } from 'src/app/services/vehicleType.service';
 import { VehicleCreateUpdateComponent } from './vehicle-create-update/vehicle-create-update.component';
 
@@ -17,6 +20,9 @@ export class AdminVehicleBrowsingComponent implements OnInit, OnDestroy {
   modalRef: BsModalRef; //holds a reference to the opened modal
   vehicleTypeList: VehicleType[] = [];
 
+  vehicleList: Vehicle[] = [];
+  vehicleLoadError: boolean = false;
+
   successSubscription: Subscription;
 
   constructor(
@@ -24,10 +30,12 @@ export class AdminVehicleBrowsingComponent implements OnInit, OnDestroy {
     private modalService: BsModalService,
     private spinner: NgxSpinnerService,
     private vehicleTypeService: VehicleTypeService,
+    private vehicleService: VehicleService
   ) { }
 
   ngOnInit(): void {
     this.getAllVehicleTypes();
+    this.getAllVehicles();
   }
 
   launchCreateModal() {
@@ -50,7 +58,20 @@ export class AdminVehicleBrowsingComponent implements OnInit, OnDestroy {
   }
 
   getAllVehicles(): void {
+    this.spinner.show();
+    this.vehicleLoadError = false;
 
+    this.vehicleService.getAllVehicles().subscribe((data: Vehicle[]) => {
+      this.vehicleList = data;
+      this.vehicleLoadError = false;
+
+      this.spinner.hide();
+    }, (error: ErrorResponse) => {
+      this.toast.error(error.exceptionMessage, "Failed to Load all Vehicles");
+      this.vehicleLoadError = true;
+
+      this.spinner.hide();
+    })
   }
 
   getAllVehicleTypes(): void {

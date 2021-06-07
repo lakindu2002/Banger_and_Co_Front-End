@@ -43,14 +43,16 @@
   <ng-template #executeNoList>
     <div class="row mt-3" *ngIf="isError === false && allTypes.length === 0">
       <div class="col-sm-12">
-        <div class="alert alert-info">
-          <b class="fonts">No Vehicles Types Available at Banger and Co.</b>
+        <div class="alert alert-warning">
+          <h5 class="alert-heading">No Vehicle Types Found</h5>
+          <b>No Vehicles Types Available at Banger and Co.</b>
         </div>
       </div>
     </div>
     <div class="row mt-3" *ngIf="isError === true">
       <div class="col-sm-12">
         <div class="alert alert-danger">
+          <h5 class="alert-heading">An Error Occured</h5>
           <b class="fonts"> An Error Occurred While Retrieving the Vehicle Types</b>
         </div>
       </div>

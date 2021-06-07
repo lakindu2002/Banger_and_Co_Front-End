@@ -19,4 +19,24 @@
       <button class="btn btn-secondary float-right mr-2" [routerLink]="'vehicleType'">Manage Vehicle Types</button>
     </div>
   </div>
+
+  <div class="row">
+    <div class="col-sm-12" *ngIf="vehicleLoadError">
+      <div class="alert alert-danger">
+        <h5 class="alert-heading">An Error Occured</h5>
+        An error occured while loading the vehicles.
+      </div>
+    </div>
+    <div class="col-sm-12" *ngIf="!vehicleLoadError && vehicleList.length == 0; else showVehicles;">
+      <div class="alert alert-warning">
+        <h5 class="alert-heading">No Vehicles Found</h5>
+        There are no vehicles registered at Banger and Co.
+      </div>
+    </div>
+    <ng-template #showVehicles>
+      <div class="col-sm-12">
+
+      </div>
+    </ng-template>
+  </div>
 </div>
