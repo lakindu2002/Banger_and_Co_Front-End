@@ -1,3 +1,4 @@
+import { Rental } from "./rental.model";
 import { VehicleType } from "./vehicleType.model";
 
 export interface Vehicle {
@@ -8,4 +9,5 @@ export interface Vehicle {
   transmission: string;
   vehicleImage: File | string;
   vehicleType: VehicleType;
+  theRentalsForVehicle: Rental;
 }

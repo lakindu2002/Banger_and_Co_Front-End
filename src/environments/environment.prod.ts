@@ -7,4 +7,5 @@ export const environment = {
   tokenExpiration: "token-expiration",
   customerRole: "customer",
   profilePhotoBase: "data:image/jpeg;base64,",
+  imageBase: "data:image/jpeg;base64,",
 };
