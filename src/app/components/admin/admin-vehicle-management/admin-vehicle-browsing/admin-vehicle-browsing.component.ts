@@ -20,6 +20,8 @@ export class AdminVehicleBrowsingComponent implements OnInit, OnDestroy {
   modalRef: BsModalRef; //holds a reference to the opened modal
   vehicleTypeList: VehicleType[] = [];
 
+  enteredName: string = "";
+
   vehicleList: Vehicle[] = [];
   filteredList: Vehicle[] = []; //used to handle the filtered data
   vehicleLoadError: boolean = false;
@@ -101,6 +103,16 @@ export class AdminVehicleBrowsingComponent implements OnInit, OnDestroy {
       console.log(this.filteredList)
     }
     this.spinner.hide();
+  }
+
+  searchByName(): void {
+    if (this.enteredName.length == 0) {
+      this.filteredList = this.vehicleList;
+    } else {
+      this.filteredList = this.vehicleList.filter((eachVehicle) => {
+        return eachVehicle.vehicleName.toLowerCase().includes(this.enteredName.toLowerCase());
+      })
+    }
   }
 
   ngOnDestroy() {
