@@ -21,6 +21,7 @@ export class AdminVehicleBrowsingComponent implements OnInit, OnDestroy {
   vehicleTypeList: VehicleType[] = [];
 
   vehicleList: Vehicle[] = [];
+  filteredList: Vehicle[] = []; //used to handle the filtered data
   vehicleLoadError: boolean = false;
 
   successSubscription: Subscription;
@@ -63,6 +64,8 @@ export class AdminVehicleBrowsingComponent implements OnInit, OnDestroy {
 
     this.vehicleService.getAllVehicles().subscribe((data: Vehicle[]) => {
       this.vehicleList = data;
+      this.filteredList = this.vehicleList; //assign the filtered list as vehicle list so when filter is reset, vehicle list can be set
+      //as filtered list to render all vehicles.
       this.vehicleLoadError = false;
 
       this.spinner.hide();
@@ -78,6 +81,26 @@ export class AdminVehicleBrowsingComponent implements OnInit, OnDestroy {
     this.vehicleTypeService.getAllVehicleTypes().subscribe((data) => {
       this.vehicleTypeList = data;
     })
+  }
+
+  filterVehicles(typeId: number | string): void {
+    this.spinner.show();
+    if (typeId === 'all') {
+      //if user wishes to view all
+      this.filteredList = this.vehicleList; //all vehicles will be displayed
+    } else {
+      //filter according to type id passed and type id of each vehicle.
+      this.filteredList = this.vehicleList.filter((eachVehicle) => {
+        if (eachVehicle.vehicleType.vehicleTypeId == typeId) {
+          //if the vehicle type id is of the type id passed from the filter, return it to filter list.
+          //the vehicle type id passed from select will be the type ids stored in the database as value assign to it actual db id.
+          //so thats why this filter works.
+          return eachVehicle;
+        }
+      });
+      console.log(this.filteredList)
+    }
+    this.spinner.hide();
   }
 
   ngOnDestroy() {

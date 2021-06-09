@@ -3,8 +3,13 @@
   <div class="row">
     <div class="col-sm-4">
       <div class="form-group float-left" style="width: 100%;">
-        <label class="fonts">Sort Via Vehicle Type</label>
-        <select class="form-control" [disabled]="vehicleTypeList.length == 0">
+        <label class="fonts">Filter Via Vehicle Type</label>
+        <select class="form-control" [disabled]="vehicleTypeList.length == 0" #theOption
+          (change)="filterVehicles(theOption.value)">
+          <!-- empty option used to handle first time click sort -->
+          <!-- if same value is selected, no change occurs, therefore, if first option is actually required select it doesn't work,
+          to avoid that i use empty option -->
+          <option value="all">All Vehicle Types</option>
           <option *ngFor="let eachType of vehicleTypeList" [value]="eachType.vehicleTypeId">{{eachType.size |
             titlecase}} {{eachType.typeName |
             titlecase}} - {{eachType.pricePerDay}}/Day
@@ -27,7 +32,7 @@
         An error occured while loading the vehicles.
       </div>
     </div>
-    <div class="col-sm-12" *ngIf="!vehicleLoadError && vehicleList.length == 0; else showVehicles;">
+    <div class="col-sm-12" *ngIf="!vehicleLoadError && filteredList.length == 0; else showVehicles;">
       <div class="alert alert-warning">
         <h5 class="alert-heading">No Vehicles Found</h5>
         There are no vehicles registered at Banger and Co.
@@ -36,7 +41,7 @@
     <ng-template #showVehicles>
       <div class="col-sm-12">
         <div class="row">
-          <div class="col-sm-4" *ngFor="let vehicle of vehicleList">
+          <div class="col-sm-4" *ngFor="let vehicle of filteredList">
             <!-- pass the vehicle to render on
             each iteration into the vehicle card
             component via property binding of "vehicleToRender" declared in VehicleCard component -->
