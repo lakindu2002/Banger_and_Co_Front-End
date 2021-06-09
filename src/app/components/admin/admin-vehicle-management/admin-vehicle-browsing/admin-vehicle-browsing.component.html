@@ -2,7 +2,15 @@
 <div class="container">
   <div class="row mb-3">
     <div class="col-sm-4">
-      <input type="text" placeholder="Enter Vehicle Name..." class="form-control" [(ngModel)]="enteredName" (ngModelChange)="searchByName()">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <i class="fas fa-search"></i>
+          </div>
+        </div>
+        <input type="text" placeholder="Enter Vehicle Name..." class="form-control" [(ngModel)]="enteredName"
+          (ngModelChange)="searchByName()">
+      </div>
     </div>
     <div class="col-sm-8 align-self-center">
       <button class="btn btn-primary float-right" (click)="launchCreateModal()">Create Vehicle</button>

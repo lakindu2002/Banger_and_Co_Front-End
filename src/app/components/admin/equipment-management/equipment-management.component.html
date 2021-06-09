@@ -1,12 +1,19 @@
 <app-admin-nav></app-admin-nav>
-<app-bread-crumb [pageName]="'Rental Equipment Management'"></app-bread-crumb>
+<app-bread-crumb [pageName]="'Additional Rental Equipment Management'"></app-bread-crumb>
 
 <div class="container">
   <div class="row">
     <div class="col-sm-4">
-      <!-- ng model allows two way data binding in angular and ngModelChange is executed whenever the searchTerm changes its value -->
-      <input type="text" class="form-control" placeholder="Provide Equipment Name..." [(ngModel)]="searchTerm"
-        style="border-color: none;" (ngModelChange)="filterViaName()">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <i class="fas fa-search"></i>
+          </div>
+        </div>
+        <!-- ng model allows two way data binding in angular and ngModelChange is executed whenever the searchTerm changes its value -->
+        <input type="text" class="form-control" placeholder="Provide Equipment Name..." [(ngModel)]="searchTerm"
+          style="border-color: none;" (ngModelChange)="filterViaName()">
+      </div>
     </div>
     <div class="col-sm-8">
       <button class="btn btn-primary float-right" (click)="loadCreateEquipment()">Create New Equipment</button>

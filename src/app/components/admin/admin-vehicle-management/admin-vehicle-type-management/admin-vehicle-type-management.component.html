@@ -18,6 +18,7 @@
           <th>Vehicle Size</th>
           <th>Vehicle Type</th>
           <th>Price Per Day</th>
+          <th>Vehicles In Type</th>
           <th class="right-header">
             <span class="float-right">
               Action
@@ -29,6 +30,7 @@
           <td>{{eachType.size | titlecase}}</td>
           <td>{{eachType.typeName | titlecase}}</td>
           <td>{{eachType.pricePerDay}}/Day</td>
+          <td>{{eachType.vehicleCountInType}}</td>
           <td>
             <i class="far fa-trash-alt icon-format float-right"
               style="color: rgba(0, 0, 0, 0.699); font-size: 20px;"></i>

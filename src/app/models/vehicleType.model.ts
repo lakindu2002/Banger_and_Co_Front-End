@@ -3,4 +3,5 @@ export interface VehicleType {
   typeName: string;
   size: string,
   pricePerDay: string,
+  vehicleCountInType?: number;
 }

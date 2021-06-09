@@ -134,10 +134,10 @@ textarea.ng-invalid.ng-touched {
   border: 1px solid lightcoral;
 }
 
-input.ng-valid.ng-touched {
+/* input.ng-valid.ng-touched {
   border: 1px solid lightgreen;
 }
 
 textarea.ng-valid.ng-touched {
   border: 1px solid lightgreen;
-}
+} */
