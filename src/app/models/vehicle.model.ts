@@ -7,6 +7,7 @@ export interface Vehicle {
   vehicleName: string;
   fuelType: string;
   transmission: string;
+  seatingCapacity: number;
   vehicleImage: File | string;
   vehicleType: VehicleType;
   theRentalsForVehicle: Rental;

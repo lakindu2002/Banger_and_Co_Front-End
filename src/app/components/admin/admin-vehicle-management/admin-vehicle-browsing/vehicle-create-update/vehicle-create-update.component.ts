@@ -51,7 +51,8 @@ export class VehicleCreateUpdateComponent implements OnInit, OnDestroy {
       'vehicleName': new FormControl(null, [Validators.required, Validators.maxLength(125)]), //maximum length of vehicle name is 255 characters
       'fuelType': new FormControl('Petrol', [Validators.required, Validators.maxLength(50)]),
       'transmission': new FormControl('Manual', [Validators.required, Validators.maxLength(50)]),
-      'vehicleType': new FormControl(null, [Validators.required]) //patch once api loads the available types.
+      'vehicleType': new FormControl(null, [Validators.required]), //patch once api loads the available types.
+      'seatingCapacity': new FormControl(0, [Validators.required, Validators.maxLength(3)])
     });
   }
 
@@ -146,7 +147,8 @@ export class VehicleCreateUpdateComponent implements OnInit, OnDestroy {
       fuelType: this.vehicleForm.get('fuelType').value,
       licensePlate: this.vehicleForm.get('licensePlate').value,
       transmission: this.vehicleForm.get('transmission').value,
-      vehicleTypeId: this.vehicleForm.get('vehicleType').value
+      vehicleTypeId: this.vehicleForm.get('vehicleType').value,
+      seatingCapacity: this.vehicleForm.get('seatingCapacity').value
     }
 
     //form data is used as it is not possible to send files in json as files are not blob.

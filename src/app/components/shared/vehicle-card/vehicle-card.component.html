@@ -16,28 +16,31 @@
       </div>
     </div>
     <div class="row mb-2">
-      <div class="col-sm-5">
-        Size: <b>{{theVehicle.vehicleType.size | titlecase}} </b>
-      </div>
-      <div class="col-sm-7">
-        Category: <b class="fonts">{{theVehicle.vehicleType.typeName |
+      <div class="col-sm-12">
+        Type: <b class="fonts">{{theVehicle.vehicleType.size | titlecase}} {{theVehicle.vehicleType.typeName |
           titlecase}}</b>
+      </div>
+    </div>
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <i class="fas fa-user-alt"></i>: <b>{{theVehicle.seatingCapacity}} Person(s)</b>
+      </div>
+      <div class="col-sm-6">
+        <i class="fas fa-gas-pump"></i>: <b class="fonts">{{theVehicle.fuelType}}</b>
       </div>
     </div>
     <div class="row">
       <div class="col-sm-5">
-        Fuel: <b class="fonts">{{theVehicle.fuelType}}</b>
-      </div>
-      <div class="col-sm-7">
-        Transmission: <b class="fonts">{{theVehicle.transmission}}</b>
+        <img src="../../../../assets/gearbox.svg" width="20" height="20">: <b
+          class="fonts">{{theVehicle.transmission}}</b>
       </div>
     </div>
     <hr style="margin-bottom: 3px;">
     <div class="row mt-2">
-      <div class="col-sm-6 align-self-center">
+      <div class="col-sm-7 align-self-center">
         <span class="fonts" style="font-size: 20px;">{{theVehicle.vehicleType.pricePerDay}}/Day</span>
       </div>
-      <div class="col-sm-6" *ngIf="loggedInUser">
+      <div class="col-sm-5" *ngIf="loggedInUser">
         <button class="btn btn-primary float-right" *ngIf="loggedInUser.userRole=='customer'">Rent Vehicle</button>
         <span *ngIf="loggedInUser.userRole=='administrator'">
         </span>
