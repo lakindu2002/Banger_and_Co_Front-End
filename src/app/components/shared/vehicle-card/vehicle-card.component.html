@@ -1,0 +1,42 @@
+<mat-card style="font-family: 'Inter', sans-serif;" *ngIf="theVehicle" class="mb-3">
+  <div style="padding-bottom: 10px;">
+    <mat-card-title style="font-size: 20px;">
+      {{theVehicle.vehicleName}}
+    </mat-card-title>
+    <mat-card-subtitle>
+      License Plate: {{theVehicle.licensePlate}}
+    </mat-card-subtitle>
+  </div>
+  <mat-card-content>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <img mat-card-image style="border-radius: 5px;" [src]="theVehicle.vehicleImage" width="500" height="200">
+        </div>
+      </div>
+    </div>
+    <div class="row mb-2">
+      <div class="col-sm-5">
+        Size: <b>{{theVehicle.vehicleType.size | titlecase}} </b>
+      </div>
+      <div class="col-sm-7">
+        Category Name: <b class="fonts">{{theVehicle.vehicleType.typeName |
+          titlecase}}</b>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-5">
+        Fuel: <b class="fonts">{{theVehicle.fuelType}}</b>
+      </div>
+      <div class="col-sm-7">
+        Transmission: <b class="fonts">{{theVehicle.transmission}}</b>
+      </div>
+    </div>
+    <hr>
+    <div class="row mt-2">
+      <div class="col-sm-12">
+        <h5 class="fonts">{{theVehicle.vehicleType.pricePerDay}} Per Day</h5>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

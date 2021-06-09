@@ -48,7 +48,7 @@ export class VehicleCreateUpdateComponent implements OnInit, OnDestroy {
   constructVehicleForm(): void {
     this.vehicleForm = new FormGroup({
       'licensePlate': new FormControl(null, [Validators.required, Validators.minLength(8), Validators.maxLength(8), Validators.pattern('^[A-Z]{2}[0-9]{2} [A-Z]{3}$')]),
-      'vehicleName': new FormControl(null, [Validators.required, Validators.maxLength(255)]),
+      'vehicleName': new FormControl(null, [Validators.required, Validators.maxLength(125)]), //maximum length of vehicle name is 255 characters
       'fuelType': new FormControl('Petrol', [Validators.required, Validators.maxLength(50)]),
       'transmission': new FormControl('Manual', [Validators.required, Validators.maxLength(50)]),
       'vehicleType': new FormControl(null, [Validators.required]) //patch once api loads the available types.

@@ -5,8 +5,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { MatStepperModule } from '@angular/material/stepper';
-import {MatExpansionModule} from '@angular/material/expansion';
-import {MatCardModule} from '@angular/material/card';
 
 import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { AdminNavComponent } from './admin-nav/admin-nav.component';
@@ -49,8 +47,6 @@ import { VehicleTypeCreateManageComponent } from './admin-vehicle-management/adm
     FormsModule, //used for template driven forms and ngModel bindings
     MatStepperModule, //angular material stepper module
     NgxSpinnerModule, //used to load the spinner when creating vehicle types and loading image on image preview before vehicle creation
-    MatExpansionModule,
-    MatCardModule
   ]
 })
 export class AdminModule { }
