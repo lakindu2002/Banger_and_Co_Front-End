@@ -8,6 +8,7 @@ import { ErrorResponse } from 'src/app/models/errorresponse.model';
 import { VehicleType } from 'src/app/models/vehicleType.model';
 import { VehicleTypeService } from 'src/app/services/vehicleType.service';
 import { VehicleCreateUpdateComponent } from '../admin-vehicle-browsing/vehicle-create-update/vehicle-create-update.component';
+import { TypeDeletePromptComponent } from './type-delete-prompt/type-delete-prompt.component';
 import { VehicleTypeCreateManageComponent } from './vehicle-type-create-manage/vehicle-type-create-manage.component';
 
 @Component({
@@ -93,6 +94,22 @@ export class AdminVehicleTypeManagementComponent implements OnInit {
     }, (error: ErrorResponse) => {
       this.toast.error(error.exceptionMessage, "Single Vehicle Type Information Not Loaded")
       this.spinner.hide();
+    })
+  }
+
+  openDeleteModal(vehicleTypeId: number): void {
+    this.bsModalRef = this.modalService.show(TypeDeletePromptComponent, {
+      animated: true,
+      class: 'modal-dialog-centered',
+      keyboard: false,
+      ignoreBackdropClick: true,
+      initialState: {
+        deleteId: vehicleTypeId //assign the vehicle type id to the modal property deleteId
+      }
+    })
+
+    this.popupSubscription = this.bsModalRef.content.deleteSuccess.subscribe((data) => {
+      this.getAllTypes();
     })
   }
 
