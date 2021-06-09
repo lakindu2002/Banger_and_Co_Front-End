@@ -37,15 +37,19 @@ export class EquipmentCreateManageComponent implements OnInit {
       //strings used to avoid removal during minification
       'equipmentName': new FormControl(null, [Validators.required, Validators.maxLength(255)]),
       //binding is done to ensure that 'this' call is executed properly when angular calls the validator.
-      'equipmentQuantity': new FormControl(1, [Validators.required, Validators.maxLength(4), this.isQuantityValid.bind(this)])
+      'equipmentQuantity': new FormControl(1, [Validators.required, Validators.maxLength(4), this.isQuantityValid.bind(this)]),
+      'pricePerDay': new FormControl(null, Validators.required),
     })
 
     if (this.createMode == false) {
       //if the user is editing, patch the equipment information to the form.
       this.theForm.patchValue({
         'equipmentName': this.theEquipmentBeingEdited.equipmentName,
-        'equipmentQuantity': this.theEquipmentBeingEdited.equipmentQuantity
+        'equipmentQuantity': this.theEquipmentBeingEdited.equipmentQuantity,
+        'pricePerDay': this.theEquipmentBeingEdited.pricePerDay
       });
+      console.log(parseFloat(this.theEquipmentBeingEdited.pricePerDay))
+      this.theForm.controls['pricePerDay'].disable();
     }
   }
 
@@ -67,7 +71,7 @@ export class EquipmentCreateManageComponent implements OnInit {
     //angular returns NULL if the value is valid, this is how angular works (control is valid)
     if ((theControl.value < 1 || theControl.value > 9999) && this.createMode) {
       return { "quantityInvalid": true }; //input is invalid
-    } else if((theControl.value < 0 || theControl.value > 9999) &&  !this.createMode){
+    } else if ((theControl.value < 0 || theControl.value > 9999) && !this.createMode) {
       return { "quantityInvalid": true }; //if provided quantity during update is a minus value
     }
     return null; //input is valid
@@ -99,6 +103,7 @@ export class EquipmentCreateManageComponent implements OnInit {
       equipmentId: this.theEquipmentBeingEdited.equipmentId,
       equipmentName: this.theForm.get('equipmentName').value,
       equipmentQuantity: this.theForm.get('equipmentQuantity').value,
+      pricePerDay: this.theForm.get('pricePerDay').value
     };
 
     this.additionalEquipmentService.updateEquipment(updatePasser).subscribe((data) => {
@@ -126,6 +131,7 @@ export class EquipmentCreateManageComponent implements OnInit {
     const thePasser: AdditionalEquipment = {
       equipmentName: this.theForm.get('equipmentName').value,
       equipmentQuantity: this.theForm.get('equipmentQuantity').value,
+      pricePerDay: this.theForm.get('pricePerDay').value
     };
 
     //call the service method and subscribe to hit the endpoint.
