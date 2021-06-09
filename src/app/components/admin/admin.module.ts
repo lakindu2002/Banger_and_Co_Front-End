@@ -20,6 +20,7 @@ import { VehicleCreateUpdateComponent } from './admin-vehicle-management/admin-v
 import { AdminVehicleTypeManagementComponent } from './admin-vehicle-management/admin-vehicle-type-management/admin-vehicle-type-management.component';
 import { AdminVehicleBrowsingComponent } from './admin-vehicle-management/admin-vehicle-browsing/admin-vehicle-browsing.component';
 import { VehicleTypeCreateManageComponent } from './admin-vehicle-management/admin-vehicle-type-management/vehicle-type-create-manage/vehicle-type-create-manage.component';
+import { TypeDeletePromptComponent } from './admin-vehicle-management/admin-vehicle-type-management/type-delete-prompt/type-delete-prompt.component';
 
 
 
@@ -37,7 +38,8 @@ import { VehicleTypeCreateManageComponent } from './admin-vehicle-management/adm
     VehicleCreateUpdateComponent,
     AdminVehicleTypeManagementComponent,
     AdminVehicleBrowsingComponent,
-    VehicleTypeCreateManageComponent
+    VehicleTypeCreateManageComponent,
+    TypeDeletePromptComponent
   ],
   imports: [
     CommonModule,

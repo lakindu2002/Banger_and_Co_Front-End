@@ -28,4 +28,8 @@ export class VehicleTypeService {
     //observe for a response of VehicleType from the backend
     return this.http.get<VehicleType>(`${this.basePath}/find/${id}`);
   }
+
+  removeById(id: number): Observable<ResponseAPI> {
+    return this.http.delete<ResponseAPI>(`${this.basePath}/remove/${id}`);
+  }
 }
