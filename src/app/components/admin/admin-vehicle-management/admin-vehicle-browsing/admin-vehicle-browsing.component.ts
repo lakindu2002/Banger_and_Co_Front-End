@@ -56,6 +56,7 @@ export class AdminVehicleBrowsingComponent implements OnInit, OnDestroy {
     this.successSubscription = this.modalRef.content.isSuccess.subscribe((data) => {
       if (data == true) {
         this.getAllVehicles();
+        this.getAllVehicleTypes();
       }
     })
   }
@@ -100,7 +101,6 @@ export class AdminVehicleBrowsingComponent implements OnInit, OnDestroy {
           return eachVehicle;
         }
       });
-      console.log(this.filteredList)
     }
     this.spinner.hide();
   }
