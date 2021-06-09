@@ -20,7 +20,7 @@
         Size: <b>{{theVehicle.vehicleType.size | titlecase}} </b>
       </div>
       <div class="col-sm-7">
-        Category Name: <b class="fonts">{{theVehicle.vehicleType.typeName |
+        Category: <b class="fonts">{{theVehicle.vehicleType.typeName |
           titlecase}}</b>
       </div>
     </div>
@@ -32,10 +32,15 @@
         Transmission: <b class="fonts">{{theVehicle.transmission}}</b>
       </div>
     </div>
-    <hr>
+    <hr style="margin-bottom: 3px;">
     <div class="row mt-2">
-      <div class="col-sm-12">
-        <h5 class="fonts">{{theVehicle.vehicleType.pricePerDay}} Per Day</h5>
+      <div class="col-sm-6 align-self-center">
+        <span class="fonts" style="font-size: 20px;">{{theVehicle.vehicleType.pricePerDay}}/Day</span>
+      </div>
+      <div class="col-sm-6" *ngIf="loggedInUser">
+        <button class="btn btn-primary float-right" *ngIf="loggedInUser.userRole=='customer'">Rent Vehicle</button>
+        <span *ngIf="loggedInUser.userRole=='administrator'">
+        </span>
       </div>
     </div>
   </mat-card-content>
