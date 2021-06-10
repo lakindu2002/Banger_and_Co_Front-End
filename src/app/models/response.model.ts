@@ -1,4 +1,4 @@
 export interface ResponseAPI {
-  message: String;
+  message: string;
   code: number;
 }

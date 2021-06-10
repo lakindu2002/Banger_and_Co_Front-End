@@ -1,2 +1,30 @@
 <app-admin-nav></app-admin-nav>
-<app-bread-crumb [pageName]="'User Management'">
+<app-bread-crumb [pageName]="'Customer Management'"></app-bread-crumb>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12" *ngIf="userList.length > 0 && !isError; else showOtherMessages">
+
+    </div>
+    <ng-template #showOtherMessages>
+      <div class="col-sm-12" *ngIf="!isError">
+        <div class="alert alert-warning">
+          <h5 class="alert-heading">
+            No Customers Available
+          </h5>
+          There are no customers registered at Banger and Co.
+        </div>
+      </div>
+
+      <div class="col-sm-12" *ngIf="isError">
+        <!-- if error occured -->
+        <div class="alert alert-danger">
+          <h5 class="alert-heading">
+            Customers Not Loaded
+          </h5>
+          The customers could not be loaded due to an error. Please try again.
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>

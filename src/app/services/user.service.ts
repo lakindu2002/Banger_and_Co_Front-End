@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment.prod";
+import { ResponseAPI } from "../models/response.model";
 import { UserUserModel } from "../models/update.user.model";
 import { User } from "../models/user.model";
 
@@ -19,6 +20,17 @@ export class UserService {
   }
 
   updateUserInformation(updateUser: UserUserModel): Observable<any> {
-    return this.http.put(`${this.baseURL}/update`,updateUser);
+    return this.http.put(`${this.baseURL}/update`, updateUser);
+  }
+
+  getAllCustomers(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.baseURL}/customers/all`);
+  }
+
+  whiteListCustomer(username: string): Observable<ResponseAPI> {
+    const whiteListObject: any = {
+      username: username
+    }
+    return this.http.put<ResponseAPI>(`${this.baseURL}/customer/whitelist`, whiteListObject);
   }
 }
