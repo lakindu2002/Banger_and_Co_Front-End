@@ -20,6 +20,8 @@ export class AdminUserManagementComponent implements OnInit, OnDestroy {
   isError: boolean = false;
   modalRef: BsModalRef;
   subscription: Subscription
+  searchTerm: string = "";
+  accountStatus: string = "";
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -29,6 +31,7 @@ export class AdminUserManagementComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
+    this.accountStatus = "all";
     this.getAllUsers();
   }
 
@@ -79,6 +82,46 @@ export class AdminUserManagementComponent implements OnInit, OnDestroy {
         //if success is emitted
         this.getAllUsers(); //refresh the page.
       })
+    }
+  }
+
+  filterUsers() {
+    this.accountStatus = "all"; //as all users are filtered.
+    if (this.searchTerm.length == 0) {
+      this.filteredList = this.userList;
+    } else {
+      //filter users via username or by first name and lastname
+      this.filteredList = this.userList.filter((eachUser) => {
+        const customerFullName: string = `${eachUser.firstName.toLowerCase()} ${eachUser.lastName.toLowerCase()}`;
+
+        if (customerFullName.includes(this.searchTerm.toLowerCase()) || eachUser.username.toLowerCase().includes(this.searchTerm.toLowerCase())) {
+          //if the customer full name includes the search term, return the user to the filtered list.
+          //OR
+          //if the customer username includes the search term, return the user to the filtered list
+          return eachUser;
+        }
+      })
+    }
+  }
+
+  resetFilters(): void {
+    this.searchTerm = "";
+    this.accountStatus = "all";
+    this.getAllUsers();
+  }
+
+  sortViaAccountStatus(): void {
+    this.searchTerm = ""; //viewing all users according to a select filter
+    if (this.accountStatus === 'blacklist') {
+      this.filteredList = this.userList.filter((eachUser) => {
+        return eachUser.blackListed === true;
+      })
+    } else if (this.accountStatus === 'notblacklisted') {
+      this.filteredList = this.userList.filter((eachUser) => {
+        return eachUser.blackListed === false;
+      })
+    } else if (this.accountStatus === 'all') {
+      this.filteredList = this.userList;
     }
   }
 

@@ -21,7 +21,7 @@
     <div class="col-sm-5">
       <div class="form-group float-left" style="width: 100%;">
         <label class="fonts">Filter Via Vehicle Type</label>
-        <select class="form-control" [disabled]="vehicleTypeList.length == 0" #theOption
+        <select class="form-control" [disabled]="vehicleTypeList.length == 0" #theOption [(ngModel)]="vehicleSelector"
           (change)="filterVehicles(theOption.value)">
           <!-- empty option used to handle first time click sort -->
           <!-- if same value is selected, no change occurs, therefore, if first option is actually required select it doesn't work,

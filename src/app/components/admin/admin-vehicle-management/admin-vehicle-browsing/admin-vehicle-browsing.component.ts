@@ -21,6 +21,7 @@ export class AdminVehicleBrowsingComponent implements OnInit, OnDestroy {
   vehicleTypeList: VehicleType[] = [];
 
   enteredName: string = "";
+  vehicleSelector: string = "all";
 
   vehicleList: Vehicle[] = [];
   filteredList: Vehicle[] = []; //used to handle the filtered data
@@ -88,6 +89,7 @@ export class AdminVehicleBrowsingComponent implements OnInit, OnDestroy {
 
   filterVehicles(typeId: number | string): void {
     this.spinner.show();
+    this.enteredName = ""; //searching by a filter, not by name so empty it.
     if (typeId === 'all') {
       //if user wishes to view all
       this.filteredList = this.vehicleList; //all vehicles will be displayed
@@ -106,6 +108,7 @@ export class AdminVehicleBrowsingComponent implements OnInit, OnDestroy {
   }
 
   searchByName(): void {
+    this.vehicleSelector = "all"; //searching all vehicles by the name.
     if (this.enteredName.length == 0) {
       this.filteredList = this.vehicleList;
     } else {

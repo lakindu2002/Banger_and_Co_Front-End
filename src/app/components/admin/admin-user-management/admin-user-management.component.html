@@ -3,6 +3,32 @@
 
 <div class="container">
   <div class="row">
+    <div class="col-sm-4">
+      <label class="fonts">Search Via Username or Full Name</label>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <i class="fas fa-search"></i>
+          </div>
+        </div>
+        <input type="text" placeholder="Provide Username or Full Name" class="form-control" [(ngModel)]="searchTerm"
+          (ngModelChange)="filterUsers()">
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <label class="fonts">Sort Via Account Status</label>
+      <select class="form-control" [(ngModel)]="accountStatus" (ngModelChange)="sortViaAccountStatus()">
+        <option value="all">All Customers</option>
+        <option value="blacklist">Blacklisted Customers</option>
+        <option value="notblacklisted">Whitelisted Customers</option>
+      </select>
+    </div>
+    <div class="col-sm-4 align-self-center">
+      <button class="btn btn-primary float-right" (click)="resetFilters()">Reset Filter</button>
+    </div>
+  </div>
+
+  <div class="row mt-3">
     <div class="col-sm-12" *ngIf="filteredList.length > 0 && !isError; else showOtherMessages">
       <table class="table table-borderless custom-table">
         <tr class="table-header">
@@ -14,9 +40,18 @@
         </tr>
         <tr *ngFor="let eachUser of filteredList" class="custom-row">
           <td>
-            <img [src]="eachUser.profilePicture" width="40" height="40" style="border-radius: 50%;">
-            <span style="padding-left: 10px;">{{eachUser.firstName |titlecase}} {{eachUser.lastName |
-              titlecase}}</span>
+            <div class="row">
+              <div class="col-sm-2">
+                <img [src]="eachUser.profilePicture" width="40" height="40" style="border-radius: 50%;">
+              </div>
+              <div class="col-sm-10 align-self-center">
+                <span style="padding-left: 10px;">{{eachUser.firstName |titlecase}} {{eachUser.lastName |
+                  titlecase}}</span>
+                <br>
+                <span style="padding-left: 10px; color: rgba(0, 0, 0, 0.705);">({{eachUser.username}})</span>
+              </div>
+            </div>
+
           </td>
           <td>
             <div>
@@ -37,7 +72,8 @@
           <td><i class="far fa-unlock"
               [title]="eachUser.blackListed === true ? 'Whitelist the Customer' : 'Customer Already Whitelisted'"
               [ngStyle]="{'color':getWhiteListIconStyle(eachUser.blackListed)}"
-              style="font-size: 20px; vertical-align: middle; cursor: pointer;" (click)="openWhiteListPrompt(eachUser)"></i>
+              style="font-size: 20px; vertical-align: middle; cursor: pointer;"
+              (click)="openWhiteListPrompt(eachUser)"></i>
           </td>
         </tr>
       </table>
@@ -48,7 +84,7 @@
           <h5 class="alert-heading">
             No Customers Available
           </h5>
-          There are no customers registered at Banger and Co.
+          No customers were found at Banger and Co for the request.
         </div>
       </div>
 
