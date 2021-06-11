@@ -7,6 +7,6 @@ export interface User {
   userPassword?: string,
   contactNumber: string,
   profilePicture?: File | string,
-  isBlackListed?: boolean,
+  blackListed?: boolean,
   userRole?: string
 }

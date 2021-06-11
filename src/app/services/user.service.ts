@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
 import { environment } from "src/environments/environment.prod";
 import { ResponseAPI } from "../models/response.model";
 import { UserUserModel } from "../models/update.user.model";
@@ -24,7 +25,12 @@ export class UserService {
   }
 
   getAllCustomers(): Observable<User[]> {
-    return this.http.get<User[]>(`${this.baseURL}/customers/all`);
+    return this.http.get<User[]>(`${this.baseURL}/customers/all`).pipe(map((data) => {
+      data.forEach((eachUser) => {
+        eachUser.profilePicture = `${environment.imageBase}${eachUser.profilePicture}`
+      })
+      return data;
+    }));
   }
 
   whiteListCustomer(username: string): Observable<ResponseAPI> {

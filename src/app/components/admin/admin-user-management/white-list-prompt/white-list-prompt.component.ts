@@ -4,6 +4,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { ErrorResponse } from 'src/app/models/errorresponse.model';
+import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -14,6 +15,7 @@ import { UserService } from 'src/app/services/user.service';
 export class WhiteListPromptComponent implements OnInit {
 
   whiteListUsername: string;
+  whiteListUser: User;
   whiteListSubject: Subject<boolean> = new Subject();
 
   constructor(
@@ -24,6 +26,10 @@ export class WhiteListPromptComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+  }
+
+  hideModal() {
+    this.modalRef.hide();
   }
 
   whiteListUserDB(): void {
