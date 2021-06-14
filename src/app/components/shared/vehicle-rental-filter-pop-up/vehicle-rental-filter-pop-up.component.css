@@ -1,0 +1,4 @@
+:host ::ng-deep table {
+  /*host is used to avoid ng deep from bleeding into other components */
+  border-collapse: separate;
+}

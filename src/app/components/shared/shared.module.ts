@@ -31,7 +31,7 @@ import { MatNativeDateModule } from "@angular/material/core";
     MatCardModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    TimepickerModule
+    TimepickerModule.forRoot()
   ],
   exports: [
     PageNotFoundComponent,
