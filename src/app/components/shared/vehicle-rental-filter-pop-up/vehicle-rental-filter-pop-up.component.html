@@ -1,0 +1,42 @@
+<div class="modal-header">
+  <h5 class="modal-title">Provide Rental Pickup & Return Information</h5>
+  <button class="close float-right" (click)="hideModal()"><span>&times;</span></button>
+</div>
+
+<div class="modal-body">
+  <div class="row">
+    <div class="col-sm-12">
+      <span style="color: red;"><i>We require this information in-order to show you the available vehicles for your
+          rental period.</i></span>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label class="fonts">Pickup Date</label>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label class="fonts">Return Date</label>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label class="fonts">Pickup Time</label>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label class="fonts">Return Time</label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-footer">
+  <button class="float-right btn btn-danger" (click)="hideModal()" style="width: 20%;">Close</button>
+  <button class="float-right btn btn-primary">Find Available Vehicles For This Period</button>
+</div>
