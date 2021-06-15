@@ -45,6 +45,9 @@
         <span *ngIf="loggedInUser.userRole=='administrator'">
         </span>
       </div>
+      <div class="col-sm-5" *ngIf="!loggedInUser">
+        <button class="btn btn-primary float-right" (click)="handleGuestClick()">Rent This</button>
+      </div>
     </div>
   </mat-card-content>
 </mat-card>
