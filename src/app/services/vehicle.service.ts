@@ -1,10 +1,11 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { environment } from "src/environments/environment.prod";
 import { ResponseAPI } from "../models/response.model";
 import { Vehicle } from "../models/vehicle.model";
+import { VehicleRentalFilter } from "../models/vehicle_rental_filter.model";
 
 @Injectable({
   providedIn: "root"
@@ -32,5 +33,15 @@ export class VehicleService {
       })
       return vehicleList; //the the formatted list.
     })))
+  }
+
+  getRentableVehiclesForFilter(theFilter: VehicleRentalFilter): Observable<Vehicle[]> {
+    //add 1 because in JS january is 0 and not 1
+    const pickUpDate: string = `${theFilter.pickupDate.getFullYear()}-${theFilter.pickupDate.getMonth() + 1}-${theFilter.pickupDate.getDate()}`
+    const returnDate: string = `${theFilter.returnDate.getFullYear()}-${theFilter.returnDate.getMonth() + 1}-${theFilter.returnDate.getDate()}`
+
+    const query = `pickupDate=${pickUpDate}&returnDate=${returnDate}
+    &pickupTime=${theFilter.pickupTime}&returnTime=${theFilter.returnTime}`;
+    return this.http.get<Vehicle[]>(`${this.baseUrl}/getRentableVehicles?${query}`)
   }
 }

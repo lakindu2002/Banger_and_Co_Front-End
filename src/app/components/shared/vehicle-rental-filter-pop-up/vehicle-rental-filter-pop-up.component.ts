@@ -3,6 +3,8 @@ import { FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms'
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import { ErrorResponse } from 'src/app/models/errorresponse.model';
+import { VehicleRentalFilter } from 'src/app/models/vehicle_rental_filter.model';
 import { VehicleService } from 'src/app/services/vehicle.service';
 
 @Component({
@@ -93,6 +95,8 @@ export class VehicleRentalFilterPopUpComponent implements OnInit {
         }
 
         return null;
+      } else {
+        return { timeInvalid: true }
       }
     }
   }
@@ -110,21 +114,46 @@ export class VehicleRentalFilterPopUpComponent implements OnInit {
 
       const selectedTime = newDate;
 
-      if (selectedTime.getHours() < 8 && selectedTime.getMinutes() > 0) {
+      if (selectedTime.getHours() < 8 && (selectedTime.getMinutes() > 0 || selectedTime.getMinutes() >= 0)) {
         //if the selected pickup or return time is before 8
+        //if minutes is 0 or more than 0
+        //done to block times like "6:00" and "6:01"
         return { timeInvalid: true };
       }
 
-      if (selectedTime.getHours() >= 18 && selectedTime.getMinutes() > 0) {
-        //if the selected pickup or return time is after 8
+
+      if (selectedTime.getHours() > 18 && (selectedTime.getMinutes() >= 0 || selectedTime.getMinutes() > 0)) {
+        //if the selected pickup or return time is after 18
+        //done to block times like "18:01" or "19:00"
         return { timeInvalid: true };
       }
 
       return null; //if validated successfully.
+    } else {
+      return { timeInvalid: true };
     }
   }
 
   findVehiclesAvailableForDurationInDb() {
-    console.log(this.rentalFilterForm.value)
+    this.spinner.show();
+
+    const filter: VehicleRentalFilter = {
+      pickupDate: this.rentalFilterForm.get('pickupDate').value as Date,
+      returnDate: this.rentalFilterForm.get('returnDate').value as Date,
+      pickupTime: this.rentalFilterForm.get('pickupTime').value,
+      returnTime: this.rentalFilterForm.get('returnTime').value
+    }
+    this.vehicleService.getRentableVehiclesForFilter(filter).subscribe((data) => {
+      this.toast.info(`We found ${data.length} vehicles for your rental duration`, "Vehicles Retrieved");
+      this.spinner.hide();
+    }, (error: ErrorResponse) => {
+      if (error.multipleErrors.length > 0) {
+        for (const eachError of error.multipleErrors) {
+          this.toast.error(eachError.message);
+        }
+      }
+      this.toast.error(error.exceptionMessage, "Failed to Find Available Vehicles")
+      this.spinner.hide();
+    })
   }
 }
