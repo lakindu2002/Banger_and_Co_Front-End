@@ -38,6 +38,12 @@ export class VehicleService {
   getRentableVehiclesForFilter(theFilter: VehicleRentalFilter): Observable<Vehicle[]> {
     const query = `pickupDate=${theFilter.pickupDate}&returnDate=${theFilter.returnDate}
     &pickupTime=${theFilter.pickupTime}&returnTime=${theFilter.returnTime}`;
-    return this.http.get<Vehicle[]>(`${this.baseUrl}/getRentableVehicles?${query}`)
+
+    return this.http.get<Vehicle[]>(`${this.baseUrl}/getRentableVehicles?${query}`).pipe(map((data)=>{
+      data.forEach((eachVehicle)=>{
+        eachVehicle.vehicleImage = `${environment.imageBase}${eachVehicle.vehicleImage}`
+      })
+      return data;
+    }))
   }
 }

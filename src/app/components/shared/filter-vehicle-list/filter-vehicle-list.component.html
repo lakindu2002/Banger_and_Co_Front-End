@@ -1,1 +1,46 @@
 <app-bread-crumb [pageName]="'Available Vehicles'"></app-bread-crumb>
+<div class="container">
+  <div>
+    <div class="row">
+      <ngx-spinner type="ball-clip-rotate" size="medium" [name]="'filterSpinner'" [fullScreen]="false"></ngx-spinner>
+      <div class="col-sm-12">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="alert alert-warning" *ngIf="!isError && availableVehicles.length == 0">
+              <!-- if there is no error but result generated no data  -->
+              <h5 class="alert-heading">Vehicles Not Found</h5>
+              There are no vehicles available for the period you wish to rent for
+            </div>
+            <div class="alert alert-error" *ngIf="isError && availableVehicles.length == 0">
+              <!-- an error occured while retrieveing the data -->
+              <h5 class="alert-heading">Vehicle Not Found</h5>
+              We ran into an error retrieving the vehicles. Please try again.
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <p>Show the set pickup/return date by the user</p>
+          </div>
+        </div>
+        <div class="row" *ngIf="!isError">
+          <!-- no error found, go ahead and show data -->
+          <div class="col-sm-4">
+            <p>filter component works</p>
+          </div>
+          <div class="col-sm-8">
+            <div *ngIf="availableVehicles.length> 0;">
+              <!-- data successfully retrieved -->
+              <div class="row" style="max-height: 750px; overflow: auto;">
+                <div class="col-sm-6" *ngFor="let vehicle of availableVehicles">
+                  <app-vehicle-card [vehicleToRender]="vehicle"></app-vehicle-card>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
