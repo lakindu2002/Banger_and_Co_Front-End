@@ -36,11 +36,7 @@ export class VehicleService {
   }
 
   getRentableVehiclesForFilter(theFilter: VehicleRentalFilter): Observable<Vehicle[]> {
-    //add 1 because in JS january is 0 and not 1
-    const pickUpDate: string = `${theFilter.pickupDate.getFullYear()}-${theFilter.pickupDate.getMonth() + 1}-${theFilter.pickupDate.getDate()}`
-    const returnDate: string = `${theFilter.returnDate.getFullYear()}-${theFilter.returnDate.getMonth() + 1}-${theFilter.returnDate.getDate()}`
-
-    const query = `pickupDate=${pickUpDate}&returnDate=${returnDate}
+    const query = `pickupDate=${theFilter.pickupDate}&returnDate=${theFilter.returnDate}
     &pickupTime=${theFilter.pickupTime}&returnTime=${theFilter.returnTime}`;
     return this.http.get<Vehicle[]>(`${this.baseUrl}/getRentableVehicles?${query}`)
   }

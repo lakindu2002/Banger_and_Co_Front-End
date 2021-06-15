@@ -12,6 +12,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { VehicleCardComponent } from './vehicle-card/vehicle-card.component';
 import { VehicleRentalFilterPopUpComponent } from './vehicle-rental-filter-pop-up/vehicle-rental-filter-pop-up.component';
 import { MatNativeDateModule } from "@angular/material/core";
+import { FilterVehicleListComponent } from "./filter-vehicle-list/filter-vehicle-list.component";
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { MatNativeDateModule } from "@angular/material/core";
     BreadCrumbComponent,
     UserProfileComponent,
     VehicleCardComponent,
-    VehicleRentalFilterPopUpComponent
+    VehicleRentalFilterPopUpComponent,
+    FilterVehicleListComponent
   ],
   imports: [
     CommonModule,
@@ -38,7 +40,8 @@ import { MatNativeDateModule } from "@angular/material/core";
     UserProfileComponent,
     BsDropdownModule,
     VehicleCardComponent,
-    VehicleRentalFilterPopUpComponent
+    VehicleRentalFilterPopUpComponent,
+    FilterVehicleListComponent
   ],
 })
 export class SharedModule { }

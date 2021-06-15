@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { ErrorResponse } from 'src/app/models/errorresponse.model';
 import { VehicleRentalFilter } from 'src/app/models/vehicle_rental_filter.model';
+import { LocalStorageService } from 'src/app/services/localstorage.service';
 import { VehicleService } from 'src/app/services/vehicle.service';
 
 @Component({
@@ -26,16 +28,15 @@ export class VehicleRentalFilterPopUpComponent implements OnInit {
 
   constructor(
     private modalRef: BsModalRef,
-    private vehicleService: VehicleService,
     private spinner: NgxSpinnerService,
-    private toast: ToastrService
+    private localStorageService: LocalStorageService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.pickupMinDate = new Date();
     this.selectedPickupDate = this.pickupMinDate;
     this.maxDate = new Date(this.selectedPickupDate.getTime() + (14 * 24 * 60 * 60 * 1000)); //set the max return date 14 days after selected pickup
-
 
     this.rentalFilterForm = new FormGroup({
       'pickupDate': new FormControl(this.selectedPickupDate, [Validators.required]),
@@ -142,23 +143,32 @@ export class VehicleRentalFilterPopUpComponent implements OnInit {
   findVehiclesAvailableForDurationInDb() {
     this.spinner.show();
 
+    const pickupDateForm: Date = this.rentalFilterForm.get('pickupDate').value as Date;
+    const returnDateForm: Date = this.rentalFilterForm.get('returnDate').value as Date;
+
+    //add 1 because in JS january is 0 and not 1
+    const pickUpDate: string = `${pickupDateForm.getFullYear()}-${pickupDateForm.getMonth() + 1}-${pickupDateForm.getDate()}`
+    const returnDate: string = `${returnDateForm.getFullYear()}-${returnDateForm.getMonth() + 1}-${returnDateForm.getDate()}`
+
+
     const filter: VehicleRentalFilter = {
-      pickupDate: this.rentalFilterForm.get('pickupDate').value as Date,
-      returnDate: this.rentalFilterForm.get('returnDate').value as Date,
+      pickupDate: pickUpDate,
+      returnDate: returnDate,
       pickupTime: this.rentalFilterForm.get('pickupTime').value,
       returnTime: this.rentalFilterForm.get('returnTime').value
     }
-    this.vehicleService.getRentableVehiclesForFilter(filter).subscribe((data) => {
-      this.toast.info(`We found ${data.length} vehicles for your rental duration`, "Vehicles Retrieved");
-      this.spinner.hide();
-    }, (error: ErrorResponse) => {
-      if (error.multipleErrors.length > 0) {
-        for (const eachError of error.multipleErrors) {
-          this.toast.error(eachError.message);
-        }
+
+    if (this.localStorageService.getUserInLocalStorage()) {
+      //user is active
+      if (this.localStorageService.getUserInLocalStorage().userRole.toLowerCase() === 'customer') {
+        //user is a customer, so show the available page for the customer
       }
-      this.toast.error(error.exceptionMessage, "Failed to Find Available Vehicles")
-      this.spinner.hide();
-    })
+    } else {
+      //no user, show guest filter result page.
+      this.router.navigate(['/home', 'filter'], {
+        queryParams: filter
+      })
+    }
+    this.spinner.hide();
   }
 }

@@ -1,6 +1,6 @@
 export interface VehicleRentalFilter {
-  pickupDate: Date,
-  returnDate: Date;
+  pickupDate: string,
+  returnDate: string;
   pickupTime: string,
   returnTime: string
 }
