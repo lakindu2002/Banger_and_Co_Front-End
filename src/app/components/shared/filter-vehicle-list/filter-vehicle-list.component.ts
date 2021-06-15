@@ -33,7 +33,6 @@ export class FilterVehicleListComponent implements OnInit {
   }
 
   getFilterListFromDB() {
-    this.availableVehicles = [];
     this.isError = false;
     this.spinner.show('filterSpinner');
     this.vehicleService.getRentableVehiclesForFilter(this.theFilterInformation).subscribe((data) => {

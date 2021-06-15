@@ -2,7 +2,6 @@
 <div class="container">
   <div>
     <div class="row">
-      <ngx-spinner type="ball-clip-rotate" size="medium" [name]="'filterSpinner'" [fullScreen]="false"></ngx-spinner>
       <div class="col-sm-12">
         <div class="row">
           <div class="col-sm-12">
@@ -29,6 +28,9 @@
             <p>filter component works</p>
           </div>
           <div class="col-sm-8">
+            <ngx-spinner type="ball-clip-rotate" size="medium" [name]="'filterSpinner'" [fullScreen]="false"
+              [bdColor]="'none'" [color]="'black'">
+            </ngx-spinner>
             <div *ngIf="availableVehicles.length> 0;">
               <!-- data successfully retrieved -->
               <div class="row" style="max-height: 750px; overflow: auto;">
