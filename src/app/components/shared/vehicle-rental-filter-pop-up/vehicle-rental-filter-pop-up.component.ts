@@ -168,6 +168,7 @@ export class VehicleRentalFilterPopUpComponent implements OnInit {
       this.router.navigate(['/home', 'filter'], {
         queryParams: filter
       })
+      this.hideModal();
     }
     this.spinner.hide();
   }

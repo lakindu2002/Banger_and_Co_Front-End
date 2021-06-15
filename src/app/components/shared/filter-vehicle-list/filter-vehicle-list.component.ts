@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { VehicleRentalFilter } from 'src/app/models/vehicle_rental_filter.model';
 
 @Component({
   selector: 'app-filter-vehicle-list',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FilterVehicleListComponent implements OnInit {
 
-  constructor() { }
+  theFilterInformation: VehicleRentalFilter;
+
+  constructor(private activateRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.activateRoute.queryParams.subscribe((data: VehicleRentalFilter) => {
+      this.theFilterInformation = data;
+    })
   }
 
 }

@@ -5,13 +5,14 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from "@angular/material/datepicker";
+import { NgxSpinnerModule } from "ngx-spinner";
+import { MatNativeDateModule } from "@angular/material/core";
 
 import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
 import { BreadCrumbComponent } from './bread-crumb/bread-crumb.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { VehicleCardComponent } from './vehicle-card/vehicle-card.component';
 import { VehicleRentalFilterPopUpComponent } from './vehicle-rental-filter-pop-up/vehicle-rental-filter-pop-up.component';
-import { MatNativeDateModule } from "@angular/material/core";
 import { FilterVehicleListComponent } from "./filter-vehicle-list/filter-vehicle-list.component";
 
 @NgModule({
@@ -32,6 +33,7 @@ import { FilterVehicleListComponent } from "./filter-vehicle-list/filter-vehicle
     MatCardModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    NgxSpinnerModule
   ],
   exports: [
     PageNotFoundComponent,
