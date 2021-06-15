@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastrService } from 'ngx-toastr';
-import { ErrorResponse } from 'src/app/models/errorresponse.model';
+import { TimeList } from 'src/app/models/supportedTimeList.model';
 import { VehicleRentalFilter } from 'src/app/models/vehicle_rental_filter.model';
 import { LocalStorageService } from 'src/app/services/localstorage.service';
-import { VehicleService } from 'src/app/services/vehicle.service';
 
 @Component({
   selector: 'app-vehicle-rental-filter-pop-up',
@@ -20,6 +18,8 @@ export class VehicleRentalFilterPopUpComponent implements OnInit {
   selectedPickupDate: Date; //used to set the minimum return date
   maxDate: Date; //used to denote the max date for rental duration
   showReturnMessage: boolean = false;
+
+  supportedTimeList: string[] = TimeList
 
   pickupStartMin: Date;
   returnTimeMax: Date;
@@ -41,8 +41,8 @@ export class VehicleRentalFilterPopUpComponent implements OnInit {
     this.rentalFilterForm = new FormGroup({
       'pickupDate': new FormControl(this.selectedPickupDate, [Validators.required]),
       'returnDate': new FormControl(this.selectedPickupDate, [Validators.required]),
-      'pickupTime': new FormControl(null, [Validators.required, this.timePickerValidator.bind(this)]),
-      'returnTime': new FormControl(null, [Validators.required, this.timePickerValidator.bind(this)])
+      'pickupTime': new FormControl("08:00", [Validators.required, this.timePickerValidator.bind(this)]),
+      'returnTime': new FormControl("08:00", [Validators.required, this.timePickerValidator.bind(this)])
     }, {
       validators: this.returnTimeValidaton().bind(this),
       updateOn: 'change'

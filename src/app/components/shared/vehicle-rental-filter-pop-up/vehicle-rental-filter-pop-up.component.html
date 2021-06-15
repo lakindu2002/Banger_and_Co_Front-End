@@ -79,7 +79,11 @@
       <div class="col-sm-6">
         <div class="form-group">
           <label class="fonts">Pickup Time</label>
-          <input type="time" [formControlName]="'pickupTime'" class="form-control">
+          <select class="form-control" [formControlName]="'pickupTime'">
+            <option *ngFor="let eachTime of supportedTimeList" [value]="eachTime">
+              {{eachTime}}
+            </option>
+          </select>
           <span class="form-error"
             *ngIf="rentalFilterForm.get('pickupTime').invalid && rentalFilterForm.get('pickupTime').touched">
             Please provide a valid return time <br>
@@ -93,8 +97,11 @@
       <div class="col-sm-6">
         <div class="form-group">
           <label class="fonts">Return Time</label>
-          <input type="time" [formControlName]="'returnTime'" class="form-control">
-          <span class="form-error"
+          <select class="form-control" [formControlName]="'returnTime'">
+            <option *ngFor="let eachTime of supportedTimeList" [value]="eachTime">
+              {{eachTime}}
+            </option>
+          </select>          <span class="form-error"
             *ngIf="rentalFilterForm.get('returnTime').invalid && rentalFilterForm.get('returnTime').touched">
             Please provide a valid return time <br>
           </span>
@@ -119,7 +126,8 @@
 
 <div class="modal-footer">
   <button class="float-right btn btn-danger" type="button" (click)="hideModal()" style="width: 20%;">Close</button>
-  <button class="float-right btn btn-primary" type="button" [disabled]="rentalFilterForm.invalid" (click)="findVehiclesAvailableForDurationInDb()">Find Available
+  <button class="float-right btn btn-primary" type="button" [disabled]="rentalFilterForm.invalid"
+    (click)="findVehiclesAvailableForDurationInDb()">Find Available
     Vehicles For This
     Period</button>
 </div>
