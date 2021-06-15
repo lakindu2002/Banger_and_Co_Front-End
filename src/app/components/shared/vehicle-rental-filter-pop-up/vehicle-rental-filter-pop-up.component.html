@@ -1,65 +1,124 @@
-<div class="modal-header">
-  <h5 class="modal-title">Provide Rental Pickup & Return Information</h5>
-  <button class="close float-right" (click)="hideModal()"><span>&times;</span></button>
-</div>
-
-<div class="modal-body">
-  <div class="row">
-    <div class="col-sm-12">
-      <span style="color: red;"><i>We require this information in-order to show you the available vehicles for your
-          rental period.*</i></span>
-    </div>
+<form [formGroup]="rentalFilterForm" (ngSubmit)="findVehiclesAvailableForDurationInDb()">
+  <div class="modal-header">
+    <h5 class="modal-title">Provide Rental Pickup & Return Information</h5>
+    <button class="close float-right" (click)="hideModal()"><span>&times;</span></button>
   </div>
-  <div class="row mt-3">
-    <div class="col-sm-6">
-      <div class="form-group">
-        <label class="fonts">Pickup Date</label>
+
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-sm-12">
+        <span style="color: red;"><i>We require this information in-order to show you the available vehicles for your
+            rental period.*</i></span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <hr>
         <div class="row">
-          <div class="col-sm-10" style="padding-right: 3px;">
-            <input class="form-control" readonly="true" [matDatepicker]="pickupDatePicker"
-              placeholder="Select Pickup Date" style="width: 100%;">
+          <div class="col-sm-2 align-self-center">
+            <span class="fonts">Guidelines:</span>
           </div>
-          <div class="col-sm-2" style="padding-left: 0px;">
-            <mat-datepicker-toggle matSuffix [for]="pickupDatePicker">
-            </mat-datepicker-toggle>
-            <mat-datepicker #pickupDatePicker></mat-datepicker>
+          <div class="col-sm-10">
+            <span style="font-size: 14px; font-style: italic;">
+              Please note that a rental must be minimum of 5 hours (half a day) or a maximum of 2 weeks (14 days)
+              <br>
+              A rental can be collected between 8:00am and 6:00pm and must be returned back to Banger and Co between
+              8:00am and 6:00pm
+            </span>
           </div>
         </div>
       </div>
     </div>
-    <div class=" col-sm-6">
-      <div class="form-group">
-        <label class="fonts">Return Date</label>
-        <div class="row">
-          <div class="col-sm-10" style="padding-right: 3px;">
-            <input class="form-control" readonly="true" placeholder="Select Return Date"
-              [matDatepicker]="returnDatePicker">
+    <div class="row mt-3">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label class="fonts">Pickup Date</label>
+          <div class="row">
+            <div class="col-sm-10" style="padding-right: 3px;">
+              <input class="form-control" readonly="true" [matDatepicker]="pickupDatePicker"
+                placeholder="Select Pickup Date" style="width: 100%;" [min]="pickupMinDate" (dateChange)="dateChanged()"
+                [formControlName]="'pickupDate'">
+            </div>
+            <div class="col-sm-2" style="padding-left: 15px;">
+              <mat-datepicker-toggle matSuffix [for]="pickupDatePicker">
+              </mat-datepicker-toggle>
+              <mat-datepicker #pickupDatePicker></mat-datepicker>
+            </div>
           </div>
-          <div class="col-sm-2" style="padding-left: 0px;">
-            <mat-datepicker-toggle matSuffix [for]="returnDatePicker"></mat-datepicker-toggle>
-            <mat-datepicker #returnDatePicker></mat-datepicker>
+          <span *ngIf="rentalFilterForm.get('pickupDate').touched && rentalFilterForm.get('pickupDate').invalid"
+            class="form-error">
+            Please provide a valid pickup date
+          </span>
+        </div>
+      </div>
+      <div class=" col-sm-6">
+        <div class="form-group">
+          <label class="fonts">Return Date</label>
+          <div class="row">
+            <div class="col-sm-10" style="padding-right: 1px;">
+              <input class="form-control" readonly="true" placeholder="Select Return Date"
+                [matDatepicker]="returnDatePicker" [min]="selectedPickupDate" [formControlName]="'returnDate'"
+                [max]="maxDate">
+            </div>
+            <div class="col-sm-2" style="padding-left: 15px;">
+              <mat-datepicker-toggle matSuffix [for]="returnDatePicker"></mat-datepicker-toggle>
+              <mat-datepicker #returnDatePicker></mat-datepicker>
+            </div>
           </div>
+          <span *ngIf="showReturnMessage" class="form-error" style="color: green;">
+            <b>A rental has to be a maximum of 14 days or a minimum of 5 hours.</b> <br>
+          </span>
+          <span *ngIf="rentalFilterForm.get('returnDate').touched && rentalFilterForm.get('returnDate').invalid"
+            class="form-error">
+            Please provide a valid return date
+          </span>
         </div>
       </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-6">
-      <div class="form-group">
-        <label class="fonts">Pickup Time</label>
-        <timepicker></timepicker>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label class="fonts">Pickup Time</label>
+          <input type="time" [formControlName]="'pickupTime'" class="form-control">
+          <span class="form-error"
+            *ngIf="rentalFilterForm.get('pickupTime').invalid && rentalFilterForm.get('pickupTime').touched">
+            Please provide a valid return time <br>
+          </span>
+          <span class="form-error"
+            *ngIf="rentalFilterForm.get('pickupTime').invalid && rentalFilterForm.get('pickupTime').touched && rentalFilterForm.get('pickupTime').getError('timeInvalid')">
+            Please keep pickup time between 8:00am to 6:00pm
+          </span>
+        </div>
       </div>
-    </div>
-    <div class="col-sm-6">
-      <div class="form-group">
-        <label class="fonts">Return Time</label>
-        <timepicker></timepicker>
-      </div>
-    </div>
-  </div>
-</div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label class="fonts">Return Time</label>
+          <input type="time" [formControlName]="'returnTime'" class="form-control">
+          <span class="form-error"
+            *ngIf="rentalFilterForm.get('returnTime').invalid && rentalFilterForm.get('returnTime').touched">
+            Please provide a valid return time <br>
+          </span>
 
-<div class="modal-footer">
-  <button class="float-right btn btn-danger" (click)="hideModal()" style="width: 20%;">Close</button>
-  <button class="float-right btn btn-primary">Find Available Vehicles For This Period</button>
-</div>
+          <span class="form-error"
+            *ngIf="rentalFilterForm.get('returnTime').invalid && rentalFilterForm.get('returnTime').touched && rentalFilterForm.get('returnTime').getError('timeInvalid')">
+            Please keep pickup time between 8:00am to 6:00pm
+          </span>
+        </div>
+        <span class="form-error fonts" *ngIf="rentalFilterForm.errors?.timeInvalid && (rentalFilterForm.touched)"
+          style="text-align: center;">
+          Return time cannot be earlier than pickup time.
+        </span>
+        <span class="form-error fonts" *ngIf="rentalFilterForm.errors?.hourNotMet && (rentalFilterForm.touched)"
+          style="text-align: center;">
+          Rental duration must be minimum 5 hours
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button class="float-right btn btn-danger" (click)="hideModal()" style="width: 20%;" type="button">Close</button>
+    <button class="float-right btn btn-primary" [disabled]="rentalFilterForm.invalid" type="submit">Find Available Vehicles For This
+      Period</button>
+  </div>
+</form>

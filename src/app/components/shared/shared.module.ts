@@ -2,11 +2,9 @@ import { NgModule } from "@angular/core";
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { CommonModule } from "@angular/common";
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from "@angular/material/datepicker";
-import { TimepickerModule } from 'ngx-bootstrap/timepicker';
-
 
 import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
 import { BreadCrumbComponent } from './bread-crumb/bread-crumb.component';
@@ -27,11 +25,11 @@ import { MatNativeDateModule } from "@angular/material/core";
     CommonModule,
     ModalModule.forRoot(),
     ReactiveFormsModule,
+    FormsModule,
     BsDropdownModule.forRoot(),
     MatCardModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    TimepickerModule.forRoot()
   ],
   exports: [
     PageNotFoundComponent,
