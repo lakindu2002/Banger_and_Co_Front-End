@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { ErrorResponse } from 'src/app/models/errorresponse.model';
 import { Vehicle } from 'src/app/models/vehicle.model';
 import { VehicleRentalFilter } from 'src/app/models/vehicle_rental_filter.model';
 import { VehicleService } from 'src/app/services/vehicle.service';
+import { VehicleRentalFilterPopUpComponent } from '../vehicle-rental-filter-pop-up/vehicle-rental-filter-pop-up.component';
 
 @Component({
   selector: 'app-filter-vehicle-list',
@@ -18,14 +20,18 @@ export class FilterVehicleListComponent implements OnInit {
   availableVehicles: Vehicle[] = [];
   isError: boolean = false;
 
+  modalRef: BsModalRef;
+
   constructor(
     private activateRoute: ActivatedRoute,
     private spinner: NgxSpinnerService,
     private vehicleService: VehicleService,
-    private toast: ToastrService
+    private toast: ToastrService,
+    private modalService: BsModalService
   ) { }
 
   ngOnInit(): void {
+    console.log("executed");
     this.activateRoute.queryParams.subscribe((data: VehicleRentalFilter) => {
       this.theFilterInformation = data;
       this.getFilterListFromDB();
@@ -55,6 +61,15 @@ export class FilterVehicleListComponent implements OnInit {
       this.spinner.hide('filterSpinner');
 
     })
+  }
+
+  reOpenFilterDates() {
+    this.modalRef = this.modalService.show(VehicleRentalFilterPopUpComponent, {
+      animated: true,
+      ignoreBackdropClick: true,
+      class: 'modal-dialog-centered modal-lg',
+      keyboard: false
+    });
   }
 
 }

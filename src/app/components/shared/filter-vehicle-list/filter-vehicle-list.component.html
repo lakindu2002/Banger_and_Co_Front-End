@@ -17,9 +17,45 @@
             </div>
           </div>
         </div>
-        <div class="row">
+        <div class="row mb-5 p-3"
+          style="box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px; border-radius: 5px;">
           <div class="col-sm-12">
-            <p>Show the set pickup/return date by the user</p>
+            <div class="row">
+              <div class="col-sm-12">
+                <h5 class="alert-heading">Lets Find Your Ideal Vehicle</h5>
+                <hr>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-8">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label class="fonts">Selected Pickup Date & Time</label>
+                      <div class="badge badge-info" style="font-size: 16px;">
+                        Starting on <span class="fonts">{{theFilterInformation.pickupDate | date}}</span> at
+                        <span class="fonts">{{theFilterInformation.pickupTime}}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label class="fonts">Selected Return Date & Time</label>
+                      <div class="badge badge-info" style="font-size: 16px;">
+                        Ending on <span class="fonts">{{theFilterInformation.returnDate | date}}</span> at
+                        <span class="fonts">{{theFilterInformation.returnTime}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-4 align-self-center">
+                <button class="btn btn-primary float-right" (click)="reOpenFilterDates()">Find Vehicles For Another
+                  Period</button>
+              </div>
+            </div>
           </div>
         </div>
         <div class="row" *ngIf="!isError">
@@ -42,7 +78,6 @@
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </div>
