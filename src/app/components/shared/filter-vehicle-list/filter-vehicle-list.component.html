@@ -10,7 +10,7 @@
               <h5 class="alert-heading">Vehicles Not Found</h5>
               There are no vehicles available for the period you wish to rent for
             </div>
-            <div class="alert alert-error" *ngIf="isError && availableVehicles.length == 0">
+            <div class="alert alert-danger" *ngIf="isError && availableVehicles.length == 0">
               <!-- an error occured while retrieveing the data -->
               <h5 class="alert-heading">Vehicle Not Found</h5>
               We ran into an error retrieving the vehicles. Please try again.

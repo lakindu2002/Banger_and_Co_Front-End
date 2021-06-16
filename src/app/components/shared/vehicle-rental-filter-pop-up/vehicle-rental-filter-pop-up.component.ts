@@ -118,7 +118,7 @@ export class VehicleRentalFilterPopUpComponent implements OnInit {
       if (selectedTime.getHours() < 8 && (selectedTime.getMinutes() > 0 || selectedTime.getMinutes() >= 0)) {
         //if the selected pickup or return time is before 8
         //if minutes is 0 or more than 0
-        //done to block times like "6:00" and "6:"
+        //done to block times like "6:00" and "6:01"
         return { timeInvalid: true };
       }
 
