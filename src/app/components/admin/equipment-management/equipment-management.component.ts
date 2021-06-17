@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { AdditionalEquipment } from 'src/app/models/equipment.model';
 import { ErrorResponse } from 'src/app/models/errorresponse.model';
 import { EquipmentService } from 'src/app/services/equipment.service';
+import { DeleteEquipmentPromptComponent } from './delete-equipment-prompt/delete-equipment-prompt.component';
 import { EquipmentCreateManageComponent } from './equipment-create-manage/equipment-create-manage.component';
 
 @Component({
@@ -104,13 +105,6 @@ export class EquipmentManagementComponent implements OnInit, OnDestroy {
     })
   }
 
-  ngOnDestroy(): void {
-    //if a subscription is present, unsubscribe when the component is destroyed
-    if (this.successSubscription) {
-      this.successSubscription.unsubscribe(); //stop listening for changes when component is destroyed
-    }
-  }
-
   filterViaName() {
     //filter the equipment list according to the name given by the user.
 
@@ -129,4 +123,26 @@ export class EquipmentManagementComponent implements OnInit, OnDestroy {
     }
   }
 
+  openDeleteEquipmentModal(theEquipment: AdditionalEquipment) {
+    this.modalRef = this.modalService.show(DeleteEquipmentPromptComponent, {
+      animated: true,
+      class: 'modal-dialog-centered',
+      ignoreBackdropClick: true,
+      keyboard: false,
+      initialState: {
+        theEquipment: theEquipment
+      }
+    });
+
+    this.successSubscription = this.modalRef.content.deleteSuccess.subscribe((data: boolean) => {
+      this.getAllEquipment();
+    })
+  }
+
+  ngOnDestroy(): void {
+    //if a subscription is present, unsubscribe when the component is destroyed
+    if (this.successSubscription) {
+      this.successSubscription.unsubscribe(); //stop listening for changes when component is destroyed
+    }
+  }
 }

@@ -32,4 +32,8 @@ export class EquipmentService {
   updateEquipment(updatePasser: AdditionalEquipment): Observable<ResponseAPI> {
     return this.http.put<ResponseAPI>(`${this.equipmentEndpoint}/update`, updatePasser);
   }
+
+  removeById(equipmentId: number): Observable<ResponseAPI> {
+    return this.http.delete<ResponseAPI>(`${this.equipmentEndpoint}/remove/${equipmentId}`);
+  }
 }

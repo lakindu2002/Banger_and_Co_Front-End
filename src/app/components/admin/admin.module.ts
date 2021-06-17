@@ -22,6 +22,7 @@ import { AdminVehicleBrowsingComponent } from './admin-vehicle-management/admin-
 import { VehicleTypeCreateManageComponent } from './admin-vehicle-management/admin-vehicle-type-management/vehicle-type-create-manage/vehicle-type-create-manage.component';
 import { TypeDeletePromptComponent } from './admin-vehicle-management/admin-vehicle-type-management/type-delete-prompt/type-delete-prompt.component';
 import { WhiteListPromptComponent } from './admin-user-management/white-list-prompt/white-list-prompt.component';
+import { DeleteEquipmentPromptComponent } from './equipment-management/delete-equipment-prompt/delete-equipment-prompt.component';
 
 
 
@@ -41,7 +42,8 @@ import { WhiteListPromptComponent } from './admin-user-management/white-list-pro
     AdminVehicleBrowsingComponent,
     VehicleTypeCreateManageComponent,
     TypeDeletePromptComponent,
-    WhiteListPromptComponent
+    WhiteListPromptComponent,
+    DeleteEquipmentPromptComponent
   ],
   imports: [
     CommonModule,
