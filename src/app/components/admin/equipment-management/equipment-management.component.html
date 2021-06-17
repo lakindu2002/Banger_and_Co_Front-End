@@ -38,8 +38,8 @@
           <td>{{i + 1}}</td>
           <td>{{eachEquipment.equipmentName | titlecase}}</td>
           <td>
-            <span *ngIf="eachEquipment.equipmentQuantity == 0">
-              All Stock Added to Rentals
+            <span *ngIf="eachEquipment.equipmentQuantity == 0" style="color: red;font-style: italic;">
+              No Stock Available
             </span>
             <span *ngIf="eachEquipment.equipmentQuantity > 0">
               {{eachEquipment.equipmentQuantity}}

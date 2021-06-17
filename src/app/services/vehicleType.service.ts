@@ -32,4 +32,8 @@ export class VehicleTypeService {
   removeById(id: number): Observable<ResponseAPI> {
     return this.http.delete<ResponseAPI>(`${this.basePath}/remove/${id}`);
   }
+
+  updateVehicleType(theType: VehicleType): Observable<ResponseAPI> {
+    return this.http.put<ResponseAPI>(`${this.basePath}/update`, theType);
+  }
 }

@@ -60,7 +60,36 @@ export class VehicleTypeCreateManageComponent implements OnInit {
     if (this.createMode) {
       //if creating a new object
       this.createNewTypeInDb();
+    } else {
+      //update the type
+      this.updateTypeInDB();
     }
+  }
+
+  updateTypeInDB() {
+    this.spinner.show();
+
+    const updateObj: VehicleType = {
+      vehicleTypeId: this.typeUpdated.vehicleTypeId,
+      pricePerDay: this.vehicleTypeCreator.get('pricePerDay').value,
+      size: this.vehicleTypeCreator.get('categorySize').value,
+      typeName: this.vehicleTypeCreator.get('typeName').value
+    }
+
+    this.vehicleTypeService.updateVehicleType(updateObj).subscribe((data) => {
+      this.isSuccess.next(true);
+      this.toast.success(data.message, "Vehicle Type Information Updated");
+      this.spinner.hide();
+      this.hideModal();
+    }, (error: ErrorResponse) => {
+      if (error.multipleErrors.length > 0) {
+        for (const eachError of error.multipleErrors) {
+          this.toast.warning(eachError.message);
+        }
+      }
+      this.toast.error(error.exceptionMessage,"Vehicle Type Information Not Updated");
+      this.spinner.hide();
+    })
   }
 
   createNewTypeInDb() {
