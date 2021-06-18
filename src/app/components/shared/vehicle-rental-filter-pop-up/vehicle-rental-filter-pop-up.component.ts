@@ -162,6 +162,10 @@ export class VehicleRentalFilterPopUpComponent implements OnInit {
       //user is active
       if (this.localStorageService.getUserInLocalStorage().userRole.toLowerCase() === 'customer') {
         //user is a customer, so show the available page for the customer
+        this.router.navigate(['/customer', 'home', 'filter'], {
+          queryParams: filter
+        });
+        this.hideModal();
       }
     } else {
       //no user, show guest filter result page.

@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { Observable, Subject } from "rxjs";
 import { map } from "rxjs/operators";
 import { environment } from "src/environments/environment.prod";
 import { ResponseAPI } from "../models/response.model";
@@ -13,6 +13,7 @@ import { VehicleRentalFilter } from "../models/vehicle_rental_filter.model";
   //injectable enables other services to be injected to this
 )
 export class VehicleService {
+  customerClickedRent: Subject<Vehicle> = new Subject();
   baseUrl: string = `${environment.apiBaseUrl}/api/vehicle`;
   imageBase: string = environment.imageBase;
 
@@ -39,8 +40,8 @@ export class VehicleService {
     const query = `pickupDate=${theFilter.pickupDate}&returnDate=${theFilter.returnDate}
     &pickupTime=${theFilter.pickupTime}&returnTime=${theFilter.returnTime}`;
 
-    return this.http.get<Vehicle[]>(`${this.baseUrl}/getRentableVehicles?${query}`).pipe(map((data)=>{
-      data.forEach((eachVehicle)=>{
+    return this.http.get<Vehicle[]>(`${this.baseUrl}/getRentableVehicles?${query}`).pipe(map((data) => {
+      data.forEach((eachVehicle) => {
         eachVehicle.vehicleImage = `${environment.imageBase}${eachVehicle.vehicleImage}`
       })
       return data;

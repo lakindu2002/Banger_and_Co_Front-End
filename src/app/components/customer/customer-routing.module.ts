@@ -1,12 +1,17 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { CustomerHomeComponent } from "./customer-home/customer-home.component";
+import { VehiclePanelComponent } from "./vehicle-panel/vehicle-panel.component";
 
 const routes: Routes = [
-    //holds the routes after "/customer" that is loaded via lazy loading
+  //holds the routes after "/customer" that is loaded via lazy loading
   {
     path: 'home',
     component: CustomerHomeComponent
+  },
+  {
+    path: 'home/filter',
+    component: VehiclePanelComponent
   },
   {
     path: '',

@@ -3,6 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthReturn } from 'src/app/models/auth.return.model';
 import { Vehicle } from 'src/app/models/vehicle.model';
 import { LocalStorageService } from 'src/app/services/localstorage.service';
+import { VehicleService } from 'src/app/services/vehicle.service';
 
 @Component({
   selector: 'app-vehicle-card',
@@ -14,7 +15,7 @@ export class VehicleCardComponent implements OnInit {
   @Input('vehicleToRender') theVehicle: Vehicle; //the vehicle that will be passed into the component from a parent component.
   loggedInUser: AuthReturn;
 
-  constructor(private localStorageService: LocalStorageService, private toast: ToastrService) { }
+  constructor(private localStorageService: LocalStorageService, private toast: ToastrService, private vehicleService: VehicleService) { }
 
   ngOnInit(): void {
     //retrieve logged in user status to enable admin only views.
@@ -22,6 +23,11 @@ export class VehicleCardComponent implements OnInit {
   }
 
   handleGuestClick() {
-    this.toast.info("Please login or create an account inorder to rent this vehicle","Account Needed To Proceed")
+    this.toast.info("Please login or create an account inorder to rent this vehicle", "Account Needed To Proceed")
+  }
+
+  handleCustomerClick() {
+    //emit a value that will be listened in the "VehiclePanelComponent" in the customer module
+    this.vehicleService.customerClickedRent.next(this.theVehicle);
   }
 }

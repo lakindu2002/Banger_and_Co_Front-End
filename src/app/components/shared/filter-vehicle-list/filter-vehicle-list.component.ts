@@ -31,7 +31,6 @@ export class FilterVehicleListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log("executed");
     this.activateRoute.queryParams.subscribe((data: VehicleRentalFilter) => {
       this.theFilterInformation = data;
       this.getFilterListFromDB();
