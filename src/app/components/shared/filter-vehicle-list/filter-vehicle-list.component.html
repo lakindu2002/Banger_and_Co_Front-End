@@ -1,28 +1,14 @@
 <app-bread-crumb [pageName]="'Available Vehicles'"></app-bread-crumb>
 <div class="container">
-  <div>
-    <div class="row">
-      <div class="col-sm-12">
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="alert alert-warning" *ngIf="!isError && availableVehicles.length == 0">
-              <!-- if there is no error but result generated no data  -->
-              <h5 class="alert-heading">Vehicles Not Found</h5>
-              There are no vehicles available for the period you wish to rent for
-            </div>
-            <div class="alert alert-danger" *ngIf="isError && availableVehicles.length == 0">
-              <!-- an error occured while retrieveing the data -->
-              <h5 class="alert-heading">Vehicle Not Found</h5>
-              We ran into an error retrieving the vehicles. Please try again.
-            </div>
-          </div>
-        </div>
-        <div class="row mb-5 p-3"
-          style="box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px; border-radius: 5px;">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="row p-3" style="border-radius: 5px;">
+        <mat-card style="font-family: 'Inter', sans-serif;">
           <div class="col-sm-12">
             <div class="row">
               <div class="col-sm-12">
-                <h5 class="alert-heading">Lets Find Your Ideal Vehicle</h5>
+                <h5 class="alert-heading">For Your Pickup And Return Dates {{!isError?": "+filteredVehicles.length+"
+                  Found":''}}</h5>
                 <hr>
               </div>
             </div>
@@ -33,7 +19,7 @@
                   <div class="col-sm-6">
                     <div class="form-group">
                       <label class="fonts">Selected Pickup Date & Time</label>
-                      <div class="badge badge-info" style="font-size: 16px;">
+                      <div class="badge badge-info p-2" style="font-size: 15px;">
                         Starting on <span class="fonts">{{theFilterInformation.pickupDate | date}}</span> at
                         <span class="fonts">{{theFilterInformation.pickupTime}}</span>
                       </div>
@@ -43,7 +29,7 @@
                   <div class="col-sm-6">
                     <div class="form-group">
                       <label class="fonts">Selected Return Date & Time</label>
-                      <div class="badge badge-info" style="font-size: 16px;">
+                      <div class="badge badge-info p-2" style="font-size: 15px;">
                         Ending on <span class="fonts">{{theFilterInformation.returnDate | date}}</span> at
                         <span class="fonts">{{theFilterInformation.returnTime}}</span>
                       </div>
@@ -57,22 +43,99 @@
               </div>
             </div>
           </div>
-        </div>
-        <div class="row" *ngIf="!isError">
-          <!-- no error found, go ahead and show data -->
-          <div class="col-sm-4">
-            <p>filter component works</p>
-          </div>
-          <div class="col-sm-8">
-            <ngx-spinner type="ball-clip-rotate" size="medium" [name]="'filterSpinner'" [fullScreen]="false"
-              [bdColor]="'none'" [color]="'black'">
-            </ngx-spinner>
-            <div *ngIf="availableVehicles.length> 0;">
-              <!-- data successfully retrieved -->
-              <div class="row" style="max-height: 750px; overflow: auto;">
-                <div class="col-sm-6" *ngFor="let vehicle of availableVehicles">
-                  <app-vehicle-card [vehicleToRender]="vehicle"></app-vehicle-card>
+        </mat-card>
+      </div>
+      <div class="row" *ngIf="!isError">
+        <!-- no error found, go ahead and show data -->
+        <div class="col-sm-4">
+          <mat-card style="font-family: 'Inter', sans-serif;">
+            <div class="container">
+              <mat-card-title>
+                <div class="row">
+                  <div class="col-sm-4">
+                    Filter
+                  </div>
+                  <div class="col-sm-8 align-self-center">
+                    <a class="float-right" style="font-size: 14px; text-decoration: none; cursor: pointer;"
+                      (click)="clearAll()">Clear All
+                      Filters</a>
+                  </div>
                 </div>
+                <hr>
+              </mat-card-title>
+
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="form-group">
+                    <label class="fonts">Vehicle Type & Price</label>
+                    <select class="form-control" style="font-size: 14px;" [(ngModel)]=" selectedType"
+                      (change)="search()">
+                      <option value="all">All</option>
+                      <option *ngFor="let type of allTypes" [value]="type.vehicleTypeId">{{type.size |
+                        titlecase}} {{type.typeName |
+                        titlecase}} - {{type.pricePerDay}}/Day</option>
+                    </select>
+                  </div>
+                  <hr>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="form-group">
+                    <label class="fonts">Transmission</label>
+                    <div class="form-check align-self-center" *ngFor="let eachTransmission of allTransmission"
+                      style="padding-left: 0px;">
+                      <input type="checkbox" [value]="eachTransmission.name" class="mr-2"
+                        style="height:15px; width:20px; padding-top:30px;"
+                        (change)="transmissionChanged(eachTransmission.name)" [(ngModel)]="eachTransmission.isChecked">
+                      <label>{{eachTransmission.name}}</label>
+                    </div>
+                  </div>
+                  <hr>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="form-group">
+                    <label class="fonts">Fuel Type</label>
+                    <div class="form-check align-self-center" *ngFor="let eachFuel of allFuelTypes"
+                      style="padding-left: 0px;">
+                      <input type="checkbox" [value]="eachFuel.name" class="mr-2"
+                        style="height:15px; width:20px; padding-top:30px;" (change)="fuelChanged(eachFuel.name)"
+                        [(ngModel)]="eachFuel.isChecked">
+                      <label>{{eachFuel.name}}</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-card>
+        </div>
+        <div class="col-sm-8">
+          <ngx-spinner type="ball-clip-rotate" size="medium" [name]="'filterSpinner'" [fullScreen]="false"
+            [bdColor]="'none'" [color]="'black'">
+          </ngx-spinner>
+          <div class="row" *ngIf="!isError || filteredVehicles.length == 0">
+            <div class="col-sm-12">
+              <div class="alert alert-warning" *ngIf="!isError && filteredVehicles.length == 0">
+                <!-- if there is no error but result generated no data  -->
+                <h5 class="alert-heading">Vehicles Not Found</h5>
+                There are no vehicles available for the period you wish to rent for
+              </div>
+              <div class="alert alert-danger" *ngIf="isError && filteredVehicles.length == 0">
+                <!-- an error occured while retrieveing the data -->
+                <h5 class="alert-heading">Vehicle Not Found</h5>
+                We ran into an error retrieving the vehicles. Please try again.
+              </div>
+            </div>
+          </div>
+          <div *ngIf="filteredVehicles.length> 0;">
+            <!-- data successfully retrieved -->
+            <div class="row" style="max-height: 1000px; overflow: auto;">
+              <div class="col-sm-6" *ngFor="let vehicle of filteredVehicles">
+                <app-vehicle-card [vehicleToRender]="vehicle"></app-vehicle-card>
               </div>
             </div>
           </div>
