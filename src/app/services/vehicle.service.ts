@@ -47,4 +47,8 @@ export class VehicleService {
       return data;
     }))
   }
+
+  removeVehicle(id: number): Observable<ResponseAPI> {
+    return this.http.delete<ResponseAPI>(`${this.baseUrl}/remove/${id}`);
+  }
 }

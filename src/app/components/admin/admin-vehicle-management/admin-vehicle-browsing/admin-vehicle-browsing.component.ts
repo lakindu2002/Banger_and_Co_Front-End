@@ -8,6 +8,7 @@ import { Vehicle } from 'src/app/models/vehicle.model';
 import { VehicleType } from 'src/app/models/vehicleType.model';
 import { VehicleService } from 'src/app/services/vehicle.service';
 import { VehicleTypeService } from 'src/app/services/vehicleType.service';
+import { RemoveVehiclePromptComponent } from './remove-vehicle-prompt/remove-vehicle-prompt.component';
 import { VehicleCreateUpdateComponent } from './vehicle-create-update/vehicle-create-update.component';
 
 @Component({
@@ -28,6 +29,7 @@ export class AdminVehicleBrowsingComponent implements OnInit, OnDestroy {
   vehicleLoadError: boolean = false;
 
   successSubscription: Subscription;
+  removeSub : Subscription;
 
   constructor(
     private toast: ToastrService,
@@ -118,10 +120,32 @@ export class AdminVehicleBrowsingComponent implements OnInit, OnDestroy {
     }
   }
 
+  processDeleteClicked(theVehicle: Vehicle) {
+    //method executed as a callback to the event raised by admin clicking delete on vehicle card
+    this.modalRef = this.modalService.show(RemoveVehiclePromptComponent, {
+      class: 'modal-dialog-centered',
+      ignoreBackdropClick: true,
+      keyboard: false,
+      initialState: {
+        vehicleBeingRemoved: theVehicle
+      }
+    })
+
+    this.removeSub = this.modalRef.content.removed.subscribe((data)=>{
+      //when removed successfully, refresh the vehicles and the types.
+      this.getAllVehicleTypes();
+      this.getAllVehicles();
+    })
+  }
+
   ngOnDestroy() {
     //if subscription is active, unsubscribe
     if (this.successSubscription) {
       this.successSubscription.unsubscribe();
+    }
+
+    if (this.removeSub) {
+      this.removeSub.unsubscribe();
     }
   }
 }

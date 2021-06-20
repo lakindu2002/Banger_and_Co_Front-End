@@ -56,7 +56,7 @@
             <!-- pass the vehicle to render on
             each iteration into the vehicle card
             component via property binding of "vehicleToRender" declared in VehicleCard component -->
-            <app-vehicle-card [vehicleToRender]="vehicle"></app-vehicle-card>
+            <app-vehicle-card [vehicleToRender]="vehicle" (adminClickedDelete)="processDeleteClicked($event)"></app-vehicle-card>
           </div>
         </div>
       </div>
