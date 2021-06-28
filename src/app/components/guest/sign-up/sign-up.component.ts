@@ -26,6 +26,10 @@ export class SignUpComponent implements OnInit {
   signUpProceed: boolean;
   imageSizeExceeded: boolean = false;
 
+  licenseImage: any;
+  licenseImageUrl: string | ArrayBuffer;
+  licenseSizeExceeded: boolean = false;
+  licenseLoaded: boolean = false;
 
   constructor(
     private modalRef: BsModalRef,
@@ -39,8 +43,8 @@ export class SignUpComponent implements OnInit {
 
     //initialize forms referenced from template.
     this.userInfoForm = new FormGroup({
-      'firstName': new FormControl(null, [Validators.required, Validators.maxLength(100)]),
-      'lastName': new FormControl(null, [Validators.required, Validators.maxLength(100)]),
+      'firstName': new FormControl(null, [Validators.required, Validators.maxLength(100), Validators.pattern('^[A-Za-z]{1,}')]),
+      'lastName': new FormControl(null, [Validators.required, Validators.maxLength(100), Validators.pattern('^[A-Za-z]{1,}')]),
       'emailAddress': new FormControl(null, [Validators.email, Validators.required, Validators.maxLength(255)]),
       'username': new FormControl(null, [Validators.required, Validators.minLength(6), Validators.maxLength(15)]),
       'contactNumber': new FormControl(null, [Validators.required, Validators.pattern("^[0-9]+$"), Validators.minLength(10), Validators.maxLength(10)],),
@@ -59,7 +63,7 @@ export class SignUpComponent implements OnInit {
 
   fileLoaded(fileSelected: File): void {
     if (fileSelected) {
-      this.imageSizeExceeded = true;
+      this.imageSizeExceeded = false;
       if (fileSelected.size <= 2048000) {
         //if image is less than 2MB
         this.imageSizeExceeded = false;
@@ -76,6 +80,29 @@ export class SignUpComponent implements OnInit {
       } else {
         this.imageLoaded = false;
         this.imageSizeExceeded = true;
+      }
+    }
+  }
+
+  loadLicense(selectedLicense: File): void {
+    if (selectedLicense) {
+      this.imageSizeExceeded = false;
+      if (selectedLicense.size <= 2048000) {
+        //if image is less than 2MB
+        this.licenseSizeExceeded = false;
+        this.licenseLoaded = false;
+        const reader = new FileReader(); //create a file reader
+        reader.readAsDataURL(selectedLicense); //read the image into a url
+
+        reader.onload = (() => {
+          //once it is loaded as a url
+          this.licenseLoaded = true;
+          this.licenseImageUrl = reader.result;
+          this.licenseImage = selectedLicense;
+        })
+      } else {
+        this.licenseLoaded = false;
+        this.licenseSizeExceeded = true;
       }
     }
   }

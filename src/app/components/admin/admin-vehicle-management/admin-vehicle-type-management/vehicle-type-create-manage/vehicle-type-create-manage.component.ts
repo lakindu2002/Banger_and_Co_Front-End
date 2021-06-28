@@ -36,7 +36,7 @@ export class VehicleTypeCreateManageComponent implements OnInit {
 
       //being edited
       this.vehicleTypeCreator = new FormGroup({
-        "typeName": new FormControl(this.typeUpdated.typeName, [Validators.maxLength(50), Validators.required]),
+        "typeName": new FormControl(this.typeUpdated.typeName, [Validators.maxLength(50), Validators.required, Validators.pattern('^[A-Za-z]{1,}')]),
         "categorySize": new FormControl(this.typeUpdated.size.toLowerCase(), Validators.required),
         "pricePerDay": new FormControl(this.typeUpdated.pricePerDay.substring(
           positionAfterCurrency, totalLength
@@ -87,7 +87,7 @@ export class VehicleTypeCreateManageComponent implements OnInit {
           this.toast.warning(eachError.message);
         }
       }
-      this.toast.error(error.exceptionMessage,"Vehicle Type Information Not Updated");
+      this.toast.error(error.exceptionMessage, "Vehicle Type Information Not Updated");
       this.spinner.hide();
     })
   }

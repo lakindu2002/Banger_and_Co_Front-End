@@ -19,7 +19,7 @@ export class NavBarComponent implements OnInit {
 
   openSignUp(): void {
     this.openedModal = this.modalService.show(SignUpComponent, {
-      class: 'modal-lg modal-dialog-centered',
+      class: 'modal-xl modal-dialog-centered',
       ignoreBackdropClick: true,
       keyboard: false
     })

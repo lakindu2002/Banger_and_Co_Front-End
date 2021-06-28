@@ -113,6 +113,12 @@
                 *ngIf="vehicleForm.get('licensePlate').invalid && vehicleForm.get('licensePlate').touched">Please
                 Provide
                 a Valid License Plate</span>
+
+              <span class="form-error"
+                *ngIf="vehicleForm.get('licensePlate').invalid && vehicleForm.get('licensePlate').touched && vehicleForm.get('licensePlate').errors.pattern">Please
+                Provide
+                the license plate in format: XX00 XXX </span>
+
             </div>
           </div>
           <div class="col-sm-7">

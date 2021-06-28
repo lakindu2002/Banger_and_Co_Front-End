@@ -11,11 +11,15 @@
       <div class="col-sm-12">
         <div class="form-group">
           <label class="fonts">Type Name</label>
-          <input type="text" class="form-control" placeholder="Name (Town Car)"
-            [formControlName]="'typeName'" />
+          <input type="text" class="form-control" placeholder="Name (Town Car)" [formControlName]="'typeName'" />
           <span class="form-error"
             *ngIf="vehicleTypeCreator.get('typeName').touched && vehicleTypeCreator.get('typeName').invalid">Invalid
             Type Name (max 50 characters)</span>
+
+          <span class="form-error"
+            *ngIf="vehicleTypeCreator.get('typeName').invalid && vehicleTypeCreator.get('typeName').touched && vehicleTypeCreator.get('typeName').errors.pattern"><br>
+            Please ensure that the type name has only alphabetical characters and no numerics or spaces
+          </span>
         </div>
       </div>
     </div>
