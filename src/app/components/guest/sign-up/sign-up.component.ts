@@ -31,6 +31,11 @@ export class SignUpComponent implements OnInit {
   licenseSizeExceeded: boolean = false;
   licenseLoaded: boolean = false;
 
+  otherIdentityImage: any;
+  otherIdentityImageUrl: string | ArrayBuffer;
+  otherIdentityImageSizeExceeded: boolean = false;
+  otherIdentityImageLoaded: boolean = false;
+
   constructor(
     private modalRef: BsModalRef,
     private spinner: NgxSpinnerService,
@@ -86,9 +91,9 @@ export class SignUpComponent implements OnInit {
 
   loadLicense(selectedLicense: File): void {
     if (selectedLicense) {
-      this.imageSizeExceeded = false;
-      if (selectedLicense.size <= 2048000) {
-        //if image is less than 2MB
+      this.licenseSizeExceeded = false;
+      if (selectedLicense.size <= (1024000 * 5)) {
+        //if image is less than 5MB
         this.licenseSizeExceeded = false;
         this.licenseLoaded = false;
         const reader = new FileReader(); //create a file reader
@@ -103,6 +108,29 @@ export class SignUpComponent implements OnInit {
       } else {
         this.licenseLoaded = false;
         this.licenseSizeExceeded = true;
+      }
+    }
+  }
+
+  loadOtherIdentification(selectOtherImage: File): void {
+    if (selectOtherImage) {
+      this.otherIdentityImageSizeExceeded = false;
+      if (selectOtherImage.size <= (1024000 * 5)) {
+        //if image is less than 5MB
+        this.otherIdentityImageSizeExceeded = false;
+        this.otherIdentityImageLoaded = false;
+        const reader = new FileReader(); //create a file reader
+        reader.readAsDataURL(selectOtherImage); //read the image into a url
+
+        reader.onload = (() => {
+          //once it is loaded as a url
+          this.otherIdentityImageLoaded = true;
+          this.otherIdentityImageUrl = reader.result;
+          this.otherIdentityImage = selectOtherImage;
+        })
+      } else {
+        this.otherIdentityImageLoaded = false;
+        this.otherIdentityImageSizeExceeded = true;
       }
     }
   }
@@ -129,6 +157,8 @@ export class SignUpComponent implements OnInit {
       const signUpData: FormData = new FormData();
       signUpData.append("userProfile", JSON.stringify(theUser));
       signUpData.append("profilePic", this.loadedImage);
+      signUpData.append("licensePic", this.licenseImage);
+      signUpData.append("otherIdentity", this.otherIdentityImage);
 
       this.authService.createAccount(signUpData).subscribe((data: any) => {
         if (data.code === 200) {
