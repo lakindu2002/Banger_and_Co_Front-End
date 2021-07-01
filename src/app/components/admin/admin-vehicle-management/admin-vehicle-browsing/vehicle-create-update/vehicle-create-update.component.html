@@ -78,7 +78,7 @@
                     <div class="row">
                       <div class="col-sm-12">
                         <div class="form-group">
-                          <label class="fonts">Price Per Day (£)</label>
+                          <label class="fonts">Price Per Day (LKR)</label>
                           <input type="text" class="form-control" placeholder="75.00"
                             [formControlName]="'pricePerDay'" />
                           <span class="form-error"
@@ -107,7 +107,7 @@
           <div class="col-sm-5">
             <div class="form-group">
               <label class="fonts">License Plate</label>
-              <input class="form-control" placeholder="Provide License Plate (XX00 XXX)"
+              <input class="form-control" placeholder="XXX-0000 or XX-0000"
                 [formControlName]="'licensePlate'">
               <span class="form-error"
                 *ngIf="vehicleForm.get('licensePlate').invalid && vehicleForm.get('licensePlate').touched">Please
@@ -117,7 +117,7 @@
               <span class="form-error"
                 *ngIf="vehicleForm.get('licensePlate').invalid && vehicleForm.get('licensePlate').touched && vehicleForm.get('licensePlate').errors.pattern">Please
                 Provide
-                the license plate in format: XX00 XXX </span>
+                the license plate in format: XXX-0000 or XX-0000 </span>
 
             </div>
           </div>

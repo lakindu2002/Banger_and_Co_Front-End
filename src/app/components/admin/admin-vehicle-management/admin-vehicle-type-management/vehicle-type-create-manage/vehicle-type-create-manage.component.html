@@ -18,8 +18,7 @@
 
           <span class="form-error"
             *ngIf="vehicleTypeCreator.get('typeName').invalid && vehicleTypeCreator.get('typeName').touched && vehicleTypeCreator.get('typeName').errors.pattern"><br>
-            Please ensure that the type name has only alphabetical characters and no numerics or spaces
-          </span>
+            Please ensure that the type name has only alphabetical characters and no numerics </span>
         </div>
       </div>
     </div>
@@ -43,7 +42,7 @@
     <div class="row">
       <div class="col-sm-12">
         <div class="form-group">
-          <label class="fonts">Price Per Day (£)</label>
+          <label class="fonts">Price Per Day (LKR)</label>
           <input type="text" class="form-control" placeholder="75.00" [formControlName]="'pricePerDay'" />
           <span class="form-error"
             *ngIf="vehicleTypeCreator.get('pricePerDay').touched && vehicleTypeCreator.get('pricePerDay').invalid">Invalid
