@@ -35,7 +35,7 @@ export class EquipmentCreateManageComponent implements OnInit {
     //initialize the form group (form group contains controls)
     this.theForm = new FormGroup({
       //strings used to avoid removal during minification
-      'equipmentName': new FormControl(null, [Validators.required, Validators.maxLength(255)]),
+      'equipmentName': new FormControl(null, [Validators.required, Validators.maxLength(255), Validators.pattern('^[A-Za-z ]{1,}')]),
       //binding is done to ensure that 'this' call is executed properly when angular calls the validator.
       'equipmentQuantity': new FormControl(1, [Validators.required, Validators.maxLength(4), this.isQuantityValid.bind(this)]),
       'pricePerDay': new FormControl(null, Validators.required),

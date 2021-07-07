@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { BsModalRef } from 'ngx-bootstrap/modal';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { AuthReturn } from 'src/app/models/auth.return.model';
@@ -12,6 +12,7 @@ import { User } from 'src/app/models/user.model';
 import { LocalStorageService } from 'src/app/services/localstorage.service';
 import { UserService } from 'src/app/services/user.service';
 import { environment } from 'src/environments/environment.prod';
+import { ShowUserImagesComponent } from './show-user-images/show-user-images.component';
 
 @Component({
   selector: 'app-user-profile',
@@ -27,12 +28,14 @@ export class UserProfileComponent implements OnInit {
   contactBeforeUpdate: string;
 
   handleUpdateForm: FormGroup;
+  additionalModal: BsModalRef;
 
   constructor(
     private modalRef: BsModalRef,
     private userService: UserService,
     private spinner: NgxSpinnerService,
     private localStorageService: LocalStorageService,
+    private modalService: BsModalService,
     private toast: ToastrService) { }
 
   ngOnInit(): void {
@@ -46,7 +49,7 @@ export class UserProfileComponent implements OnInit {
 
     this.handleUpdateForm = new FormGroup({
       'contactNumber': new FormControl("", [Validators.pattern("^[0-9]+$"), Validators.minLength(10), Validators.maxLength(10)],),
-      'firstPassword': new FormControl("", [Validators.minLength(6),Validators.maxLength(15)]),
+      'firstPassword': new FormControl("", [Validators.minLength(6), Validators.maxLength(15)]),
       'secondPassword': new FormControl("", [Validators.minLength(6), Validators.maxLength(15)])
     })
   }
@@ -73,11 +76,11 @@ export class UserProfileComponent implements OnInit {
     },
       (error: ErrorResponse) => {
         this.toast.error(error.exceptionMessage, "Profile Information Retrieval Failed");
-        setTimeout(()=>{
+        setTimeout(() => {
           //timeout used as when request occurs quickly, modal causes an async issue.
           //in production, this can be avoided as network calls take time
           this.modalRef.hide();
-        },150)
+        }, 150)
         this.spinner.hide();
       })
   }
@@ -125,5 +128,31 @@ export class UserProfileComponent implements OnInit {
         this.spinner.hide();
       });
     }
+  }
+
+  showLicense() {
+    this.additionalModal = this.modalService.show(ShowUserImagesComponent, {
+      class: 'modal-dialog-centered',
+      ignoreBackdropClick: true,
+      keyboard: false,
+      backdrop: true,
+      initialState: {
+        username: this.loggedInUser.username,
+        showingState: 'license'
+      }
+    })
+  }
+
+  showOther() {
+    this.additionalModal = this.modalService.show(ShowUserImagesComponent, {
+      class: 'modal-dialog-centered',
+      ignoreBackdropClick: true,
+      keyboard: false,
+      backdrop: true,
+      initialState: {
+        username: this.loggedInUser.username,
+        showingState: 'other'
+      }
+    })
   }
 }

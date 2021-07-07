@@ -14,6 +14,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { VehicleCardComponent } from './vehicle-card/vehicle-card.component';
 import { VehicleRentalFilterPopUpComponent } from './vehicle-rental-filter-pop-up/vehicle-rental-filter-pop-up.component';
 import { FilterVehicleListComponent } from "./filter-vehicle-list/filter-vehicle-list.component";
+import { ShowUserImagesComponent } from './user-profile/show-user-images/show-user-images.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { FilterVehicleListComponent } from "./filter-vehicle-list/filter-vehicle
     UserProfileComponent,
     VehicleCardComponent,
     VehicleRentalFilterPopUpComponent,
-    FilterVehicleListComponent
+    FilterVehicleListComponent,
+    ShowUserImagesComponent
   ],
   imports: [
     CommonModule,

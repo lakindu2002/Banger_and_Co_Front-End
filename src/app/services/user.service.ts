@@ -39,4 +39,26 @@ export class UserService {
     }
     return this.http.put<ResponseAPI>(`${this.baseURL}/customer/whitelist`, whiteListObject);
   }
+
+  getOtherIdentity(username: string): Observable<any> {
+    return this.http.get(`${this.baseURL}/getOther/${username}`, {
+      responseType: 'blob'
+    });
+  }
+  getLicenseImage(username: string): Observable<any> {
+    return this.http.get(`${this.baseURL}/getLicense/${username}`, {
+      responseType: 'blob'
+    });
+  }
+
+  updateCustomerOtherIdentityImage(username: string, newLoadedFile: File): Observable<ResponseAPI> {
+    const formData: FormData = new FormData();
+    formData.append('otherImage', newLoadedFile);
+    return this.http.put<ResponseAPI>(`${this.baseURL}/update/otherIdentity/${username}`, formData);
+  }
+  updateCustomerLicenseImage(username: string, newLoadedFile: File): Observable<ResponseAPI> {
+    const formData: FormData = new FormData();
+    formData.append('licenseImage', newLoadedFile);
+    return this.http.put<ResponseAPI>(`${this.baseURL}/update/license/${username}`, formData);
+  }
 }

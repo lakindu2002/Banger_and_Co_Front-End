@@ -7,6 +7,8 @@ export interface User {
   userPassword?: string,
   contactNumber: string,
   profilePicture?: File | string,
+  licensePic?: File | string,
+  otherIdentity?: File | string,
   blackListed?: boolean,
   userRole?: string
 }
