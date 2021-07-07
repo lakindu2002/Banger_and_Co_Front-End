@@ -51,4 +51,11 @@ export class VehicleService {
   removeVehicle(id: number): Observable<ResponseAPI> {
     return this.http.delete<ResponseAPI>(`${this.baseUrl}/remove/${id}`);
   }
+
+  getVehicleByLicensePlate(vehicleId: number): Observable<Vehicle> {
+    return this.http.get<Vehicle>(`${this.baseUrl}/get/${vehicleId}`).pipe(map((theVehicle) => {
+      theVehicle.vehicleImage = `${environment.imageBase}${theVehicle.vehicleImage}`
+      return theVehicle;
+    }));
+  }
 }

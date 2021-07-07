@@ -108,7 +108,7 @@
   </div>
 
   <div class="modal-footer">
-    <button class="btn btn-danger" style="width: 25%;" (click)="closeModal()" type="button">Dismiss</button>
+    <button class="btn btn-danger" style="width: 25%;" (click)="closeModal()" type="button">Close</button>
     <button class="btn btn-success" style="width: 35%;" type="submit"
       [disabled]="handleUpdateForm.invalid || handleUpdateForm.get('contactNumber').value.length === 0 || !passwordValid
       || ((contactBeforeUpdate === handleUpdateForm.get('contactNumber').value) && !(passwordValid && contactBeforeUpdate === handleUpdateForm.get('contactNumber').value))">Update
