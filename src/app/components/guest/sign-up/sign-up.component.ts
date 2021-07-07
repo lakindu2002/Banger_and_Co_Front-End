@@ -93,7 +93,7 @@ export class SignUpComponent implements OnInit {
     if (selectedLicense) {
       this.licenseSizeExceeded = false;
       if (selectedLicense.size <= (1024000 * 5)) {
-        //if image is less than 5MB
+        //maximum size is 5MB
         this.licenseSizeExceeded = false;
         this.licenseLoaded = false;
         const reader = new FileReader(); //create a file reader
@@ -116,7 +116,7 @@ export class SignUpComponent implements OnInit {
     if (selectOtherImage) {
       this.otherIdentityImageSizeExceeded = false;
       if (selectOtherImage.size <= (1024000 * 5)) {
-        //if image is less than 5MB
+        //maximum size is 5MB
         this.otherIdentityImageSizeExceeded = false;
         this.otherIdentityImageLoaded = false;
         const reader = new FileReader(); //create a file reader

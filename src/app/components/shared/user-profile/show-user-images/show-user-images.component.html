@@ -1,0 +1,21 @@
+<div class="modal-header">
+  <h5 class="modal-title">
+    {{showingState.toLowerCase()==='license' ? 'My Driving License' : 'My Other Identity Information'}}
+  </h5>
+  <button class="float-right close" type="button" (click)="hideModal()"><span>&times;</span></button>
+</div>
+<div class="modal-body">
+  <span class="msg" *ngIf="showingState.toLowerCase()!=='license'">
+    If you wish to update, please upload a council tax statement or a utility bill not less than 3 months old.
+  </span>
+  <input type="file" accept="image/jpeg" multiple="false" style="display: none;" #newImage
+    (change)="loadNewImage(newImage.files[0])">
+  <img [src]="imageUrl" style="width: 100%; height: 75%;">
+</div>
+<div class="modal-footer">
+  <button class="float-left btn btn-danger" style="width: 30%;" (click)="hideModal()">Close</button>
+  <button class="float-right btn btn-primary" (click)="newImage.click()" *ngIf="!newLoaded">Upload New Image</button>
+  <button class="float-right btn btn-primary" (click)="saveImage()" *ngIf="newLoaded">
+    {{showingState.toLowerCase()==='license' ? 'Save New License Image' : 'Save New Other Identity Information'}}
+  </button>
+</div>
