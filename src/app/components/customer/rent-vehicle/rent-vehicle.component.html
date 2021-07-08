@@ -2,13 +2,51 @@
 <app-bread-crumb [pageName]="rentalCaption"></app-bread-crumb>
 <div class="container">
   <div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-12">
+      <mat-card style="font-family: 'Inter', sans-serif;">
+        <div class="col-sm-12">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="row">
+                <div class="col-sm-5">
+                  <div class="form-group">
+                    <label class="fonts">Selected Pickup Date & Time</label>
+                    <div class="badge badge-info p-2" style="font-size: 15px;">
+                      Starting on <span class="fonts">{{rentalFilter.pickupDate | date}}</span> at
+                      <span class="fonts">{{rentalFilter.pickupTime}}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-5">
+                  <div class="form-group">
+                    <label class="fonts">Selected Return Date & Time</label>
+                    <div class="badge badge-info p-2" style="font-size: 15px;">
+                      Ending on <span class="fonts">{{rentalFilter.returnDate | date}}</span> at
+                      <span class="fonts">{{rentalFilter.returnTime}}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-2 align-self-center">
+                  <button class="btn btn-primary" style="width: 100%;" (click)="editDates()">Edit</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+
+  <div class="row mt-3" *ngIf="vehicleToBeRented; else showError">
     <div class="col-sm-8 col-lg-8 col-md-8">
       <!-- vehicle and the additional equipment -->
       <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-12">
           <mat-card style="font-family: 'Inter', sans-serif;">
             <mat-card-content>
-              <app-show-vehicle-on-rental></app-show-vehicle-on-rental>
+              <app-show-vehicle-on-rental [loadedVehicle]="vehicleToBeRented"></app-show-vehicle-on-rental>
             </mat-card-content>
           </mat-card>
         </div>
@@ -33,4 +71,24 @@
       </mat-card>
     </div>
   </div>
+  <ng-template #showError>
+    <div class="row" *ngIf="isError">
+      <div class="col-sm-12 col-md-12 col-lg-12">
+        <div class="alert alert-danger">
+          <h5 class="alert-heading">Vehicle Not Retrieved</h5>
+          <hr>
+          The vehicle you wish to rent could not be loaded. Please try again.
+        </div>
+      </div>
+    </div>
+    <div class="row" *ngIf="!isError">
+      <div class="col-sm-12 col-md-12 col-lg-12">
+        <div class="alert alert-warning">
+          <h5 class="alert-heading">Vehicle Loading</h5>
+          <hr>
+          Vehicle information is being loaded...
+        </div>
+      </div>
+    </div>
+  </ng-template>
 </div>

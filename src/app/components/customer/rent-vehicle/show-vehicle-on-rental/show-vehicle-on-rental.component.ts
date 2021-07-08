@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Vehicle } from 'src/app/models/vehicle.model';
 
 @Component({
   selector: 'app-show-vehicle-on-rental',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShowVehicleOnRentalComponent implements OnInit {
 
+  @Input("loadedVehicle") vehicleToBeRented: Vehicle;
+
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.vehicleToBeRented)
   }
 
 }

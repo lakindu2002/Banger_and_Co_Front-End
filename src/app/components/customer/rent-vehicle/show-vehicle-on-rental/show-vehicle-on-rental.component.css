@@ -1,3 +1,12 @@
 .content{
   font-size: 16px;
 }
+
+.heading{
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.next-heading{
+  font-weight: 450;
+}
