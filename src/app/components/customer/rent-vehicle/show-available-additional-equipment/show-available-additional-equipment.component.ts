@@ -68,6 +68,8 @@ export class ShowAvailableAdditionalEquipmentComponent implements OnInit {
       if (increasedQuantity === equipmentAdded.equipmentQuantity) {
         //check if user requesting is same is total in stock
         equipmentAdded.quantitySelectedForRental = increasedQuantity;
+      } else {
+        equipmentAdded.quantitySelectedForRental = increasedQuantity;
       }
     } else {
       //if more than 3 are available in DB

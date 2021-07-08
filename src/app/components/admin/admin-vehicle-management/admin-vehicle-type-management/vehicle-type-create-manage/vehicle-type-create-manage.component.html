@@ -10,7 +10,7 @@
     <div class="row">
       <div class="col-sm-12">
         <div class="form-group">
-          <label class="fonts">Type Name</label>
+          <label class="fonts">Type Name <span style="font-size: 14px;">(Do Not Have Plural Names)</span></label>
           <input type="text" class="form-control" placeholder="Name (Town Car)" [formControlName]="'typeName'" />
           <span class="form-error"
             *ngIf="vehicleTypeCreator.get('typeName').touched && vehicleTypeCreator.get('typeName').invalid">Invalid
