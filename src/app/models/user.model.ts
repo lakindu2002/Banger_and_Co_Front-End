@@ -10,5 +10,6 @@ export interface User {
   licensePic?: File | string,
   otherIdentity?: File | string,
   blackListed?: boolean,
-  userRole?: string
+  userRole?: string,
+  drivingLicenseNumber?: string;
 }

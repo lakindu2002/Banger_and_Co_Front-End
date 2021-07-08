@@ -1,4 +1,3 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
@@ -62,9 +61,14 @@ export class UserProfileComponent implements OnInit {
     this.userService.getUserInformation(username).subscribe((data) => {
       this.loggedInUser = data;
 
+
       this.handleUpdateForm.patchValue({
-        "contactNumber": this.loggedInUser.contactNumber
+        "contactNumber": this.loggedInUser.contactNumber,
       });
+
+      if (this.loggedInUser.userRole === 'customer') {
+        this.handleUpdateForm.addControl('drivingLicenseNumber', new FormControl(this.loggedInUser.drivingLicenseNumber, [Validators.required, Validators.minLength(8), Validators.maxLength(8), Validators.pattern("^[A-Z]{1}[0-9]{7}$")]));
+      }
 
       this.contactBeforeUpdate = this.loggedInUser.contactNumber;
 
@@ -108,6 +112,10 @@ export class UserProfileComponent implements OnInit {
         contactNumber: this.handleUpdateForm.get("contactNumber").value,
         userPassword: this.handleUpdateForm.get("firstPassword").value ? this.handleUpdateForm.get("firstPassword").value : null,
         username: this.loggedInUser.username
+      }
+
+      if (this.loggedInUser.userRole.toLocaleLowerCase() === 'customer') {
+        updateCriteria.drivingLicenseNumber = this.handleUpdateForm.get("drivingLicenseNumber").value
       }
 
       this.userService.updateUserInformation(updateCriteria).subscribe((data: ResponseAPI) => {

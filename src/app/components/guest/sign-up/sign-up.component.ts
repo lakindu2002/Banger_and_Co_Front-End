@@ -53,7 +53,8 @@ export class SignUpComponent implements OnInit {
       'emailAddress': new FormControl(null, [Validators.email, Validators.required, Validators.maxLength(255)]),
       'username': new FormControl(null, [Validators.required, Validators.minLength(6), Validators.maxLength(15)]),
       'contactNumber': new FormControl(null, [Validators.required, Validators.pattern("^[0-9]+$"), Validators.minLength(10), Validators.maxLength(10)],),
-      'dateOfBirth': new FormControl(null, [Validators.required])
+      'dateOfBirth': new FormControl(null, [Validators.required]),
+      'drivingLicenseNumber': new FormControl(null, [Validators.required, Validators.minLength(8), Validators.maxLength(8), Validators.pattern("^[A-Z]{1}[0-9]{7}$")])
     })
 
     this.passwordForm = new FormGroup({
@@ -151,6 +152,7 @@ export class SignUpComponent implements OnInit {
         emailAddress: this.userInfoForm.get('emailAddress').value,
         userPassword: this.passwordForm.get('firstPassword').value,
         username: this.userInfoForm.get('username').value,
+        drivingLicenseNumber: this.userInfoForm.get('drivingLicenseNumber').value
       }
 
       //using form data to send a file to the server

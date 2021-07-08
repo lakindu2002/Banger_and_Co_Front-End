@@ -70,6 +70,24 @@
       </div>
     </div>
 
+    <div class="row" *ngIf="loggedInUser.userRole==='customer'">
+      <div class="col-sm-12">
+        <div class="form-group">
+          <label class="fonts">Driving License Number</label>
+          <input type="text" class="form-control" style="width: 100%;" [formControlName]="'drivingLicenseNumber'" />
+        </div>
+        <span class="form-error"
+          *ngIf="handleUpdateForm.get('drivingLicenseNumber').invalid && handleUpdateForm.get('drivingLicenseNumber').touched">Please
+          Provide a
+          Valid Driving License</span>
+
+        <span class="form-error"
+          *ngIf="handleUpdateForm.get('drivingLicenseNumber').invalid && handleUpdateForm.get('drivingLicenseNumber').touched && handleUpdateForm.get('drivingLicenseNumber').errors.pattern">
+          <br>Driving License Should Be of Format: X0000000
+        </span>
+      </div>
+    </div>
+
 
     <div class="row">
       <div class="col-sm-6">
@@ -99,10 +117,12 @@
 
     <div class="row" *ngIf="loggedInUser.userRole==='customer'">
       <div class="col-lg-6 col-sm-12 mb-1">
-        <button class="btn btn-primary" type="button" style="width: 100%;" (click)="showLicense()">View Driving License</button>
+        <button class="btn btn-primary" type="button" style="width: 100%;" (click)="showLicense()">View Driving
+          License</button>
       </div>
       <div class="col-lg-6 col-sm-12 mb-1">
-        <button class="btn btn-primary" type="button" style="width: 100%;" (click)="showOther()">View Other Identification</button>
+        <button class="btn btn-primary" type="button" style="width: 100%;" (click)="showOther()">View Other
+          Identification</button>
       </div>
     </div>
   </div>

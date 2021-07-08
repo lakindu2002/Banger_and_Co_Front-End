@@ -110,6 +110,26 @@
           </div>
         </div>
 
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="form-group">
+              <label class="fonts">Driving License Number</label>
+              <input type="text" class="form-control" style="width: 100%;"
+                placeholder="Provide Your Driving License Number" [formControlName]="'drivingLicenseNumber'" maxlength="8"/>
+
+              <span class="form-error"
+                *ngIf="userInfoForm.get('drivingLicenseNumber').invalid && userInfoForm.get('drivingLicenseNumber').touched">Please
+                Provide a
+                Valid Driving License</span>
+
+              <span class="form-error"
+                *ngIf="userInfoForm.get('drivingLicenseNumber').invalid && userInfoForm.get('drivingLicenseNumber').touched && userInfoForm.get('drivingLicenseNumber').errors.pattern">
+                <br>Driving License Should Be of Format: X0000000
+              </span>
+            </div>
+          </div>
+        </div>
+
       </form>
 
       <button class="btn btn-primary mt-3" style="float: right; width: 30%;" matStepperNext
@@ -284,7 +304,9 @@
                 <input type="file" accept="image/jpeg" style="display:none;" #chooseOtherImage
                   (change)="loadOtherIdentification(chooseOtherImage.files[0])" multiple="false">
                 <div class="col-sm-12" style="text-align: center;">
-                  <label><b class="fonts">We require an additional form of identification. <br>Please provide a picture of a utility bill or council tax statement within the last 3 months <br>(maximum - 5MB)</b></label>
+                  <label><b class="fonts">We require an additional form of identification. <br>Please provide a picture
+                      of a utility bill or council tax statement within the last 3 months <br>(maximum -
+                      5MB)</b></label>
                   <br>
                   <button class="btn btn-secondary" (click)="chooseOtherImage.click()" type="button"
                     style="width: 30%;">Upload a Picture of Your Utility Bill or Council Tax Statement</button>
