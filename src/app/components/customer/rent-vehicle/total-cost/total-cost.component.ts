@@ -12,4 +12,8 @@ export class TotalCostComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  proceedRental() {
+
+  }
+
 }

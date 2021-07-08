@@ -44,34 +44,48 @@ export class ShowAvailableAdditionalEquipmentComponent implements OnInit {
   setInitialStateOfQuantityAs0() {
     this.loadedEquipments = this.loadedEquipments.map((eachEquipment) => {
       if (!eachEquipment.quantitySelectedForRental) {
+        //initially, if the equipment has no selected quantity, set as 0
         eachEquipment.quantitySelectedForRental = 0;
       }
       return eachEquipment;
     })
   }
 
-  reduce(equipmentId: number) {
-    const equipmentReduced: AdditionalEquipment = this.loadedEquipments.find((eachEquipment) => {
-      return eachEquipment.equipmentId === equipmentId;
-    })
+  reduce(equipmentReduced: AdditionalEquipment) {
     const reducedQuantity = equipmentReduced.quantitySelectedForRental - 1;
     if (reducedQuantity <= 0) {
+      //if user is in the - or 0 range, set as 0
       equipmentReduced.quantitySelectedForRental = 0;
     } else {
       equipmentReduced.quantitySelectedForRental = reducedQuantity;
     }
   }
 
-  add(equipmentId: number) {
-    const equipmentAdded: AdditionalEquipment = this.loadedEquipments.find((eachEquipment) => {
-      return eachEquipment.equipmentId === equipmentId;
-    })
+  add(equipmentAdded: AdditionalEquipment) {
     const increasedQuantity = equipmentAdded.quantitySelectedForRental + 1;
-    if (increasedQuantity >= 3) {
-      equipmentAdded.quantitySelectedForRental = 3;
+    if (equipmentAdded.equipmentQuantity < 3) {
+      //if in DB less than 3
+      if (increasedQuantity === equipmentAdded.equipmentQuantity) {
+        //check if user requesting is same is total in stock
+        equipmentAdded.quantitySelectedForRental = increasedQuantity;
+      }
     } else {
-      equipmentAdded.quantitySelectedForRental = increasedQuantity;
+      //if more than 3 are available in DB
+      if (increasedQuantity >= 3) {
+        //if user selects more than 3, set max as 3
+        equipmentAdded.quantitySelectedForRental = 3;
+      } else {
+        equipmentAdded.quantitySelectedForRental = increasedQuantity;
+      }
     }
   }
 
+  getMessage(equipment: AdditionalEquipment) {
+    if (equipment.equipmentQuantity < 3) {
+      return `Maximum of ${equipment.equipmentQuantity} Can Be Added To Rental`
+    } else {
+      return "Maximum of 3 Can Be Added To Rental";
+    }
+  }
 }
+
