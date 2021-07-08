@@ -43,7 +43,9 @@ export class ShowAvailableAdditionalEquipmentComponent implements OnInit {
 
   setInitialStateOfQuantityAs0() {
     this.loadedEquipments = this.loadedEquipments.map((eachEquipment) => {
-      eachEquipment.quantitySelectedForRental = 0;
+      if (!eachEquipment.quantitySelectedForRental) {
+        eachEquipment.quantitySelectedForRental = 0;
+      }
       return eachEquipment;
     })
   }
