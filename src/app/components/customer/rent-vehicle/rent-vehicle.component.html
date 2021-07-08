@@ -66,7 +66,7 @@
       <!-- total cost with vehicle information, additional equipment information and proceed with rental -->
       <mat-card style="font-family: 'Inter', sans-serif;">
         <mat-card-content>
-          <app-total-cost></app-total-cost>
+          <app-total-cost [rentingVehicle]="vehicleToBeRented" [rentalDuration]="rentalFilter"></app-total-cost>
         </mat-card-content>
       </mat-card>
     </div>

@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Vehicle } from 'src/app/models/vehicle.model';
+import { VehicleRentalFilter } from 'src/app/models/vehicle_rental_filter.model';
 
 @Component({
   selector: 'app-total-cost',
@@ -6,6 +8,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./total-cost.component.css']
 })
 export class TotalCostComponent implements OnInit {
+
+  @Input("rentingVehicle") vehicleToBeRented: Vehicle;
+  @Input("rentalDuration") rentalDuration: VehicleRentalFilter;
 
   constructor() { }
 
