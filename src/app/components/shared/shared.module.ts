@@ -45,7 +45,8 @@ import { ShowUserImagesComponent } from './user-profile/show-user-images/show-us
     BsDropdownModule,
     VehicleCardComponent,
     VehicleRentalFilterPopUpComponent,
-    FilterVehicleListComponent
+    FilterVehicleListComponent,
+    MatCardModule
   ],
 })
 export class SharedModule { }

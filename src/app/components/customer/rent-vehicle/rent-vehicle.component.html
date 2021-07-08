@@ -1,2 +1,36 @@
 <app-customer-nav></app-customer-nav>
 <app-bread-crumb [pageName]="rentalCaption"></app-bread-crumb>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-8 col-lg-8 col-md-8">
+      <!-- vehicle and the additional equipment -->
+      <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+          <mat-card style="font-family: 'Inter', sans-serif;">
+            <mat-card-content>
+              <app-show-vehicle-on-rental></app-show-vehicle-on-rental>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+
+      <div class="row" style="padding-top: 15px;">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+          <mat-card style="font-family: 'Inter', sans-serif;">
+            <mat-card-content>
+              <app-show-available-additional-equipment></app-show-available-additional-equipment>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4 col-lg-4 col-md-4">
+      <!-- total cost with vehicle information, additional equipment information and proceed with rental -->
+      <mat-card style="font-family: 'Inter', sans-serif;">
+        <mat-card-content>
+          <app-total-cost></app-total-cost>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

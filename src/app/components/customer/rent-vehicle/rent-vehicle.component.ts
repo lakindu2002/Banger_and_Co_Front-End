@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { ErrorResponse } from 'src/app/models/errorresponse.model';
+import { Vehicle } from 'src/app/models/vehicle.model';
 import { VehicleRentalFilter } from 'src/app/models/vehicle_rental_filter.model';
 import { VehicleService } from 'src/app/services/vehicle.service';
 
@@ -16,6 +17,8 @@ export class RentVehicleComponent implements OnInit {
   rentalCaption: string = "";
   vehicleId: number;
   rentalFilter: VehicleRentalFilter;
+
+  vehicleToBeRented: Vehicle;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -34,6 +37,7 @@ export class RentVehicleComponent implements OnInit {
   getVehicleInformation() {
     this.spinner.show();
     this.vehicleService.getVehicleByLicensePlate(this.vehicleId).subscribe((data) => {
+      this.vehicleToBeRented = data;
       this.spinner.hide();
     }, (error: ErrorResponse) => {
       this.toastr.error(error.exceptionMessage, "Failed To Retrieve Vehicle");
