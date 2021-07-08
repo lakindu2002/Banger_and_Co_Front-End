@@ -46,7 +46,8 @@ import { ShowUserImagesComponent } from './user-profile/show-user-images/show-us
     VehicleCardComponent,
     VehicleRentalFilterPopUpComponent,
     FilterVehicleListComponent,
-    MatCardModule
+    MatCardModule,
+    NgxSpinnerModule
   ],
 })
 export class SharedModule { }

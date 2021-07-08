@@ -36,7 +36,7 @@
         </tr>
         <tr *ngFor="let eachEquipment of filterList; let i = index;" class="custom-row">
           <td>{{i + 1}}</td>
-          <td>{{eachEquipment.equipmentName | titlecase}}</td>
+          <td>{{eachEquipment.equipmentName}}</td>
           <td>
             <span *ngIf="eachEquipment.equipmentQuantity == 0" style="color: red;font-style: italic;">
               No Stock Available
@@ -48,7 +48,8 @@
           <td>{{eachEquipment.pricePerDay}}</td>
           <td>
             <i class="far fa-trash-alt icon-format float-right"
-              style="color: rgba(0, 0, 0, 0.699); font-size: 20px; cursor: pointer;" (click)="openDeleteEquipmentModal(eachEquipment)"></i>
+              style="color: rgba(0, 0, 0, 0.699); font-size: 20px; cursor: pointer;"
+              (click)="openDeleteEquipmentModal(eachEquipment)"></i>
             <i class="far fa-edit float-right mr-2"
               style="color: rgba(0, 0, 0, 0.699); font-size: 20px; cursor: pointer;"
               (click)="openEditAdditionalEquipment(eachEquipment.equipmentId)"></i>

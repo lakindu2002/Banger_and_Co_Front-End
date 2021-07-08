@@ -36,4 +36,8 @@ export class EquipmentService {
   removeById(equipmentId: number): Observable<ResponseAPI> {
     return this.http.delete<ResponseAPI>(`${this.equipmentEndpoint}/remove/${equipmentId}`);
   }
+
+  getAvailableEquipments(): Observable<AdditionalEquipment[]> {
+    return this.http.get<AdditionalEquipment[]>(`${this.equipmentEndpoint}/find/available`);
+  }
 }
