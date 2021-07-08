@@ -1,4 +1,9 @@
 .content {
   font-size: 16px;
 }
-
+.emphasis {
+  float: right;
+  font-size: 12px;
+  color: red;
+  font-weight: 500;
+}

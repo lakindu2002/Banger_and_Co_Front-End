@@ -27,6 +27,7 @@ export class ShowAvailableAdditionalEquipmentComponent implements OnInit {
 
     this.equipmentService.getAvailableEquipments().subscribe((data) => {
       this.loadedEquipments = data;
+      this.setInitialStateOfQuantityAs0();
       this.spinner.hide('equipmentSpinner');
     }, (error: ErrorResponse) => {
       if (error.exceptionMessage) {
@@ -38,6 +39,37 @@ export class ShowAvailableAdditionalEquipmentComponent implements OnInit {
       this.isError = true;
       this.spinner.hide('equipmentSpinner');
     });
+  }
+
+  setInitialStateOfQuantityAs0() {
+    this.loadedEquipments = this.loadedEquipments.map((eachEquipment) => {
+      eachEquipment.quantitySelectedForRental = 0;
+      return eachEquipment;
+    })
+  }
+
+  reduce(equipmentId: number) {
+    const equipmentReduced: AdditionalEquipment = this.loadedEquipments.find((eachEquipment) => {
+      return eachEquipment.equipmentId === equipmentId;
+    })
+    const reducedQuantity = equipmentReduced.quantitySelectedForRental - 1;
+    if (reducedQuantity <= 0) {
+      equipmentReduced.quantitySelectedForRental = 0;
+    } else {
+      equipmentReduced.quantitySelectedForRental = reducedQuantity;
+    }
+  }
+
+  add(equipmentId: number) {
+    const equipmentAdded: AdditionalEquipment = this.loadedEquipments.find((eachEquipment) => {
+      return eachEquipment.equipmentId === equipmentId;
+    })
+    const increasedQuantity = equipmentAdded.quantitySelectedForRental + 1;
+    if (increasedQuantity >= 3) {
+      equipmentAdded.quantitySelectedForRental = 3;
+    } else {
+      equipmentAdded.quantitySelectedForRental = increasedQuantity;
+    }
   }
 
 }

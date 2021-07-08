@@ -13,7 +13,6 @@ export class ShowVehicleOnRentalComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.vehicleToBeRented)
   }
 
 }
