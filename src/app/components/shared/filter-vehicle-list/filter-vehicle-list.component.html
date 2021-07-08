@@ -42,6 +42,11 @@
                   Period</button>
               </div>
             </div>
+            <div class="row" *ngIf="loggedInUser">
+              <div class="col-sm-12 col-lg-12">
+                <p class="msg">You can only rent <b>Small Town Cars</b> since you are less than 25 years of age</p>
+              </div>
+            </div>
           </div>
         </mat-card>
       </div>

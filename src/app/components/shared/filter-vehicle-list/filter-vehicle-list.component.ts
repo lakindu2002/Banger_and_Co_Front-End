@@ -4,10 +4,13 @@ import { ActivatedRoute } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import { AuthReturn } from 'src/app/models/auth.return.model';
 import { ErrorResponse } from 'src/app/models/errorresponse.model';
+import { User } from 'src/app/models/user.model';
 import { Vehicle } from 'src/app/models/vehicle.model';
 import { VehicleType } from 'src/app/models/vehicleType.model';
 import { VehicleRentalFilter } from 'src/app/models/vehicle_rental_filter.model';
+import { LocalStorageService } from 'src/app/services/localstorage.service';
 import { VehicleService } from 'src/app/services/vehicle.service';
 import { VehicleTypeService } from 'src/app/services/vehicleType.service';
 import { VehicleRentalFilterPopUpComponent } from '../vehicle-rental-filter-pop-up/vehicle-rental-filter-pop-up.component';
@@ -23,6 +26,8 @@ export class FilterVehicleListComponent implements OnInit {
   allVehicles: Vehicle[] = [];
   filteredVehicles: Vehicle[] = [];
   isError: boolean = false;
+  loggedInUser: AuthReturn;
+  userAge: number = 0;
 
   modalRef: BsModalRef;
 
@@ -51,15 +56,24 @@ export class FilterVehicleListComponent implements OnInit {
     private vehicleService: VehicleService,
     private toast: ToastrService,
     private modalService: BsModalService,
-    private vehicleTypeService: VehicleTypeService
+    private vehicleTypeService: VehicleTypeService,
+    private localStorageService: LocalStorageService
   ) { }
 
   ngOnInit(): void {
+    this.loggedInUser = this.localStorageService.getUserInLocalStorage();
+    if (this.loggedInUser) {
+      this.calculateAge();
+    }
     this.activateRoute.queryParams.subscribe((data: VehicleRentalFilter) => {
       this.theFilterInformation = data;
       this.getFilterListFromDB();
       this.getAllVehicleTypes();
     })
+  }
+
+  calculateAge() {
+    this.userAge = Math.abs(new Date(Date.now() - new Date(this.loggedInUser.dateOfBirth).getTime()).getFullYear() - 1970);
   }
 
   getFilterListFromDB() {
