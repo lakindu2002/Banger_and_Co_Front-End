@@ -3,6 +3,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { AdditionalEquipment } from 'src/app/models/equipment.model';
 import { ErrorResponse } from 'src/app/models/errorresponse.model';
 import { EquipmentService } from 'src/app/services/equipment.service';
+import { EquipmentCalculatorService } from '../equipment-cost-calculator.service';
 
 @Component({
   selector: 'app-show-available-additional-equipment',
@@ -17,7 +18,8 @@ export class ShowAvailableAdditionalEquipmentComponent implements OnInit {
 
   constructor(
     private equipmentService: EquipmentService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private equipmentCalculator: EquipmentCalculatorService
   ) { }
 
   ngOnInit(): void {
@@ -59,6 +61,8 @@ export class ShowAvailableAdditionalEquipmentComponent implements OnInit {
     } else {
       equipmentReduced.quantitySelectedForRental = reducedQuantity;
     }
+
+    this.equipmentCalculator.equipmentRemoved.next(equipmentReduced);
   }
 
   add(equipmentAdded: AdditionalEquipment) {
@@ -80,6 +84,7 @@ export class ShowAvailableAdditionalEquipmentComponent implements OnInit {
         equipmentAdded.quantitySelectedForRental = increasedQuantity;
       }
     }
+    this.equipmentCalculator.equipmentAdded.next(equipmentAdded);
   }
 
   getMessage(equipment: AdditionalEquipment) {

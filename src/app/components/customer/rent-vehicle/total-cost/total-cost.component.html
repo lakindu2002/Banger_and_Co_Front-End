@@ -1,22 +1,38 @@
 <div class="content">
   <h4 class="alert-heading" style="font-weight: 600;">Cost Breakdown</h4>
-  <h6>For x days</h6>
+  <h6 [textContent]="getHeader()"></h6>
   <hr>
   <div class="row">
-    <div class="col-sm-12 col-lg-12 col-md-12 fonts">
-      Vehicle Rental Price:
+    <div class="col-sm-12 col-lg-12 col-md-12">
+      <div class="fonts">
+        Vehicle Rental Price: <span class="float-right">{{getVehicleCost()}}</span>
+      </div>
+      <hr>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 col-lg-12 col-md-12">
+      <div class="fonts">
+        Equipment Total
+      </div>
+      <div>
+        <div class="badge badge-info mt-2" style="font-size: 14px;" *ngIf="listOfEquipmentsAdded.length == 0">No
+          Additional Equipment Added</div>
+        <div *ngIf="listOfEquipmentsAdded.length > 0">
+          <ul class="list-group mt-2">
+            <li class="list-group-item" style="background-color:#f7fafc; padding-left: 5px;"
+              *ngFor="let equipment of listOfEquipmentsAdded">
+              <span class="float-left">{{equipment.equipment.equipmentName}} (x{{equipment.quantity}})</span>
+            </li>
+          </ul>
+        </div>
+      </div>
       <hr>
     </div>
   </div>
   <div class="row">
     <div class="col-sm-12 col-lg-12 col-md-12 fonts">
-      Equipment Total
-      <hr>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-12 col-lg-12 col-md-12 fonts">
-      Total Cost For Rental:
+      Total Cost For Rental: <span class="float-right">LKR - {{totalCostForRental}}</span>
       <hr>
     </div>
   </div>

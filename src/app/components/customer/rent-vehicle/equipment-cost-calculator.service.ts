@@ -1,0 +1,11 @@
+import { Injectable } from "@angular/core";
+import { Subject } from "rxjs";
+import { AdditionalEquipment } from "src/app/models/equipment.model";
+
+@Injectable({
+  providedIn: 'root'
+})
+export class EquipmentCalculatorService {
+  public equipmentAdded: Subject<AdditionalEquipment> = new Subject();
+  public equipmentRemoved: Subject<AdditionalEquipment> = new Subject();
+}
