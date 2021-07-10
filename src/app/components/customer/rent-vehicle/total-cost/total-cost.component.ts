@@ -42,10 +42,12 @@ export class TotalCostComponent implements OnInit, OnDestroy {
 
     this.equipmentCalculator.equipmentAdded.subscribe((addedEquipment) => {
       this.addEquipmentToRental(addedEquipment);
+      this.calculateTotalCostOfEquipment();
     });
 
     this.equipmentCalculator.equipmentRemoved.subscribe((removedEquipment) => {
       this.removeEquipmentFromRental(removedEquipment);
+      this.calculateTotalCostOfEquipment();
     });
   }
 
@@ -106,6 +108,10 @@ export class TotalCostComponent implements OnInit, OnDestroy {
     } else {
       this.listOfEquipmentsAdded.push({ equipment: addedEquipment, quantity: 1 })
     }
+  }
+
+  calculateTotalCostOfEquipment(){
+
   }
 
   constructDateTimes() {
