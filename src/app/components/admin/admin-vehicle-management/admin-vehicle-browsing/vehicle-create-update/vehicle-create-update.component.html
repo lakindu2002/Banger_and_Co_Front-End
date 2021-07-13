@@ -115,7 +115,9 @@
                 a Valid License Plate</span>
 
               <span class="form-error"
-                *ngIf="vehicleForm.get('licensePlate').invalid && vehicleForm.get('licensePlate').touched && vehicleForm.get('licensePlate').errors.pattern">Please
+                *ngIf="vehicleForm.get('licensePlate').invalid && vehicleForm.get('licensePlate').touched && vehicleForm.get('licensePlate').errors.pattern">
+                <br>
+                Please
                 Provide
                 the license plate in format: XXX-0000 or XX-0000 </span>
 
