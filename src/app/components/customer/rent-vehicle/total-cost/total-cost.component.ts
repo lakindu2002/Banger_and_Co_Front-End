@@ -40,12 +40,12 @@ export class TotalCostComponent implements OnInit, OnDestroy {
     this.calculateDifferences();
     this.calculateVehicleCost();
 
-    this.equipmentCalculator.equipmentAdded.subscribe((addedEquipment) => {
+    this.addingSub = this.equipmentCalculator.equipmentAdded.subscribe((addedEquipment) => {
       this.addEquipmentToRental(addedEquipment);
       this.calculateTotalCostOfEquipment();
     });
 
-    this.equipmentCalculator.equipmentRemoved.subscribe((removedEquipment) => {
+    this.removingSub = this.equipmentCalculator.equipmentRemoved.subscribe((removedEquipment) => {
       this.removeEquipmentFromRental(removedEquipment);
       this.calculateTotalCostOfEquipment();
     });
@@ -110,7 +110,7 @@ export class TotalCostComponent implements OnInit, OnDestroy {
     }
   }
 
-  calculateTotalCostOfEquipment(){
+  calculateTotalCostOfEquipment() {
 
   }
 
@@ -167,8 +167,12 @@ export class TotalCostComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.addingSub.unsubscribe();
-    this.removingSub.unsubscribe();
+    if (this.addingSub) {
+      this.addingSub.unsubscribe();
+    }
+    if (this.removingSub) {
+      this.removingSub.unsubscribe();
+    }
   }
 
 }
