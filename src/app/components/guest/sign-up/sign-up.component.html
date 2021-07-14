@@ -5,7 +5,7 @@
   </button>
 </div>
 <div class="modal-body">
-  <mat-horizontal-stepper [linear]="true">
+  <mat-horizontal-stepper [linear]="true" style="font-family: 'Inter', sans-serif !important;">
     <!-- parent container to hold the steppers -->
     <mat-step [stepControl]="userInfoForm">
       <!-- single step in the form -->
@@ -115,7 +115,8 @@
             <div class="form-group">
               <label class="fonts">Driving License Number</label>
               <input type="text" class="form-control" style="width: 100%;"
-                placeholder="Provide Your Driving License Number" [formControlName]="'drivingLicenseNumber'" maxlength="8"/>
+                placeholder="Provide Your Driving License Number" [formControlName]="'drivingLicenseNumber'"
+                maxlength="8" />
 
               <span class="form-error"
                 *ngIf="userInfoForm.get('drivingLicenseNumber').invalid && userInfoForm.get('drivingLicenseNumber').touched">Please

@@ -10,7 +10,7 @@
   <!-- using the angular stepper from material UI -->
   <!-- denotes it is a stepper form that is going in linear -->
   <!-- linear attribute denotes user must complete previous step before proceeding -->
-  <mat-horizontal-stepper [linear]="true">
+  <mat-horizontal-stepper [linear]="true" style="font-family: 'Inter', sans-serif !important;">
     <!-- mat step denotes a stage in the form -->
     <mat-step [stepControl]="vehicleForm">
       <!-- mat step label adds a header caption for each stage -->
@@ -107,8 +107,7 @@
           <div class="col-sm-5">
             <div class="form-group">
               <label class="fonts">License Plate</label>
-              <input class="form-control" placeholder="XXX-0000 or XX-0000"
-                [formControlName]="'licensePlate'">
+              <input class="form-control" placeholder="XXX-0000 or XX-0000" [formControlName]="'licensePlate'">
               <span class="form-error"
                 *ngIf="vehicleForm.get('licensePlate').invalid && vehicleForm.get('licensePlate').touched">Please
                 Provide

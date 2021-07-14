@@ -5,6 +5,8 @@ import * as moment from 'moment';
 import { EquipmentCalculatorService } from '../equipment-cost-calculator.service';
 import { AdditionalEquipment } from 'src/app/models/equipment.model';
 import { Subscription } from 'rxjs';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { MakeRentalComponent } from '../make-rental/make-rental.component';
 
 @Component({
   selector: 'app-total-cost',
@@ -33,7 +35,7 @@ export class TotalCostComponent implements OnInit, OnDestroy {
   addingSub: Subscription;
   removingSub: Subscription;
 
-  constructor(private equipmentCalculator: EquipmentCalculatorService) { }
+  constructor(private equipmentCalculator: EquipmentCalculatorService, private modalService: BsModalService) { }
 
   ngOnInit(): void {
     this.constructDateTimes();
@@ -171,7 +173,18 @@ export class TotalCostComponent implements OnInit, OnDestroy {
   }
 
   proceedRental() {
-
+    this.modalService.show(MakeRentalComponent, {
+      class: 'modal-dialog-centered modal-xl',
+      ignoreBackdropClick: true,
+      keyboard: false,
+      animated: true,
+      initialState: {
+        equipmentsAdded: this.listOfEquipmentsAdded,
+        rentalDuration: this.rentalDuration,
+        vehicleToBeRented: this.vehicleToBeRented,
+        totalCostForRental: this.totalCostForRental
+      }
+    });
   }
 
   getHeader() {
@@ -183,7 +196,7 @@ export class TotalCostComponent implements OnInit, OnDestroy {
   }
 
   getVehicleCost() {
-    return `LKR - ${this.costOfVehicle}`
+    return `LKR - ${this.costOfVehicle.toFixed(2)}`
   }
 
   ngOnDestroy(): void {

@@ -1,0 +1,140 @@
+<div class="modal-header">
+  <h5 class="modal-title float-left">Confirm Rental</h5>
+  <button class="float-right close" (click)="hideModal()"><span>&times;</span></button>
+</div>
+
+<div class="modal-body">
+  <mat-horizontal-stepper [linear]="true" style="font-family: 'Inter', sans-serif !important;">
+    <mat-step>
+      <ng-template matStepLabel>Let's Confirm Your Rental</ng-template>
+
+      <div class="row mt-2">
+        <div class="col-sm-12">
+          <div class="alert alert-info">
+            <h5 class="alert-heading fonts">Rental Duration</h5>
+            <hr>
+            Rental to be started from <b>{{rentalDuration.pickupDate | date}}</b> at
+            <b>{{rentalDuration.pickupTime}}</b> and
+            returned to
+            Banger and Co on <b>{{rentalDuration.returnDate | date}}</b> at <b>{{rentalDuration.returnTime}}</b>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6" style="height: 100px;">
+          <div class="alert alert-info">
+            <div class="fonts alert-heading">
+              Vehicle Information
+              <hr>
+            </div>
+            <div class="row mt-2">
+              <div class="col-sm-6">
+                Name : {{vehicleToBeRented.vehicleName}}
+              </div>
+              <div class="col-sm-6">
+                Type : {{vehicleToBeRented.vehicleType.size | titlecase}} {{vehicleToBeRented.vehicleType.typeName |
+                titlecase}}
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-sm-4">
+                <i class="fas fa-user-alt" style="color: black;"></i>: <b>{{vehicleToBeRented.seatingCapacity}}
+                  Person(s)</b>
+              </div>
+              <div class="col-sm-4">
+                <i class="fas fa-gas-pump" style="color: black;"></i>:
+                {{vehicleToBeRented.fuelType}}
+              </div>
+              <div class="col-sm-4">
+                <img src="../../../../assets/gearbox.svg" width="20" height="20">:
+                {{vehicleToBeRented.transmission}}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6" *ngIf="equipmentsAdded.length > 0">
+          <div class="alert alert-info">
+            <div class="fonts alert-heading">
+              Additional Equipments Added
+              <hr>
+            </div>
+            <div class="row">
+              <div class="col-sm-12" style="max-height: 100px; overflow: auto;">
+                <ul class="list-group">
+                  <li class="list-group-item" *ngFor="let eachEquipment of equipmentsAdded">
+                    <span class="float-left">{{eachEquipment.equipment.equipmentName}}</span>
+                    <span class="float-right">x{{eachEquipment.quantity}}</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6" *ngIf="equipmentsAdded.length === 0">
+          <div class="alert alert-warning" style="height: 140px;">
+            <h5 class="alert-heading">No Additional Equipment</h5>
+            <hr>
+            No Additional Equipment Were Added To Your Rental
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-2">
+        <div class="col-sm-12">
+          <span class="float-right fonts" style="font-size: 17px;">Total Cost For Your Rental: LKR -
+            {{totalCostForRental.toFixed(2)}}</span>
+        </div>
+      </div>
+
+      <button class="btn btn-primary float-right" style="width: 25%;" matStepperNext>Next</button>
+    </mat-step>
+
+    <mat-step>
+      <ng-template matStepLabel>Let's Look at Your Documents</ng-template>
+      <div class="row mt-2">
+        <div class="col-sm-6" style="text-align: center;">
+          <div class="row">
+            <div class="col-sm-12">
+              <h6 class="alert-heading">License Image</h6>
+              <img [src]="licenseImage" style="width: 80%; height: 80%; border-radius: 5px;">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <button class="btn btn-info">Update License Image</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6" style="text-align: center;">
+          <div class="row">
+            <div class="col-sm-12">
+              <h6 class="alert-heading">Other Identity (Council Tax Statement or Recent Utility Bill)</h6>
+              <img [src]="otherIdentity" style="width: 80%; height: 80%; border-radius: 5px;">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12">
+              <button class="btn btn-info">Update Other Form of Identification</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-2 mt-2">
+        <div class="col-sm-12">
+          <span class="float-right fonts" style="font-size: 17px;">Total Cost For Your Rental: LKR -
+            {{totalCostForRental.toFixed(2)}}</span>
+        </div>
+      </div>
+
+      <button class="btn btn-primary float-right ml-1" style="width: 25%;" matStepperNext>Place Rental</button>
+      <button class="btn btn-warning float-right" style="width: 15%;" matStepperPrevious>Back</button>
+    </mat-step>
+  </mat-horizontal-stepper>
+</div>
+
+<div class="modal-footer">
+  <button class="float-right btn btn-danger" (click)="hideModal()" style="width: 20%;">Close</button>
+</div>
