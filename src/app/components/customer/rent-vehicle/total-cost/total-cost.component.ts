@@ -23,12 +23,12 @@ export class TotalCostComponent implements OnInit, OnDestroy {
   sameDayRental: boolean = false;
 
   rentalDurationInDays: number = 0; //used to show rental days
-  costOfVehicle: string;
+  costOfVehicle: number;
   totalCostForRental: number = 0;
 
   perDayDivisor: number = 24;
 
-  // [{ equipment: AdditionalEquipment, quantity: number }]
+  // [{ equipment: AdditionalEquipment, quantity: number,totalCost:number }]
   listOfEquipmentsAdded: any = [];
   addingSub: Subscription;
   removingSub: Subscription;
@@ -39,16 +39,40 @@ export class TotalCostComponent implements OnInit, OnDestroy {
     this.constructDateTimes();
     this.calculateDifferences();
     this.calculateVehicleCost();
+    this.calculateTotalCost();
 
     this.addingSub = this.equipmentCalculator.equipmentAdded.subscribe((addedEquipment) => {
       this.addEquipmentToRental(addedEquipment);
-      this.calculateTotalCostOfEquipment();
+      this.calculateTotalCostForEachEquipment();
+      this.calculateTotalCost();
     });
 
     this.removingSub = this.equipmentCalculator.equipmentRemoved.subscribe((removedEquipment) => {
       this.removeEquipmentFromRental(removedEquipment);
-      this.calculateTotalCostOfEquipment();
+      this.calculateTotalCostForEachEquipment();
+      this.calculateTotalCost();
     });
+  }
+
+  /**
+   * Method calculates total cost for rental.
+   */
+  calculateTotalCost() {
+    let totalCostForEquipments: number = 0;
+    this.totalCostForRental = 0;
+    this.listOfEquipmentsAdded.forEach((eachEquipment) => {
+      totalCostForEquipments += Number.parseFloat(eachEquipment.totalCost);
+    })
+    this.totalCostForRental = totalCostForEquipments + this.costOfVehicle;
+  }
+
+  calculateTotalCostForEachEquipment() {
+    this.listOfEquipmentsAdded.forEach((eachEquipment) => {
+      const equipmentInRental = eachEquipment.equipment as AdditionalEquipment;
+      //remove the LKR returned from backend.
+      const actualPrice = Number.parseFloat(equipmentInRental.pricePerDay.substring("LKR - ".length))
+      eachEquipment.totalCost = (((actualPrice / this.perDayDivisor) * this.rentalDurationInHours) * eachEquipment.quantity);
+    })
   }
 
   removeEquipmentFromRental(removedEquipment: AdditionalEquipment) {
@@ -106,12 +130,8 @@ export class TotalCostComponent implements OnInit, OnDestroy {
       }
 
     } else {
-      this.listOfEquipmentsAdded.push({ equipment: addedEquipment, quantity: 1 })
+      this.listOfEquipmentsAdded.push({ equipment: addedEquipment, quantity: 1, totalCost: 0 })
     }
-  }
-
-  calculateTotalCostOfEquipment() {
-
   }
 
   constructDateTimes() {
@@ -129,8 +149,8 @@ export class TotalCostComponent implements OnInit, OnDestroy {
 
   calculateVehicleCost() {
     //priceperday/24 = per hour cost
-    const actualPrice = Number.parseFloat(this.vehicleToBeRented.vehicleType.pricePerDay.substring("LKR - ".length))
-    this.costOfVehicle = ((actualPrice / this.perDayDivisor) * this.rentalDurationInHours).toFixed(2);
+    const actualPrice: number = Number.parseFloat(this.vehicleToBeRented.vehicleType.pricePerDay.substring("LKR - ".length))
+    this.costOfVehicle = ((actualPrice / this.perDayDivisor) * this.rentalDurationInHours);
   }
 
   calculateDifferences() {

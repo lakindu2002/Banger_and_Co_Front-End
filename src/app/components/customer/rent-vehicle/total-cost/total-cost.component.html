@@ -23,6 +23,7 @@
             <li class="list-group-item" style="background-color:#f7fafc; padding-left: 5px;"
               *ngFor="let equipment of listOfEquipmentsAdded">
               <span class="float-left">{{equipment.equipment.equipmentName}} (x{{equipment.quantity}})</span>
+              <span class="float-right fonts">LKR - {{equipment.totalCost.toFixed(2)}}</span>
             </li>
           </ul>
         </div>
@@ -32,7 +33,7 @@
   </div>
   <div class="row">
     <div class="col-sm-12 col-lg-12 col-md-12 fonts">
-      Total Cost For Rental: <span class="float-right">LKR - {{totalCostForRental}}</span>
+      Total Cost For Rental: <span class="float-right">LKR - {{totalCostForRental.toFixed(2)}}</span>
       <hr>
     </div>
   </div>
