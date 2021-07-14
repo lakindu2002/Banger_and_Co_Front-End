@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 import { AdditionalEquipment } from 'src/app/models/equipment.model';
+import { ErrorResponse } from 'src/app/models/errorresponse.model';
 import { Rental } from 'src/app/models/rental.model';
 import { Vehicle } from 'src/app/models/vehicle.model';
 import { VehicleRentalFilter } from 'src/app/models/vehicle_rental_filter.model';
 import { LocalStorageService } from 'src/app/services/localstorage.service';
+import { RentalService } from 'src/app/services/rental.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -26,7 +30,10 @@ export class MakeRentalComponent implements OnInit {
     private modalRef: BsModalRef,
     private userService: UserService,
     private localStorageService: LocalStorageService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private rentalService: RentalService,
+    private toast: ToastrService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -49,6 +56,8 @@ export class MakeRentalComponent implements OnInit {
   }
 
   placeRental() {
+    this.spinner.show();
+
     let equipmentList: AdditionalEquipment[] = [];
     this.equipmentsAdded.forEach((eachEquipment) => {
       equipmentList.push(eachEquipment.equipment);
@@ -62,6 +71,16 @@ export class MakeRentalComponent implements OnInit {
       totalCostForRental: this.totalCostForRental,
       vehicleToBeRented: this.vehicleToBeRented
     };
+
+    this.rentalService.makeRental(placingRental).subscribe((data) => {
+      this.toast.success(data.message, "Rental Placed Successfully");
+      this.spinner.hide();
+      this.router.navigate(['customer'])
+      this.hideModal();
+    }, (error: ErrorResponse) => {
+      this.spinner.hide();
+      this.toast.error(error.exceptionMessage, "Rental Not Placed");
+    })
 
   }
 
