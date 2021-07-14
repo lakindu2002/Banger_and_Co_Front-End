@@ -6,7 +6,7 @@ export interface Rental {
   returnDate: string,
   pickupTime: string,
   returnTime: string,
-  vehicleToBeRented: Vehicle
+  vehicleToBeRented: number | Vehicle;
   totalCostForRental: number
   equipmentsAddedToRental: AdditionalEquipment[]
 }

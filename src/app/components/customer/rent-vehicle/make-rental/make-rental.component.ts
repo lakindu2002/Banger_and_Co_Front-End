@@ -60,6 +60,8 @@ export class MakeRentalComponent implements OnInit {
 
     let equipmentList: AdditionalEquipment[] = [];
     this.equipmentsAdded.forEach((eachEquipment) => {
+      //attach the quantity for the rental.
+      eachEquipment.equipment.quantitySelectedForRental = eachEquipment.quantity;
       equipmentList.push(eachEquipment.equipment);
     })
     const placingRental: Rental = {
@@ -69,7 +71,7 @@ export class MakeRentalComponent implements OnInit {
       returnDate: this.rentalDuration.returnDate,
       returnTime: this.rentalDuration.returnTime,
       totalCostForRental: this.totalCostForRental,
-      vehicleToBeRented: this.vehicleToBeRented
+      vehicleToBeRented: this.vehicleToBeRented.vehicleId
     };
 
     this.rentalService.makeRental(placingRental).subscribe((data) => {
@@ -79,6 +81,11 @@ export class MakeRentalComponent implements OnInit {
       this.hideModal();
     }, (error: ErrorResponse) => {
       this.spinner.hide();
+      if (error.multipleErrors.length > 0) {
+        for (const eachError of error.multipleErrors) {
+          this.toast.warning(eachError.message);
+        }
+      }
       this.toast.error(error.exceptionMessage, "Rental Not Placed");
     })
 
