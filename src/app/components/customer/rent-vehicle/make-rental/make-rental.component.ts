@@ -133,6 +133,7 @@ export class MakeRentalComponent implements OnInit {
       this.newOtherIdentity
     ).subscribe((data) => {
       this.spinner.hide("newOtherIdentity");
+      this.newOtherIdentity = undefined;
       this.loadOtherIdentityFromDB();
       this.toast.success(data.message, "Other Identification Documents Updated");
 
@@ -150,6 +151,7 @@ export class MakeRentalComponent implements OnInit {
       this.newLicenseImage
     ).subscribe((data) => {
       this.spinner.hide("newLicenseImage");
+      this.newLicenseImage = undefined;
       this.loadLicenseImageFromDB();
       this.toast.success(data.message, "Driving License Updated");
     }, (error: ErrorResponse) => {
