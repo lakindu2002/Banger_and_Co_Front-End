@@ -8,5 +8,6 @@ export interface Rental {
   returnTime: string,
   vehicleToBeRented: number | Vehicle;
   totalCostForRental: number
-  equipmentsAddedToRental: AdditionalEquipment[]
+  equipmentsAddedToRental: AdditionalEquipment[],
+  customerUsername: string;
 }

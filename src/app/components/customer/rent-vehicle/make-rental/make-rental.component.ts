@@ -26,6 +26,11 @@ export class MakeRentalComponent implements OnInit {
   licenseImage: string | ArrayBuffer;
   otherIdentity: string | ArrayBuffer;
 
+  newLicenseImage: File;
+  newLicenseImageUrl: string;
+  newOtherIdentity: File;
+  newOtherIdentityUrl: string;
+
   constructor(
     private modalRef: BsModalRef,
     private userService: UserService,
@@ -33,10 +38,15 @@ export class MakeRentalComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private rentalService: RentalService,
     private toast: ToastrService,
-    private router: Router
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
+    this.loadLicenseImageFromDB();
+    this.loadOtherIdentityFromDB();
+  }
+
+  loadLicenseImageFromDB() {
     this.userService.getLicenseImage(this.localStorageService.getUserInLocalStorage().username).subscribe((data) => {
       const reader = new FileReader();
       const image = data as Blob;
@@ -45,6 +55,9 @@ export class MakeRentalComponent implements OnInit {
         this.licenseImage = reader.result;
       }
     })
+  }
+
+  loadOtherIdentityFromDB() {
     this.userService.getOtherIdentity(this.localStorageService.getUserInLocalStorage().username).subscribe((data) => {
       const reader = new FileReader();
       const image = data as Blob;
@@ -71,13 +84,14 @@ export class MakeRentalComponent implements OnInit {
       returnDate: this.rentalDuration.returnDate,
       returnTime: this.rentalDuration.returnTime,
       totalCostForRental: this.totalCostForRental,
-      vehicleToBeRented: this.vehicleToBeRented.vehicleId
+      vehicleToBeRented: this.vehicleToBeRented.vehicleId,
+      customerUsername: this.localStorageService.getUserInLocalStorage().username
     };
 
     this.rentalService.makeRental(placingRental).subscribe((data) => {
       this.toast.success(data.message, "Rental Placed Successfully");
       this.spinner.hide();
-      this.router.navigate(['customer'])
+      this.router.navigate(['customer'], { replaceUrl: true })
       this.hideModal();
     }, (error: ErrorResponse) => {
       this.spinner.hide();
@@ -88,11 +102,60 @@ export class MakeRentalComponent implements OnInit {
       }
       this.toast.error(error.exceptionMessage, "Rental Not Placed");
     })
-
   }
 
   hideModal() {
     this.modalRef.hide();
   }
 
+  loadNewLicense(newLicense: File) {
+    const reader = new FileReader();
+    reader.readAsDataURL(newLicense);
+    reader.onload = () => {
+      this.licenseImage = reader.result;
+      this.newLicenseImage = newLicense;
+    }
+  }
+
+  loadNewOther(newOther: File) {
+    const reader = new FileReader();
+    reader.readAsDataURL(newOther);
+    reader.onload = () => {
+      this.otherIdentity = reader.result;
+      this.newOtherIdentity = newOther;
+    }
+  }
+
+  confirmNewOther() {
+    this.spinner.show("newOtherIdentity");
+    this.userService.updateCustomerOtherIdentityImage(
+      this.localStorageService.getUserInLocalStorage().username,
+      this.newOtherIdentity
+    ).subscribe((data) => {
+      this.spinner.hide("newOtherIdentity");
+      this.loadOtherIdentityFromDB();
+      this.toast.success(data.message, "Other Identification Documents Updated");
+
+    }, (error: ErrorResponse) => {
+      this.spinner.hide("newOtherIdentity");
+      this.loadOtherIdentityFromDB();
+      this.toast.error(error.exceptionMessage, "Failed to Update Other Identification")
+    })
+  }
+
+  confirmNewLicense() {
+    this.spinner.show("newLicenseImage");
+    this.userService.updateCustomerLicenseImage(
+      this.localStorageService.getUserInLocalStorage().username,
+      this.newLicenseImage
+    ).subscribe((data) => {
+      this.spinner.hide("newLicenseImage");
+      this.loadLicenseImageFromDB();
+      this.toast.success(data.message, "Driving License Updated");
+    }, (error: ErrorResponse) => {
+      this.spinner.hide("newLicenseImage");
+      this.loadLicenseImageFromDB();
+      this.toast.error(error.exceptionMessage, "Failed to Update Driving License")
+    })
+  }
 }

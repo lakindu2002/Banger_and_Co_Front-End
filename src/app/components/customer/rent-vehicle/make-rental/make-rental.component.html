@@ -92,8 +92,22 @@
 
     <mat-step>
       <ng-template matStepLabel>Let's Look at Your Documents</ng-template>
+      <div class="row mt-2 justify-content-center">
+        <div class="col-sm-10">
+          <div class="alert alert-info">
+            <h5 class="alert-heading">Important Notice</h5>
+            <hr>
+            In order to proceed with your rental, we require your driving license and your other form of identiciation.
+            Please ensure these are up to date before proceeding with the rental.
+          </div>
+        </div>
+      </div>
       <div class="row mt-2">
         <div class="col-sm-6" style="text-align: center;">
+
+          <ngx-spinner [name]="'newLicenseImage'" type="ball-clip-rotate" [fullScreen]="false" [bdColor]="'transparent'"
+            [color]="'black'" [size]="'medium'"></ngx-spinner>
+
           <div class="row">
             <div class="col-sm-12">
               <h6 class="alert-heading">License Image</h6>
@@ -102,11 +116,20 @@
           </div>
           <div class="row">
             <div class="col-sm-12">
-              <button class="btn btn-info">Update License Image</button>
+              <input type="file" style="display: none;" accept="image/jpeg" multiple="false" #newLicenseHolder
+                (change)="loadNewLicense(newLicenseHolder.files[0])">
+              <button class="btn btn-info" *ngIf="!newLicenseImage" (click)="newLicenseHolder.click()">Update License
+                Image</button>
+              <button class="btn btn-info" *ngIf="newLicenseImage" (click)="confirmNewLicense()">Confirm New License
+                Image</button>
             </div>
           </div>
         </div>
         <div class="col-sm-6" style="text-align: center;">
+
+          <ngx-spinner [name]="'newOtherIdentity'" type="ball-clip-rotate" [fullScreen]="false" [bdColor]="'transparent'"
+            [color]="'black'" [size]="'medium'"></ngx-spinner>
+
           <div class="row">
             <div class="col-sm-12">
               <h6 class="alert-heading">Other Identity (Council Tax Statement or Recent Utility Bill)</h6>
@@ -116,7 +139,12 @@
 
           <div class="row">
             <div class="col-sm-12">
-              <button class="btn btn-info">Update Other Form of Identification</button>
+              <input type="file" style="display: none;" accept="image/jpeg" multiple="false" #newOtherHolder
+                (change)="loadNewOther(newOtherHolder.files[0])">
+              <button class="btn btn-info" *ngIf="!newOtherIdentity" (click)="newOtherHolder.click()">Update Other
+                Form of Identification</button>
+              <button class="btn btn-info" *ngIf="newOtherIdentity" (click)="confirmNewOther()">Confirm Other Form of
+                Identification</button>
             </div>
           </div>
         </div>
@@ -129,7 +157,8 @@
         </div>
       </div>
 
-      <button class="btn btn-primary float-right ml-1" style="width: 25%;" matStepperNext (click)="placeRental()">Place Rental</button>
+      <button class="btn btn-primary float-right ml-1" style="width: 25%;" matStepperNext (click)="placeRental()">Place
+        Rental</button>
       <button class="btn btn-warning float-right" style="width: 15%;" matStepperPrevious>Back</button>
     </mat-step>
   </mat-horizontal-stepper>
