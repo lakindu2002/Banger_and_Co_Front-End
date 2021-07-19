@@ -19,6 +19,7 @@ export class AdministratorListComponent implements OnInit, OnDestroy {
   isError: boolean = false;
   openedModal: BsModalRef;
   modalSub: Subscription;
+  adminLeft: number = 0;
 
   constructor(
     private userService: UserService,
@@ -36,6 +37,7 @@ export class AdministratorListComponent implements OnInit, OnDestroy {
 
     this.userService.getAllAdmins().subscribe((data) => {
       this.adminList = data;
+      this.adminLeft = 5 - this.adminList.length;
       this.spinner.hide();
     }, (error: ErrorResponse) => {
       this.isError = true;

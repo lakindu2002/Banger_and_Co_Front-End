@@ -16,6 +16,7 @@
 
   <div class="row mt-2">
     <div class="col-sm-12">
+      <span class="float-left badge badge-info p-2" style="font-size: 16px;">Total Administrator Account Creations Left - {{adminLeft}}</span>
       <button class="btn btn-primary float-right" (click)="openCreateAdminModal()">Create Administrator</button>
     </div>
   </div>
@@ -26,8 +27,7 @@
         <tr class="table-header">
           <th class="left-header">Name</th>
           <th>Contact Information</th>
-          <th>Date of Birth (Age)</th>
-          <th class="right-header">Action</th>
+          <th class="right-header">Date of Birth (Age)</th>
         </tr>
         <tr *ngFor="let eachUser of adminList" class="custom-row">
           <td>
@@ -54,7 +54,6 @@
             </div>
           </td>
           <td>{{eachUser.dateOfBirth | date}} ({{calculateAge(eachUser.dateOfBirth)}})</td>
-          <td></td>
         </tr>
       </table>
     </div>
