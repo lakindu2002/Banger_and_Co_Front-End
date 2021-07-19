@@ -46,11 +46,11 @@ export class AuthService {
   guideToModule(loggedInUser: AuthReturn): void {
     switch (loggedInUser.userRole.toLowerCase()) {
       case environment.customerRole: {
-        this.router.navigate(['/customer']);
+        this.router.navigate(['/customer'], { replaceUrl: true });
         break;
       }
       case environment.administratorRole: {
-        this.router.navigate(['/admin'])
+        this.router.navigate(['/admin'], { replaceUrl: true })
         break;
       }
     }

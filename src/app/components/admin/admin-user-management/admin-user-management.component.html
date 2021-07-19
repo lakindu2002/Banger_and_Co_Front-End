@@ -69,7 +69,7 @@
             <span class="badge badge-success" *ngIf="eachUser.blackListed === false"
               style="font-size: 14px; padding: 7px;">Account Working</span>
           </td>
-          <td><i class="far fa-unlock"
+          <td><i class="far fa-unlock" *ngIf="eachUser.blackListed"
               [title]="eachUser.blackListed === true ? 'Whitelist the Customer' : 'Customer Already Whitelisted'"
               [ngStyle]="{'color':getWhiteListIconStyle(eachUser.blackListed)}"
               style="font-size: 20px; vertical-align: middle; cursor: pointer;"
