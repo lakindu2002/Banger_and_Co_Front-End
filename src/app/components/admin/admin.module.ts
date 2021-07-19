@@ -24,6 +24,9 @@ import { TypeDeletePromptComponent } from './admin-vehicle-management/admin-vehi
 import { WhiteListPromptComponent } from './admin-user-management/white-list-prompt/white-list-prompt.component';
 import { DeleteEquipmentPromptComponent } from './equipment-management/delete-equipment-prompt/delete-equipment-prompt.component';
 import { RemoveVehiclePromptComponent } from './admin-vehicle-management/admin-vehicle-browsing/remove-vehicle-prompt/remove-vehicle-prompt.component';
+import { AdministratorListComponent } from './admin-user-management/administrator-list/administrator-list.component';
+import { AdminCreateComponent } from './admin-user-management/administrator-list/admin-create/admin-create.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 
 
@@ -45,7 +48,9 @@ import { RemoveVehiclePromptComponent } from './admin-vehicle-management/admin-v
     TypeDeletePromptComponent,
     WhiteListPromptComponent,
     DeleteEquipmentPromptComponent,
-    RemoveVehiclePromptComponent
+    RemoveVehiclePromptComponent,
+    AdministratorListComponent,
+    AdminCreateComponent
   ],
   imports: [
     CommonModule,
@@ -55,6 +60,7 @@ import { RemoveVehiclePromptComponent } from './admin-vehicle-management/admin-v
     FormsModule, //used for template driven forms and ngModel bindings
     MatStepperModule, //angular material stepper module
     NgxSpinnerModule, //used to load the spinner when creating vehicle types and loading image on image preview before vehicle creation
+    MatDatepickerModule
   ]
 })
 export class AdminModule { }

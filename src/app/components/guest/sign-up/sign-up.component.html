@@ -25,7 +25,7 @@
                 Valid First Name</span>
               <span class="form-error"
                 *ngIf="userInfoForm.get('firstName').invalid && userInfoForm.get('firstName').touched && userInfoForm.get('firstName').errors.pattern"><br>
-                Please ensure that your first name has only alphabetical characters and no numerics or spaces
+                Please ensure that your first name has only alphabetical characters and no numerics
               </span>
             </div>
           </div>
@@ -40,7 +40,7 @@
                 Valid Last Name</span>
               <span class="form-error"
                 *ngIf="userInfoForm.get('lastName').invalid && userInfoForm.get('lastName').touched && userInfoForm.get('lastName').errors.pattern"><br>
-                Please ensure that your last name has only alphabetical characters and no numerics or spaces
+                Please ensure that your last name has only alphabetical characters and no numerics
               </span>
             </div>
           </div>

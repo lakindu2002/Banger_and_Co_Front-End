@@ -15,4 +15,8 @@ export class RentalService {
   makeRental(theRental: Rental): Observable<ResponseAPI> {
     return this.http.post<ResponseAPI>(`${this.baseEndpoint}/makeRental`, theRental);
   }
+
+  getAllPendingRentals(): Observable<Rental[]> {
+    return this.http.get<Rental[]>(`${this.baseEndpoint}/find/pendingRentals`);
+  }
 }

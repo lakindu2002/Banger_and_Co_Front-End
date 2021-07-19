@@ -61,4 +61,20 @@ export class UserService {
     formData.append('licenseImage', newLoadedFile);
     return this.http.put<ResponseAPI>(`${this.baseURL}/update/license/${username}`, formData);
   }
+
+  getAllAdmins(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.baseURL}/admin/getAllAdmins`).pipe(map((data) => {
+      data.forEach((eachUser) => {
+        eachUser.profilePicture = `${environment.imageBase}${eachUser.profilePicture}`
+      })
+      return data;
+    }));
+  }
+
+  createAdministratorAccount(userInfo: User, adminProfilePicture: File): Observable<ResponseAPI> {
+    const formData: FormData = new FormData();
+    formData.append("userInfo", JSON.stringify(userInfo));
+    formData.append("profilePic", adminProfilePicture);
+    return this.http.post<ResponseAPI>(`${this.baseURL}/admin/createAdmin`, formData);
+  }
 }

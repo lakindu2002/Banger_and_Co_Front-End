@@ -48,8 +48,8 @@ export class SignUpComponent implements OnInit {
 
     //initialize forms referenced from template.
     this.userInfoForm = new FormGroup({
-      'firstName': new FormControl(null, [Validators.required, Validators.maxLength(100), Validators.pattern('^[A-Za-z]{1,}')]),
-      'lastName': new FormControl(null, [Validators.required, Validators.maxLength(100), Validators.pattern('^[A-Za-z]{1,}')]),
+      'firstName': new FormControl(null, [Validators.required, Validators.maxLength(100), Validators.pattern('^[A-Za-z ]{1,}')]),
+      'lastName': new FormControl(null, [Validators.required, Validators.maxLength(100), Validators.pattern('^[A-Za-z ]{1,}')]),
       'emailAddress': new FormControl(null, [Validators.email, Validators.required, Validators.maxLength(255)]),
       'username': new FormControl(null, [Validators.required, Validators.minLength(6), Validators.maxLength(15)]),
       'contactNumber': new FormControl(null, [Validators.required, Validators.pattern("^[0-9]+$"), Validators.minLength(10), Validators.maxLength(10)],),
