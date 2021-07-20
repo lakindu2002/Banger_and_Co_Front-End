@@ -1,18 +1,17 @@
 <app-admin-nav></app-admin-nav>
 <app-bread-crumb [pageName]="'User Management'"></app-bread-crumb>
 
-<div class="row" style="padding-bottom: 15px;">
-  <div class="col-sm-12" style="border-bottom: 1px solid #cacdcf;">
-    <div class="container">
+<div class="container">
+
+  <div class="row" style="padding-bottom: 15px;">
+    <div class="col-sm-12">
       <span class="header-left">
         <button class="btn btn-secondary" [routerLink]="['/admin','users','admin']">Manage Administrators</button>
       </span>
       <span class="headers">Customers Registered at Banger and Co.</span>
     </div>
   </div>
-</div>
 
-<div class="container">
   <div class="row">
     <div class="col-sm-4">
       <label class="fonts">Search Via Username or Full Name</label>
@@ -85,6 +84,9 @@
               [ngStyle]="{'color':getWhiteListIconStyle(eachUser.blackListed)}"
               style="font-size: 20px; vertical-align: middle; cursor: pointer;"
               (click)="openWhiteListPrompt(eachUser)"></i>
+            <span class *ngIf="!eachUser.blackListed">
+              No Action
+            </span>
           </td>
         </tr>
       </table>

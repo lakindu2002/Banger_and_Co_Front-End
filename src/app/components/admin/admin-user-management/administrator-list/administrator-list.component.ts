@@ -7,6 +7,7 @@ import { ErrorResponse } from 'src/app/models/errorresponse.model';
 import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/services/user.service';
 import { AdminCreateComponent } from './admin-create/admin-create.component';
+import { AdminDeleteComponent } from './admin-delete/admin-delete.component';
 
 @Component({
   selector: 'app-administrator-list',
@@ -19,7 +20,8 @@ export class AdministratorListComponent implements OnInit, OnDestroy {
   isError: boolean = false;
   openedModal: BsModalRef;
   modalSub: Subscription;
-  adminLeft: number = 0;
+  deleteSub: Subscription;
+  adminCount: number = 0;
 
   constructor(
     private userService: UserService,
@@ -37,7 +39,7 @@ export class AdministratorListComponent implements OnInit, OnDestroy {
 
     this.userService.getAllAdmins().subscribe((data) => {
       this.adminList = data;
-      this.adminLeft = 5 - this.adminList.length;
+      this.adminCount = this.adminList.length;
       this.spinner.hide();
     }, (error: ErrorResponse) => {
       this.isError = true;
@@ -64,9 +66,26 @@ export class AdministratorListComponent implements OnInit, OnDestroy {
     })
   }
 
+  openDeleteModal(user: User) {
+    this.openedModal = this.modalService.show(AdminDeleteComponent, {
+      class: 'modal-dialog-centered',
+      ignoreBackdropClick: true,
+      keyboard: false,
+      initialState: {
+        deletingUser: user
+      }
+    });
+    this.deleteSub = this.openedModal.content.deleted.subscribe((data) => {
+      this.getAllAdmins();
+    })
+  }
+
   ngOnDestroy(): void {
     if (this.modalSub) {
       this.modalSub.unsubscribe();
+    }
+    if (this.deleteSub) {
+      this.deleteSub.unsubscribe();
     }
   }
 

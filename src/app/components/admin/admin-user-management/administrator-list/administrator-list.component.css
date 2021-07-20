@@ -4,6 +4,13 @@
   padding-bottom: 10px;
 }
 
-.header-left{
+.header-left {
   float: left;
+}
+
+.icon-format {
+  font-size: 22px;
+  padding-right: 15px;
+  padding-left: 15px;
+  cursor: pointer;
 }

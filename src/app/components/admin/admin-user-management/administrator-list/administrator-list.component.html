@@ -1,22 +1,22 @@
 <app-admin-nav></app-admin-nav>
 <app-bread-crumb [pageName]="'User Management'"></app-bread-crumb>
 
-<div class="row" style="padding-bottom: 15px;">
-  <div class="col-sm-12" style="border-bottom: 1px solid #cacdcf;">
-    <div class="container">
-      <span class="header-left">
+<div class="container">
+
+  <div class="row" style="padding-bottom: 15px;">
+    <div class="col-sm-12">
+      <span class=" header-left">
         <button class="btn btn-secondary" [routerLink]="['/admin','users']">Manage Customers</button>
       </span>
       <span class="headers">Administrator Accounts Available at Banger and Co.</span>
     </div>
   </div>
-</div>
 
-<div class="container">
 
   <div class="row mt-2">
     <div class="col-sm-12">
-      <span class="float-left badge badge-info p-2" style="font-size: 16px;">Total Administrator Account Creations Left - {{adminLeft}}</span>
+      <span class="float-left badge badge-info p-2" style="font-size: 16px;">Total Administrator Accounts -
+        {{adminCount}}</span>
       <button class="btn btn-primary float-right" (click)="openCreateAdminModal()">Create Administrator</button>
     </div>
   </div>
@@ -27,7 +27,8 @@
         <tr class="table-header">
           <th class="left-header">Name</th>
           <th>Contact Information</th>
-          <th class="right-header">Date of Birth (Age)</th>
+          <th>Date of Birth (Age)</th>
+          <th class="right-header">Action</th>
         </tr>
         <tr *ngFor="let eachUser of adminList" class="custom-row">
           <td>
@@ -54,6 +55,12 @@
             </div>
           </td>
           <td>{{eachUser.dateOfBirth | date}} ({{calculateAge(eachUser.dateOfBirth)}})</td>
+          <td>
+            <a>
+              <i class="far fa-trash-alt icon-format" (click)="openDeleteModal(eachUser)"
+                style="color: rgba(0, 0, 0, 0.699);"></i>
+            </a>
+          </td>
         </tr>
       </table>
     </div>

@@ -77,4 +77,8 @@ export class UserService {
     formData.append("profilePic", adminProfilePicture);
     return this.http.post<ResponseAPI>(`${this.baseURL}/admin/createAdmin`, formData);
   }
+
+  deleteAdministratorAccount(username: string): Observable<ResponseAPI> {
+    return this.http.delete<ResponseAPI>(`${this.baseURL}/admin/delete/${username}`);
+  }
 }

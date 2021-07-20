@@ -27,6 +27,7 @@ import { RemoveVehiclePromptComponent } from './admin-vehicle-management/admin-v
 import { AdministratorListComponent } from './admin-user-management/administrator-list/administrator-list.component';
 import { AdminCreateComponent } from './admin-user-management/administrator-list/admin-create/admin-create.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { AdminDeleteComponent } from './admin-user-management/administrator-list/admin-delete/admin-delete.component';
 
 
 
@@ -50,7 +51,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     DeleteEquipmentPromptComponent,
     RemoveVehiclePromptComponent,
     AdministratorListComponent,
-    AdminCreateComponent
+    AdminCreateComponent,
+    AdminDeleteComponent
   ],
   imports: [
     CommonModule,
