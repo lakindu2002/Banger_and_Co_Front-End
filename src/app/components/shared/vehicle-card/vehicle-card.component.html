@@ -45,7 +45,10 @@
           <button class="btn btn-primary float-right" (click)="handleCustomerClick()">Rent This</button>
         </div>
         <div *ngIf="loggedInUser.userRole=='administrator'">
-          <i class="fas fa-trash" style="font-size: 22px; color: rgba(0, 0, 0, 0.7); cursor: pointer;" (click)="openDeleteModalInAdmin()"></i>
+          <i class="fas fa-trash float-right" style="font-size: 20px; color: rgba(0, 0, 0, 0.7); cursor: pointer;"
+            (click)="openDeleteModalInAdmin()"></i>
+          <i class="far fa-edit float-right mr-2" style="color: rgba(0, 0, 0, 0.7); font-size: 20px; cursor: pointer;"
+            (click)="openEditModalInAdmin()"></i>
         </div>
       </div>
       <div class="col-sm-5" *ngIf="!loggedInUser">

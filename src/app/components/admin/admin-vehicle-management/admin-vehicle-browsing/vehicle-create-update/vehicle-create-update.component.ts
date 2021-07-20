@@ -6,6 +6,8 @@ import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { ErrorResponse } from 'src/app/models/errorresponse.model';
 import { ResponseAPI } from 'src/app/models/response.model';
+import { UpdateVehicle } from 'src/app/models/update.vehicle.model';
+import { Vehicle } from 'src/app/models/vehicle.model';
 import { VehicleType } from 'src/app/models/vehicleType.model';
 import { VehicleService } from 'src/app/services/vehicle.service';
 import { VehicleTypeService } from 'src/app/services/vehicleType.service';
@@ -19,9 +21,10 @@ export class VehicleCreateUpdateComponent implements OnInit, OnDestroy {
 
   @ViewChild('assignReference', { static: true }) assigningBtn: ElementRef;
 
-  vehicleImageUrl: string | ArrayBuffer;
+  vehicleImageUrl: any;
   loadedImage: File
   fileSizeExceeded: boolean = false;
+  vehicleBeingEdited: Vehicle;
 
   isSuccess: Subject<boolean> = new Subject();
 
@@ -42,7 +45,29 @@ export class VehicleCreateUpdateComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.constructVehicleForm();
     this.constructVehicleTypeForm();
+    if (this.vehicleBeingEdited) {
+      //process edit
+      this.initializeEditForm();
+    }
     this.getAllVehicleTypes();
+  }
+
+  initializeEditForm() {
+    this.vehicleForm.patchValue({
+      'licensePlate': this.vehicleBeingEdited.licensePlate,
+      'vehicleName': this.vehicleBeingEdited.vehicleName,
+      'fuelType': this.vehicleBeingEdited.fuelType,
+      'transmission': this.vehicleBeingEdited.transmission,
+      'vehicleType': this.vehicleBeingEdited.vehicleType.vehicleTypeId,
+      'seatingCapacity': this.vehicleBeingEdited.seatingCapacity
+    })
+
+    //set the vehicle image
+    this.vehicleImageUrl = this.vehicleBeingEdited.vehicleImage;
+    this.vehicleForm.controls['licensePlate'].disable();
+    this.vehicleForm.controls['fuelType'].disable();
+    this.vehicleForm.controls['transmission'].disable();
+    this.vehicleForm.controls['seatingCapacity'].disable();
   }
 
   constructVehicleForm(): void {
@@ -71,6 +96,13 @@ export class VehicleCreateUpdateComponent implements OnInit, OnDestroy {
       this.vehicleForm.patchValue({
         'vehicleType': data[0].vehicleTypeId
       })
+
+      //if vehicle is being updated, put the type of vehicle as selected type
+      if (this.vehicleBeingEdited) {
+        this.vehicleForm.patchValue({
+          'vehicleType': this.vehicleBeingEdited.vehicleType.vehicleTypeId
+        })
+      }
 
       if (this.vehicleTypeList.length == 0) {
         this.vehicleForm.controls['vehicleType'].disable();
@@ -176,6 +208,29 @@ export class VehicleCreateUpdateComponent implements OnInit, OnDestroy {
         }
       }
       this.toast.error(error.message, "Vehicle Not Created");
+      this.spinner.hide();
+    })
+  }
+
+  updateVehicle() {
+    this.spinner.show();
+
+    const updateVehicle: UpdateVehicle = {
+      vehicleName: this.vehicleForm.get('vehicleName').value,
+      vehicleType: this.vehicleForm.get('vehicleType').value,
+      vehicleId: this.vehicleBeingEdited.vehicleId
+    }
+
+    this.vehicleService.updateVehicle(updateVehicle, this.loadedImage).subscribe((data: ResponseAPI) => {
+      this.toast.success(data.message, "Vehicle Updated Successfully");
+      this.isSuccess.next(true);
+      this.spinner.hide();
+      this.hideModal();
+    }, (error: ErrorResponse) => {
+      for (const eachError of error.multipleErrors) {
+        this.toast.warning(eachError.message);
+      }
+      this.toast.error(error.message, "Vehicle Not Updated");
       this.spinner.hide();
     })
   }

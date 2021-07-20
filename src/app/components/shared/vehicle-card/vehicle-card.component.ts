@@ -16,6 +16,8 @@ export class VehicleCardComponent implements OnInit {
 
   @Output("adminClickedDelete") deleteClicked: EventEmitter<Vehicle> = new EventEmitter();
 
+  @Output("adminEditClicked") editClicked: EventEmitter<Vehicle> = new EventEmitter();
+
   loggedInUser: AuthReturn;
 
   constructor(private localStorageService: LocalStorageService, private toast: ToastrService, private vehicleService: VehicleService) { }
@@ -37,5 +39,9 @@ export class VehicleCardComponent implements OnInit {
   openDeleteModalInAdmin() {
     //when delete clicked, emit a vehicle object that will be listened on the admin view all vehicles component
     this.deleteClicked.emit(this.theVehicle);
+  }
+
+  openEditModalInAdmin() {
+    this.editClicked.emit(this.theVehicle);
   }
 }

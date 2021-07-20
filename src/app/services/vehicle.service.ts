@@ -4,6 +4,7 @@ import { Observable, Subject } from "rxjs";
 import { map } from "rxjs/operators";
 import { environment } from "src/environments/environment.prod";
 import { ResponseAPI } from "../models/response.model";
+import { UpdateVehicle } from "../models/update.vehicle.model";
 import { Vehicle } from "../models/vehicle.model";
 import { VehicleRentalFilter } from "../models/vehicle_rental_filter.model";
 
@@ -57,5 +58,14 @@ export class VehicleService {
       theVehicle.vehicleImage = `${environment.imageBase}${theVehicle.vehicleImage}`
       return theVehicle;
     }));
+  }
+
+  updateVehicle(updateObj: UpdateVehicle, theNewImage: File): Observable<ResponseAPI> {
+    const formData = new FormData();
+    formData.append("updateInfo", JSON.stringify(updateObj));
+    if (theNewImage) {
+      formData.append("newPicture", theNewImage);
+    }
+    return this.http.put<ResponseAPI>(`${this.baseUrl}/update`, formData);
   }
 }

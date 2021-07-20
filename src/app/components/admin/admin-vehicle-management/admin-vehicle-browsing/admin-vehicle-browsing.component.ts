@@ -29,7 +29,8 @@ export class AdminVehicleBrowsingComponent implements OnInit, OnDestroy {
   vehicleLoadError: boolean = false;
 
   successSubscription: Subscription;
-  removeSub : Subscription;
+  removeSub: Subscription;
+  editedSub: Subscription;
 
   constructor(
     private toast: ToastrService,
@@ -131,7 +132,29 @@ export class AdminVehicleBrowsingComponent implements OnInit, OnDestroy {
       }
     })
 
-    this.removeSub = this.modalRef.content.removed.subscribe((data)=>{
+    this.removeSub = this.modalRef.content.removed.subscribe((data) => {
+      //when removed successfully, refresh the vehicles and the types.
+      this.getAllVehicleTypes();
+      this.getAllVehicles();
+    })
+  }
+
+  processEditClicked(theVehicleToBeEdited: Vehicle) {
+    //launch the edit vehicle modal
+    this.modalRef = this.modalService.show(VehicleCreateUpdateComponent,
+      //configure initial state
+      {
+        animated: true,
+        ignoreBackdropClick: true,
+        keyboard: false,
+        initialState: {
+          vehicleBeingEdited: theVehicleToBeEdited
+        },
+        class: 'modal-lg modal-dialog-centered'
+      }
+    )
+
+    this.editedSub = this.modalRef.content.isSuccess.subscribe((data) => {
       //when removed successfully, refresh the vehicles and the types.
       this.getAllVehicleTypes();
       this.getAllVehicles();
@@ -146,6 +169,10 @@ export class AdminVehicleBrowsingComponent implements OnInit, OnDestroy {
 
     if (this.removeSub) {
       this.removeSub.unsubscribe();
+    }
+
+    if (this.editedSub) {
+      this.editedSub.unsubscribe();
     }
   }
 }
