@@ -25,7 +25,7 @@ export class AdminRentalListComponent implements OnInit {
     this.spinner.show();
     this.rentalService.getAllPendingRentals().subscribe((data) => {
       this.spinner.hide();
-      this.toast.info(`There are ${data.length} pending rentals that require approval`);
+      this.toast.info(`There are ${data.length} pending rentals that require approval`,"Pending Rentals Available");
     }, (error: ErrorResponse) => {
       this.toast.error(error.exceptionMessage, "Failed to Load Pending Rentals");
       this.spinner.hide();
