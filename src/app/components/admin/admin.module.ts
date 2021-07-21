@@ -28,6 +28,9 @@ import { AdministratorListComponent } from './admin-user-management/administrato
 import { AdminCreateComponent } from './admin-user-management/administrator-list/admin-create/admin-create.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { AdminDeleteComponent } from './admin-user-management/administrator-list/admin-delete/admin-delete.component';
+import { RentalTableListComponent } from './admin-rental-list/rental-table-list/rental-table-list.component';
+import { PendingRentalsComponent } from './admin-rental-list/pending-rentals/pending-rentals.component';
+import { SectionHeaderComponent } from './admin-rental-list/section-header/section-header.component';
 
 
 
@@ -52,7 +55,10 @@ import { AdminDeleteComponent } from './admin-user-management/administrator-list
     RemoveVehiclePromptComponent,
     AdministratorListComponent,
     AdminCreateComponent,
-    AdminDeleteComponent
+    AdminDeleteComponent,
+    RentalTableListComponent,
+    PendingRentalsComponent,
+    SectionHeaderComponent
   ],
   imports: [
     CommonModule,

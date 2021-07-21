@@ -1,13 +1,13 @@
 import { AdditionalEquipment } from "./equipment.model";
-import { Vehicle } from "./vehicle.model";
 
 export interface Rental {
-  pickupDate: string,
-  returnDate: string,
+  rentalId?: number,
+  pickupDate: string | Date,
+  returnDate: string | Date,
   pickupTime: string,
   returnTime: string,
-  vehicleToBeRented: number | Vehicle;
+  vehicleToBeRented: any;
   totalCostForRental: number
   equipmentsAddedToRental: AdditionalEquipment[],
-  customerUsername: string;
+  customerUsername: any;
 }

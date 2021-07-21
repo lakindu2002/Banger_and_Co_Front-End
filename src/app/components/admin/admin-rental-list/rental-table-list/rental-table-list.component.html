@@ -1,0 +1,51 @@
+<div class="row">
+  <div class="col-sm-12">
+    <table class="table table-borderless custom-table">
+      <tr class="table-header">
+        <th class="left-header">#</th>
+        <th>Rental Duration</th>
+        <th>Vehicle On Rental</th>
+        <th>Customer Information</th>
+        <th>Total Cost</th>
+        <th class="right-header" style="text-align: center;">
+          <span class="float-right" style="margin-right:20px;">
+            Action
+          </span>
+        </th>
+      </tr>
+      <tr *ngFor="let rental of rentalList; let i = index">
+        <td>{{i + 1}}</td>
+        <td>
+          <div>
+            Pickup - <b class="fonts">{{rental.pickupDate | date}}</b> at <b class="fonts">{{rental.pickupTime}}</b>
+          </div>
+          <div>
+            Return - <b class="fonts">{{rental.returnDate}}</b> at
+            <b class="fonts">{{rental.returnTime}}</b>
+          </div>
+        </td>
+        <td>{{rental.vehicleToBeRented.vehicleName}}</td>
+        <td>
+          <div>
+            {{rental.customerUsername.firstName}} {{rental.customerUsername.lastName}}
+          </div>
+          <div>
+            Driving License - {{rental.customerUsername.drivingLicenseNumber}}
+          </div>
+        </td>
+        <td>LKR - {{rental.totalCostForRental.toFixed(2)}}</td>
+        <td>
+          <div style="text-align: center;">
+            <i class="fal fa-info-circle" style="font-size: 22px; color: rgba(0, 0, 0, 0.7); cursor: pointer;"></i>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<div class="row justify-content-center mb-4">
+  <div class="col-sm-2">
+    <button class="btn btn-primary" (click)="loadMoreClicked()">Load More</button>
+  </div>
+</div>

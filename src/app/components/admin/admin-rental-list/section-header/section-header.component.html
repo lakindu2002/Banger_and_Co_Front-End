@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="col-sm-7 align-self-center">
+    <span class="float-left header">{{inputText}}</span>
+  </div>
+  <div class="col-sm-5 header">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <div class="input-group-text">
+          <i class="fas fa-search"></i>
+        </div>
+      </div>
+      <!-- ng model allows two way data binding in angular and ngModelChange is executed whenever the searchTerm changes its value -->
+      <input type="text" class="form-control" placeholder="Provide Vehicle Name..." [(ngModel)]="searchTerm"
+        style="border-color: none;" (ngModelChange)="filterViaVehicleName()">
+    </div>
+  </div>
+</div>
