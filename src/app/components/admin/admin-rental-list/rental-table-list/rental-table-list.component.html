@@ -6,6 +6,7 @@
         <th>Rental Duration</th>
         <th>Vehicle On Rental</th>
         <th>Customer Information</th>
+        <th>Add Ons</th>
         <th>Total Cost</th>
         <th class="right-header" style="text-align: center;">
           <span class="float-right" style="margin-right:20px;">
@@ -33,6 +34,7 @@
             Driving License - {{rental.customerUsername.drivingLicenseNumber}}
           </div>
         </td>
+        <td>{{rental.equipmentsAddedToRental.length > 0 ? 'Yes' : 'No'}}</td>
         <td>LKR - {{rental.totalCostForRental.toFixed(2)}}</td>
         <td>
           <div style="text-align: center;">

@@ -1,7 +1,9 @@
 import { Component, OnInit, } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
+import { LocalStorageService } from 'src/app/services/localstorage.service';
 import { environment } from 'src/environments/environment.prod';
 import { VehicleRentalFilterPopUpComponent } from '../../shared/vehicle-rental-filter-pop-up/vehicle-rental-filter-pop-up.component';
 
@@ -16,7 +18,7 @@ export class CustomerHomeComponent implements OnInit {
   loggedInUser: User;
   modalRef: BsModalRef;
 
-  constructor(private modalService: BsModalService) { }
+  constructor(private modalService: BsModalService, private localStorageService: LocalStorageService, private toast: ToastrService) { }
 
   ngOnInit(): void {
     document.title = "Banger and Co. - Rent a Vehicle Now";
@@ -40,11 +42,15 @@ export class CustomerHomeComponent implements OnInit {
   }
 
   openVehicleRentalFilterPopup() {
-    this.modalRef = this.modalService.show(VehicleRentalFilterPopUpComponent, {
-      ignoreBackdropClick: true,
-      keyboard: false,
-      class: 'modal-dialog-centered modal-lg',
-    })
+    if (!this.localStorageService.getUserInLocalStorage().blacklisted) {
+      this.modalRef = this.modalService.show(VehicleRentalFilterPopUpComponent, {
+        ignoreBackdropClick: true,
+        keyboard: false,
+        class: 'modal-dialog-centered modal-lg',
+      })
+    } else {
+      this.toast.error("You cannot make any rentals as your account has been blacklisted.", "Account Blacklisted");
+    }
   }
 
 }

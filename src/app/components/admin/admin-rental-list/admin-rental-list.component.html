@@ -1,3 +1,16 @@
 <app-admin-nav></app-admin-nav>
 <app-bread-crumb [pageName]="'Rental Management'"></app-bread-crumb>
+<div class="container mb-4">
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link" routerLinkActive="active" [routerLink]="['/admin','rentals','pending']"
+        [routerLinkActiveOptions]="">Pending Rentals</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLinkActive="active" [routerLink]="['/admin','rentals','approved']"
+        [routerLinkActiveOptions]="">Approved Rentals</a>
+    </li>
+  </ul>
+</div>
+
 <router-outlet></router-outlet>

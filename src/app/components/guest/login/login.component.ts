@@ -70,7 +70,7 @@ export class LoginComponent implements OnInit {
 
   openSignUp() {
     this.modalService.show(SignUpComponent, {
-      class: 'modal-lg modal-dialog-centered',
+      class: 'modal-xl modal-dialog-centered',
     })
     this.modalRef.hide();
   }

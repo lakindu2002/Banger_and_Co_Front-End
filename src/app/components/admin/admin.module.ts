@@ -31,6 +31,7 @@ import { AdminDeleteComponent } from './admin-user-management/administrator-list
 import { RentalTableListComponent } from './admin-rental-list/rental-table-list/rental-table-list.component';
 import { PendingRentalsComponent } from './admin-rental-list/pending-rentals/pending-rentals.component';
 import { SectionHeaderComponent } from './admin-rental-list/section-header/section-header.component';
+import { ApprovedRentalsComponent } from './admin-rental-list/approved-rentals/approved-rentals.component';
 
 
 
@@ -58,7 +59,8 @@ import { SectionHeaderComponent } from './admin-rental-list/section-header/secti
     AdminDeleteComponent,
     RentalTableListComponent,
     PendingRentalsComponent,
-    SectionHeaderComponent
+    SectionHeaderComponent,
+    ApprovedRentalsComponent
   ],
   imports: [
     CommonModule,

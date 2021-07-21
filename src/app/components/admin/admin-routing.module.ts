@@ -3,6 +3,7 @@ import { RouterModule, Routes } from "@angular/router";
 import { AdminHomeComponent } from "./admin-home/admin-home.component";
 import { AdminInquiryComponent } from "./admin-inquiry/admin-inquiry.component";
 import { AdminRentalListComponent } from "./admin-rental-list/admin-rental-list.component";
+import { ApprovedRentalsComponent } from "./admin-rental-list/approved-rentals/approved-rentals.component";
 import { PendingRentalsComponent } from "./admin-rental-list/pending-rentals/pending-rentals.component";
 import { AdminUserManagementComponent } from "./admin-user-management/admin-user-management.component";
 import { AdministratorListComponent } from "./admin-user-management/administrator-list/administrator-list.component";
@@ -44,13 +45,16 @@ const routes: Routes = [
     component: AdminRentalListComponent,
     children: [
       {
-        path: '',
-        redirectTo: '/admin/rentals/pending',
-      }
-      ,
-      {
         path: 'pending',
         component: PendingRentalsComponent
+      },
+      {
+        path: 'approved',
+        component: ApprovedRentalsComponent
+      },
+      {
+        path: '',
+        redirectTo: '/admin/rentals/pending',
       }
     ]
   },

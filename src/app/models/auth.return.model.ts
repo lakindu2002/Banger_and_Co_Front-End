@@ -5,5 +5,6 @@ export interface AuthReturn {
   profilePicture: File | string;
   userRole: string;
   username: string;
-  dateOfBirth : string;
+  dateOfBirth: string;
+  blacklisted?: boolean;
 }
