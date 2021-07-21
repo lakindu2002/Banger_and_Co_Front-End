@@ -15,6 +15,7 @@ export class PendingRentalsComponent implements OnInit {
   pageNumber: number = 0;
   pendingRentals: Rental[] = [];
   filteredList: Rental[] = [];
+  isError: boolean = false;
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -35,8 +36,10 @@ export class PendingRentalsComponent implements OnInit {
       this.toast.info(`There are ${this.pendingRentals.length} pending rentals that require approval`, "Pending Rentals Available");
       this.pageNumber = data.nextPageNumber; //set the next page number to query for data.
       this.spinner.hide();
+      this.isError = false;
 
     }, (error: ErrorResponse) => {
+      this.isError = true;
       this.toast.error(error.exceptionMessage, "Failed to Load Pending Rentals");
       this.spinner.hide();
     })
