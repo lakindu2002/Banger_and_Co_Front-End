@@ -1,0 +1,113 @@
+<app-admin-nav></app-admin-nav>
+<app-bread-crumb [pageName]="'Rental Summary'"></app-bread-crumb>
+
+<div class="container" *ngIf="loadedRental; else showError">
+
+  <div class="row">
+    <div class="col-sm-6">
+      <mat-card style="font-family: 'Inter', sans-serif;">
+        <mat-card-title style="font-size: 18px;">Pickup Information</mat-card-title>
+        <mat-card-content>
+          <span style="font-size: 16px;">Vehicle to be picked up on the <b class="fonts">{{loadedRental.pickupDate |
+              date}}</b> at <b class="fonts">{{loadedRental.pickupDate}}</b></span>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div class="col-sm-6">
+      <mat-card style="font-family: 'Inter', sans-serif;">
+        <mat-card-title style="font-size: 18px;">Return Information</mat-card-title>
+        <mat-card-content>
+          <span style="font-size: 16px;">Vehicle to be returned on the <b class="fonts">{{loadedRental.returnDate |
+              date}}</b> at <b class="fonts">{{loadedRental.returnTime}}</b></span>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-sm-8">
+      <mat-card style="font-family: 'Inter', sans-serif;">
+        <mat-card-content>
+          <app-show-vehicle-on-rental [loadedVehicle]="loadedRental.vehicleToBeRented"></app-show-vehicle-on-rental>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="col-sm-4">
+      <app-detailed-ad-ons [addedEquipments]="loadedRental.equipmentsAddedToRental"></app-detailed-ad-ons>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <hr>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="alert alert-primary">
+            <h5 class="alert-heading">Verify Customer Documents</h5>
+            Verify the customer documents and ensure that these documents are valid before approving the rental.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-4">
+          <app-user-identification [imageToLoad]="loadedRental.customerUsername.profilePicture"
+            [imageAlt]="'Customer Profile Picture'"></app-user-identification>
+        </div>
+        <div class="col-sm-4">
+          <app-user-identification [imageToLoad]="loadedRental.customerUsername.licensePic"
+            [imageAlt]="'Customer Driving License'"></app-user-identification>
+        </div>
+        <div class="col-sm-4">
+          <app-user-identification [imageToLoad]="loadedRental.customerUsername.otherIdentity"
+            [imageAlt]="'Customer Other Identification'"></app-user-identification>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <hr>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+
+      <div class="row mb-5">
+        <div class="col-sm-6">
+          <div class="alert alert-primary">
+            <span class="fonts" style="font-size: 22px;">Total Cost For This Rental -
+              {{loadedRental.totalCostForRental.toFixed(2)}}</span>
+          </div>
+        </div>
+        <div class="col-sm-6 align-self-center">
+          <button class="btn btn-primary float-right" style="width: 45%;height: 100%;">Approve Rental</button>
+          <button class="btn btn-danger float-right mr-2" style="width: 45%;height: 100%;">Reject Rental</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<ng-template #showError>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="alert alert-danger">
+          <h5 class="alert-heading">Failed To Load Detailed Rental Information</h5>
+          The rental failed to be loaded from the system. Please try again.
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

@@ -32,6 +32,9 @@ import { RentalTableListComponent } from './admin-rental-list/rental-table-list/
 import { PendingRentalsComponent } from './admin-rental-list/pending-rentals/pending-rentals.component';
 import { SectionHeaderComponent } from './admin-rental-list/section-header/section-header.component';
 import { ApprovedRentalsComponent } from './admin-rental-list/approved-rentals/approved-rentals.component';
+import { DetailedRentalComponent } from './admin-rental-list/detailed-rental/detailed-rental.component';
+import { DetailedAdOnsComponent } from './admin-rental-list/detailed-rental/detailed-ad-ons/detailed-ad-ons.component';
+import { UserIdentificationComponent } from './admin-rental-list/detailed-rental/user-identification/user-identification.component';
 
 
 
@@ -60,7 +63,10 @@ import { ApprovedRentalsComponent } from './admin-rental-list/approved-rentals/a
     RentalTableListComponent,
     PendingRentalsComponent,
     SectionHeaderComponent,
-    ApprovedRentalsComponent
+    ApprovedRentalsComponent,
+    DetailedRentalComponent,
+    DetailedAdOnsComponent,
+    UserIdentificationComponent
   ],
   imports: [
     CommonModule,

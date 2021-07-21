@@ -1,0 +1,14 @@
+<mat-card style="font-family: 'Inter', sans-serif;">
+  <mat-card-title style="font-size: 18px;">
+    Additional Equipment Added
+  </mat-card-title>
+  <mat-card-content>
+    <ul class="list-group" *ngIf="equipmentList.length > 0">
+      <li class="list-group-item" *ngFor="let equipment of equipmentList">{{equipment.equipmentName}}
+        (x{{equipment.quantitySelectedForRental}})</li>
+    </ul>
+    <div class="alert alert-info" *ngIf="equipmentList.length === 0">
+      No Equipment Added To Rental
+    </div>
+  </mat-card-content>
+</mat-card>

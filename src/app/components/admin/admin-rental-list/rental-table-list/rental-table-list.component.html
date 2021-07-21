@@ -38,7 +38,8 @@
         <td>LKR - {{rental.totalCostForRental.toFixed(2)}}</td>
         <td>
           <div style="text-align: center;">
-            <i class="fal fa-info-circle" style="font-size: 22px; color: rgba(0, 0, 0, 0.7); cursor: pointer;"></i>
+            <i class="fal fa-info-circle" style="font-size: 22px; color: rgba(0, 0, 0, 0.7); cursor: pointer;"
+              [routerLink]="['/admin','rentals','detailed',rental.rentalId]"></i>
           </div>
         </td>
       </tr>
