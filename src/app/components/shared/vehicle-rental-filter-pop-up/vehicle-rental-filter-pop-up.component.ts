@@ -64,41 +64,35 @@ export class VehicleRentalFilterPopUpComponent implements OnInit {
   returnTimeValidaton(): ValidatorFn {
     return (rentalForm: FormGroup) => {
       //return a ValidationFn
-      if (rentalForm.get('pickupTime').value != null && rentalForm.get('returnTime').value != null) {
-        const pickUpTimeSelected = rentalForm.get('pickupTime').value.split(":");
-        const returnTimeSelected = rentalForm.get('returnTime').value.split(":");
 
-        const pickupTime = new Date();
-        pickupTime.setHours(pickUpTimeSelected[0]);
-        pickupTime.setMinutes(pickUpTimeSelected[1]);
-        pickupTime.setSeconds(0);
+      const pickUpTimeSelected = rentalForm.get('pickupTime').value.split(":");
+      const returnTimeSelected = rentalForm.get('returnTime').value.split(":");
 
-        const returnTime = new Date();
-        returnTime.setHours(returnTimeSelected[0]);
-        returnTime.setMinutes(returnTimeSelected[1]);
-        returnTime.setSeconds(0);
+      const pickupTime = new Date();
+      pickupTime.setHours(pickUpTimeSelected[0]);
+      pickupTime.setMinutes(pickUpTimeSelected[1]);
+      pickupTime.setSeconds(0);
 
-        const pickUpDate = (rentalForm.get('pickupDate').value as Date).getDate();
-        const returnDate = (rentalForm.get('returnDate').value as Date).getDate();
+      const returnTime = new Date();
+      returnTime.setHours(returnTimeSelected[0]);
+      returnTime.setMinutes(returnTimeSelected[1]);
+      returnTime.setSeconds(0);
 
-        if (returnTime.getTime() < pickupTime.getTime()) {
-          //return error object is return time is earlier than pickup time
-          return { timeInvalid: true };
+      const pickUpDate = (rentalForm.get('pickupDate').value as Date).getDate();
+      const returnDate = (rentalForm.get('returnDate').value as Date).getDate();
+
+
+      if (pickUpDate == returnDate) {
+        //same day rental, therefore minimum rental duration is 5 hours
+        const rentalDuration = returnTime.getTime() - pickupTime.getTime();
+        if (rentalDuration < (18000000)) {
+          //if rental duration is less than 5 hours
+          return { hourNotMet: true };
         }
-
-        if (pickUpDate == returnDate) {
-          //same day rental, therefore minimum rental duration is 5 hours
-          const rentalDuration = returnTime.getTime() - pickupTime.getTime();
-          if (rentalDuration < (18000000)) {
-            //if rental duration is less than 5 hours
-            return { hourNotMet: true };
-          }
-        }
-
-        return null;
-      } else {
-        return { timeInvalid: true }
       }
+
+      return null;
+
     }
   }
 
