@@ -171,6 +171,12 @@ export class SignUpComponent implements OnInit {
         this.spinner.hide();
       }, (error: ErrorResponse) => {
         this.toast.error(error.exceptionMessage, "Account Not Created Successfully");
+
+        if (error.multipleErrors.length > 0) {
+          for (const eachError of error.multipleErrors) {
+            this.toast.warning(eachError.message);
+          }
+        }
         this.spinner.hide();
       })
     } else {
