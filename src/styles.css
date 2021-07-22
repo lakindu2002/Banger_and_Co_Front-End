@@ -108,7 +108,7 @@ tr {
 
 tr:last-of-type td:first-of-type {
   /* last row first table data */
-  border-bottom-left-radius: 7.5px;
+  border-bottom-left-radius: 5px;
 }
 
 tr:first-of-type {
@@ -123,7 +123,7 @@ tr:last-of-type {
 
 tr:last-of-type td:last-of-type {
   /* last row, last table data */
-  border-bottom-right-radius: 7.5px;
+  border-bottom-right-radius: 5px;
 }
 
 input.ng-invalid.ng-touched {
@@ -133,11 +133,3 @@ input.ng-invalid.ng-touched {
 textarea.ng-invalid.ng-touched {
   border: 1px solid lightcoral;
 }
-
-/* input.ng-valid.ng-touched {
-  border: 1px solid lightgreen;
-}
-
-textarea.ng-valid.ng-touched {
-  border: 1px solid lightgreen;
-} */

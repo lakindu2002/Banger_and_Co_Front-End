@@ -56,6 +56,35 @@
         </div>
       </div>
 
+      <div class="row mb-3">
+        <div class="col-sm-12">
+          <mat-card style="font-family: 'Inter', sans-serif;">
+            <mat-card-title style="font-size: 18px;">
+              Customer Full Name: {{loadedRental.customerUsername.firstName}} {{loadedRental.customerUsername.lastName}}
+              <span style="font-size: 14px;">({{loadedRental.customerUsername.username}})</span>
+            </mat-card-title>
+            <mat-card-content>
+              <div class="row">
+                <div class="col-sm-3">
+                  <i class="fas fa-steering-wheel icon"></i> : {{loadedRental.customerUsername.drivingLicenseNumber}}
+                </div>
+                <div class="col-sm-3">
+                  <i class="fal fa-phone-alt icon"></i> : <a href="tel:{{loadedRental.customerUsername.contactNumber}}">
+                    {{loadedRental.customerUsername.contactNumber}}</a>
+                </div>
+                <div class="col-sm-3">
+                  <i class="fal fa-envelope-open-text icon"></i> : <a
+                    href="mailto:{{loadedRental.customerUsername.emailAddress}}">{{loadedRental.customerUsername.emailAddress}}</a>
+                </div>
+                <div class="col-sm-3">
+                  <i class="far fa-birthday-cake icon"></i> : {{loadedRental.customerUsername.dateOfBirth | date}}
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+
       <div class="row">
         <div class="col-sm-4">
           <app-user-identification [imageToLoad]="loadedRental.customerUsername.profilePicture"
