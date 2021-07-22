@@ -19,5 +19,4 @@ export class RentalTableListComponent implements OnInit {
   loadMoreClicked() {
     this.loadMoreEvent.next(true);
   }
-
 }

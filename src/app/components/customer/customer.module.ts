@@ -6,7 +6,6 @@ import { CustomerHomeComponent } from './customer-home/customer-home.component';
 import { CustomerNavComponent } from './customer-nav/customer-nav.component';
 import { VehiclePanelComponent } from './vehicle-panel/vehicle-panel.component';
 import { RentVehicleComponent } from './rent-vehicle/rent-vehicle.component';
-import { ShowVehicleOnRentalComponent } from './rent-vehicle/show-vehicle-on-rental/show-vehicle-on-rental.component';
 import { ShowAvailableAdditionalEquipmentComponent } from './rent-vehicle/show-available-additional-equipment/show-available-additional-equipment.component';
 import { TotalCostComponent } from './rent-vehicle/total-cost/total-cost.component';
 import { MakeRentalComponent } from './rent-vehicle/make-rental/make-rental.component';
@@ -20,7 +19,6 @@ import { CustomerRentalComponent } from './customer-rental/customer-rental.compo
     CustomerNavComponent,
     VehiclePanelComponent,
     RentVehicleComponent,
-    ShowVehicleOnRentalComponent,
     ShowAvailableAdditionalEquipmentComponent,
     TotalCostComponent,
     MakeRentalComponent,
