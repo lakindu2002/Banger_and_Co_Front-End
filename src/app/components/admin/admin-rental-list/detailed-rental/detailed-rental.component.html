@@ -120,8 +120,10 @@
           </div>
         </div>
         <div class="col-sm-6 align-self-center">
-          <button class="btn btn-primary float-right" style="width: 45%;height: 100%;">Approve Rental</button>
-          <button class="btn btn-danger float-right mr-2" style="width: 45%;height: 100%;">Reject Rental</button>
+          <button class="btn btn-primary float-right" style="width: 45%;height: 100%;"
+            (click)="handleRental(true)">Approve Rental</button>
+          <button class="btn btn-danger float-right mr-2" style="width: 45%;height: 100%;"
+            (click)="handleRental(false)">Reject Rental</button>
         </div>
       </div>
 

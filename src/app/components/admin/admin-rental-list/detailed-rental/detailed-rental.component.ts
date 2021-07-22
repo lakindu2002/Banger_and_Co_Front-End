@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { ErrorResponse } from 'src/app/models/errorresponse.model';
 import { Rental } from 'src/app/models/rental.model';
 import { RentalService } from 'src/app/services/rental.service';
+import { HandleRentalComponent } from './handle-rental/handle-rental.component';
 
 @Component({
   selector: 'app-detailed-rental',
@@ -19,7 +21,8 @@ export class DetailedRentalComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private rentalService: RentalService,
     private spinner: NgxSpinnerService,
-    private toast: ToastrService
+    private toast: ToastrService,
+    private modalService: BsModalService
   ) { }
 
   ngOnInit(): void {
@@ -37,6 +40,19 @@ export class DetailedRentalComponent implements OnInit {
     }, (error: ErrorResponse) => {
       this.toast.error(error.exceptionMessage, "Failed to Load Detailed Rental Information");
       this.spinner.hide();
+    })
+  }
+
+  handleRental(isApproved: boolean) {
+    this.modalService.show(HandleRentalComponent, {
+      animated: true,
+      ignoreBackdropClick: true,
+      keyboard: false,
+      class: 'modal-dialog-centered',
+      initialState: {
+        rentalBeingApproved: isApproved,
+        rentalId: this.loadedRental.rentalId
+      }
     })
   }
 

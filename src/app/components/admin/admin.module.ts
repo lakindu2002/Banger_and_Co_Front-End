@@ -35,6 +35,7 @@ import { ApprovedRentalsComponent } from './admin-rental-list/approved-rentals/a
 import { DetailedRentalComponent } from './admin-rental-list/detailed-rental/detailed-rental.component';
 import { DetailedAdOnsComponent } from './admin-rental-list/detailed-rental/detailed-ad-ons/detailed-ad-ons.component';
 import { UserIdentificationComponent } from './admin-rental-list/detailed-rental/user-identification/user-identification.component';
+import { HandleRentalComponent } from './admin-rental-list/detailed-rental/handle-rental/handle-rental.component';
 
 
 
@@ -66,7 +67,8 @@ import { UserIdentificationComponent } from './admin-rental-list/detailed-rental
     ApprovedRentalsComponent,
     DetailedRentalComponent,
     DetailedAdOnsComponent,
-    UserIdentificationComponent
+    UserIdentificationComponent,
+    HandleRentalComponent
   ],
   imports: [
     CommonModule,

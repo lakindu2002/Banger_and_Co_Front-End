@@ -36,4 +36,11 @@ export class RentalService {
     }))
   }
 
+  rejectRental(rentalId: number, rejectedReason: string): Observable<ResponseAPI> {
+    return this.http.post<ResponseAPI>(`${this.baseEndpoint}/handle/reject`, { rentalId: rentalId, rejectedReason: rejectedReason });
+  }
+  approveRental(rentalId: number) {
+    return this.http.post<ResponseAPI>(`${this.baseEndpoint}/handle/approve`, { rentalId: rentalId });
+  }
+
 }

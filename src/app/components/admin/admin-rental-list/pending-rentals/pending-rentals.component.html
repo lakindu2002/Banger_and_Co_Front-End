@@ -2,7 +2,7 @@
   <app-section-header [sectionText]="'Pending Rentals At Banger and Co.'" (filterTriggered)="filterTriggered($event)">
   </app-section-header>
   <div class="row">
-    <div class="col-sm-12" *ngIf="pendingRentals.length > 0; else showEmpty">
+    <div class="col-sm-12" *ngIf="filteredList.length > 0; else showEmpty">
       <app-rental-table-list [rentalList]="filteredList" (loadMoreClicked)="getNextPagePlusThisPage()">
       </app-rental-table-list>
     </div>
