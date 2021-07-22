@@ -11,6 +11,10 @@ import { TotalCostComponent } from './rent-vehicle/total-cost/total-cost.compone
 import { MakeRentalComponent } from './rent-vehicle/make-rental/make-rental.component';
 import { MatStepperModule } from '@angular/material/stepper';
 import { CustomerRentalComponent } from './customer-rental/customer-rental.component';
+import { CustomerPendingComponent } from './customer-rental/customer-pending/customer-pending.component';
+import { CustomerApprovedComponent } from './customer-rental/customer-approved/customer-approved.component';
+import { CustomerOnGoingComponent } from './customer-rental/customer-on-going/customer-on-going.component';
+import { CustomerPastComponent } from './customer-rental/customer-past/customer-past.component';
 
 
 @NgModule({
@@ -22,7 +26,11 @@ import { CustomerRentalComponent } from './customer-rental/customer-rental.compo
     ShowAvailableAdditionalEquipmentComponent,
     TotalCostComponent,
     MakeRentalComponent,
-    CustomerRentalComponent
+    CustomerRentalComponent,
+    CustomerPendingComponent,
+    CustomerApprovedComponent,
+    CustomerOnGoingComponent,
+    CustomerPastComponent
   ],
   imports: [
     CommonModule,

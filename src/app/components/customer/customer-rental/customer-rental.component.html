@@ -1,2 +1,30 @@
 <app-customer-nav></app-customer-nav>
 <app-bread-crumb [pageName]="'My Rentals'"></app-bread-crumb>
+
+<div class="container mb-4">
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link" routerLinkActive="active" [routerLink]="['/customer','rentals','pending']">Pending Rentals</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLinkActive="active" [routerLink]="['/customer','rentals','approved']">Approved
+        Rentals</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLinkActive="active" [routerLink]="['/customer','rentals','on-going']">On-Going
+        Rentals</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLinkActive="active" [routerLink]="['/customer','rentals','past']">Past
+        Rentals</a>
+    </li>
+  </ul>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
