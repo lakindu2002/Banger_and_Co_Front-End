@@ -76,4 +76,12 @@ export class RentalService {
       });
   }
 
+  getCustomerRejectedRentals(username: string, pageNumber: number): Observable<{ nextPage: number, customerRejectedRentals: Rental[] }> {
+    return this.http.get<{ nextPage: number, customerRejectedRentals: Rental[] }>(
+      `${this.baseEndpoint}/find/rejected/${username}`,
+      {
+        params: new HttpParams().append("pageNumber", pageNumber.toString())
+      });
+  }
+
 }

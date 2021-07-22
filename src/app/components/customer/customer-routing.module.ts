@@ -5,6 +5,7 @@ import { CustomerApprovedComponent } from "./customer-rental/customer-approved/c
 import { CustomerOnGoingComponent } from "./customer-rental/customer-on-going/customer-on-going.component";
 import { CustomerPastComponent } from "./customer-rental/customer-past/customer-past.component";
 import { CustomerPendingComponent } from "./customer-rental/customer-pending/customer-pending.component";
+import { CustomerRejectedComponent } from "./customer-rental/customer-rejected/customer-rejected.component";
 import { CustomerRentalComponent } from "./customer-rental/customer-rental.component";
 import { RentVehicleComponent } from "./rent-vehicle/rent-vehicle.component";
 import { VehiclePanelComponent } from "./vehicle-panel/vehicle-panel.component";
@@ -47,6 +48,10 @@ const routes: Routes = [
       {
         path: 'past',
         component: CustomerPastComponent
+      },
+      {
+        path: 'rejected',
+        component: CustomerRejectedComponent
       }
     ],
   },
