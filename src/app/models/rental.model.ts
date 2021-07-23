@@ -10,4 +10,7 @@ export interface Rental {
   totalCostForRental: number
   equipmentsAddedToRental: AdditionalEquipment[],
   customerUsername: any;
+  approved?: boolean;
+  collected?: boolean;
+  returned?: boolean;
 }

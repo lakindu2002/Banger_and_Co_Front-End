@@ -15,6 +15,7 @@ export class CustomerOnGoingComponent implements OnInit {
 
   pageNumber: number = 0;
   ongoingRentals: Rental[] = [];
+  isError: boolean = false;
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -24,6 +25,12 @@ export class CustomerOnGoingComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getOnGoingInDB();
+  }
+
+  getOnGoingInDB() {
+    this.isError = false;
+
     this.spinner.show();
     this.rentalService.getOnGoingRentalsForCustomer(this.localStorage.getUserInLocalStorage().username, this.pageNumber).subscribe((data) => {
       this.pageNumber = data.nextPage;
@@ -32,8 +39,13 @@ export class CustomerOnGoingComponent implements OnInit {
       this.spinner.hide();
     }, (error: ErrorResponse) => {
       this.toast.error(error.exceptionMessage, "Failed To Load Your On-Going Rentals");
+      this.isError = true;
       this.spinner.hide();
     })
+  }
+
+  getNextPage() {
+    this.getOnGoingInDB();
   }
 
 }

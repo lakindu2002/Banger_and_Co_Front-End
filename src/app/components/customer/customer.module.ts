@@ -16,6 +16,7 @@ import { CustomerApprovedComponent } from './customer-rental/customer-approved/c
 import { CustomerOnGoingComponent } from './customer-rental/customer-on-going/customer-on-going.component';
 import { CustomerPastComponent } from './customer-rental/customer-past/customer-past.component';
 import { CustomerRejectedComponent } from './customer-rental/customer-rejected/customer-rejected.component';
+import { CustomerRentalCardComponent } from './customer-rental/customer-rental-card/customer-rental-card.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { CustomerRejectedComponent } from './customer-rental/customer-rejected/c
     CustomerApprovedComponent,
     CustomerOnGoingComponent,
     CustomerPastComponent,
-    CustomerRejectedComponent
+    CustomerRejectedComponent,
+    CustomerRentalCardComponent
   ],
   imports: [
     CommonModule,

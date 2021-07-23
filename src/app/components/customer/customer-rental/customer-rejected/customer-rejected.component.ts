@@ -15,6 +15,7 @@ export class CustomerRejectedComponent implements OnInit {
 
   pageNumber: number = 0;
   rejectedRentals: Rental[] = [];
+  isError: boolean = false;
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -24,6 +25,11 @@ export class CustomerRejectedComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getRejectedRentals();
+  }
+
+  getRejectedRentals() {
+    this.isError = false;
     this.spinner.show();
     this.rentalService.getCustomerRejectedRentals(this.localStorage.getUserInLocalStorage().username, this.pageNumber).subscribe((data) => {
       this.pageNumber = data.nextPage;
@@ -31,9 +37,14 @@ export class CustomerRejectedComponent implements OnInit {
       this.toast.info(`There are ${this.rejectedRentals.length} rejected rentals`, "Rejected Rentals");
       this.spinner.hide();
     }, (error: ErrorResponse) => {
+      this.isError = true;
       this.toast.error(error.exceptionMessage, "Failed To Load Your Rejected Rentals");
       this.spinner.hide();
     })
+  }
+
+  getNextPage() {
+    this.getRejectedRentals();
   }
 
 }

@@ -15,6 +15,7 @@ export class CustomerPendingComponent implements OnInit {
 
   pageNumber: number = 0;
   pendingRentals: Rental[] = [];
+  isError: boolean = false;
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -24,6 +25,11 @@ export class CustomerPendingComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getPendingRentalsDB();
+  }
+
+  getPendingRentalsDB() {
+    this.isError = false;
     this.spinner.show();
     this.rentalService.getCustomerPendingRentals(this.localStorage.getUserInLocalStorage().username, this.pageNumber).subscribe((data) => {
       this.pageNumber = data.nextPage;
@@ -31,8 +37,13 @@ export class CustomerPendingComponent implements OnInit {
       this.toast.info(`There are ${this.pendingRentals.length} pending rentals`, "Pending Rentals");
       this.spinner.hide();
     }, (error: ErrorResponse) => {
+      this.isError = true;
       this.toast.error(error.exceptionMessage, "Failed To Load Your Pending Rentals");
       this.spinner.hide();
     })
+  }
+
+  getTheNextPage() {
+    this.getPendingRentalsDB();
   }
 }

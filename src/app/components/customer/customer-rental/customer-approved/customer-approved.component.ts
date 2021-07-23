@@ -15,6 +15,7 @@ export class CustomerApprovedComponent implements OnInit {
 
   pageNumber: number = 0;
   approvedRentals: Rental[] = [];
+  isError: boolean = false;
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -24,6 +25,11 @@ export class CustomerApprovedComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getApprovedRentalsDB();
+  }
+
+  getApprovedRentalsDB() {
+    this.isError = false;
     //approved rentals are the rentals that are not yet picked up but can be collected: ready to be picked up
     this.spinner.show();
     this.rentalService.getRentalsApprovedForCustomer(this.localStorage.getUserInLocalStorage().username, this.pageNumber).subscribe((data) => {
@@ -32,9 +38,14 @@ export class CustomerApprovedComponent implements OnInit {
       this.toast.info(`There are ${this.approvedRentals.length} approved rentals that can be collected from Banger and Co.`, "Approved Rentals")
       this.spinner.hide();
     }, (error: ErrorResponse) => {
+      this.isError = true;
       this.toast.error(error.exceptionMessage, "Failed To Load Your Approved Rentals");
       this.spinner.hide();
     })
+  }
+
+  getTheNextPage() {
+    this.getApprovedRentalsDB();
   }
 
 }

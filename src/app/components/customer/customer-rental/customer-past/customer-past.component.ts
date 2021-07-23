@@ -15,6 +15,7 @@ export class CustomerPastComponent implements OnInit {
 
   pageNumber: number = 0;
   pastRentals: Rental[] = [];
+  isError: boolean = false;
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -24,6 +25,11 @@ export class CustomerPastComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getPastInDb();
+  }
+
+  getPastInDb() {
+    this.isError = false;
     this.spinner.show();
     this.rentalService.getPastRentalsForCustomer(this.localStorage.getUserInLocalStorage().username, this.pageNumber).subscribe((data) => {
       this.pageNumber = data.nextPage;
@@ -31,8 +37,13 @@ export class CustomerPastComponent implements OnInit {
       this.toast.info(`There are ${this.pastRentals.length} past rentals`, "Past Rentals");
       this.spinner.hide();
     }, (error: ErrorResponse) => {
+      this.isError = true;
       this.toast.error(error.exceptionMessage, "Failed To Load Your Past Rentals");
       this.spinner.hide();
     })
+  }
+
+  getNextPage() {
+    this.getPastInDb();
   }
 }

@@ -1,1 +1,27 @@
-<p>customer-rejected works!</p>
+<div class="row" *ngIf="rejectedRentals.length > 0">
+  <div class="col-sm-6" *ngFor="let eachRental of rejectedRentals">
+    <app-customer-rental-card [theRental]="eachRental"></app-customer-rental-card>
+  </div>
+</div>
+
+<div class="row" *ngIf="rejectedRentals.length === 0">
+  <div class="col-sm-12" *ngIf="!isError">
+    <div class="alert alert-warning">
+      <h5 class="alert-heading">No Rejected Rentals</h5>
+      You have no rejected rentals at Banger and Co.
+    </div>
+  </div>
+
+  <div class="col-sm-12" *ngIf="isError">
+    <div class="alert alert-danger">
+      <h5 class="alert-heading">Failed to Load Rejected Rentals</h5>
+      We ran into an error while loading your rejected rentals. Please try again.
+    </div>
+  </div>
+</div>
+
+<div class="row justify-content-center mt-3 mb-3">
+  <div class="col-sm-2">
+    <button class="btn btn-primary" (click)="getNextPage()" style="width: 100%;">Load More</button>
+  </div>
+</div>
