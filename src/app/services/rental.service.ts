@@ -39,8 +39,49 @@ export class RentalService {
   rejectRental(rentalId: number, rejectedReason: string): Observable<ResponseAPI> {
     return this.http.post<ResponseAPI>(`${this.baseEndpoint}/handle/reject`, { rentalId: rentalId, rejectedReason: rejectedReason });
   }
+
   approveRental(rentalId: number) {
     return this.http.post<ResponseAPI>(`${this.baseEndpoint}/handle/approve`, { rentalId: rentalId });
+  }
+
+  getCustomerPendingRentals(username: string, pageNumber: number): Observable<{ nextPage: number, customerPendingRentals: Rental[] }> {
+    return this.http.get<{ nextPage: number, customerPendingRentals: Rental[] }>(
+      `${this.baseEndpoint}/find/pending/${username}`,
+      {
+        params: new HttpParams().append("pageNumber", pageNumber.toString())
+      });
+  }
+
+  getRentalsApprovedForCustomer(username: string, pageNumber: number): Observable<{ nextPage: number, customerCanBeCollectedRentals: Rental[] }> {
+    return this.http.get<{ nextPage: number, customerCanBeCollectedRentals: Rental[] }>(
+      `${this.baseEndpoint}/find/readyToCollect/${username}`,
+      {
+        params: new HttpParams().append("pageNumber", pageNumber.toString())
+      });
+  }
+
+  getPastRentalsForCustomer(username: string, pageNumber: number): Observable<{ nextPage: number, customerCompletedRentals: Rental[] }> {
+    return this.http.get<{ nextPage: number, customerCompletedRentals: Rental[] }>(
+      `${this.baseEndpoint}/find/completed/${username}`,
+      {
+        params: new HttpParams().append("pageNumber", pageNumber.toString())
+      });
+  }
+
+  getOnGoingRentalsForCustomer(username: string, pageNumber: number): Observable<{ nextPage: number, customerOnGoingRentals: Rental[] }> {
+    return this.http.get<{ nextPage: number, customerOnGoingRentals: Rental[] }>(
+      `${this.baseEndpoint}/find/onGoing/${username}`,
+      {
+        params: new HttpParams().append("pageNumber", pageNumber.toString())
+      });
+  }
+
+  getCustomerRejectedRentals(username: string, pageNumber: number): Observable<{ nextPage: number, customerRejectedRentals: Rental[] }> {
+    return this.http.get<{ nextPage: number, customerRejectedRentals: Rental[] }>(
+      `${this.baseEndpoint}/find/rejected/${username}`,
+      {
+        params: new HttpParams().append("pageNumber", pageNumber.toString())
+      });
   }
 
 }

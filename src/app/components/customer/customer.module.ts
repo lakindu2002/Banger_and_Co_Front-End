@@ -10,6 +10,14 @@ import { ShowAvailableAdditionalEquipmentComponent } from './rent-vehicle/show-a
 import { TotalCostComponent } from './rent-vehicle/total-cost/total-cost.component';
 import { MakeRentalComponent } from './rent-vehicle/make-rental/make-rental.component';
 import { MatStepperModule } from '@angular/material/stepper';
+import { CustomerRentalComponent } from './customer-rental/customer-rental.component';
+import { CustomerPendingComponent } from './customer-rental/customer-pending/customer-pending.component';
+import { CustomerApprovedComponent } from './customer-rental/customer-approved/customer-approved.component';
+import { CustomerOnGoingComponent } from './customer-rental/customer-on-going/customer-on-going.component';
+import { CustomerPastComponent } from './customer-rental/customer-past/customer-past.component';
+import { CustomerRejectedComponent } from './customer-rental/customer-rejected/customer-rejected.component';
+import { CustomerRentalCardComponent } from './customer-rental/customer-rental-card/customer-rental-card.component';
+import { CustomerRentalDetailedComponent } from './customer-rental/customer-rental-detailed/customer-rental-detailed.component';
 
 
 @NgModule({
@@ -20,7 +28,15 @@ import { MatStepperModule } from '@angular/material/stepper';
     RentVehicleComponent,
     ShowAvailableAdditionalEquipmentComponent,
     TotalCostComponent,
-    MakeRentalComponent
+    MakeRentalComponent,
+    CustomerRentalComponent,
+    CustomerPendingComponent,
+    CustomerApprovedComponent,
+    CustomerOnGoingComponent,
+    CustomerPastComponent,
+    CustomerRejectedComponent,
+    CustomerRentalCardComponent,
+    CustomerRentalDetailedComponent
   ],
   imports: [
     CommonModule,
