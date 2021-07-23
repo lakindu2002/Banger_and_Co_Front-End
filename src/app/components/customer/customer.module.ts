@@ -17,6 +17,7 @@ import { CustomerOnGoingComponent } from './customer-rental/customer-on-going/cu
 import { CustomerPastComponent } from './customer-rental/customer-past/customer-past.component';
 import { CustomerRejectedComponent } from './customer-rental/customer-rejected/customer-rejected.component';
 import { CustomerRentalCardComponent } from './customer-rental/customer-rental-card/customer-rental-card.component';
+import { CustomerRentalDetailedComponent } from './customer-rental/customer-rental-detailed/customer-rental-detailed.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { CustomerRentalCardComponent } from './customer-rental/customer-rental-c
     CustomerOnGoingComponent,
     CustomerPastComponent,
     CustomerRejectedComponent,
-    CustomerRentalCardComponent
+    CustomerRentalCardComponent,
+    CustomerRentalDetailedComponent
   ],
   imports: [
     CommonModule,

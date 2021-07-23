@@ -11,7 +11,7 @@ export class CustomerRentalCardComponent implements OnInit {
 
   @Input("theRental") theRental: Rental;
 
-  constructor(private router: Router) { }
+  constructor() { }
 
   ngOnInit(): void {
     console.log(this.theRental);
@@ -20,11 +20,14 @@ export class CustomerRentalCardComponent implements OnInit {
   getBadgeText(): string {
     if (this.theRental.approved === undefined || this.theRental.approved === null) {
       return "Pending";
-    } if (this.theRental.approved === false) {
+    }
+    if (this.theRental.approved === false) {
       return "Rejected";
-    } if (this.theRental.collected === false) {
+    }
+    if (this.theRental.collected === false) {
       return "Can Be Collected";
-    } if (this.theRental.returned === true) {
+    }
+    if (this.theRental.returned === true) {
       return "Vehicle Returned";
     }
     if (this.theRental.collected === true) {
@@ -35,20 +38,18 @@ export class CustomerRentalCardComponent implements OnInit {
   getClassForBadge() {
     if (this.theRental.approved === undefined || this.theRental.approved === null) {
       return "badge badge-primary";
-    } if (this.theRental.approved === false) {
+    }
+    if (this.theRental.approved === false) {
       return "badge badge-danger";
-    } if (this.theRental.collected === false) {
+    }
+    if (this.theRental.collected === false) {
       return "badge badge-primary";
-    } if (this.theRental.returned === true) {
+    }
+    if (this.theRental.returned === true) {
       return "badge badge-success";
     }
     if (this.theRental.collected === true) {
       return "badge badge-primary";
     }
   }
-
-  getMoreRentalInformation() {
-
-  }
-
 }

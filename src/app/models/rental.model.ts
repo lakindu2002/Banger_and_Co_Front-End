@@ -13,4 +13,5 @@ export interface Rental {
   approved?: boolean;
   collected?: boolean;
   returned?: boolean;
+  lateReturnRequested?: boolean;
 }

@@ -33,8 +33,6 @@ import { PendingRentalsComponent } from './admin-rental-list/pending-rentals/pen
 import { SectionHeaderComponent } from './admin-rental-list/section-header/section-header.component';
 import { ApprovedRentalsComponent } from './admin-rental-list/approved-rentals/approved-rentals.component';
 import { DetailedRentalComponent } from './admin-rental-list/detailed-rental/detailed-rental.component';
-import { DetailedAdOnsComponent } from './admin-rental-list/detailed-rental/detailed-ad-ons/detailed-ad-ons.component';
-import { UserIdentificationComponent } from './admin-rental-list/detailed-rental/user-identification/user-identification.component';
 import { HandleRentalComponent } from './admin-rental-list/detailed-rental/handle-rental/handle-rental.component';
 
 
@@ -66,8 +64,6 @@ import { HandleRentalComponent } from './admin-rental-list/detailed-rental/handl
     SectionHeaderComponent,
     ApprovedRentalsComponent,
     DetailedRentalComponent,
-    DetailedAdOnsComponent,
-    UserIdentificationComponent,
     HandleRentalComponent
   ],
   imports: [

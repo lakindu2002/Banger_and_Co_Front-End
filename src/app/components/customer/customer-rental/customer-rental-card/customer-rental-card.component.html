@@ -12,12 +12,36 @@
 
   <mat-card-content>
     <div class="row">
+      <div class="col-sm-12">
+        Duration: <b class="fonts">{{theRental.pickupDate | date}}</b> at <b class="fonts">{{theRental.pickupTime}}</b>
+        to
+        <b class="fonts">{{theRental.returnDate | date }}</b> at
+        <b class="fonts">{{theRental.returnTime}}</b>
+      </div>
+    </div>
 
+    <div class="row mt-1">
+      <div class="col-sm-4">
+        Late Return: {{theRental.lateReturnRequested ? 'Yes' : 'No'}}
+      </div>
+      <div class="col-sm-4">
+        Add Ons: {{theRental.equipmentsAddedToRental.length === 0 ? 'Yes' : 'No'}}
+      </div>
     </div>
 
     <div class="row">
       <div class="col-sm-12">
-        <button class="btn btn-primary float-right" (click)="getMoreRentalInformation()">More</button>
+        <hr>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-8 align-self-center" style="font-size: 16px;">
+        Total Cost: <b class="fonts">LKR - {{theRental.totalCostForRental.toFixed(2)}}</b>
+      </div>
+      <div class="col-sm-4">
+        <button class="btn btn-primary float-right"
+          [routerLink]="['/customer','rentals','detailed',theRental.rentalId]">More</button>
       </div>
     </div>
   </mat-card-content>

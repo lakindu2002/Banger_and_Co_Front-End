@@ -16,6 +16,8 @@ import { VehicleRentalFilterPopUpComponent } from './vehicle-rental-filter-pop-u
 import { FilterVehicleListComponent } from "./filter-vehicle-list/filter-vehicle-list.component";
 import { ShowUserImagesComponent } from './user-profile/show-user-images/show-user-images.component';
 import { ShowVehicleOnRentalComponent } from '../shared/show-vehicle-on-rental/show-vehicle-on-rental.component';
+import { DetailedAdOnsComponent } from "./detailed-ad-ons/detailed-ad-ons.component";
+import { UserIdentificationComponent } from "./user-identification/user-identification.component";
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { ShowVehicleOnRentalComponent } from '../shared/show-vehicle-on-rental/s
     VehicleRentalFilterPopUpComponent,
     FilterVehicleListComponent,
     ShowUserImagesComponent,
-    ShowVehicleOnRentalComponent
+    ShowVehicleOnRentalComponent,
+    DetailedAdOnsComponent,
+    UserIdentificationComponent,
   ],
   imports: [
     CommonModule,
@@ -50,7 +54,9 @@ import { ShowVehicleOnRentalComponent } from '../shared/show-vehicle-on-rental/s
     FilterVehicleListComponent,
     MatCardModule,
     NgxSpinnerModule,
-    ShowVehicleOnRentalComponent
+    ShowVehicleOnRentalComponent,
+    DetailedAdOnsComponent,
+    UserIdentificationComponent,
   ],
 })
 export class SharedModule { }
