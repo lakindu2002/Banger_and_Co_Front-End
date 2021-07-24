@@ -56,4 +56,8 @@ export class DetailedRentalComponent implements OnInit {
     })
   }
 
+  startRental() {
+
+  }
+
 }

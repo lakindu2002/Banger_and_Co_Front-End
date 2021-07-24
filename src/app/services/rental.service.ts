@@ -24,6 +24,12 @@ export class RentalService {
     });
   }
 
+  getAllApprovedRentals(pageNumber: number) {
+    return this.http.get<{ nextPage: number, approvedRentals: Rental[] }>(`${this.baseEndpoint}/find/allApproved`, {
+      params: new HttpParams().append("pageNumber", pageNumber.toString())
+    });
+  }
+
   getRentalById(rentalId: number): Observable<Rental> {
     return this.http.get<Rental>(`${this.baseEndpoint}/find/${rentalId}`).pipe(map((theRental) => {
       //assign the image base

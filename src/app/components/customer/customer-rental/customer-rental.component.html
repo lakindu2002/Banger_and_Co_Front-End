@@ -2,9 +2,10 @@
 <app-bread-crumb [pageName]="'My Rentals'"></app-bread-crumb>
 
 <div class="container mb-4">
-  <ul class="nav nav-tabs">
+  <ul class="nav nav-tabs mr-auto">
     <li class="nav-item">
-      <a class="nav-link" routerLinkActive="active" [routerLink]="['/customer','rentals','pending']">Pending Rentals</a>
+      <a class="nav-link" routerLinkActive="active" [routerLink]="['/customer','rentals','pending']">Pending
+        Rentals</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" routerLinkActive="active" [routerLink]="['/customer','rentals','approved']">Approved
@@ -21,6 +22,11 @@
     <li class="nav-item">
       <a class="nav-link" routerLinkActive="active" [routerLink]="['/customer','rentals','rejected']">Rejected
         Rentals</a>
+    </li>
+    <li class="nav-item">
+      <a class="float-right btn btn-primary nav-link" (click)="openVehicleRentalFilterPopup()"
+        style="margin-left: 170px; width: 75%;">Rent A
+        Vehicle</a>
     </li>
   </ul>
 </div>
