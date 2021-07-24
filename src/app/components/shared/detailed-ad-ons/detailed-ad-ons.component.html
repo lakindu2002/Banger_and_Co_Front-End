@@ -3,9 +3,11 @@
     Additional Equipment Added
   </mat-card-title>
   <mat-card-content>
-    <ul class="list-group" *ngIf="equipmentList.length > 0">
-      <li class="list-group-item" *ngFor="let equipment of equipmentList">{{equipment.equipmentName}}
-        (x{{equipment.quantitySelectedForRental}})</li>
+    <ul class="list-group" *ngIf="equipmentList.length > 0" style="max-height: 150px;overflow: auto;">
+      <li class="list-group-item" *ngFor="let equipment of equipmentList">
+        {{equipment.equipmentName}} (x{{equipment.quantitySelectedForRental}}) <span class="float-right">LKR -
+          {{equipment.totalCostOfEquipmentInRental.toFixed(2)}}</span>
+      </li>
     </ul>
     <div class="alert alert-info" *ngIf="equipmentList.length === 0">
       No Equipment Added To Rental

@@ -6,4 +6,5 @@ export interface AdditionalEquipment {
 
   //used to indiciate add ons of the item added in rental.
   quantitySelectedForRental?: number;
+  totalCostOfEquipmentInRental?: number;
 }
