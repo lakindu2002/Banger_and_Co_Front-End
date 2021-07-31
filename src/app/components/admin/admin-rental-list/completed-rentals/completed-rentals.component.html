@@ -1,0 +1,24 @@
+<div class="container">
+  <app-section-header [sectionText]="'Completed Rentals at Banger and Co.'" (filterTriggered)="search($event)">
+  </app-section-header>
+
+  <div class="row">
+    <div class="col-sm-12" *ngIf="filteredList.length > 0">
+      <app-rental-table-list [rentalList]="filteredList" (loadMoreClicked)="getNextPage()"></app-rental-table-list>
+    </div>
+
+    <div class="col-sm-12" *ngIf="filteredList.length == 0 && !isError">
+      <div class="alert alert-info">
+        <h5 class="alert-heading">No Completed Rentals</h5>
+        There are no completed/past rentals at Banger and Co.
+      </div>
+    </div>
+
+    <div class="col-sm-12" *ngIf="isError">
+      <div class="alert alert-danger">
+        <h5 class="alert-heading">Failed to Load Completed Rentals</h5>
+        Please try again to see if the rentals can be loaded.
+      </div>
+    </div>
+  </div>
+</div>

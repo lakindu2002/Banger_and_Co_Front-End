@@ -30,6 +30,24 @@ export class RentalService {
     });
   }
 
+  getAllRejectedRentals(pageNumber: number) {
+    return this.http.get<{ nextPage: number, rejectedRentals: Rental[] }>(`${this.baseEndpoint}/find/allRejected`, {
+      params: new HttpParams().append("pageNumber", pageNumber.toString())
+    });
+  }
+
+  getAllCompletedRentals(pageNumber: number) {
+    return this.http.get<{ nextPage: number, allCompleted: Rental[] }>(`${this.baseEndpoint}/find/allCompleted`, {
+      params: new HttpParams().append("pageNumber", pageNumber.toString())
+    });
+  }
+
+  getAllOngoingRentals(pageNumber: number) {
+    return this.http.get<{ nextPage: number, allOnGoingRentals: Rental[] }>(`${this.baseEndpoint}/find/allOnGoing`, {
+      params: new HttpParams().append("pageNumber", pageNumber.toString())
+    });
+  }
+
   getRentalById(rentalId: number): Observable<Rental> {
     return this.http.get<Rental>(`${this.baseEndpoint}/find/${rentalId}`).pipe(map((theRental) => {
       //assign the image base

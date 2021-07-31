@@ -4,8 +4,11 @@ import { AdminHomeComponent } from "./admin-home/admin-home.component";
 import { AdminInquiryComponent } from "./admin-inquiry/admin-inquiry.component";
 import { AdminRentalListComponent } from "./admin-rental-list/admin-rental-list.component";
 import { ApprovedRentalsComponent } from "./admin-rental-list/approved-rentals/approved-rentals.component";
+import { CompletedRentalsComponent } from "./admin-rental-list/completed-rentals/completed-rentals.component";
 import { DetailedRentalComponent } from "./admin-rental-list/detailed-rental/detailed-rental.component";
+import { OnGoingRentalsComponent } from "./admin-rental-list/on-going-rentals/on-going-rentals.component";
 import { PendingRentalsComponent } from "./admin-rental-list/pending-rentals/pending-rentals.component";
+import { RejectedRentalsComponent } from "./admin-rental-list/rejected-rentals/rejected-rentals.component";
 import { AdminUserManagementComponent } from "./admin-user-management/admin-user-management.component";
 import { AdministratorListComponent } from "./admin-user-management/administrator-list/administrator-list.component";
 import { AdminVehicleBrowsingComponent } from "./admin-vehicle-management/admin-vehicle-browsing/admin-vehicle-browsing.component";
@@ -52,6 +55,18 @@ const routes: Routes = [
       {
         path: 'approved',
         component: ApprovedRentalsComponent
+      },
+      {
+        path: 'rejected',
+        component: RejectedRentalsComponent
+      },
+      {
+        path: 'on_going',
+        component: OnGoingRentalsComponent
+      },
+      {
+        path: 'completed',
+        component: CompletedRentalsComponent
       },
       {
         path: '',
