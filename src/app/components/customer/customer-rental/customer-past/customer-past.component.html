@@ -1,3 +1,9 @@
+<div class="row">
+  <div class="col-sm-6">
+    <span class="badge badge-info p-2 mb-2" style="font-size: 16px;">Total Completed - {{pastRentals.length}}</span>
+  </div>
+</div>
+
 <div class="row" *ngIf="pastRentals.length > 0">
   <div class="col-sm-6" *ngFor="let eachRental of pastRentals">
     <app-customer-rental-card [theRental]="eachRental"></app-customer-rental-card>
