@@ -113,7 +113,7 @@
     <div class="col-sm-12">
 
       <div class="row mb-5">
-        <div class="col-sm-6">
+        <div [ngClass]="getClass()">
           <div class="alert alert-primary">
             <span class="fonts" style="font-size: 22px;">Total Cost For This Rental -
               {{loadedRental.totalCostForRental.toFixed(2)}}</span>
@@ -130,6 +130,12 @@
           <!-- rental can be collected -->
           <button class="btn btn-primary float-right" style="width: 100%;height: 77%;" (click)="startRental()">Start
             Rental (Customer Has Collected)</button>
+        </div>
+
+        <div class="col-sm-6"
+          *ngIf="loadedRental.approved === true && loadedRental.collected && loadedRental.returned===false">
+          <!-- rental collected, not yet returned -->
+          <button class="btn btn-primary float-right" style="width: 100%;height: 77%;">Action to return vehicle</button>
         </div>
         <div class="col-sm-6" *ngIf="loadedRental.approved === false">
           <!-- rental rejected -->

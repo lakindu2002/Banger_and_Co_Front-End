@@ -60,4 +60,12 @@ export class DetailedRentalComponent implements OnInit {
 
   }
 
+  getClass() {
+    if (this.loadedRental.returned === true) {
+      return "col-sm-12";
+    } else {
+      return "col-sm-6";
+    }
+  }
+
 }
