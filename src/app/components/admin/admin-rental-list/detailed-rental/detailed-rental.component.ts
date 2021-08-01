@@ -51,13 +51,26 @@ export class DetailedRentalComponent implements OnInit {
       class: 'modal-dialog-centered',
       initialState: {
         rentalBeingApproved: isApproved,
+        rentalBeingCollected: false,
+        rentalBeingReturned: false,
         rentalId: this.loadedRental.rentalId
       }
     })
   }
 
   startRental() {
-
+    this.modalService.show(HandleRentalComponent, {
+      animated: true,
+      ignoreBackdropClick: true,
+      keyboard: false,
+      class: 'modal-dialog-centered',
+      initialState: {
+        rentalBeingApproved: false,
+        rentalBeingCollected: true,
+        rentalBeingReturned: false,
+        rentalId: this.loadedRental.rentalId
+      }
+    })
   }
 
   getClass() {

@@ -15,6 +15,8 @@ export class HandleRentalComponent implements OnInit {
 
   action: string = "";
   rentalBeingApproved: boolean = false;
+  rentalBeingCollected: boolean = false;
+  rentalBeingReturned: boolean = false;
   rentalId: number;
   rejectedReason: string = "";
 
@@ -29,8 +31,12 @@ export class HandleRentalComponent implements OnInit {
   ngOnInit(): void {
     if (this.rentalBeingApproved) {
       this.action = "Approve Rental";
-    } else {
+    } else if (!this.rentalBeingApproved && !this.rentalBeingCollected && !this.rentalBeingReturned) {
       this.action = "Reject Rental";
+    } else if (!this.rentalBeingApproved && !this.rentalBeingReturned && this.rentalBeingCollected) {
+      this.action = "Start Rental";
+    } else if (!this.rentalBeingApproved && this.rentalBeingReturned && !this.rentalBeingCollected) {
+      this.action = "Return Rental (Finish Rental)";
     }
   }
 
@@ -38,14 +44,28 @@ export class HandleRentalComponent implements OnInit {
     this.modalRef.hide();
   }
 
-  handleRentalApproveReject() {
+  handleAction() {
     if (this.rentalBeingApproved) {
-      //rental needs to be approved.
+      //approve rental
       this.approveRental();
-    } else {
-      //rental needs to be rejected.
+    } else if (!this.rentalBeingApproved && !this.rentalBeingCollected && !this.rentalBeingReturned) {
+      //reject rental
       this.rejectRental();
+    } else if (!this.rentalBeingApproved && !this.rentalBeingReturned && this.rentalBeingCollected) {
+      //start the rental as it is being collected
+      this.startRental()
+    } else if (!this.rentalBeingApproved && this.rentalBeingReturned && !this.rentalBeingCollected) {
+      //end the rental as it is being returned
+      this.finishRental()
     }
+  }
+
+  startRental() {
+    throw new Error('Method not implemented.');
+  }
+
+  finishRental() {
+    throw new Error('Method not implemented.');
   }
 
   approveRental() {
@@ -77,5 +97,16 @@ export class HandleRentalComponent implements OnInit {
     }
   }
 
+  getHeader() {
+    if (this.rentalBeingApproved) {
+      return "Approve Rental";
+    } else if (!this.rentalBeingApproved && !this.rentalBeingCollected && !this.rentalBeingReturned) {
+      return "Reject Rental";
+    } else if (!this.rentalBeingApproved && !this.rentalBeingReturned && this.rentalBeingCollected) {
+      return "Start Rental";
+    } else if (!this.rentalBeingApproved && this.rentalBeingReturned && !this.rentalBeingCollected) {
+      return "Return Rental (Finish Rental)";
+    }
+  }
 }
 
