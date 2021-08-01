@@ -60,4 +60,15 @@ export class RejectedRentalsComponent implements OnInit {
     }
   }
 
+  searchByCustomerName(customerName: string) {
+    if (customerName.length === 0) {
+      this.filteredList = this.rejectedRentals;
+    } else {
+      this.filteredList = this.rejectedRentals.filter((eachRental) => {
+        const customerFullName: string = `${eachRental.customerUsername.firstName} ${eachRental.customerUsername.lastName}`
+        return customerFullName.toLowerCase().includes(customerName.toLowerCase());
+      })
+    }
+  }
+
 }

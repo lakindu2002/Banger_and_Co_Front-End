@@ -52,6 +52,17 @@ export class OnGoingRentalsComponent implements OnInit {
     this.loadAllOnGoingRentals(); //this will re-execute the call from the API and retrieve the data for the next page and will merge the data
   }
 
+  searchByCustomerName(customerName: string) {
+    if (customerName.length === 0) {
+      this.filteredList = this.onGoingRentals;
+    } else {
+      this.filteredList = this.onGoingRentals.filter((eachRental) => {
+        const customerFullName: string = `${eachRental.customerUsername.firstName} ${eachRental.customerUsername.lastName}`
+        return customerFullName.toLowerCase().includes(customerName.toLowerCase());
+      })
+    }
+  }
+
   searchTriggered(vehicleName: string) {
     if (vehicleName.length === 0) {
       this.filteredList = this.onGoingRentals;

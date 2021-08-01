@@ -1,6 +1,7 @@
 <div class="container">
-  <app-section-header [sectionText]="'Pending Rentals At Banger and Co.'" (filterTriggered)="filterTriggered($event)">
-  </app-section-header>
+  <app-section-header [sectionText]="'Pending Rentals At Banger and Co.'" (filterTriggered)="filterTriggered($event)"
+  (customerNameFilter)="searchByCustomerName($event)" [totalCaption]="'Total Pending: '+filteredList.length">
+</app-section-header>
   <div class="row">
     <div class="col-sm-12" *ngIf="filteredList.length > 0; else showEmpty">
       <app-rental-table-list [rentalList]="filteredList" (loadMoreClicked)="getNextPagePlusThisPage()">

@@ -49,6 +49,17 @@ export class PendingRentalsComponent implements OnInit {
     this.loadAllPendingRentals();
   }
 
+  searchByCustomerName(customerName: string) {
+    if (customerName.length === 0) {
+      this.filteredList = this.pendingRentals;
+    } else {
+      this.filteredList = this.pendingRentals.filter((eachRental) => {
+        const customerFullName: string = `${eachRental.customerUsername.firstName} ${eachRental.customerUsername.lastName}`
+        return customerFullName.toLowerCase().includes(customerName.toLowerCase());
+      })
+    }
+  }
+
   filterTriggered(filterText: string) {
     if (filterText.length === 0) {
       this.filteredList = this.pendingRentals;

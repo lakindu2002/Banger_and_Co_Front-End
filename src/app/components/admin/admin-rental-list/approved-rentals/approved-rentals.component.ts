@@ -49,6 +49,17 @@ export class ApprovedRentalsComponent implements OnInit {
     this.loadAllApprovedRentals();
   }
 
+  searchByCustomerName(customerName: string) {
+    if (customerName.length === 0) {
+      this.filteredList = this.approvedRentals;
+    } else {
+      this.filteredList = this.approvedRentals.filter((eachRental) => {
+        const customerFullName: string = `${eachRental.customerUsername.firstName} ${eachRental.customerUsername.lastName}`
+        return customerFullName.toLowerCase().includes(customerName.toLowerCase());
+      })
+    }
+  }
+
   searchTriggered(vehicleName: string) {
     if (vehicleName.length === 0) {
       this.filteredList = this.approvedRentals;

@@ -1,6 +1,7 @@
 <div class="container">
-  <app-section-header [sectionText]="'Rejected Rentals at Banger and Co.'" (filterTriggered)="searchTriggered($event)"></app-section-header>
-
+  <app-section-header [sectionText]="'Rejected Rentals At Banger and Co.'" (filterTriggered)="searchTriggered($event)"
+  (customerNameFilter)="searchByCustomerName($event)" [totalCaption]="'Total Rejected: '+filteredList.length">
+</app-section-header>
   <div class="row">
     <div class="col-sm-12" *ngIf="filteredList.length > 0; else showEmpty">
       <app-rental-table-list [rentalList]="filteredList" (loadMoreClicked)="getMore()">

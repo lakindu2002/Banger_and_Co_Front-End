@@ -1,6 +1,7 @@
 <div class="container">
-  <app-section-header [sectionText]="'Completed Rentals at Banger and Co.'" (filterTriggered)="search($event)">
-  </app-section-header>
+  <app-section-header [sectionText]="'Completed Rentals At Banger and Co.'" (filterTriggered)="search($event)"
+  (customerNameFilter)="searchByCustomerName($event)" [totalCaption]="'Total Approved: '+filteredList.length">
+</app-section-header>
 
   <div class="row">
     <div class="col-sm-12" *ngIf="filteredList.length > 0">

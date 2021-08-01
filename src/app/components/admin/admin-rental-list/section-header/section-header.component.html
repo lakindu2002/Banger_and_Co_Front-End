@@ -15,3 +15,21 @@
     </div>
   </div>
 </div>
+
+<div class="row">
+  <div class="col-sm-7">
+    <span class="badge badge-info p-2" style="font-size: 16px;">{{totalCaption}}</span>
+  </div>
+  <div class="col-sm-5 header align-self-center">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <div class="input-group-text">
+          <i class="fas fa-search"></i>
+        </div>
+      </div>
+      <!-- ng model allows two way data binding in angular and ngModelChange is executed whenever the searchTerm changes its value -->
+      <input type="text" class="form-control" placeholder="Provide Customer Name..." [(ngModel)]="customerNameTerm"
+        style="border-color: none;" (ngModelChange)="filterViaCustomerName()">
+    </div>
+  </div>
+</div>

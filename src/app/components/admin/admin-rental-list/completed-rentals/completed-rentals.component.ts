@@ -49,6 +49,17 @@ export class CompletedRentalsComponent implements OnInit {
     this.loadAllCompletedRentals()
   }
 
+  searchByCustomerName(customerName: string) {
+    if (customerName.length === 0) {
+      this.filteredList = this.completedRentals;
+    } else {
+      this.filteredList = this.completedRentals.filter((eachRental) => {
+        const customerFullName: string = `${eachRental.customerUsername.firstName} ${eachRental.customerUsername.lastName}`
+        return customerFullName.toLowerCase().includes(customerName.toLowerCase());
+      })
+    }
+  }
+
   search(enteredVehicleName: string) {
     if (enteredVehicleName.length == 0) {
       this.filteredList = this.completedRentals;
