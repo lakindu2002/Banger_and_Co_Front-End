@@ -68,6 +68,11 @@ export class RentalService {
     return this.http.post<ResponseAPI>(`${this.baseEndpoint}/handle/approve`, { rentalId: rentalId });
   }
 
+  startRental(rentalId: number): Observable<ResponseAPI> {
+    return this.http.post<ResponseAPI>(`${this.baseEndpoint}/handle/startRental`, { rentalId: rentalId });
+  }
+
+
   getCustomerPendingRentals(username: string, pageNumber: number): Observable<{ nextPage: number, customerPendingRentals: Rental[] }> {
     return this.http.get<{ nextPage: number, customerPendingRentals: Rental[] }>(
       `${this.baseEndpoint}/find/pending/${username}`,
@@ -107,5 +112,4 @@ export class RentalService {
         params: new HttpParams().append("pageNumber", pageNumber.toString())
       });
   }
-
 }
