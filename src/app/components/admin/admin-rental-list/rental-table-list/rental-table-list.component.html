@@ -52,7 +52,7 @@
   </div>
 </div>
 
-<div class="row justify-content-center mb-4">
+<div class="row justify-content-center mb-4" *ngIf="enableLoadMore">
   <div class="col-sm-2">
     <button class="btn btn-primary" (click)="loadMoreClicked()">Load More</button>
   </div>

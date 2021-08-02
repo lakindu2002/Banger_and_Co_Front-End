@@ -48,7 +48,6 @@ export class EquipmentCreateManageComponent implements OnInit {
         'equipmentQuantity': this.theEquipmentBeingEdited.equipmentQuantity,
         'pricePerDay': this.theEquipmentBeingEdited.pricePerDay
       });
-      console.log(parseFloat(this.theEquipmentBeingEdited.pricePerDay))
       this.theForm.controls['pricePerDay'].disable();
     }
   }
