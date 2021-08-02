@@ -9,6 +9,7 @@ import { Rental } from 'src/app/models/rental.model';
 export class RentalTableListComponent implements OnInit {
 
   @Input("rentalList") rentalList: Rental[];
+  @Input("enableLoadMore") enableLoadMore: boolean = true;
   @Output("loadMoreClicked") loadMoreEvent: EventEmitter<boolean> = new EventEmitter();
 
   constructor() { }

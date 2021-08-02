@@ -90,6 +90,17 @@ export class RentalService {
       }));
   }
 
+  getVehiclesToBeCollectedForThisMonth(): Observable<Rental[]> {
+    return this.http.get<Rental[]>(`${this.baseEndpoint}/statistics/vehiclesToBeCollectedForMonth`);
+  }
+
+  getAllPendingRentalsForDashboard(): Observable<Rental[]> {
+    return this.http.get<Rental[]>(`${this.baseEndpoint}/statistics/allPendingRentals`);
+  }
+
+  getAllOnGoingRentalsForChart(): Observable<Rental[]> {
+    return this.http.get<Rental[]>(`${this.baseEndpoint}/statistics/allOnGoingRentals`);
+  }
 
   getCustomerPendingRentals(username: string, pageNumber: number): Observable<{ nextPage: number, customerPendingRentals: Rental[] }> {
     return this.http.get<{ nextPage: number, customerPendingRentals: Rental[] }>(

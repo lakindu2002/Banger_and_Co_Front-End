@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="alert alert-primary" *ngIf="!rentalList">
+      <h5 class="alert-heading">No Card Selected</h5>
+      Please Select a Card To Load More Information
+    </div>
+
+    <div *ngIf="rentalList">
+
+      <div class="alert alert-primary" *ngIf="rentalList">
+        <h5 class="alert-heading">{{rentalType}}</h5>
+        Detailed Information for Referring Card
+      </div>
+
+      <app-rental-table-list [rentalList]="rentalList" [enableLoadMore]="false"></app-rental-table-list>
+    </div>
+  </div>
+</div>

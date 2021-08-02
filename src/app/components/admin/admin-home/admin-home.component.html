@@ -9,15 +9,6 @@
   </div>
 </div>
 
-<!-- dashboard for charts displayed here -->
-<!-- 5 types of data to be viewed -->
-<!-- 1. chart to get completed rentals for past 12 months -->
-<!-- 2. chart to get profits made for 12 months -->
-<!-- 3. view rentals needed to be collected for this month -->
-<!-- 4. view all on-going rentals -->
-<!-- 5. view total pending rentals -->
-
-
 <div class="container mt-4">
   <div class="row">
     <div class="col-sm-6">
@@ -25,6 +16,58 @@
     </div>
     <div class="col-sm-6">
       <app-profits-made12-months></app-profits-made12-months>
+    </div>
+  </div>
+
+  <div class="row mt-4 mb-4">
+    <div class="col-sm-12">
+      <div class="row">
+        <div class="col-sm-4" style="padding-right: 0px;" (click)="cardClicked('pending')">
+          <mat-card style="font-family: 'Inter', sans-serif" class="hover">
+            <div style="text-align: center; font-size: 40px;">
+              {{allPendingRentals.length}}
+            </div>
+            <div style="font-size: 18px;">
+              Total Pending Rentals
+            </div>
+          </mat-card>
+        </div>
+
+        <div class="col-sm-4" style="width: 100%; padding-right: 0px;" (click)="cardClicked('rentalsForCollection')">
+          <mat-card style="width: 100%; font-family: 'Inter', sans-serif;" class="hover">
+            <mat-card-content>
+              <div style="text-align: center; font-size: 40px;">
+                {{rentalsToBeCollectedForThisMonth.length}}
+              </div>
+              <div style="font-size: 18px;">
+                Rentals For Collection In This Month
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+
+        <div class="col-sm-4" (click)="cardClicked('onGoing')">
+          <mat-card style="font-family: 'Inter', sans-serif;" class="hover">
+            <div style="text-align: center; font-size: 40px;">
+              {{allOnGoingRentals.length}}
+            </div>
+            <div style="font-size: 18px;">
+              Total On-Going Rentals
+            </div>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4 mb-4">
+    <div class="col-sm-12">
+      <mat-card style="font-family: 'Inter', sans-serif">
+        <mat-card-content>
+          <app-loaded-rental-section [loadedRentalList]="rentalsForLoading" [loadingRentalType]="rentalType">
+          </app-loaded-rental-section>
+        </mat-card-content>
+      </mat-card>
     </div>
   </div>
 </div>
