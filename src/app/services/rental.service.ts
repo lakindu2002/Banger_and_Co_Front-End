@@ -84,7 +84,7 @@ export class RentalService {
     return this.http.get<{ month: string, count: number, totalForTheMonth: any }[]>(`${this.baseEndpoint}/statistics/yearlyProfits`)
       .pipe(map((chartData) => {
         chartData.map((eachMonth) => {
-          eachMonth.totalForTheMonth = `LKR - ${eachMonth.totalForTheMonth.toFixed(2)}`;
+          eachMonth.totalForTheMonth = eachMonth.totalForTheMonth.toFixed(2);
         })
         return chartData;
       }));

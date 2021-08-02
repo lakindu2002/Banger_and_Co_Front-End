@@ -1,1 +1,30 @@
-<p>profits-made12-months works!</p>
+<div class="row">
+
+  <ngx-spinner [fullScreen]="false" [name]="'line-chart'" [bdColor]="'none'" [color]="'black'"
+    [type]="'ball-clip-rotate'" [size]="'medium'"></ngx-spinner>
+
+  <div class="col-sm-12">
+    <mat-card style="font-family: 'Inter', sans-serif; width: 100%; height: 100%;">
+      <mat-card-title style="font-size: 18px;">
+        Total Earnings (Profits) Over The Past Year <span class="float-right"><i class="fal fa-sync"
+            style="cursor: pointer; color: black;" (click)="refresh()"></i></span>
+      </mat-card-title>
+
+      <mat-card-content>
+        <div class="row">
+          <div class="col-sm-12" style="height: 60vh;">
+            <ngx-charts-line-chart [results]="lineChartData" [scheme]="colorScheme" [animations]="true" [xAxis]="true"
+              [yAxis]="true" [showXAxisLabel]="true" [showYAxisLabel]="true" [xAxisLabel]="'Month'"
+              [yAxisLabel]="'Earnings (Profit) - LKR'" *ngIf="lineChartData.length > 0">
+            </ngx-charts-line-chart>
+
+            <div class="alert alert-danger" *ngIf="lineChartData.length == 0 && isError">
+              <h5 class="alert-heading">Could Not Load Total Earning</h5>
+              Your total earnings summary could not be loaded
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
