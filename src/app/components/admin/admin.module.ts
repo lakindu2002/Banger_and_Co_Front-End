@@ -37,6 +37,10 @@ import { HandleRentalComponent } from './admin-rental-list/detailed-rental/handl
 import { RejectedRentalsComponent } from './admin-rental-list/rejected-rentals/rejected-rentals.component';
 import { OnGoingRentalsComponent } from './admin-rental-list/on-going-rentals/on-going-rentals.component';
 import { CompletedRentalsComponent } from './admin-rental-list/completed-rentals/completed-rentals.component';
+import { CompletedRentals12MonthsComponent } from './admin-home/completed-rentals12-months/completed-rentals12-months.component';
+import { ProfitsMade12MonthsComponent } from './admin-home/profits-made12-months/profits-made12-months.component';
+import { RentalsToBeCollectedForTHisMonthComponent } from './admin-home/rentals-to-be-collected-for-this-month/rentals-to-be-collected-for-this-month.component';
+import { TotalPendingRentalsComponent } from './admin-home/total-pending-rentals/total-pending-rentals.component';
 
 
 
@@ -70,7 +74,11 @@ import { CompletedRentalsComponent } from './admin-rental-list/completed-rentals
     HandleRentalComponent,
     RejectedRentalsComponent,
     OnGoingRentalsComponent,
-    CompletedRentalsComponent
+    CompletedRentalsComponent,
+    CompletedRentals12MonthsComponent,
+    ProfitsMade12MonthsComponent,
+    RentalsToBeCollectedForTHisMonthComponent,
+    TotalPendingRentalsComponent
   ],
   imports: [
     CommonModule,
