@@ -36,7 +36,7 @@ export class HandleRentalComponent implements OnInit {
     } else if (!this.rentalBeingApproved && !this.rentalBeingReturned && this.rentalBeingCollected) {
       this.action = "Start Rental";
     } else if (!this.rentalBeingApproved && this.rentalBeingReturned && !this.rentalBeingCollected) {
-      this.action = "Return Rental (Finish Rental)";
+      this.action = "Complete Rental";
     }
   }
 
@@ -66,7 +66,7 @@ export class HandleRentalComponent implements OnInit {
       this.toast.success(data.message, "Rental Started Successfully");
       this.spinner.hide();
       this.hideModal();
-      this.router.navigate(['/admin', 'rentals','approved'], { replaceUrl: true })
+      this.router.navigate(['/admin', 'rentals', 'approved'], { replaceUrl: true })
     }, (error: ErrorResponse) => {
       this.spinner.hide();
       this.toast.error(error.exceptionMessage, "Rental Not Started");
@@ -74,7 +74,16 @@ export class HandleRentalComponent implements OnInit {
   }
 
   finishRental() {
-    throw new Error('Method not implemented.');
+    this.spinner.show();
+    this.rentalService.completeRental(this.rentalId).subscribe((data) => {
+      this.spinner.hide();
+      this.toast.success(data.message, "Rental Completed Successfully");
+      this.hideModal();
+      this.router.navigate(['/admin', 'rentals', 'on_going'], { replaceUrl: true })
+    }, (error: ErrorResponse) => {
+      this.toast.error(error.exceptionMessage, "Rental Not Completed");
+      this.spinner.hide();
+    })
   }
 
   approveRental() {
@@ -83,7 +92,7 @@ export class HandleRentalComponent implements OnInit {
       this.toast.success(data.message, "Rental Approved Successfully");
       this.spinner.hide();
       this.hideModal();
-      this.router.navigate(['admin', 'rentals','pending'], { replaceUrl: true });
+      this.router.navigate(['admin', 'rentals', 'pending'], { replaceUrl: true });
     }, (error: ErrorResponse) => {
       this.toast.error(error.exceptionMessage, "Rental Not Approved");
       this.spinner.hide();
@@ -97,7 +106,7 @@ export class HandleRentalComponent implements OnInit {
         this.toast.success(data.message, "Rental Rejected Successfully");
         this.spinner.hide();
         this.hideModal();
-        this.router.navigate(['admin', 'rentals','pending'], { replaceUrl: true });
+        this.router.navigate(['admin', 'rentals', 'pending'], { replaceUrl: true });
       }, (error: ErrorResponse) => {
         this.toast.error(error.exceptionMessage, "Rental Not Rejected");
         this.spinner.hide();

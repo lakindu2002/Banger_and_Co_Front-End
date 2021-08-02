@@ -72,6 +72,10 @@ export class RentalService {
     return this.http.post<ResponseAPI>(`${this.baseEndpoint}/handle/startRental`, { rentalId: rentalId });
   }
 
+  completeRental(rentalId: number): Observable<ResponseAPI> {
+    return this.http.post<ResponseAPI>(`${this.baseEndpoint}/handle/completeRental`, { rentalId: rentalId });
+  }
+
 
   getCustomerPendingRentals(username: string, pageNumber: number): Observable<{ nextPage: number, customerPendingRentals: Rental[] }> {
     return this.http.get<{ nextPage: number, customerPendingRentals: Rental[] }>(

@@ -73,6 +73,21 @@ export class DetailedRentalComponent implements OnInit {
     })
   }
 
+  completeRental() {
+    this.modalService.show(HandleRentalComponent, {
+      animated: true,
+      ignoreBackdropClick: true,
+      keyboard: false,
+      class: 'modal-dialog-centered',
+      initialState: {
+        rentalBeingApproved: false,
+        rentalBeingCollected: false,
+        rentalBeingReturned: true,
+        rentalId: this.loadedRental.rentalId
+      }
+    })
+  }
+
   getClass() {
     if (this.loadedRental.returned === true) {
       return "col-sm-12";

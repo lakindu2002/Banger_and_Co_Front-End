@@ -135,7 +135,7 @@
         <div class="col-sm-6"
           *ngIf="loadedRental.approved === true && loadedRental.collected && loadedRental.returned===false">
           <!-- rental collected, not yet returned -->
-          <button class="btn btn-primary float-right" style="width: 100%;height: 77%;">Action to return vehicle</button>
+          <button class="btn btn-primary float-right" style="width: 100%;height: 77%;" (click)="completeRental()">Complete (Finish) Rental</button>
         </div>
         <div class="col-sm-6" *ngIf="loadedRental.approved === false">
           <!-- rental rejected -->
