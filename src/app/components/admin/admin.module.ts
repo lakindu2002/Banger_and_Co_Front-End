@@ -41,6 +41,7 @@ import { CompletedRentals12MonthsComponent } from './admin-home/completed-rental
 import { ProfitsMade12MonthsComponent } from './admin-home/profits-made12-months/profits-made12-months.component';
 import { RentalsToBeCollectedForTHisMonthComponent } from './admin-home/rentals-to-be-collected-for-this-month/rentals-to-be-collected-for-this-month.component';
 import { TotalPendingRentalsComponent } from './admin-home/total-pending-rentals/total-pending-rentals.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 
 
@@ -83,6 +84,7 @@ import { TotalPendingRentalsComponent } from './admin-home/total-pending-rentals
   imports: [
     CommonModule,
     SharedModule,
+    NgxChartsModule,
     AdminRoutingModule,
     ReactiveFormsModule, //used for reactive driven forms
     FormsModule, //used for template driven forms and ngModel bindings
