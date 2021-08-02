@@ -32,7 +32,6 @@ export class RejectedRentalsComponent implements OnInit {
     this.rentalService.getAllRejectedRentals(this.pageNumber).subscribe((data) => {
       this.rejectedRentals = this.rejectedRentals.concat(data.rejectedRentals); //merge data.
       this.filteredList = this.rejectedRentals;
-      console.log(this.rejectedRentals);
 
       this.toast.info(`There are ${this.rejectedRentals.length} rejected rentals`, "Rejected Rentals Available");
       this.pageNumber = data.nextPage; //set the next page number to query for data.

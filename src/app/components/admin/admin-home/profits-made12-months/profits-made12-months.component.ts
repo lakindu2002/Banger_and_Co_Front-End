@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RentalService } from 'src/app/services/rental.service';
 
 @Component({
   selector: 'app-profits-made12-months',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfitsMade12MonthsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private rentalService: RentalService) { }
 
   ngOnInit(): void {
+    this.rentalService.getProfitsForLast12Months().subscribe((data) => {
+      console.log(data);
+    })
   }
 
 }

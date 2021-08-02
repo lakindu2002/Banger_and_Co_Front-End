@@ -76,6 +76,20 @@ export class RentalService {
     return this.http.post<ResponseAPI>(`${this.baseEndpoint}/handle/completeRental`, { rentalId: rentalId });
   }
 
+  getCompletedRentalsForPast12Months(): Observable<{ month: string, count: number, rentals: Rental[] }[]> {
+    return this.http.get<{ month: string, count: number, rentals: Rental[] }[]>(`${this.baseEndpoint}/statistics/completedPast12Months`);
+  }
+
+  getProfitsForLast12Months(): Observable<{ month: string, count: number, totalForTheMonth: any }[]> {
+    return this.http.get<{ month: string, count: number, totalForTheMonth: any }[]>(`${this.baseEndpoint}/statistics/yearlyProfits`)
+      .pipe(map((chartData) => {
+        chartData.map((eachMonth) => {
+          eachMonth.totalForTheMonth = `LKR - ${eachMonth.totalForTheMonth.toFixed(2)}`;
+        })
+        return chartData;
+      }));
+  }
+
 
   getCustomerPendingRentals(username: string, pageNumber: number): Observable<{ nextPage: number, customerPendingRentals: Rental[] }> {
     return this.http.get<{ nextPage: number, customerPendingRentals: Rental[] }>(

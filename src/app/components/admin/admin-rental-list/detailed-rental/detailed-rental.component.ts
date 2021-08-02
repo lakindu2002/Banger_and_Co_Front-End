@@ -34,7 +34,6 @@ export class DetailedRentalComponent implements OnInit {
   loadDetailedRental(rentalId: any) {
     this.spinner.show();
     this.rentalService.getRentalById(rentalId).subscribe((data) => {
-      console.log(data);
       this.loadedRental = data;
       this.spinner.hide();
     }, (error: ErrorResponse) => {
