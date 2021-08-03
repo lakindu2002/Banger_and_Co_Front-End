@@ -18,6 +18,7 @@ import { CustomerPastComponent } from './customer-rental/customer-past/customer-
 import { CustomerRejectedComponent } from './customer-rental/customer-rejected/customer-rejected.component';
 import { CustomerRentalCardComponent } from './customer-rental/customer-rental-card/customer-rental-card.component';
 import { CustomerRentalDetailedComponent } from './customer-rental/customer-rental-detailed/customer-rental-detailed.component';
+import { RentalLateReturnPopUpComponent } from './customer-rental/customer-rental-detailed/rental-late-return-pop-up/rental-late-return-pop-up.component';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { CustomerRentalDetailedComponent } from './customer-rental/customer-rent
     CustomerPastComponent,
     CustomerRejectedComponent,
     CustomerRentalCardComponent,
-    CustomerRentalDetailedComponent
+    CustomerRentalDetailedComponent,
+    RentalLateReturnPopUpComponent
   ],
   imports: [
     CommonModule,

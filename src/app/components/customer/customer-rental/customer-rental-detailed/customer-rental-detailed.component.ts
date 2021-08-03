@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { ErrorResponse } from 'src/app/models/errorresponse.model';
 import { Rental } from 'src/app/models/rental.model';
 import { RentalService } from 'src/app/services/rental.service';
+import { RentalLateReturnPopUpComponent } from './rental-late-return-pop-up/rental-late-return-pop-up.component';
 
 @Component({
   selector: 'app-customer-rental-detailed',
@@ -14,12 +16,15 @@ import { RentalService } from 'src/app/services/rental.service';
 export class CustomerRentalDetailedComponent implements OnInit {
 
   theRental: Rental;
+  modalRef: BsModalRef;
 
   constructor(
     private spinner: NgxSpinnerService,
     private toast: ToastrService,
     private rentalService: RentalService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private modalService: BsModalService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -69,6 +74,22 @@ export class CustomerRentalDetailedComponent implements OnInit {
     if (this.theRental.collected === true) {
       return "badge badge-primary";
     }
+  }
+
+  launchCreateLateReturn() {
+    this.modalRef = this.modalService.show(RentalLateReturnPopUpComponent, {
+      animated: true,
+      initialState: {
+        rentalId: this.theRental.rentalId
+      },
+      class: 'modal-dialog-centered',
+      ignoreBackdropClick: true,
+      keyboard: false
+    });
+
+    this.modalRef.content.isSuccess.subscribe((data) => {
+      this.router.navigate(['/customer', 'rentals', 'on-going']);
+    })
   }
 
 }

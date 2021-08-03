@@ -3,6 +3,20 @@
 
 <div class="container" *ngIf="loadedRental; else showError">
 
+  <div class="row mb-2" *ngIf="loadedRental.lateReturnRequested">
+    <div class="col-sm-12">
+      <span class="float-right badge badge-success p-2" style="font-size: 16px;">This Rental Is On Late Return (Return
+        Before Midnight on Return Date)</span>
+    </div>
+  </div>
+
+  <div class="row mb-2" *ngIf="!loadedRental.lateReturnRequested">
+    <div class="col-sm-12">
+      <span class="float-right badge badge-success p-2" style="font-size: 16px;">This Rental Is Not On Late
+        Return</span>
+    </div>
+  </div>
+
   <div class="row">
     <div class="col-sm-6">
       <mat-card style="font-family: 'Inter', sans-serif;">
@@ -135,7 +149,8 @@
         <div class="col-sm-6"
           *ngIf="loadedRental.approved === true && loadedRental.collected && loadedRental.returned===false">
           <!-- rental collected, not yet returned -->
-          <button class="btn btn-primary float-right" style="width: 100%;height: 77%;" (click)="completeRental()">Complete (Finish) Rental</button>
+          <button class="btn btn-primary float-right" style="width: 100%;height: 77%;"
+            (click)="completeRental()">Complete (Finish) Rental</button>
         </div>
         <div class="col-sm-6" *ngIf="loadedRental.approved === false">
           <!-- rental rejected -->
