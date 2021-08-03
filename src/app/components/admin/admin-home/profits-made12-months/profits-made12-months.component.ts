@@ -13,7 +13,7 @@ export class ProfitsMade12MonthsComponent implements OnInit {
 
   colorScheme = {
     domain: [
-      "#0061A8", "#2978B5", "#8AB6D6"
+      "#ffa600"
     ]
   }
 
@@ -36,6 +36,7 @@ export class ProfitsMade12MonthsComponent implements OnInit {
     this.spinner.show('line-chart');
     this.isError = false;
     this.lineChartData = [];
+    this.dataForEachMonth = [];
 
     this.rentalService.getProfitsForLast12Months().subscribe((data) => {
       for (const eachMonth of data) {

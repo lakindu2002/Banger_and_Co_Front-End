@@ -14,7 +14,7 @@ export class CompletedRentals12MonthsComponent implements OnInit {
   barChartContent: { name: string, value: number }[] = [];
   colorScheme = {
     domain: [
-      "#0061A8", "#2978B5", "#8AB6D6"
+      "#003f5c", "#58508d", "#bc5090", "#ff6361", "#ffa600"
     ]
   }
 
