@@ -10,6 +10,11 @@
         *ngIf="!theRental.lateReturnRequested && theRental.collected && !theRental.returned">Request Late
         Return</button>
 
+        <button class='float-right p-2 mb-2 btn btn-primary ml-2' style="vertical-align: middle;"
+        (click)="launchCancelLateReturn()"
+        *ngIf="theRental.lateReturnRequested && theRental.collected && !theRental.returned">Cancel Late Return</button>
+
+
       <span class='float-right p-2 mb-2' style="font-size: 18px; vertical-align: middle;"
         [ngClass]="getBadgeClass()">{{getBadgeName()}}</span>
       <span class='float-right p-2 mb-2 badge badge-info mr-2' style="font-size: 18px; vertical-align: middle;"

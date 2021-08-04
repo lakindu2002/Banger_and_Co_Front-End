@@ -29,14 +29,18 @@ export class CustomerRentalDetailedComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((data) => {
-      this.spinner.show();
-      this.rentalService.getRentalById(data.rentalId).subscribe((data) => {
-        this.theRental = data;
-        this.spinner.hide();
-      }, (error: ErrorResponse) => {
-        this.spinner.hide();
-        this.toast.error(error.exceptionMessage, "Failed to Load Detailed Rental Information");
-      })
+      this.loadDetailedRentalDB(data.rentalId);
+    })
+  }
+
+  loadDetailedRentalDB(rentalId: number) {
+    this.spinner.show();
+    this.rentalService.getRentalById(rentalId).subscribe((data) => {
+      this.theRental = data;
+      this.spinner.hide();
+    }, (error: ErrorResponse) => {
+      this.spinner.hide();
+      this.toast.error(error.exceptionMessage, "Failed to Load Detailed Rental Information");
     })
   }
 
@@ -88,7 +92,24 @@ export class CustomerRentalDetailedComponent implements OnInit {
     });
 
     this.modalRef.content.isSuccess.subscribe((data) => {
-      this.router.navigate(['/customer', 'rentals', 'on-going']);
+      this.loadDetailedRentalDB(this.theRental.rentalId);
+    })
+  }
+
+  launchCancelLateReturn() {
+    this.modalRef = this.modalService.show(RentalLateReturnPopUpComponent, {
+      animated: true,
+      initialState: {
+        rentalId: this.theRental.rentalId,
+        cancelLateReturn: true
+      },
+      class: 'modal-dialog-centered',
+      ignoreBackdropClick: true,
+      keyboard: false
+    });
+
+    this.modalRef.content.isSuccess.subscribe((data) => {
+      this.loadDetailedRentalDB(this.theRental.rentalId);
     })
   }
 

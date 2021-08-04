@@ -16,6 +16,7 @@ export class RentalLateReturnPopUpComponent implements OnInit {
 
   rentalId: number;
   isSuccess: Subject<boolean> = new Subject();
+  cancelLateReturn: boolean = false;
 
   constructor(
     private rentalService: RentalService,
@@ -31,17 +32,29 @@ export class RentalLateReturnPopUpComponent implements OnInit {
     this.modalRef.hide();
   }
 
-  createLateReturn() {
+  processLateReturn() {
     this.spinner.show();
-    this.rentalService.createLateReturn(this.rentalId).subscribe((data: ResponseAPI) => {
-      this.toast.success(data.message, "Late Return Made Successfully");
-      this.spinner.hide();
-      this.hideModal();
-      this.isSuccess.next(true);
-    }, (error: ErrorResponse) => {
-      this.toast.error(error.exceptionMessage, "Failed To Create Late Return");
-      this.spinner.hide();
-    })
+    if (this.cancelLateReturn) {
+      this.rentalService.cancelLateReturn(this.rentalId).subscribe((data: ResponseAPI) => {
+        this.toast.success(data.message, "Late Return Cancelled Successfully");
+        this.spinner.hide();
+        this.hideModal();
+        this.isSuccess.next(true);
+      }, (error: ErrorResponse) => {
+        this.toast.error(error.exceptionMessage, "Failed To Cancel Late Return");
+        this.spinner.hide();
+      })
+    } else {
+      this.rentalService.createLateReturn(this.rentalId).subscribe((data: ResponseAPI) => {
+        this.toast.success(data.message, "Late Return Made Successfully");
+        this.spinner.hide();
+        this.hideModal();
+        this.isSuccess.next(true);
+      }, (error: ErrorResponse) => {
+        this.toast.error(error.exceptionMessage, "Failed To Create Late Return");
+        this.spinner.hide();
+      })
+    }
   }
 }
 

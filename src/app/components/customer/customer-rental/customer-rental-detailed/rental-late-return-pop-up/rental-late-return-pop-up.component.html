@@ -1,5 +1,6 @@
 <div class="modal-header">
-  <h5 class="modal-title float-left">Create Late Return</h5>
+  <h5 class="modal-title float-left">{{cancelLateReturn ?
+    'Cancel Late Return' : 'Create Late Return'}}</h5>
   <button class="close float-right" (click)="hideModal()">&times;</button>
 </div>
 
@@ -7,21 +8,28 @@
   <div class="row">
     <div class="col-sm-12">
       <i class="far fa-exclamation-circle float-left mr-3" style="font-size: 60px; color:red"></i>
-      <span>
-        Are you sure you want to make this rental as a late return?
-      </span>
-      <br>
-      <span>You will have to return the rental before midnight on the current day of return</span>
-      <br>
-      <span class="" style="color: red;">
-        This action cannot be reversed
-      </span>
+      <div *ngIf="!cancelLateReturn">
+        <span>
+          Are you sure you want to make this rental as a late return?
+        </span>
+        <br>
+        <span>You will have to return the rental before midnight on the current day of return</span>
+      </div>
+
+      <div *ngIf="cancelLateReturn">
+        <span>
+          Are you sure you want to cancel the late return on this rental
+        </span>
+        <br>
+        <span>You will have to return the rental on the initially set return date and time</span>
+        <br>
+      </div>
     </div>
   </div>
 </div>
 
 <div class="modal-footer">
   <button class="btn btn-danger float-right mr-2" style="width: 20%;" (click)="hideModal()">Close</button>
-  <button class="btn btn-primary float-right" style="width: 40%;" (click)="createLateReturn()">Create Late
-    Return</button>
+  <button class="btn btn-primary float-right" style="width: 40%;" (click)="processLateReturn()">{{cancelLateReturn ?
+    'Cancel Late Return' : 'Create Late Return'}}</button>
 </div>

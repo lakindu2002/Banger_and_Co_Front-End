@@ -20,6 +20,10 @@ export class RentalService {
     return this.http.put<ResponseAPI>(`${this.baseEndpoint}/createLateReturn`, { rentalId: rentalId });
   }
 
+  cancelLateReturn(rentalId: number) {
+    return this.http.put<ResponseAPI>(`${this.baseEndpoint}/cancelLateReturn`, { rentalId: rentalId });
+  }
+
   getAllPendingRentals(pageNumber: number): Observable<{ nextPageNumber: number, thePendingRentals: Rental[] }> {
     //pass a query parameter to indiciate the page number to get the data for.
     //will return data in ascending order of pickup date.
