@@ -32,6 +32,22 @@ export class RentalService {
     });
   }
 
+  getCustomerOnGoingTimeList(): Observable<Rental[]> {
+    return this.http.get<Rental[]>(`${this.baseEndpoint}/ongoing/time_left`);
+  }
+
+  countPending(): Observable<{ count: number }> {
+    return this.http.get<{ count: number }>(`${this.baseEndpoint}/count/pending`);
+  }
+
+  countRejected(): Observable<{ count: number }> {
+    return this.http.get<{ count: number }>(`${this.baseEndpoint}/count/rejected`);
+  }
+
+  countCompleted(): Observable<{ count: number }> {
+    return this.http.get<{ count: number }>(`${this.baseEndpoint}/count/past`);
+  }
+
   getAllApprovedRentals(pageNumber: number) {
     return this.http.get<{ nextPage: number, approvedRentals: Rental[] }>(`${this.baseEndpoint}/find/allApproved`, {
       params: new HttpParams().append("pageNumber", pageNumber.toString())

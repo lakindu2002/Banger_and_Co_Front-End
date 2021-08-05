@@ -14,4 +14,7 @@ export interface Rental {
   collected?: boolean;
   returned?: boolean;
   lateReturnRequested?: boolean;
+
+  //used in customer dashboard only
+  timeLeft?: string;
 }

@@ -18,7 +18,7 @@ const routes: Routes = [
     component: CustomerHomeComponent
   },
   {
-    path: 'home/filter',
+    path: 'rentals/filter',
     component: VehiclePanelComponent
   },
   {
