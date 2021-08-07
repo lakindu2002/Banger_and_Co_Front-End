@@ -19,6 +19,8 @@ import { CustomerRejectedComponent } from './customer-rental/customer-rejected/c
 import { CustomerRentalCardComponent } from './customer-rental/customer-rental-card/customer-rental-card.component';
 import { CustomerRentalDetailedComponent } from './customer-rental/customer-rental-detailed/customer-rental-detailed.component';
 import { RentalLateReturnPopUpComponent } from './customer-rental/customer-rental-detailed/rental-late-return-pop-up/rental-late-return-pop-up.component';
+import { UpdateRentalTimeComponent } from './customer-rental/customer-rental-detailed/update-rental-time/update-rental-time.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -38,13 +40,15 @@ import { RentalLateReturnPopUpComponent } from './customer-rental/customer-renta
     CustomerRejectedComponent,
     CustomerRentalCardComponent,
     CustomerRentalDetailedComponent,
-    RentalLateReturnPopUpComponent
+    RentalLateReturnPopUpComponent,
+    UpdateRentalTimeComponent
   ],
   imports: [
     CommonModule,
     CustomerRoutingModule,
     SharedModule,
-    MatStepperModule
+    MatStepperModule,
+    FormsModule
   ]
 })
 export class CustomerModule { }

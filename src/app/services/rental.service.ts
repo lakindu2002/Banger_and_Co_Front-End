@@ -16,6 +16,10 @@ export class RentalService {
     return this.http.post<ResponseAPI>(`${this.baseEndpoint}/makeRental`, theRental);
   }
 
+  updateRentalTime(updatingRental: Rental): Observable<ResponseAPI> {
+    return this.http.put<ResponseAPI>(`${this.baseEndpoint}/updateReturnTime`, updatingRental);
+  }
+
   createLateReturn(rentalId: number): Observable<ResponseAPI> {
     return this.http.put<ResponseAPI>(`${this.baseEndpoint}/createLateReturn`, { rentalId: rentalId });
   }

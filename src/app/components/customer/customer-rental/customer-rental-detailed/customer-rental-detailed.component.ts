@@ -1,22 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
 import { ErrorResponse } from 'src/app/models/errorresponse.model';
 import { Rental } from 'src/app/models/rental.model';
 import { RentalService } from 'src/app/services/rental.service';
 import { RentalLateReturnPopUpComponent } from './rental-late-return-pop-up/rental-late-return-pop-up.component';
+import { UpdateRentalTimeComponent } from './update-rental-time/update-rental-time.component';
 
 @Component({
   selector: 'app-customer-rental-detailed',
   templateUrl: './customer-rental-detailed.component.html',
   styleUrls: ['./customer-rental-detailed.component.css']
 })
-export class CustomerRentalDetailedComponent implements OnInit {
+export class CustomerRentalDetailedComponent implements OnInit, OnDestroy {
 
   theRental: Rental;
   modalRef: BsModalRef;
+  updateSub: Subscription;
+
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -91,7 +95,7 @@ export class CustomerRentalDetailedComponent implements OnInit {
       keyboard: false
     });
 
-    this.modalRef.content.isSuccess.subscribe((data) => {
+    this.updateSub = this.modalRef.content.isSuccess.subscribe((data) => {
       this.loadDetailedRentalDB(this.theRental.rentalId);
     })
   }
@@ -108,9 +112,31 @@ export class CustomerRentalDetailedComponent implements OnInit {
       keyboard: false
     });
 
-    this.modalRef.content.isSuccess.subscribe((data) => {
+    this.updateSub = this.modalRef.content.isSuccess.subscribe((data) => {
       this.loadDetailedRentalDB(this.theRental.rentalId);
     })
+  }
+
+  launchUpdateModal() {
+    this.modalRef = this.modalService.show(UpdateRentalTimeComponent, {
+      initialState: {
+        rental: this.theRental
+      },
+      animated: true,
+      keyboard: false,
+      ignoreBackdropClick: true,
+      class: 'modal-dialog-centered modal-lg'
+    })
+
+    this.updateSub = this.modalRef.content.isSuccess.subscribe((data) => {
+      this.loadDetailedRentalDB(this.theRental.rentalId);
+    })
+  }
+
+  ngOnDestroy(): void {
+    if (this.updateSub) {
+      this.updateSub.unsubscribe();
+    }
   }
 
 }

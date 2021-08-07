@@ -10,7 +10,12 @@
         *ngIf="!theRental.lateReturnRequested && theRental.collected && !theRental.returned">Request Late
         Return</button>
 
-        <button class='float-right p-2 mb-2 btn btn-primary ml-2' style="vertical-align: middle;"
+      <button class='float-right p-2 mb-2 btn btn-primary ml-2' style="vertical-align: middle;"
+        (click)="launchUpdateModal()"
+        *ngIf="((theRental.approved == null || theRental.approved == undefined) || (theRental.approved && !theRental.collected) || (theRental.approved && theRental.collected && !theRental.returned)) && (theRental.returnTime < '16:00:00')">Update
+        Return Time</button>
+
+      <button class='float-right p-2 mb-2 btn btn-primary ml-2' style="vertical-align: middle;"
         (click)="launchCancelLateReturn()"
         *ngIf="theRental.lateReturnRequested && theRental.collected && !theRental.returned">Cancel Late Return</button>
 

@@ -1,0 +1,53 @@
+<div class="modal-header">
+  <h5 class="modal-title float-left">Update Rental Return Time</h5>
+  <button type="button" class="close float-right" aria-label="Close" (click)="hideModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-body">
+  <div class="row">
+    <div class="col-sm-6">
+      <mat-card style="font-family: 'Inter', sans-serif">
+        <mat-card-content>
+          Current Pickup Day: <span class="fonts">{{rental.pickupDate | date}} at {{rental.pickupTime}}</span>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div class="col-sm-6">
+      <mat-card style="font-family: 'Inter', sans-serif">
+        <mat-card-content>
+          Current Return Day: <span class="fonts">{{rental.returnDate | date}} at {{rental.returnTime}}</span>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+  <div class="row justify-content-center mt-2">
+    <div class="col-sm-5">
+      <mat-card style="font-family: 'Inter', sans-serif">
+        <mat-card-content>
+          Total Cost: <span class="fonts">LKR - {{rental.totalCostForRental.toFixed(2)}}</span>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-sm-12">
+      <label class="fonts">New Return Time: Rentals can be extended upto 4pm on the specified return date</label>
+      <select class="form-control" [(ngModel)]="formTime" (ngModelChange)="handleNewTimeSelected()">
+        <option *ngFor="let eachTime of supportedTimeList" [value]="eachTime">
+          {{eachTime}}
+        </option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<div class="modal-footer">
+  <button class="btn btn-danger float-right" (click)="hideModal()" style="width: 20%;">Close</button>
+  <button class="btn btn-primary float-right mr-2" style="width: 25%;" (click)="updateRentalReturnTime()">Update Return
+    Time</button>
+</div>
