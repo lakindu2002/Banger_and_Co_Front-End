@@ -1,8 +1,11 @@
 <mat-card style="font-family:'Inter', sans-serif;" class="mb-2">
   <mat-card-title style="font-size: 18px;">
     <span>
-      <span style="text-align: left;">
+      <span style="text-align: left;" *ngIf="theRental.vehicleToBeRented">
         {{theRental.vehicleToBeRented.vehicleName}}
+      </span>
+      <span style="text-align: left;" *ngIf="!theRental.vehicleToBeRented">
+        Vehicle Not Available
       </span>
       <span class="float-right" style="font-size: 14px;" [ngClass]="getClassForBadge()">
         {{getBadgeText()}}

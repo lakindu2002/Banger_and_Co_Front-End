@@ -26,7 +26,8 @@
             <b class="fonts">{{rental.returnTime}}</b>
           </div>
         </td>
-        <td>{{rental.vehicleToBeRented.vehicleName}}</td>
+        <td *ngIf="rental.vehicleToBeRented">{{rental.vehicleToBeRented.vehicleName}}</td>
+        <td *ngIf="!rental.vehicleToBeRented">Vehicle Not Available</td>
         <td>
           <div>
             {{rental.customerUsername.firstName}} {{rental.customerUsername.lastName}}

@@ -78,7 +78,9 @@ export class RentalService {
       theRental.customerUsername.profilePicture = `${environment.imageBase}${theRental.customerUsername.profilePicture}`
       theRental.customerUsername.otherIdentity = `${environment.imageBase}${theRental.customerUsername.otherIdentity}`
       theRental.customerUsername.licensePic = `${environment.imageBase}${theRental.customerUsername.licensePic}`
-      theRental.vehicleToBeRented.vehicleImage = `${environment.imageBase}${theRental.vehicleToBeRented.vehicleImage}`
+      if (theRental.vehicleToBeRented) {
+        theRental.vehicleToBeRented.vehicleImage = `${environment.imageBase}${theRental.vehicleToBeRented.vehicleImage}`
+      }
 
       return theRental;
     }))
