@@ -38,8 +38,12 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-sm-12 col-lg-12 col-md-12">
+    <div class="col-sm-12 col-lg-12 col-md-12" *ngIf="!rental">
       <button style="width: 100%;" class="btn btn-primary" (click)="proceedRental()">Proceed With Rental</button>
+    </div>
+    <div class="col-sm-12 col-lg-12 col-md-12"
+      *ngIf="(rental.approved == null || (rental.approved == true && rental.collected == false) && rental)">
+      <button style="width: 100%;" class="btn btn-primary" (click)="customizeAddons()">Customize The Add Ons</button>
     </div>
   </div>
 </div>

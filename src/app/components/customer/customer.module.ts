@@ -21,6 +21,7 @@ import { CustomerRentalDetailedComponent } from './customer-rental/customer-rent
 import { RentalLateReturnPopUpComponent } from './customer-rental/customer-rental-detailed/rental-late-return-pop-up/rental-late-return-pop-up.component';
 import { UpdateRentalTimeComponent } from './customer-rental/customer-rental-detailed/update-rental-time/update-rental-time.component';
 import { FormsModule } from '@angular/forms';
+import { CustomizeAddOnsModalComponent } from './customer-rental/customize-add-ons-modal/customize-add-ons-modal.component';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { FormsModule } from '@angular/forms';
     CustomerRentalCardComponent,
     CustomerRentalDetailedComponent,
     RentalLateReturnPopUpComponent,
-    UpdateRentalTimeComponent
+    UpdateRentalTimeComponent,
+    CustomizeAddOnsModalComponent
   ],
   imports: [
     CommonModule,

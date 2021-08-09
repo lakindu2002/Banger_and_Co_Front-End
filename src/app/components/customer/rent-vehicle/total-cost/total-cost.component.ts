@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { Vehicle } from 'src/app/models/vehicle.model';
 import { VehicleRentalFilter } from 'src/app/models/vehicle_rental_filter.model';
 import * as moment from 'moment';
@@ -7,16 +7,19 @@ import { AdditionalEquipment } from 'src/app/models/equipment.model';
 import { Subscription } from 'rxjs';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { MakeRentalComponent } from '../make-rental/make-rental.component';
+import { Rental } from 'src/app/models/rental.model';
+import { CustomizeAddOnsModalComponent } from '../../customer-rental/customize-add-ons-modal/customize-add-ons-modal.component';
 
 @Component({
   selector: 'app-total-cost',
   templateUrl: './total-cost.component.html',
   styleUrls: ['./total-cost.component.css']
 })
-export class TotalCostComponent implements OnInit, OnDestroy {
+export class TotalCostComponent implements OnInit, OnDestroy, OnChanges {
 
   @Input("rentingVehicle") vehicleToBeRented: Vehicle;
   @Input("rentalDuration") rentalDuration: VehicleRentalFilter;
+  @Input("theRental") rental: Rental;
 
   pickupDateTime: Date;
   returnDateTime: Date;
@@ -38,6 +41,20 @@ export class TotalCostComponent implements OnInit, OnDestroy {
   constructor(private equipmentCalculator: EquipmentCalculatorService, private modalService: BsModalService) { }
 
   ngOnInit(): void {
+
+    if (this.rental) {
+      //editing rental
+      this.rental.equipmentsAddedToRental.forEach((eachEquipment) => {
+        this.listOfEquipmentsAdded.push(
+          {
+            equipment: eachEquipment,
+            quantity: eachEquipment.quantitySelectedForRental,
+            totalCost: eachEquipment.totalCostOfEquipmentInRental
+          }
+        )
+      })
+    }
+
     this.constructDateTimes();
     this.calculateDifferences();
     this.calculateVehicleCost();
@@ -197,6 +214,23 @@ export class TotalCostComponent implements OnInit, OnDestroy {
 
   getVehicleCost() {
     return `LKR - ${this.costOfVehicle.toFixed(2)}`
+  }
+
+  customizeAddons() {
+    this.modalService.show(CustomizeAddOnsModalComponent, {
+      initialState: {
+        addedEquipment: this.listOfEquipmentsAdded,
+        newCost: this.totalCostForRental,
+        rentalId: this.rental.rentalId
+      },
+      ignoreBackdropClick: true,
+      keyboard: false,
+      class: 'modal-dialog-centered modal-lg'
+    })
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.rental = changes.rental.currentValue
   }
 
   ngOnDestroy(): void {

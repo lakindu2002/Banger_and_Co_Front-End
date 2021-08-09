@@ -1,0 +1,37 @@
+<div class="modal-header">
+  <h5 class="modal-title">Customize The Additional Equipments</h5>
+  <button class="float-right close" (click)="hideModal()"><span>&times;</span></button>
+</div>
+
+<div class="modal-body">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="alert alert-primary">
+        <h5 class="alert-heading">Added Additional Equipments For Rental</h5>
+        The new cost for your rental is - LKR {{newCost.toFixed(2)}}
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="addedEquipment.length > 0">
+    <div class="col-sm-5 mb-2" *ngFor="let equipment of addedEquipment">
+      <div class="list-group-item">
+        {{equipment.equipment.equipmentName}} (x{{equipment.quantity}}) - <span class="fonts">LKR -
+          {{equipment.totalCost.toFixed(2)}}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="addedEquipment.length == 0">
+    <div class="col-sm-12">
+      <div class="alert alert-info">
+        <h5 class="alert-heading">No Equipment</h5>
+        You have no added equipments in your rental
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-footer">
+  <button class="btn btn-danger mr-2 float-right" style="width: 25%;" (click)="hideModal()">Close</button>
+  <button class="btn btn-primary float-right" (click)="customizeInDb()">Customize Additional Equipments</button>
+</div>

@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { ErrorResponse } from 'src/app/models/errorresponse.model';
 import { Rental } from 'src/app/models/rental.model';
+import { VehicleRentalFilter } from 'src/app/models/vehicle_rental_filter.model';
 import { RentalService } from 'src/app/services/rental.service';
 import { RentalLateReturnPopUpComponent } from './rental-late-return-pop-up/rental-late-return-pop-up.component';
 import { UpdateRentalTimeComponent } from './update-rental-time/update-rental-time.component';
@@ -20,6 +21,7 @@ export class CustomerRentalDetailedComponent implements OnInit, OnDestroy {
   theRental: Rental;
   modalRef: BsModalRef;
   updateSub: Subscription;
+  rentalDuration: VehicleRentalFilter;
 
 
   constructor(
@@ -41,6 +43,12 @@ export class CustomerRentalDetailedComponent implements OnInit, OnDestroy {
     this.spinner.show();
     this.rentalService.getRentalById(rentalId).subscribe((data) => {
       this.theRental = data;
+      this.rentalDuration = {
+        pickupDate: this.theRental.pickupDate as string,
+        pickupTime: this.theRental.pickupTime,
+        returnDate: this.theRental.returnDate as string,
+        returnTime: this.theRental.returnTime
+      }
       this.spinner.hide();
     }, (error: ErrorResponse) => {
       this.spinner.hide();

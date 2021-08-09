@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AdditionalEquipment } from 'src/app/models/equipment.model';
 import { ErrorResponse } from 'src/app/models/errorresponse.model';
+import { Rental } from 'src/app/models/rental.model';
 import { EquipmentService } from 'src/app/services/equipment.service';
 import { EquipmentCalculatorService } from '../equipment-cost-calculator.service';
 
@@ -16,6 +17,8 @@ export class ShowAvailableAdditionalEquipmentComponent implements OnInit {
   loadedEquipments: AdditionalEquipment[] = [];
   errorMessage: string = "";
 
+  @Input("theRental") theRental: Rental; //for editing purposes
+
   constructor(
     private equipmentService: EquipmentService,
     private spinner: NgxSpinnerService,
@@ -29,7 +32,7 @@ export class ShowAvailableAdditionalEquipmentComponent implements OnInit {
 
     this.equipmentService.getAvailableEquipments().subscribe((data) => {
       this.loadedEquipments = data;
-      this.setInitialStateOfQuantityAs0();
+      this.setInitialStateOfQuantity();
       this.spinner.hide('equipmentSpinner');
     }, (error: ErrorResponse) => {
       if (error.exceptionMessage) {
@@ -43,7 +46,7 @@ export class ShowAvailableAdditionalEquipmentComponent implements OnInit {
     });
   }
 
-  setInitialStateOfQuantityAs0() {
+  setInitialStateOfQuantity() {
     this.loadedEquipments = this.loadedEquipments.map((eachEquipment) => {
       if (!eachEquipment.quantitySelectedForRental) {
         //initially, if the equipment has no selected quantity, set as 0
@@ -51,6 +54,20 @@ export class ShowAvailableAdditionalEquipmentComponent implements OnInit {
       }
       return eachEquipment;
     })
+
+    if (this.theRental) {
+      for (let i = 0; i < this.loadedEquipments.length; i++) {
+        const freshEquipmentFromDB = this.loadedEquipments[i];
+        for (let j = 0; j < this.theRental.equipmentsAddedToRental.length; j++) {
+          const equipmentAlreadyInRental = this.theRental.equipmentsAddedToRental[j];
+
+          if (freshEquipmentFromDB.equipmentId == equipmentAlreadyInRental.equipmentId) {
+            freshEquipmentFromDB.quantitySelectedForRental = equipmentAlreadyInRental.quantitySelectedForRental;
+            this.loadedEquipments[i] = freshEquipmentFromDB;
+          }
+        }
+      }
+    }
   }
 
   reduce(equipmentReduced: AdditionalEquipment) {
@@ -69,9 +86,9 @@ export class ShowAvailableAdditionalEquipmentComponent implements OnInit {
     const increasedQuantity = equipmentAdded.quantitySelectedForRental + 1;
     if (equipmentAdded.equipmentQuantity < 3) {
       //if in DB less than 3
-      if (increasedQuantity === equipmentAdded.equipmentQuantity) {
+      if (increasedQuantity >= equipmentAdded.equipmentQuantity) {
         //check if user requesting is same is total in stock
-        equipmentAdded.quantitySelectedForRental = increasedQuantity;
+        equipmentAdded.quantitySelectedForRental = equipmentAdded.equipmentQuantity;
       } else {
         equipmentAdded.quantitySelectedForRental = increasedQuantity;
       }

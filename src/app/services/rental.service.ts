@@ -16,6 +16,10 @@ export class RentalService {
     return this.http.post<ResponseAPI>(`${this.baseEndpoint}/makeRental`, theRental);
   }
 
+  updateRentalAddOn(updateObj: { rental: number; updateEquipments: any; }) {
+    return this.http.put(`${this.baseEndpoint}/customize_add_on`, updateObj);
+  }
+
   updateRentalTime(updatingRental: Rental): Observable<ResponseAPI> {
     return this.http.put<ResponseAPI>(`${this.baseEndpoint}/updateReturnTime`, updatingRental);
   }

@@ -5,14 +5,17 @@
 
   <div class="row">
     <div class="col-sm-12 align-self-center">
-      <button class='float-right p-2 mb-2 btn btn-primary ml-2' style="vertical-align: middle;"
+      <button class="btn btn-info float-left" (click)="additionalEquipment.scrollIntoView()">Customize Rental Add-On</button>
+
+
+      <button class='float-right p-2 mb-2 btn btn-secondary ml-2' style="vertical-align: middle;"
         (click)="launchCreateLateReturn()"
         *ngIf="!theRental.lateReturnRequested && theRental.collected && !theRental.returned">Request Late
         Return</button>
 
-      <button class='float-right p-2 mb-2 btn btn-primary ml-2' style="vertical-align: middle;"
+      <button class='float-right p-2 mb-2 btn btn-secondary ml-2' style="vertical-align: middle;"
         (click)="launchUpdateModal()"
-        *ngIf="((theRental.approved == null || theRental.approved == undefined) || (theRental.approved && !theRental.collected) || (theRental.approved && theRental.collected && !theRental.returned)) && (theRental.returnTime < '16:00:00')">Update
+        *ngIf="((theRental.approved == null || theRental.approved == undefined) || (theRental.approved && !theRental.collected) || (theRental.approved && theRental.collected && !theRental.returned)) && (theRental.returnTime < '16:00:00')">Extend
         Return Time</button>
 
       <button class='float-right p-2 mb-2 btn btn-primary ml-2' style="vertical-align: middle;"
@@ -20,10 +23,11 @@
         *ngIf="theRental.lateReturnRequested && theRental.collected && !theRental.returned">Cancel Late Return</button>
 
 
-      <span class='float-right p-2 mb-2' style="font-size: 18px; vertical-align: middle;"
+      <span class='float-right mb-2' style="font-size: 18px; vertical-align: middle; padding: 12px;"
         [ngClass]="getBadgeClass()">{{getBadgeName()}}</span>
-      <span class='float-right p-2 mb-2 badge badge-info mr-2' style="font-size: 18px; vertical-align: middle;"
-        *ngIf="theRental.lateReturnRequested">Rental Will Be Late Returned</span>
+      <span class='float-right mb-2 badge badge-info mr-2'
+        style="font-size: 18px; vertical-align: middle;  padding: 12px;" *ngIf="theRental.lateReturnRequested">Rental
+        Will Be Late Returned</span>
     </div>
   </div>
 
@@ -33,7 +37,7 @@
         <mat-card-title style="font-size: 18px;">Pickup Information</mat-card-title>
         <mat-card-content>
           <span style="font-size: 16px;">Vehicle picked up on the <b class="fonts">{{theRental.pickupDate |
-              date}}</b> at <b class="fonts">{{theRental.pickupDate}}</b></span>
+              date}}</b> at <b class="fonts">{{theRental.pickupTime}}</b></span>
         </mat-card-content>
       </mat-card>
     </div>
@@ -51,96 +55,101 @@
 
   <div class="row mt-3">
     <div class="col-sm-8">
-      <mat-card style="font-family: 'Inter', sans-serif;">
-        <mat-card-content>
-          <app-show-vehicle-on-rental [loadedVehicle]="theRental.vehicleToBeRented"></app-show-vehicle-on-rental>
-        </mat-card-content>
-      </mat-card>
-    </div>
-    <div class="col-sm-4">
-      <app-detailed-ad-ons [addedEquipments]="theRental.equipmentsAddedToRental"></app-detailed-ad-ons>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-sm-12">
-      <hr>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-sm-12">
-
       <div class="row">
         <div class="col-sm-12">
-          <div class="alert alert-primary">
-            <h5 class="alert-heading">My Identification Documents</h5>
-          </div>
-        </div>
-      </div>
-
-      <div class="row mb-3">
-        <div class="col-sm-12">
           <mat-card style="font-family: 'Inter', sans-serif;">
-            <mat-card-title style="font-size: 18px;">
-              My Information: {{theRental.customerUsername.firstName}}
-              {{theRental.customerUsername.lastName}}
-              <span style="font-size: 14px;">({{theRental.customerUsername.username}})</span>
-            </mat-card-title>
             <mat-card-content>
-              <div class="row">
-                <div class="col-sm-3">
-                  <i class="fas fa-steering-wheel icon"></i> : {{theRental.customerUsername.drivingLicenseNumber}}
-                </div>
-                <div class="col-sm-3">
-                  <i class="fal fa-phone-alt icon"></i> : <a href="tel:{{theRental.customerUsername.contactNumber}}">
-                    {{theRental.customerUsername.contactNumber}}</a>
-                </div>
-                <div class="col-sm-3">
-                  <i class="fal fa-envelope-open-text icon"></i> : <a
-                    href="mailto:{{theRental.customerUsername.emailAddress}}">{{theRental.customerUsername.emailAddress}}</a>
-                </div>
-                <div class="col-sm-3">
-                  <i class="far fa-birthday-cake icon"></i> : {{theRental.customerUsername.dateOfBirth | date}}
-                </div>
-              </div>
+              <app-show-vehicle-on-rental [loadedVehicle]="theRental.vehicleToBeRented"></app-show-vehicle-on-rental>
             </mat-card-content>
           </mat-card>
         </div>
       </div>
-
       <div class="row">
-        <div class="col-sm-6">
-          <app-user-identification [imageToLoad]="theRental.customerUsername.licensePic"
-            [imageAlt]="'Customer Driving License'"></app-user-identification>
-        </div>
-        <div class="col-sm-6">
-          <app-user-identification [imageToLoad]="theRental.customerUsername.otherIdentity"
-            [imageAlt]="'Customer Other Identification'"></app-user-identification>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-sm-12">
-      <hr>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-sm-12">
-
-      <div class="row mb-3">
         <div class="col-sm-12">
-          <div class="alert alert-primary" style="text-align: center;">
-            <span class="fonts" style="font-size: 22px;">Total Cost -
-              {{theRental.totalCostForRental.toFixed(2)}}</span>
+          <hr>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="alert alert-primary">
+                <h5 class="alert-heading">My Identification Documents</h5>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-sm-12">
+              <mat-card style="font-family: 'Inter', sans-serif;">
+                <mat-card-title style="font-size: 18px;">
+                  My Information: {{theRental.customerUsername.firstName}}
+                  {{theRental.customerUsername.lastName}}
+                  <span style="font-size: 14px;">({{theRental.customerUsername.username}})</span>
+                </mat-card-title>
+                <mat-card-content>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <i class="fas fa-steering-wheel icon"></i> : {{theRental.customerUsername.drivingLicenseNumber}}
+                    </div>
+                    <div class="col-sm-6">
+                      <i class="fal fa-phone-alt icon"></i> : <a
+                        href="tel:{{theRental.customerUsername.contactNumber}}">
+                        {{theRental.customerUsername.contactNumber}}</a>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <i class="fal fa-envelope-open-text icon"></i> : <a
+                        href="mailto:{{theRental.customerUsername.emailAddress}}">{{theRental.customerUsername.emailAddress}}</a>
+                    </div>
+                    <div class="col-sm-6">
+                      <i class="far fa-birthday-cake icon"></i> : {{theRental.customerUsername.dateOfBirth | date}}
+                    </div>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </div>
           </div>
         </div>
       </div>
+    </div>
+    <div class="col-sm-4">
+      <mat-card style="font-family: 'Inter', sans-serif;">
+        <mat-card-content>
+          <app-total-cost [rentingVehicle]="theRental.vehicleToBeRented" [rentalDuration]="rentalDuration"
+            [theRental]="theRental">
+          </app-total-cost>
+        </mat-card-content>
+      </mat-card>
+      <!-- <app-detailed-ad-ons [addedEquipments]="theRental.equipmentsAddedToRental"></app-detailed-ad-ons> -->
+    </div>
+  </div>
 
+  <div class="row mt-2">
+    <div class="col-sm-6">
+      <app-user-identification [imageToLoad]="theRental.customerUsername.licensePic"
+        [imageAlt]="'Customer Driving License'"></app-user-identification>
+    </div>
+    <div class="col-sm-6">
+      <app-user-identification [imageToLoad]="theRental.customerUsername.otherIdentity"
+        [imageAlt]="'Customer Other Identification'"></app-user-identification>
+    </div>
+  </div>
+
+  <div class="row mt-2" #additionalEquipment>
+    <div class="col-sm-12">
+      <hr>
+      <div class="alert alert-primary">
+        <h5 class="alert-header">Customize Rental</h5>
+        Update your additional equipment for this rental here till you collect your vehicle.
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col-sm-12">
+      <mat-card style="font-family: 'Inter', sans-serif;">
+        <mat-card-content>
+          <app-show-available-additional-equipment [theRental]="theRental"></app-show-available-additional-equipment>
+        </mat-card-content>
+      </mat-card>
     </div>
   </div>
 </div>
