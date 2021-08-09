@@ -230,7 +230,9 @@ export class TotalCostComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.rental = changes.rental.currentValue
+    if (changes.rental) {
+      this.rental = changes.rental.currentValue
+    }
   }
 
   ngOnDestroy(): void {
