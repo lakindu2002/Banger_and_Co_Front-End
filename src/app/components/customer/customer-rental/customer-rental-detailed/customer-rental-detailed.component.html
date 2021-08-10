@@ -136,8 +136,8 @@
     </div>
   </div>
 
-  <div class="row mt-2" #additionalEquipment *ngIf="theRental.collected == false">
-    <div class="col-sm-12">
+  <div class="row mt-2" #additionalEquipment>
+    <div class="col-sm-12" *ngIf="theRental.collected == false">
       <hr>
       <div class="alert alert-primary">
         <h5 class="alert-header">Customize Rental</h5>
@@ -146,7 +146,7 @@
     </div>
   </div>
 
-  <div class="row mt-2" *ngIf="theRental.collected == false">
+  <div class="row mt-2 mb-5" *ngIf="theRental.collected == false">
     <div class="col-sm-12">
       <mat-card style="font-family: 'Inter', sans-serif;">
         <mat-card-content>
