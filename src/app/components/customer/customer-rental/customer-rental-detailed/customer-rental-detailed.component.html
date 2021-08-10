@@ -5,7 +5,9 @@
 
   <div class="row">
     <div class="col-sm-12 align-self-center">
-      <button class="btn btn-info float-left" (click)="additionalEquipment.scrollIntoView()">Customize Rental Add-On</button>
+      <button class="btn btn-info float-left" (click)="additionalEquipment.scrollIntoView()"
+        *ngIf="theRental.collected == false">Customize Rental
+        Add-On</button>
 
 
       <button class='float-right p-2 mb-2 btn btn-secondary ml-2' style="vertical-align: middle;"
@@ -111,14 +113,15 @@
       </div>
     </div>
     <div class="col-sm-4">
-      <mat-card style="font-family: 'Inter', sans-serif;">
+      <mat-card style="font-family: 'Inter', sans-serif;" *ngIf="theRental.vehicleToBeRented">
         <mat-card-content>
           <app-total-cost [rentingVehicle]="theRental.vehicleToBeRented" [rentalDuration]="rentalDuration"
             [theRental]="theRental">
           </app-total-cost>
         </mat-card-content>
       </mat-card>
-      <!-- <app-detailed-ad-ons [addedEquipments]="theRental.equipmentsAddedToRental"></app-detailed-ad-ons> -->
+      <app-detailed-ad-ons [addedEquipments]="theRental.equipmentsAddedToRental" *ngIf="!theRental.vehicleToBeRented"
+        [totalCost]="theRental.totalCostForRental"></app-detailed-ad-ons>
     </div>
   </div>
 
@@ -133,7 +136,7 @@
     </div>
   </div>
 
-  <div class="row mt-2" #additionalEquipment>
+  <div class="row mt-2" #additionalEquipment *ngIf="theRental.collected == false">
     <div class="col-sm-12">
       <hr>
       <div class="alert alert-primary">
@@ -143,7 +146,7 @@
     </div>
   </div>
 
-  <div class="row mt-2">
+  <div class="row mt-2" *ngIf="theRental.collected == false">
     <div class="col-sm-12">
       <mat-card style="font-family: 'Inter', sans-serif;">
         <mat-card-content>

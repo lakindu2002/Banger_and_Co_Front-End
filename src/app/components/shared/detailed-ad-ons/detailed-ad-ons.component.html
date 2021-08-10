@@ -1,16 +1,33 @@
 <mat-card style="font-family: 'Inter', sans-serif;">
   <mat-card-title style="font-size: 18px;">
-    Additional Equipment Added
+    Cost Breakdown
   </mat-card-title>
   <mat-card-content>
-    <ul class="list-group" *ngIf="equipmentList.length > 0" style="max-height: 150px;overflow: auto;">
-      <li class="list-group-item" *ngFor="let equipment of equipmentList">
-        {{equipment.equipmentName}} (x{{equipment.quantitySelectedForRental}}) <span class="float-right">LKR -
-          {{equipment.totalCostOfEquipmentInRental.toFixed(2)}}</span>
-      </li>
-    </ul>
-    <div class="alert alert-info" *ngIf="equipmentList.length === 0">
-      No Equipment Added To Rental
+    <div class="row">
+      <div class="col-sm-12 fonts mb-1">
+        Added Equipment
+      </div>
     </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <ul class="list-group" *ngIf="equipmentList.length > 0" style="max-height: 150px;overflow: auto;">
+          <li class="list-group-item" *ngFor="let equipment of equipmentList">
+            {{equipment.equipmentName}} (x{{equipment.quantitySelectedForRental}}) <span class="float-right">LKR -
+              {{equipment.totalCostOfEquipmentInRental.toFixed(2)}}</span>
+          </li>
+        </ul>
+        <div class="alert alert-info" *ngIf="equipmentList.length === 0">
+          No Equipment Added To Rental
+        </div>
+      </div>
+    </div>
+    <div class="row" *ngIf="totalCost">
+      <div class="col-sm-12" style="font-size: 18px;">
+        <hr>
+        <span class="float-left">Total Cost</span><span class="float-right fonts">LKR - {{totalCost.toFixed(2)}}</span>
+      </div>
+    </div>
+
+
   </mat-card-content>
 </mat-card>

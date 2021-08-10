@@ -9,6 +9,7 @@ import { AdditionalEquipment } from 'src/app/models/equipment.model';
 export class DetailedAdOnsComponent implements OnInit {
 
   @Input("addedEquipments") equipmentList: AdditionalEquipment[];
+  @Input("totalCost") totalCost: number;
 
   constructor() { }
 
