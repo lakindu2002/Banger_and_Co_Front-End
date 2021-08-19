@@ -8,46 +8,69 @@
 
   <div class="modal-body">
     <div class="row">
-      <div class="col-sm-12">
-        <div class="form-group">
-          <label class="fonts">Type Name <span style="font-size: 14px;">(Do Not Have Plural Names)</span></label>
-          <input type="text" class="form-control" placeholder="Name (Town Car)" [formControlName]="'typeName'" />
-          <span class="form-error"
-            *ngIf="vehicleTypeCreator.get('typeName').touched && vehicleTypeCreator.get('typeName').invalid">Invalid
-            Type Name (max 50 characters)</span>
+      <div class="col-sm-5">
+        <mat-card style="font-family: 'Inter', sans-serif" class="hover">
+          <mat-card-title style="font-size: 20px;">Provide Vehicle Type Information</mat-card-title>
+          <mat-card-content>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label class="fonts">Type Name <span style="font-size: 14px;">(Do Not Have Plural
+                      Names)</span></label>
+                  <input type="text" class="form-control" placeholder="Name (Town Car)"
+                    [formControlName]="'typeName'" />
+                  <span class="form-error"
+                    *ngIf="vehicleTypeCreator.get('typeName').touched && vehicleTypeCreator.get('typeName').invalid">Invalid
+                    Type Name (max 50 characters)</span>
 
-          <span class="form-error"
-            *ngIf="vehicleTypeCreator.get('typeName').invalid && vehicleTypeCreator.get('typeName').touched && vehicleTypeCreator.get('typeName').errors.pattern"><br>
-            Please ensure that the type name has only alphabetical characters and no numerics </span>
-        </div>
+                  <span class="form-error"
+                    *ngIf="vehicleTypeCreator.get('typeName').invalid && vehicleTypeCreator.get('typeName').touched && vehicleTypeCreator.get('typeName').errors.pattern"><br>
+                    Please ensure that the type name has only alphabetical characters and no numerics </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label class="fonts">Category Size</label>
+                  <select class="form-control" [formControlName]="'categorySize'">
+                    <option value="small">Small</option>
+                    <option value="medium">Medium</option>
+                    <option value="large">Large</option>
+                  </select>
+                  <span class="form-error"
+                    *ngIf="vehicleTypeCreator.get('categorySize').touched && vehicleTypeCreator.get('categorySize').invalid">Invalid
+                    Vehicle Category Size</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label class="fonts">Price Per Day (LKR)</label>
+                  <input type="text" class="form-control" placeholder="75.00" [formControlName]="'pricePerDay'" />
+                  <span class="form-error"
+                    *ngIf="vehicleTypeCreator.get('pricePerDay').touched && vehicleTypeCreator.get('pricePerDay').invalid">Invalid
+                    Price Per Day</span>
+                </div>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
       </div>
-    </div>
-
-    <div class="row">
-      <div class="col-sm-12">
-        <div class="form-group">
-          <label class="fonts">Category Size</label>
-          <select class="form-control" [formControlName]="'categorySize'">
-            <option value="small">Small</option>
-            <option value="medium">Medium</option>
-            <option value="large">Large</option>
-          </select>
-          <span class="form-error"
-            *ngIf="vehicleTypeCreator.get('categorySize').touched && vehicleTypeCreator.get('categorySize').invalid">Invalid
-            Vehicle Category Size</span>
+      <div class="col-sm-7">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="alert alert-info">
+              <span class="fonts">Prices Offered At: "Malkey Rent a Car"</span>
+              <br>
+              <i style="font-size: 14px;">(Click on each card for more information.)</i>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-sm-12">
-        <div class="form-group">
-          <label class="fonts">Price Per Day (LKR)</label>
-          <input type="text" class="form-control" placeholder="75.00" [formControlName]="'pricePerDay'" />
-          <span class="form-error"
-            *ngIf="vehicleTypeCreator.get('pricePerDay').touched && vehicleTypeCreator.get('pricePerDay').invalid">Invalid
-            Price Per Day</span>
-        </div>
+        <app-scraped-prices></app-scraped-prices>
       </div>
     </div>
   </div>

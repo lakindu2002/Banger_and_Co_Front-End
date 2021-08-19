@@ -55,7 +55,7 @@ export class AdminVehicleTypeManagementComponent implements OnInit {
   launchCreateVehicleTypeModal(): void {
     //open the create vehicle type manage component in the create mode by passing initial state create mode to true
     this.bsModalRef = this.modalService.show(VehicleTypeCreateManageComponent, {
-      class: "modal-md modal-dialog-centered",
+      class: "modal-xl modal-dialog-centered",
       keyboard: false,
       ignoreBackdropClick: true,
       initialState: {

@@ -41,6 +41,9 @@ import { CompletedRentals12MonthsComponent } from './admin-home/completed-rental
 import { ProfitsMade12MonthsComponent } from './admin-home/profits-made12-months/profits-made12-months.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { LoadedRentalSectionComponent } from './admin-home/loaded-rental-section/loaded-rental-section.component';
+import { ScrapedPricesComponent } from './admin-vehicle-management/admin-vehicle-type-management/vehicle-type-create-manage/scraped-prices/scraped-prices.component';
+import { VehicleTypeCardInfoComponent } from './admin-vehicle-management/admin-vehicle-type-management/vehicle-type-create-manage/scraped-prices/vehicle-type-card-info/type-card-info.component';
+import { VehicleListTypeComponent } from './admin-vehicle-management/admin-vehicle-type-management/vehicle-type-create-manage/scraped-prices/vehicle-list-type/vehicle-list-type.component';
 
 
 
@@ -78,6 +81,9 @@ import { LoadedRentalSectionComponent } from './admin-home/loaded-rental-section
     CompletedRentals12MonthsComponent,
     ProfitsMade12MonthsComponent,
     LoadedRentalSectionComponent,
+    ScrapedPricesComponent,
+    VehicleTypeCardInfoComponent,
+    VehicleListTypeComponent,
   ],
   imports: [
     CommonModule,

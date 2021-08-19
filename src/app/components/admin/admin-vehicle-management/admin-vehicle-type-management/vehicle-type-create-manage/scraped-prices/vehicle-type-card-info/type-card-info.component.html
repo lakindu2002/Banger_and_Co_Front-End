@@ -1,0 +1,12 @@
+<div class="row mb-2">
+  <div class="col-sm-12">
+    <mat-card style="font-family: 'Inter', sans-serif" class="hover" (click)="cardClicked()">
+      <mat-card-content>
+        <span class="fonts" style="font-size:17px">{{eachType.vehicleType |
+          titlecase}}</span>
+        <span class="badge badge-info p-2 float-right" style="font-size: 16px;">Average Price: LKR
+          {{eachType.averagePricePerDay.toFixed(2)}}</span>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

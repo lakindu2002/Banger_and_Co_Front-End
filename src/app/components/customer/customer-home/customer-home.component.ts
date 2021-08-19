@@ -95,7 +95,6 @@ export class CustomerHomeComponent implements OnInit {
     this.rentalService.getCustomerOnGoingTimeList().subscribe((data) => {
       this.onGoingTimeList = data;
       this.spinner.hide('time-list-on-going');
-      console.log(this.onGoingTimeList)
     }, (error: ErrorResponse) => {
       this.toast.error(error.exceptionMessage, "On-Going Rental Not Loaded");
       this.spinner.hide('time-list-on-going');

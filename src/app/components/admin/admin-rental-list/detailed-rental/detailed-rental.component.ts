@@ -37,7 +37,6 @@ export class DetailedRentalComponent implements OnInit {
       this.loadedRental = data;
       this.spinner.hide();
     }, (error: ErrorResponse) => {
-      console.log(error)
       this.toast.error(error.exceptionMessage, "Failed to Load Detailed Rental Information");
       this.spinner.hide();
     })

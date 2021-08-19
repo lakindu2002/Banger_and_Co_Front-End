@@ -1,0 +1,13 @@
+<div class="row">
+  <ngx-spinner [fullScreen]="false" [name]="'scraper'" [bdColor]="'none'" [color]="'black'" [type]="'ball-clip-rotate'"
+    [size]="'medium'"></ngx-spinner>
+  <div class="col-sm-12" *ngIf="showAllTypes">
+    <app-vehicle-type-card-info *ngFor="let eachScrape of scrapedData" [eachType]="eachScrape"
+      (loadVehicleForType)="loadVehicleForType($event)">
+    </app-vehicle-type-card-info>
+  </div>
+
+  <div class="col-sm-12" *ngIf="!showAllTypes">
+    <app-vehicle-list-type [detailedInfo]="detailedScrape" (backClicked)="backClicked()"></app-vehicle-list-type>
+  </div>
+</div>
