@@ -2,6 +2,7 @@ import { Component, OnInit, } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import { AuthReturn } from 'src/app/models/auth.return.model';
 import { ErrorResponse } from 'src/app/models/errorresponse.model';
 import { Rental } from 'src/app/models/rental.model';
 import { User } from 'src/app/models/user.model';
@@ -19,7 +20,7 @@ import { VehicleRentalFilterPopUpComponent } from '../../shared/vehicle-rental-f
 export class CustomerHomeComponent implements OnInit {
 
   greeting: string = "";
-  loggedInUser: User;
+  loggedInUser: AuthReturn;
   modalRef: BsModalRef;
 
   onGoingTimeList: Rental[] = [];
@@ -45,7 +46,7 @@ export class CustomerHomeComponent implements OnInit {
 
     this.generateGreeting();
     this.loggedInUser = localStorage.getItem(environment.userInfoStorage) ? JSON.parse(localStorage.getItem(environment.userInfoStorage)) : null;
-
+    console.log(this.loggedInUser);
     this.loadOnGoing();
     this.loadCounts();
   }
