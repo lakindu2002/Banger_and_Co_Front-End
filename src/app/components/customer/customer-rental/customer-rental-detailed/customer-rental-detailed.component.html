@@ -146,7 +146,7 @@
     </div>
   </div>
 
-  <div class="row mt-2 mb-5" *ngIf="theRental.collected == false">
+  <div class="row mt-2 mb-5" *ngIf="(theRental.approved == null || (theRental.approved == true && theRental.collected == false))">
     <div class="col-sm-12">
       <mat-card style="font-family: 'Inter', sans-serif;">
         <mat-card-content>
