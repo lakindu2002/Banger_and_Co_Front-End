@@ -1,6 +1,7 @@
 <!-- create a reactive form to handle the processing -->
 <div class="modal-header">
-  <h5 class="modal-title">Create a Vehicle</h5>
+  <h5 class="modal-title" *ngIf="!vehicleBeingEdited">Create a Vehicle</h5>
+  <h5 class="modal-title" *ngIf="vehicleBeingEdited">Update a Vehicle</h5>
   <button type="button" class="close float-right" (click)="hideModal()">
     <span>&times;</span>
   </button>
