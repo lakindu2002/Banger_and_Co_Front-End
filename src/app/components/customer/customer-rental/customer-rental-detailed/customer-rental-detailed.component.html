@@ -6,7 +6,7 @@
   <div class="row">
     <div class="col-sm-12 align-self-center">
       <button class="btn btn-info float-left" (click)="additionalEquipment.scrollIntoView()"
-        *ngIf="theRental.collected == false">Customize Rental
+      *ngIf="(theRental.approved == null || (theRental.approved == true && theRental.collected == false))">Customize Rental
         Add-On</button>
 
 
