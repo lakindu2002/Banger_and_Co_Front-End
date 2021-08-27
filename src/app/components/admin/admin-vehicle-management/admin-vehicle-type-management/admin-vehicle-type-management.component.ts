@@ -75,7 +75,7 @@ export class AdminVehicleTypeManagementComponent implements OnInit {
     this.vehicleTypeService.findById(equipmentId).subscribe((data: VehicleType) => {
 
       this.bsModalRef = this.modalService.show(VehicleTypeCreateManageComponent, {
-        class: "modal-md modal-dialog-centered",
+        class: "modal-xl modal-dialog-centered",
         keyboard: false,
         ignoreBackdropClick: true,
         initialState: {
