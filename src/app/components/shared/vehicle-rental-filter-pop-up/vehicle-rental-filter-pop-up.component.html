@@ -115,6 +115,10 @@
           style="text-align: center;">
           Return time cannot be earlier than pickup time.
         </span>
+        <span class="form-error fonts" *ngIf="rentalFilterForm.errors?.pickupTimeBefore && (rentalFilterForm.touched)"
+        style="text-align: center;">
+        Pickup time cannot be before current time
+      </span>
         <span class="form-error fonts" *ngIf="rentalFilterForm.errors?.hourNotMet && (rentalFilterForm.touched)"
           style="text-align: center;">
           Rental duration must be minimum 5 hours

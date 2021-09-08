@@ -78,6 +78,21 @@ export class VehicleRentalFilterPopUpComponent implements OnInit {
       returnTime.setMinutes(returnTimeSelected[1]);
       returnTime.setSeconds(0);
 
+      //check to see if selected time is less than current time, therefore do not allow
+      const currentTime : number = new Date().getTime();
+      const selectedPickUpDateTime : Date = rentalForm.get('pickupDate').value as Date;
+      selectedPickUpDateTime.setHours(pickUpTimeSelected[0]);
+      selectedPickUpDateTime.setMinutes(pickUpTimeSelected[1]);
+      selectedPickUpDateTime.setSeconds(0);
+
+
+      if(selectedPickUpDateTime.getTime() <  currentTime){
+        return {
+          pickupTimeBefore : true
+        };
+      }
+
+      //return date selected (5th september would return 5)
       const pickUpDate = (rentalForm.get('pickupDate').value as Date).getDate();
       const returnDate = (rentalForm.get('returnDate').value as Date).getDate();
 
