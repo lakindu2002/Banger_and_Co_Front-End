@@ -100,6 +100,10 @@
                     *ngIf="userInfoForm.get('dateOfBirth').invalid && userInfoForm.get('dateOfBirth').touched">Please
                     Provide a
                     Valid Date of Birth</span>
+
+                  <span class="form-error"
+                    *ngIf="userInfoForm.get('dateOfBirth').invalid && userInfoForm.get('dateOfBirth').touched && userInfoForm.get('dateOfBirth').hasError('ageInvalid')">
+                    <br>Your age must be between 18 and 100</span>
                 </div>
                 <div class="col-sm-1">
                   <mat-datepicker-toggle [for]="dateOfBirthPicker" class="mat-btn"></mat-datepicker-toggle>

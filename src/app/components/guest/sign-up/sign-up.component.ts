@@ -53,7 +53,7 @@ export class SignUpComponent implements OnInit {
       'emailAddress': new FormControl(null, [Validators.email, Validators.required, Validators.maxLength(255)]),
       'username': new FormControl(null, [Validators.required, Validators.minLength(6), Validators.maxLength(15)]),
       'contactNumber': new FormControl(null, [Validators.required, Validators.pattern("^[0-9]+$"), Validators.minLength(10), Validators.maxLength(10)],),
-      'dateOfBirth': new FormControl(null, [Validators.required]),
+      'dateOfBirth': new FormControl(null, [Validators.required, this.validateAge.bind(this)]),
       'drivingLicenseNumber': new FormControl(null, [Validators.required, Validators.minLength(8), Validators.maxLength(8), Validators.pattern("^[A-Z]{1}[0-9]{7}$")])
     })
 
@@ -181,6 +181,23 @@ export class SignUpComponent implements OnInit {
       })
     } else {
       this.signUpProceed = false; //halt signup as data is invalid
+    }
+  }
+
+  validateAge(dateSelected: FormControl) {
+    if (dateSelected.value) {
+      const selectedDate: Date = dateSelected.value as Date;
+      const age: number = Math.abs(new Date(Date.now() - selectedDate.getTime()).getFullYear() - 1970);
+
+      if (age < 18) {
+        return { ageInvalid: true };
+      } else if (age > 100) {
+        return { ageInvalid: true };
+      } else {
+        return null;
+      }
+    } else {
+      return null;
     }
   }
 }
