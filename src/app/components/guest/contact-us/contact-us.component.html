@@ -48,7 +48,7 @@
                   <div class="form-group">
                     <label for="firstNameInput"><b class="fonts">First Name</b></label>
                     <input type="text" id="firstNameInput" class="form-control"
-                      placeholder="Enter Your First Name (Required)" [formControlName]="'firstName'" maxlength="255">
+                      placeholder="Enter Your First Name (Required)" [formControlName]="'firstName'" maxlength="100">
                     <span class="form-error"
                       *ngIf="theForm.get('firstName').invalid && theForm.get('firstName').touched">Please Provide a
                       Valid First Name</span>
@@ -57,7 +57,7 @@
                 <div class="col-sm-7">
                   <div class="form-group">
                     <label for="lastNameInput"><b class="fonts">Last Name</b></label>
-                    <input type="text" id="lastNameInput" class="form-control" maxlength="255"
+                    <input type="text" id="lastNameInput" class="form-control" maxlength="100"
                       placeholder="Enter Your Last Name (Required)" [formControlName]="'lastName'">
                     <span class="form-error"
                       *ngIf="theForm.get('lastName').invalid && theForm.get('lastName').touched">Please Provide a
