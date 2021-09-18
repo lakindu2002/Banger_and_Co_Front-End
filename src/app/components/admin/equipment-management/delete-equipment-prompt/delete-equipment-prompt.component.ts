@@ -30,7 +30,7 @@ export class DeleteEquipmentPromptComponent implements OnInit {
   deleteEquipment() {
     this.spinner.show();
     this.additionalEquipmentService.removeById(this.theEquipment.equipmentId).subscribe((data) => {
-      this.toast.success(data.message, "Additional Requirement Removed Successfully");
+      this.toast.success(data.message, "Additional Equipment Removed Successfully");
       this.deleteSuccess.next(true);
       this.spinner.hide();
       this.modalRef.hide();

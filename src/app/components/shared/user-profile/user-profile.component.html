@@ -112,7 +112,7 @@
       </div>
     </div>
     <span class="form-error" *ngIf="!passwordValid">
-      Password Not Valid (Provide Characters Between 6 and 15 for Password in Both Fields)
+      {{passwordError}}
     </span>
 
     <div class="row" *ngIf="loggedInUser.userRole==='customer'">

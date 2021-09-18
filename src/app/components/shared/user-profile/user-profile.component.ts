@@ -25,6 +25,7 @@ export class UserProfileComponent implements OnInit {
   userAge: number = 0;
   passwordValid: boolean = true;
   contactBeforeUpdate: string;
+  passwordError: String = "";
 
   handleUpdateForm: FormGroup;
   additionalModal: BsModalRef;
@@ -96,10 +97,23 @@ export class UserProfileComponent implements OnInit {
     if (firstPassword.length === 0 && secondPassword.length === 0) {
       this.passwordValid = true;
     } else {
-      if ((firstPassword === secondPassword) && (firstPassword.length >= 6 && secondPassword.length >= 6)) {
+      if (
+        (firstPassword === secondPassword) &&
+        (firstPassword.length >= 6 && secondPassword.length >= 6) &&
+        (firstPassword.length <= 15 && secondPassword.length <= 15)
+      ) {
         this.passwordValid = true;
       } else {
         this.passwordValid = false;
+        this.passwordError = "Password Not Valid (Provide Characters Between 6 and 15 for Password in Both Fields)";
+      }
+
+      if (
+        (firstPassword != secondPassword) &&
+        (firstPassword.length >= 6 && secondPassword.length >= 6) &&
+        (firstPassword.length <= 15 && secondPassword.length <= 15)) {
+        this.passwordValid = false;
+        this.passwordError = "Passwords Do Not Match";
       }
     }
   }
