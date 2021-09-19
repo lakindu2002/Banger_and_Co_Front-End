@@ -115,7 +115,7 @@ export class EquipmentManagementComponent implements OnInit, OnDestroy {
       //filter out the data from the original array list containing all the data
       this.filterList = this.equipmentList.filter((eachEquipment) => {
         //filter out each equipment
-        if (eachEquipment.equipmentName.toLowerCase().includes(this.searchTerm.toLowerCase())) {
+        if (eachEquipment.equipmentName.toLowerCase().trim().includes(this.searchTerm.toLowerCase().trim())) {
           //if the provided name via the user is present in any of the objects, return it to the filterList
           return eachEquipment;
         }

@@ -116,7 +116,7 @@ export class AdminVehicleBrowsingComponent implements OnInit, OnDestroy {
       this.filteredList = this.vehicleList;
     } else {
       this.filteredList = this.vehicleList.filter((eachVehicle) => {
-        return eachVehicle.vehicleName.toLowerCase().includes(this.enteredName.toLowerCase());
+        return eachVehicle.vehicleName.toLowerCase().trim().includes(this.enteredName.toLowerCase().trim());
       })
     }
   }

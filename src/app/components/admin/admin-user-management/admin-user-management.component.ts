@@ -94,7 +94,7 @@ export class AdminUserManagementComponent implements OnInit, OnDestroy {
       this.filteredList = this.userList.filter((eachUser) => {
         const customerFullName: string = `${eachUser.firstName.toLowerCase()} ${eachUser.lastName.toLowerCase()}`;
 
-        if (customerFullName.includes(this.searchTerm.toLowerCase()) || eachUser.username.toLowerCase().includes(this.searchTerm.toLowerCase())) {
+        if (customerFullName.includes(this.searchTerm.toLowerCase().trim()) || eachUser.username.toLowerCase().trim().includes(this.searchTerm.toLowerCase().trim())) {
           //if the customer full name includes the search term, return the user to the filtered list.
           //OR
           //if the customer username includes the search term, return the user to the filtered list
