@@ -29,7 +29,7 @@ export class AdminDeleteComponent implements OnInit {
 
   deleteInDb() {
     this.userSerivce.deleteAdministratorAccount(this.deletingUser.username).subscribe((data) => {
-      this.toast.show(data.message, "Account Deleted From Banger and Co.")
+      this.toast.success(data.message, "Account Deleted From Banger and Co.")
       this.spinner.hide()
       this.deleted.next(true);
       this.hideModal();
