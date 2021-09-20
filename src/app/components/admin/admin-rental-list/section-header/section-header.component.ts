@@ -24,13 +24,13 @@ export class SectionHeaderComponent implements OnInit {
   filterViaVehicleName() {
     //when vehicle name changes, set the customer name to empty string
     this.customerNameTerm = "";
-    this.filteredTriggered.emit(this.searchTerm);
+    this.filteredTriggered.emit(this.searchTerm.trim());
   }
 
   filterViaCustomerName() {
     //when user is searching for vehicles, empty the customer name field
     this.searchTerm = "";
-    this.customerNameFilter.emit(this.customerNameTerm);
+    this.customerNameFilter.emit(this.customerNameTerm.trim());
   }
 
 }

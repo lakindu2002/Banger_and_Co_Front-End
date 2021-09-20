@@ -77,7 +77,7 @@ export class VehicleCreateUpdateComponent implements OnInit, OnDestroy {
       'fuelType': new FormControl('Petrol', [Validators.required, Validators.maxLength(50)]),
       'transmission': new FormControl('Manual', [Validators.required, Validators.maxLength(50)]),
       'vehicleType': new FormControl(null, [Validators.required]), //patch once api loads the available types.
-      'seatingCapacity': new FormControl(0, [Validators.required, Validators.maxLength(3)])
+      'seatingCapacity': new FormControl(0, [Validators.required, Validators.maxLength(3), Validators.pattern("^[0-9]{1,3}$")])
     });
   }
 
