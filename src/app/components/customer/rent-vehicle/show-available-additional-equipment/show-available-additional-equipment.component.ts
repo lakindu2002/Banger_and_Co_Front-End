@@ -1,9 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Subscription } from 'rxjs';
 import { AdditionalEquipment } from 'src/app/models/equipment.model';
 import { ErrorResponse } from 'src/app/models/errorresponse.model';
 import { Rental } from 'src/app/models/rental.model';
 import { EquipmentService } from 'src/app/services/equipment.service';
+import { RemovalService } from '../../customer-rental/customer-rental-detailed/equipment.removed.service';
 import { EquipmentCalculatorService } from '../equipment-cost-calculator.service';
 
 @Component({
@@ -11,24 +13,38 @@ import { EquipmentCalculatorService } from '../equipment-cost-calculator.service
   templateUrl: './show-available-additional-equipment.component.html',
   styleUrls: ['./show-available-additional-equipment.component.css']
 })
-export class ShowAvailableAdditionalEquipmentComponent implements OnInit {
+export class ShowAvailableAdditionalEquipmentComponent implements OnInit, OnDestroy {
 
   isError: boolean = false;
   loadedEquipments: AdditionalEquipment[] = [];
   errorMessage: string = "";
+
+  removalSub: Subscription;
 
   @Input("theRental") theRental: Rental; //for editing purposes
 
   constructor(
     private equipmentService: EquipmentService,
     private spinner: NgxSpinnerService,
-    private equipmentCalculator: EquipmentCalculatorService
+    private equipmentCalculator: EquipmentCalculatorService,
+    private removalService: RemovalService
   ) { }
 
   ngOnInit(): void {
     this.spinner.show('equipmentSpinner');
     this.errorMessage = "";
     this.isError = false;
+
+    if (this.theRental) {
+      this.removalSub = this.removalService.removeEquipmentCompletely.subscribe((data) => {
+        //user clicked X from total cost
+        this.loadedEquipments.forEach((eachEquipment) => {
+          if (data.equipmentId == eachEquipment.equipmentId) {
+            eachEquipment.quantitySelectedForRental = 0;
+          }
+        })
+      })
+    }
 
     this.equipmentService.getAvailableEquipments().subscribe((data) => {
       this.loadedEquipments = data;
@@ -109,6 +125,12 @@ export class ShowAvailableAdditionalEquipmentComponent implements OnInit {
       return `Maximum of ${equipment.equipmentQuantity} Can Be Added To Rental`
     } else {
       return "Maximum of 3 Can Be Added To Rental";
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.removalSub) {
+      this.removalSub.unsubscribe();
     }
   }
 }

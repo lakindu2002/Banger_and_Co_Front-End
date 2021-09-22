@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, EventEmitter, Output } from '@angular/core';
 import { Vehicle } from 'src/app/models/vehicle.model';
 import { VehicleRentalFilter } from 'src/app/models/vehicle_rental_filter.model';
 import * as moment from 'moment';
@@ -9,6 +9,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { MakeRentalComponent } from '../make-rental/make-rental.component';
 import { Rental } from 'src/app/models/rental.model';
 import { CustomizeAddOnsModalComponent } from '../../customer-rental/customize-add-ons-modal/customize-add-ons-modal.component';
+import { RemovalService } from '../../customer-rental/customer-rental-detailed/equipment.removed.service';
 
 @Component({
   selector: 'app-total-cost',
@@ -38,7 +39,7 @@ export class TotalCostComponent implements OnInit, OnDestroy, OnChanges {
   addingSub: Subscription;
   removingSub: Subscription;
 
-  constructor(private equipmentCalculator: EquipmentCalculatorService, private modalService: BsModalService) { }
+  constructor(private equipmentCalculator: EquipmentCalculatorService, private modalService: BsModalService, private removalService: RemovalService) { }
 
   ngOnInit(): void {
 
@@ -227,6 +228,19 @@ export class TotalCostComponent implements OnInit, OnDestroy, OnChanges {
       keyboard: false,
       class: 'modal-dialog-centered modal-lg'
     })
+  }
+
+  removeItemFromRental(equipment: { equipment: AdditionalEquipment, quantity: number, totalCost: number }) {
+    this.listOfEquipmentsAdded.forEach((eachEquipment, index) => {
+      if (eachEquipment.equipment.equipmentId == equipment.equipment.equipmentId) {
+        this.listOfEquipmentsAdded.splice(index, 1);
+      }
+    })
+
+    this.calculateTotalCostForEachEquipment();
+    this.calculateTotalCost();
+
+    this.removalService.removeEquipmentCompletely.next(equipment.equipment); //emit value listened in additional equipment additions
   }
 
   ngOnChanges(changes: SimpleChanges): void {
